@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /
+Disallow: /inc/
+Disallow: /tpl/
+Disallow: /modules/
+Disallow: /services/
