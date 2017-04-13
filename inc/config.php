@@ -57,7 +57,6 @@
 	$_SPM_CONF["SERVICE"]["view.admin"] = "admin/view.admin.php"; //require permission 256
 	$_SPM_CONF["SERVICE"]["news.admin"] = "admin/news.admin.php"; //require permission 256
 	$_SPM_CONF["SERVICE"]["config.admin"] = "admin/config.admin.php"; //require permission 256
-	$_SPM_CONF["SERVICE"]["servers.admin"] = "admin/servers.admin.php"; //require permission 256
 	/*SERVICES-END*/
 	
 	/*SERVICES_NOLOGIN-START*/

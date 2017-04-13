@@ -35,9 +35,6 @@
 	DEFINE("_S_SERV_", "./services/");
 	DEFINE("_S_SERV_INC_", _S_SERV_ . "inc/");
 	
-	DEFINE("_S_API_", "./api/");
-	DEFINE("_S_API_INC_", _S_API_ . "inc/");
-	
 	DEFINE("_S_MEDIA_", "./media/");
 	DEFINE("_S_MEDIA_FILES_", _S_MEDIA_ . "files/");
 	DEFINE("_S_MEDIA_IMG_", _S_MEDIA_ . "img/");
@@ -46,21 +43,6 @@
 	//Functions autorun
 	
 	_spm_guard_clearAllGet();
-	
-	if ( isset($_GET['api']) && !isset($_GET['service']) && !isset($_SESSION['uid']) ){
-		if (!($_GET['api'] = preg_replace("/[^a-zA-Z0-9.-_\s]/", "", $_GET['api']))
-			|| strlen($_GET['api']) <= 0
-			|| !isset($_SPM_CONF["API"][$_GET["api"]])
-			|| !file_exists(_S_API_ . $_SPM_CONF["API"][$_GET['api']])
-		){
-			include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["403"]);
-			die();
-		}
-		
-		include_once(_S_API_INC_ . "_apiServerCheck.php");
-		include_once(_S_API_ . $_SPM_CONF["API"][$_GET['api']]);
-		exit;
-	}
 	
 	//Choosing service to start
 	if (isset($_GET['service']) && strlen($_GET['service']) > 0)

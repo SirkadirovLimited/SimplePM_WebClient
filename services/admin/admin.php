@@ -52,19 +52,20 @@
 				<h3 class="panel-title">Система проверки решений</h3>
 			</div>
 			<div class="panel-body">
+				<p class="lead">Coming soon!</p>
 				<!--SPM-->
-				<a href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=problems.admin" class="btn btn-default btn-xlarge btn-block btn-flat">
+				<!--a href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=problems.admin" class="btn btn-default btn-xlarge btn-block btn-flat">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
 						Архив задач (управление)
 					</p>
-				</a>
-				<a href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=servers.admin" class="btn btn-default btn-xlarge btn-block btn-flat">
+				</a--
+				<!--a href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=servers.admin" class="btn btn-default btn-xlarge btn-block btn-flat">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-cog"></span></h3>
 						Управление серверами проверки
 					</p>
-				</a>
+				</a-->
 				<!--/SPM-->
 			</div>
 		</div>
@@ -77,19 +78,20 @@
 				<h3 class="panel-title">Безопасность / управление</h3>
 			</div>
 			<div class="panel-body">
+				<p class="lead">Coming soon!</p>
 				<!--SECURITY-->
-				<a href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=config.admin" class="btn btn-default btn-xlarge btn-block btn-flat">
+				<!--a href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=config.admin" class="btn btn-default btn-xlarge btn-block btn-flat">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-cog"></span></h3>
 						Конфигурация сайта
 					</p>
-				</a>
-				<a href="" class="btn btn-default btn-xlarge btn-block btn-flat">
+				</a-->
+				<!--a href="" class="btn btn-default btn-xlarge btn-block btn-flat">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-sunglasses"></span></h3>
 						Попытки проникновения
 					</p>
-				</a>
+				</a-->
 				<!--/SECURITY-->
 			</div>
 		</div>

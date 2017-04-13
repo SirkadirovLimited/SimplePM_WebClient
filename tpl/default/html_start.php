@@ -29,7 +29,7 @@
 	</head>
 	<body class="hold-transition skin-blue sidebar-mini layout-boxed">
 <?php
-	if (!isset($_SESSION['dialogShown'])){
+	/*if (!isset($_SESSION['dialogShown'])){
 		$_SESSION['dialogShown'] = true;
 ?>
 <div class="modal fade" id="infoModal" tabindex="-1" role="dialog">
@@ -60,6 +60,6 @@
 	}
 </script>
 <?php
-	}
+	}*/
 ?>
 		<div class="wrapper">

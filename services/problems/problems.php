@@ -58,7 +58,7 @@
 	}
 ?>
 <!--SEARCH-->
-		<div class="row">
+		<!--div class="row">
 			<div class="col-md-3">
 				<form action="" mathod="post">
 					<select class="form-control" name="difficulty" required>
@@ -109,7 +109,7 @@
 					<input type="submit" class="btn btn-primary btn-block btn-flat" name="categoryCmd" value="Применить">
 				</form>
 			</div>
-		</div>
+		</div-->
 <!--PROBLEMS LIST-->
 <?php
 	if ($total_articles_number == 0 || $db_result->num_rows == 0){

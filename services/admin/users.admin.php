@@ -77,8 +77,8 @@
 	SPM_header("Пользователи системы", "Управление");
 ?>
 
-<?php include_once(_S_SERV_INC_ . "users.admin/stats.php"); ?>
-<?php include_once(_S_SERV_INC_ . "users.admin/users.admin.search.php"); ?>
+<?php /*include_once(_S_SERV_INC_ . "users.admin/stats.php");*/ ?>
+<?php /*include_once(_S_SERV_INC_ . "users.admin/users.admin.search.php");*/ ?>
 
 <div class="table-responsive">
 	<table class="table table-bordered table-hover" style="background-color: white;">
