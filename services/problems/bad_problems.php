@@ -29,16 +29,26 @@
 				</thead>
 				<tbody>
 <?php
-		while ($bad_prblem = $db_result->fetch_assoc()){
-			$db_res_problem = $db->query("SELECT `name`, `catId` FROM `spm_problems` WHERE `id` = '" . $bad_prblem['problemId'] . "' LIMIT 1;")
+		while ($bad_problem = $db_result->fetch_assoc()){
+			$db_res_problem = $db->query("SELECT `name`, `catId`, `difficulty` FROM `spm_problems` WHERE `id` = '" . $bad_problem['problemId'] . "' LIMIT 1;")
 				or die('<strong>Произошла ошибка при попытке запроса к базе данных. Пожалуйста, обновите страницу!</strong>');
 			@$problem_info = $db_res_problem->fetch_assoc();
+			$db_res_category = $db->query("SELECT `id`, `name` FROM `spm_problems_categories` WHERE `id` = '" . @$problem_info['catId'] . "' LIMIT 1;")
+				or die('<strong>Произошла ошибка при попытке запроса к базе данных. Пожалуйста, обновите страницу!</strong>');
+			@$category_info = $db_res_category->fetch_assoc();
+			
+			if ($bad_problem['b'] == 0)
+				$problem_class = "danger";
+			elseif ($bad_problem['b'] < $problem_info['difficulty'])
+				$problem_class = "warning";
+			else
+				$problem_class = "active";
 ?>
-					<tr>
-						<td><?php print($bad_prblem['problemId']); ?></td>
-						<td><a href="index.php?service=problem&id=<?php print($bad_prblem['problemId']); ?>"><?php print(@$problem_info['name']); ?></a></td>
-						<td></td>
-						<td><?php print($bad_prblem['b']); ?></td>
+					<tr class="<?php print($problem_class); ?>">
+						<td><?php print($bad_problem['problemId']); ?></td>
+						<td><a href="index.php?service=problem&id=<?php print($bad_problem['problemId']); ?>"><?php print(@$problem_info['name']); ?></a></td>
+						<td><?php print(@$category_info['name']); ?></td>
+						<td><?php print($bad_problem['b']); ?></td>
 					</tr>
 <?php
 		}
