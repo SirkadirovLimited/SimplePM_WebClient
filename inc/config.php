@@ -42,6 +42,7 @@
 	$_SPM_CONF["SERVICE"]["problem"] = "problems/problem.php"; //require student
 	$_SPM_CONF["SERVICE"]["problem_send"] = "problems/problem_send.php"; //require student
 	$_SPM_CONF["SERVICE"]["problem_result"] = "problems/problem_result.php"; //require student
+	$_SPM_CONF["SERVICE"]["bad_problems"] = "problems/bad_problems.php"; //require student
 	//                             USER SERVICES
 	$_SPM_CONF["SERVICE"]["user"] = "user/user.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["user.edit"] = "user/user.edit.php"; //require session(uid)
@@ -90,11 +91,4 @@
 	                                                  //анонимном использовании сайта
 	
 	/*SECURITY-END*/
-	
-	/*API_SERVICES-START*/
-	$_SPM_CONF["API"]["getSubmissionInfo"] = "getSubmissionInfo.php";
-	$_SPM_CONF["API"]["getProblemInfo"] = "getProblemInfo.php";
-	$_SPM_CONF["API"]["getProblemTests"] = "getProblemTests.php";
-	$_SPM_CONF["API"]["setSubmissionStatus"] = "setSubmissionStatus.php";
-	/*API_SERVICES-END*/
 ?>

@@ -16,32 +16,31 @@
 	session_start();
 	//SOME DEFINES AND INCLUDES
 	DEFINE("SPM_GENUINE", 1); //Security define
-	
+	//S_INC defines
 	DEFINE("_S_INC_", "./inc/");
 	DEFINE("_S_INC_FUNC_", _S_INC_ . "func/");
 	DEFINE("_S_INC_CLASS_", _S_INC_ . "class/");
-	
+	//S_REQUIRES
 	require_once(_S_INC_FUNC_ . "permissions_check.php");
 	require_once(_S_INC_FUNC_ . "gen_tpl.php");
 	require_once(_S_INC_FUNC_ . "guard.php");
 	require_once(_S_INC_ . "config.php");
 	require_once(_S_INC_ . "db.php");
 	require_once(_S_INC_FUNC_ . "info_msg.php");
-	
+	//S_TPL defines
 	DEFINE("_S_TPL_", "./tpl/" . $_SPM_CONF["BASE"]["TPL_NAME"] . "/");
 	DEFINE("_S_TPL_ERR_", _S_TPL_ . "error_pages/");
+	//S_MOD defines
 	DEFINE("_S_MOD_", "./modules/");
-	
+	//S_SERV defines
 	DEFINE("_S_SERV_", "./services/");
 	DEFINE("_S_SERV_INC_", _S_SERV_ . "inc/");
-	
+	//S_MEDIA defines
 	DEFINE("_S_MEDIA_", "./media/");
 	DEFINE("_S_MEDIA_FILES_", _S_MEDIA_ . "files/");
 	DEFINE("_S_MEDIA_IMG_", _S_MEDIA_ . "img/");
 	
-	//file_get_contents("http://vhct.tk");
 	//Functions autorun
-	
 	_spm_guard_clearAllGet();
 	
 	//Choosing service to start

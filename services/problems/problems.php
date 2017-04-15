@@ -12,17 +12,18 @@
 	$_SORT["desc"] = "desc";
 	
 	//SECURITY
-	isset($_GET['page']) or $_GET['page'] = 1;
-	(int)$_GET['page'] > 0 or $_GET['page']=1;
-	isset($_GET["query"]) or $_GET["query"]="";
-	
+	isset($_GET['page']) or $_GET['page'] = 1; //page value
+	(int)$_GET['page'] > 0 or $_GET['page']=1; //page int value check
+	isset($_GET["query"]) or $_GET["query"]=""; //query text
+	isset($_GET["catId"]) && ((int)$_GET['catId'] > 0) or $_GET["catId"]="*"; //category id
+	//Sort by formatting
 	isset($_GET["sortby"]) && isset($_SORT_BY[$_GET["sortby"]]) or $_GET["sortby"] = $_SORT_BY["id"];
 	$_GET["sortby"] = $_SORT_BY[$_GET["sortby"]];
-	
+	//Sort formatting
 	isset($_GET["sort"]) && isset($_SORT[$_GET["sort"]]) or $_GET["sort"] = $_SORT["asc"];
 	$_GET["sort"] = $_SORT[$_GET["sort"]];
 	
-	
+	//Count all problems in the archive
 	if (!$db_result = $db->query("SELECT count(id) AS problems_count FROM `spm_problems`"))
 		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
 	
@@ -33,16 +34,31 @@
 	$db_result->free();
 	unset($db_result);
 	
+	//Get total pages count
 	if ($total_articles_number > 0 && $articles_per_page > 0)
 		$total_pages = ceil($total_articles_number / $articles_per_page);
 	else
 		$total_pages = 1;
-	
+	//For stability
 	if ($current_page > $total_pages)
 		$current_page = 1;
 	
-	//SQL queries and formatting
-	if (!$db_result = $db->query("SELECT `id`,`difficulty`,`catId`,`subCatId`,`name` FROM `spm_problems` ORDER BY `" . $_GET["sortby"] . "` " . $_GET["sort"] . " LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
+	/*
+	 * SQL SELECT query with params
+	 */
+	
+	//Category id
+	if ((int)$_GET['catId'] > 0)
+		$selectedCatIdText = "`catId` = '" . (int)$_GET['catId'] . "'";
+	else
+		$selectedCatIdText = "1";
+	//Query text
+	if (!empty($_GET['query']) && $_GET['query'] = mysqli_real_escape_string($db, $_GET['query']))
+		$queryText = "(`name` LIKE '%" . $_GET['query'] . "%' OR `id` = '" . $_GET['query'] . "')";
+	else
+		$queryText = "1";
+	
+	if (!$db_result = $db->query("SELECT `id`,`difficulty`,`catId`,`name` FROM `spm_problems` WHERE " . $selectedCatIdText . " AND " . $queryText . " ORDER BY `" . $_GET["sortby"] . "` " . $_GET["sort"] . " LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
 		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
 	
 	SPM_header("Архив задач");
@@ -50,66 +66,51 @@
 	/*
 	 * FUNCTIONS
 	 */
-	function generate_sort_url($page = 1, $sortby = "", $sort = ""){
+	function generate_sort_url($page = 1, $sortby = "", $sort = "", $catId = ""){
 		($sortby != "") or $sortby = $_GET["sortby"];
 		($sort != "") or $sort = $_GET["sort"];
+		($catId != "") or $catId = $_GET["catId"];
 		
-		return "index.php?service=problems&page=" . $page . "&query=" . $_GET["query"] . "&sortby=" . $sortby . "&sort=" . $sort;
+		return "index.php?service=problems&catId=&page=" . $page . "&query=" . $_GET["query"] . "&sortby=" . $sortby . "&sort=" . $sort;
 	}
 ?>
 <!--SEARCH-->
-		<!--div class="row">
-			<div class="col-md-3">
+		<div class="row">
+			<div class="col-md-8">
 				<form action="" mathod="post">
-					<select class="form-control" name="difficulty" required>
-						<option value="0" selected>Сложность 0% и выше</option>
-						<option value="5">Сложность 5% и выше</option>
-						<option value="10">Сложность 10% и выше</option>
-						<option value="20">Сложность 20% и выше</option>
-						<option value="50">Сложность 50% и выше</option>
-					</select>
-					<input type="submit" class="btn btn-primary btn-block btn-flat" name="difficultyCmd" value="Применить">
+					<!--HIDDEN VARIABLES-->
+					<input type="hidden" name="service" value="problems" />
+					<input type="hidden" name="page" value="1" />
+					<!--QUERY SELECTER-->
+					<input class="form-control" name="query" placeholder="№ задачи / название задачи" value="<?php print($_GET['query']); ?>">
+					<input type="submit" class="btn btn-success btn-block btn-flat" value="Поиск">
 				</form>
 			</div>
-			<div class="col-md-6">
-				<form action="" mathod="post">
-					<input class="form-control" name="searchText" placeholder="№ задачи / название задачи" value="<?php print($_GET['query']); ?>">
-					<input type="submit" class="btn btn-success btn-block btn-flat" name="searchCmd" value="Поиск">
-				</form>
-			</div>
-			<div class="col-md-3">
-				<form action="" method="get">
-					<select class="form-control" name="category" required>
-						<option value="0" selected>Все темы и подтемы</option>
+			<div class="col-md-4">
+				<form action="index.php" method="get">
+					<!--HIDDEN VARIABLES-->
+					<input type="hidden" name="service" value="problems" />
+					<input type="hidden" name="page" value="1" />
+					<!--CATEGORY SELECTER-->
+					<select class="form-control" name="catId" required>
+						<option value="*" selected>Все темы и подтемы</option>
 <?php
-	if(!$db_result_cat = $db->query("SELECT * FROM `spm_problems_categories` WHERE `parentId` = '0'"))
+	if(!$db_result_cat = $db->query("SELECT * FROM `spm_problems_categories`"))
 		die('Ошибка при попытке подключения к базе данных, попробуйте выполнить ваш запрос позже!');
 	
 	while ($problem_cat = $db_result_cat->fetch_assoc()){
 ?>
-						<optgroup label="<?php print($problem_cat["name"]); ?>">
-							<option value="<?php print($problem_cat["id"]); ?>"><?php print($problem_cat["name"]); ?> (все задачи)</option>
-<?php
-		if(!$db_result_subcat = $db->query("SELECT * FROM `spm_problems_categories` WHERE `parentId` = '" . $problem_cat['id'] . "';"))
-			die('Ошибка при попытке подключения к базе данных, попробуйте выполнить ваш запрос позже!');
-	
-		while ($problem_subcat = $db_result_subcat->fetch_assoc()){
-?>
-							<option value="<?php print($problem_subcat["id"]); ?>"><?php print($problem_subcat["name"]); ?></option>
-<?php
-		}
-?>
-						</optgroup>
+						<option value="<?php print($problem_cat["id"]); ?>"><?php print($problem_cat["name"]); ?></option>
 <?php
 	}
 	unset($problem_cat);
 	unset($db_result_cat);
 ?>
 					</select>
-					<input type="submit" class="btn btn-primary btn-block btn-flat" name="categoryCmd" value="Применить">
+					<input type="submit" class="btn btn-primary btn-block btn-flat" value="Применить">
 				</form>
 			</div>
-		</div-->
+		</div>
 <!--PROBLEMS LIST-->
 <?php
 	if ($total_articles_number == 0 || $db_result->num_rows == 0){
@@ -165,18 +166,6 @@
 				$db_res_cat->free();
 				unset($db_res_cat);
 			}
-			//subcategory
-			if (!$db_res_sub_cat = $db->query("SELECT `name` FROM `spm_problems_categories` WHERE `id`='" . $problem['subCatId'] . "' LIMIT 1;"))
-				die('Ошибка при подключении к базе данных. Перезагрузите страницу!');
-			elseif ($db_res_sub_cat->num_rows == 0){
-				$sub_cat_name = "Все задачи";
-				$db_res_sub_cat->free();
-				unset($db_res_cat);
-			} else {
-				$sub_cat_name = $db_res_sub_cat->fetch_assoc()["name"];
-				$db_res_sub_cat->free();
-				unset($db_res_sub_cat);
-			}
 			//submissionInfo
 			$submissionQuery = "SELECT `b` FROM `spm_submissions` WHERE (
 									`userId` = '" . $_SESSION['uid'] . "' AND 
@@ -188,7 +177,6 @@
 				$subm_result = "";
 			else{
 				$submsnB = floatval($submissionInfoLink->fetch_assoc()['b']);
-				//die($submsnB);
 				$submissionInfoLink->free();
 				unset($submissionInfoLink);
 				
@@ -206,7 +194,7 @@
 					<tr class="<?php print($subm_result); ?>">
 						<td><?php print($problem["id"]); ?></td>
 						<td><a href="index.php?service=problem&id=<?php print($problem["id"]); ?>"><?php print($problem["name"]); ?></a></td>
-						<td><?php print($cat_name . " / " . $sub_cat_name); ?></td>
+						<td><?php print($cat_name); ?></td>
 						<td>0 / 0</td>
 						<td><?php print($problem["difficulty"]); ?></td>
 					</tr>
@@ -231,5 +219,5 @@
 	}
 ?>
 
-<?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4, "problems", "&query=" . $_GET["query"] . "&sortby=" . $_GET["sortby"] . "&sort=" . $_GET["sort"]); ?>
+<?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4, "problems", "&catId=&query=" . $_GET["query"] . "&sortby=" . $_GET["sortby"] . "&sort=" . $_GET["sort"]); ?>
 <?php SPM_footer(); ?>
