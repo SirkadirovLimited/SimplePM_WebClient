@@ -19,7 +19,6 @@
 			}
 		}
 		
-		//!!!
 		$login = htmlspecialchars(strip_tags(trim($_POST['login'])));
 		$pass = htmlspecialchars(strip_tags(trim($_POST['password'])));
 		$password = md5(md5(md5($pass)));
@@ -34,11 +33,11 @@
 			die();
 		}
 		
-		if (!$db_result = $db->query("SELECT * FROM `spm_users` WHERE `username` = '$login' AND `password` = '$password'")){
+		if (!$db_result = $db->query("SELECT * FROM `spm_users` WHERE `username` = '$login' AND `password` = '$password' LIMIT 1;")){
 			header("Location: index.php?service=login&err=db");
 		}
 		
-		if ($db_result->num_rows === 0){
+		if ($db_result->num_rows == 0){
 			header("Location: index.php?service=login&err=nouser");
 			die();
 		}
@@ -48,12 +47,12 @@
 		$db_result->free();
 		unset($db_result);
 		
-		if ($user['id']>1 && $user['banned'] == 1){
+		if ($user['id']>0 && $user['banned'] == 1){
 			header("Location: " . $_SPM_CONF["BASE"]["SITE_URL"] . "index.php?service=login&err=banned");
 			die();
 		}
 		
-		if (!$db_result = $db->query("UPDATE `spm_users` SET `online` = '1' WHERE `id` = " . $user['id'] . ";")){
+		if (!$db_result = $db->query("UPDATE `spm_users` SET `online` = '1', `sessionId` = '" . session_id() . "' WHERE `id` = " . $user['id'] . " LIMIT 1;")){
 			header("Location: " . $_SPM_CONF["BASE"]["SITE_URL"] . "index.php?service=login&err=db");
 			die();
 		}

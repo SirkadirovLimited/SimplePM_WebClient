@@ -12,12 +12,11 @@
 				<small>@<?php print($_SESSION['username']); ?></small>
 			</p>
 		</li>
-		<li class="user-body">
+		<!--li class="user-body">
 			<ul class="nav nav-pills nav-stacked">
-				<li role="presentation"><a href="index.php?service=rating&uid=<?php print($_SESSION["uid"]); ?>">Рейтинг <i class="fa pull-right"><span class="badge">0</span></i></a></li>
-				<li role="presentation"><a href="#">Отложенные задачи <i class="fa pull-right"><span class="badge">0</span></i></a></li>
+				<li role="presentation"><a href="index.php?service=bad_problems">Отложенные задачи <i class="fa pull-right"><span class="badge">0</span></i></a></li>
 			</ul>
-		</li>
+		</li-->
 		<li class="user-footer">
 			<div class="pull-left">
 				<a href="index.php?service=user&id=<?php print($_SESSION['uid']); ?>" class="btn btn-default btn-flat">Профиль</a>
