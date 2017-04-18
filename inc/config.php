@@ -52,8 +52,8 @@
 	$_SPM_CONF["SERVICE"]["messages.list"] = "messages/messages.list.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["messages.send"] = "messages/messages.send.php"; //require session(uid)
 	//                             ADMIN SERVICES
-	$_SPM_CONF["SERVICE"]["teacherID"] = "admin/teacherID.php"; //require teacher/curator/admin
-	$_SPM_CONF["SERVICE"]["users.admin"] = "admin/users.admin.php"; //require teacher/curator/admin
+	$_SPM_CONF["SERVICE"]["teacherID"] = "admin/teacherID.php"; //require teacher/admin
+	$_SPM_CONF["SERVICE"]["users.admin"] = "admin/users.admin.php"; //require teacher/admin
 	$_SPM_CONF["SERVICE"]["admin"] = "admin/admin.php"; //require permission 256
 	$_SPM_CONF["SERVICE"]["view.admin"] = "admin/view.admin.php"; //require permission 256
 	$_SPM_CONF["SERVICE"]["news.admin"] = "admin/news.admin.php"; //require permission 256
@@ -89,6 +89,5 @@
 	/*SECURITY-START*/
 	$_SPM_CONF["SECURITY"]["require_captcha"] = true; //Требовать ввода капчи при
 	                                                  //анонимном использовании сайта
-	
 	/*SECURITY-END*/
 ?>

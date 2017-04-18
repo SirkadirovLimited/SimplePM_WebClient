@@ -16,9 +16,6 @@
 				//teacher
 				if (permission_check($_SESSION['permissions'], PERMISSION::teacher))
 					include_once(_S_TPL_ . "sidebar/teacher.inc.php");
-				//curator
-				if (permission_check($_SESSION['permissions'], PERMISSION::curator))
-					include_once(_S_TPL_ . "sidebar/curator.inc.php");
 				//olymp
 				//if (permission_check($_SESSION['permissions'], PERMISSION::olymp))
 				//	include_once(_S_TPL_ . "sidebar/olymp.inc.php");

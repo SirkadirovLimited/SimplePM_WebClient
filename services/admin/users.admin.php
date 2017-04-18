@@ -5,7 +5,6 @@
 	global $_SESSION;
 	
 	if (!permission_check($_SESSION['permissions'], PERMISSION::teacher)
-		&& !permission_check($_SESSION['permissions'], PERMISSION::curator)
 		&& !permission_check($_SESSION['permissions'], PERMISSION::administrator)){
 		include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["access_denied"]);
 		die();
@@ -36,7 +35,6 @@
 			if (permission_check($_SESSION['permissions'], PERMISSION::curator)){
 				
 				if ($users_admin_user["group"] == "admin"
-					|| permission_check($users_admin_user["permissions"],PERMISSION::curator)
 					|| permission_check($users_admin_user["permissions"],PERMISSION::administrator))
 					die('<strong>Вы не можете удалить данного пользователя</strong>');
 				

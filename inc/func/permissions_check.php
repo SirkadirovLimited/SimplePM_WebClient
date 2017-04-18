@@ -7,7 +7,6 @@
 		const student = 2;
 		const teacher = 4;
 		const olymp = 8;
-		const curator = 16;
 		const administrator = 256;
 	}
 	

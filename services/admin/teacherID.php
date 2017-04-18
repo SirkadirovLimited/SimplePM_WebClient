@@ -2,7 +2,6 @@
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
 	if ( !permission_check($_SESSION['permissions'], PERMISSION::teacher)
-	&& !permission_check($_SESSION['permissions'], PERMISSION::curator)
 	&& !permission_check($_SESSION['permissions'], PERMISSION::administrator) ){
 		
 		SPM_header("Ошибка 403");
