@@ -3,7 +3,7 @@
 	
 	global $db;
 	
-	if (!$db_result = $db->query("SELECT COUNT(1) AS msgCount FROM `spm_messages` WHERE (`to` = '" . $_SESSION['uid'] . "' AND `unread` = true) LIMIT 1;"))
+	if (!$db_result = $db->query("SELECT COUNT(1) AS msgCount FROM `spm_messages` WHERE (`to` = '" . $_SESSION['uid'] . "' AND `unread` = true);"))
 			die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
 	$msg_count = $db_result->fetch_assoc();
 ?>

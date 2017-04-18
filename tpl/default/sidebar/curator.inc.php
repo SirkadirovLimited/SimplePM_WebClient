@@ -9,7 +9,7 @@
 		</span>
 	</a>
 	<ul class="treeview-menu">
-		<li><a href="index.php?service=users.admin">Список учителей</a></li>
-		<li><a href="index.php?service=teacherID">Код приглашения</a></li>
+		<!--li><a href="index.php?service=users.admin">Список учителей</a></li>
+		<li><a href="index.php?service=teacherID">Код приглашения</a></li-->
 	</ul>
 </li>

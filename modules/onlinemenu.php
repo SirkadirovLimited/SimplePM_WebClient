@@ -1,9 +1,6 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
-	global $db;
-	global $_SPM_CONF;
-	
 	if (!$db_count = $db->query("SELECT COUNT(*) AS online_count FROM `spm_users` WHERE online = '1'"))
 			die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
 	if (!$db_result = $db->query("SELECT * FROM `spm_users` WHERE online = '1' LIMIT 0,5"))

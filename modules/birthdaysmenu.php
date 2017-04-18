@@ -1,9 +1,6 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
-	global $db;
-	global $_SPM_CONF;
-	
 	if (!$db_result = $db->query("SELECT * FROM `spm_users` WHERE MONTH(bdate) = MONTH(NOW()) LIMIT 0,30"))
 			die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
 	

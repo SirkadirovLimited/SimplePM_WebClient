@@ -11,7 +11,7 @@
 			if (!$db_get = $db->query("SELECT `firstname`,`secondname`,`thirdname`,`group` FROM `spm_users` WHERE `id`='" . $teacherId . "' LIMIT 1;"))
 				die('<strong>Произошла ошибка при попытке соединения с базой данных! Пожалуйста, повторите ваш запрос позже!</strong>');
 			
-			if ($db_get->num_rows === 0){
+			if ($db_get->num_rows == 0){
 				return "<a>Учитель/Куратор:<br/><b>Ничейный пользователь</b></a>";
 			}elseif ($db_get->num_rows === 1){
 				$tUser = $db_get->fetch_assoc();
@@ -31,7 +31,7 @@
 		if (!$db_result = $db->query("SELECT * FROM `spm_users` WHERE id = '$id'"))
 			die("<strong>Произошла ошибка при отправке запроса к базе данных. Посетите данную страницу позже.</strong>");
 		
-		if ($db_result->num_rows === 0){
+		if ($db_result->num_rows == 0){
 			
 			SPM_header("Ошибка 404");
 			include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["404"]);
@@ -84,8 +84,8 @@
 				<h3><?php print($user_info["bcount"]); ?></h3>
 				<p>ПОЛУЧЕННЫЕ БАЛЛЫ</p>
 			</div>
-			<a href="#" class="small-box-footer">
-				Список решённых задач <i class="fa fa-arrow-circle-right"></i>
+			<a href="index.php?service=bad_problems&uid=<?php print($user_info['id']); ?>" class="small-box-footer">
+				Отложенные задачи <i class="fa fa-arrow-circle-right"></i>
             </a>
 		</div>
 		<div class="small-box bg-yellow">
@@ -93,8 +93,8 @@
 				<h3><?php print($user_info["rating"]); ?></h3>
 				<p>РЕЙТИНГ ПОЛЬЗОВАТЕЛЯ</p>
 			</div>
-			<a href="#" class="small-box-footer">
-				Локальный рейтинг <i class="fa fa-arrow-circle-right"></i>
+			<a href="index.php?service=rating" class="small-box-footer">
+				Глобальный рейтинг <i class="fa fa-arrow-circle-right"></i>
             </a>
 		</div>
 		
@@ -122,23 +122,23 @@
 	<div class="col-md-8">
 		<h3 style="margin-top: 0;">Основная информация</h3>
 		<ul class="nav nav-pills nav-stacked">
-			<li role="presentation"><a>Полное имя:<br/><b><?php print($user_info['secondname'] . " " . $user_info['firstname'] . " " . $user_info['thirdname']); ?></b></a></li>
-			<li role="presentation"><a>Дата рождения:<br/><b><?php print($user_info['bdate']); ?></b></a></li>
+			<li><a>Полное имя:<br/><b><?php print($user_info['secondname'] . " " . $user_info['firstname'] . " " . $user_info['thirdname']); ?></b></a></li>
+			<li><a>Дата рождения:<br/><b><?php print($user_info['bdate']); ?></b></a></li>
 			
-			<li role="presentation"><a>Страна:<br/><b><?php print($user_info['country']); ?></b></a></li>
-			<li role="presentation"><a>Город:<br/><b><?php print($user_info['city']); ?></b></a></li>
-			<li role="presentation"><a>Учебное заведение:<br/><b><?php print($user_info['school']); ?></b></a></li>
+			<li><a>Страна:<br/><b><?php print($user_info['country']); ?></b></a></li>
+			<li><a>Город:<br/><b><?php print($user_info['city']); ?></b></a></li>
+			<li><a>Учебное заведение:<br/><b><?php print($user_info['school']); ?></b></a></li>
 		</ul>
 		<h3>Контакты</h3>
 		<ul class="nav nav-pills nav-stacked">
-			<li role="presentation"><a>Номер телефона:<br/><b><?php print($user_info['phone']); ?></b></a></li>
-			<li role="presentation"><a>Email:<br/><b><?php print($user_info['email']); ?></b></a></li>
+			<li><a>Номер телефона:<br/><b><?php print($user_info['phone']); ?></b></a></li>
+			<li><a>Email:<br/><b><?php print($user_info['email']); ?></b></a></li>
 		</ul>
 		<h3>Важная информация</h3>
 		<ul class="nav nav-pills nav-stacked">
-			<li role="presentation"><a>Права доступа:<br/><b><?php print($user_info['permissions']); ?></b></a></li>
-			<li role="presentation"><a>Группа:<br/><b><?php print($user_info['group']); ?></b></a></li>
-			<li role="presentation"><?php print(spm_getTeacherLinkById($user_info['teacherId'])); ?></li>
+			<li><a>Права доступа:<br/><b><?php print($user_info['permissions']); ?></b></a></li>
+			<li><a>Группа:<br/><b><?php print($user_info['group']); ?></b></a></li>
+			<li><?php print(spm_getTeacherLinkById($user_info['teacherId'])); ?></li>
 		</ul>
 	</div>
 </div>
