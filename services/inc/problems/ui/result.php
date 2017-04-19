@@ -13,7 +13,7 @@
 	
 	if ($submission['hasError'] == true)
 		$smile_name = "philosofy";
-	elseif ($submission['b'] == 0)
+	elseif ($submission['b'] <= 0)
 		$smile_name = "lol";
 	elseif ($submission['b'] < $problemDifficulty)
 		$smile_name = "bad_thing";
@@ -21,6 +21,14 @@
 		$smile_name = "cool";
 ?>
 <pre style="border-radius: 0;"><?php print($submission['compiler_text']); ?></pre>
+
+<?php
+	if ($submission['errorOutput'] != null && $submission['errorOutput'] != ""){
+?>
+<pre style="border-radius: 0;"><?php print($submission['errorOutput']); ?></pre>
+<?php
+	}
+?>
 
 <div class="panel panel-default" style="border-radius: 0;">
 	<div class="panel-heading">Результаты тестирования</div>
