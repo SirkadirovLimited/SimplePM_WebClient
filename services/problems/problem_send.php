@@ -12,8 +12,8 @@
 	//TEST TYPE
 	if (isset($_POST['syntax']))
 		$testType = 'syntax';
-	//if (isset($_POST['debug']))
-	//	$testType = 'debug';
+	if (isset($_POST['debug']))
+		$testType = 'debug';
 	if (isset($_POST['release']))
 		$testType = 'release';
 	//CODE LANGUAGE
