@@ -10,5 +10,5 @@
 		Пожалуйста, подождите!</p><br/>
 		<p class="lead">Страница обновится автоматически.<br/>Если этого не произошло, <a href="">перезагрузите её</a> самостоятельно.</p>
 	</div>
-	<meta http-equiv='refresh' content='0.5; url='>
+	<meta http-equiv='refresh' content='1; url='>
 </div>

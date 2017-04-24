@@ -14,6 +14,18 @@
 	if ($msg_count["msgCount"] > 0) {
 ?>
 		<span class="label label-danger"><?php print($msg_count["msgCount"]); ?></span>
+		<script>
+			Push.close('unreadMessages');
+			Push.create('<?php print($_SPM_CONF["BASE"]["SITE_NAME"]); ?>', {
+				body: 'У вас есть [<?php print($msg_count["msgCount"]); ?>] новых непрочитанных сообщений!',
+				icon: {
+					x16: '<?php print(_S_MEDIA_IMG_); ?>mail.png',
+					x32: '<?php print(_S_MEDIA_IMG_); ?>mail.png'
+				},
+				tag: 'unreadMessages',
+				timeout: 5000
+			});
+		</script>
 <?php
 	}else{
 ?>

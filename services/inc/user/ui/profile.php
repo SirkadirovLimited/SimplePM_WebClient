@@ -41,7 +41,19 @@
 			</div>
 			<div class="form-group">
 				<label for="country">Страна / Регион</label>
-				<input type="text" class="form-control" id="country" name="country" placeholder="<?php print($user_info['country']); ?>" value="">
+				<select type="text" class="form-control" id="country" name="country" placeholder="<?php print($user_info['country']); ?>">
+<?php
+	foreach ($SPM_Countries_Select as $countryArr){
+		if ($user_info['country'] == $countryArr[0])
+			$selectedCountry = " selected";
+		else
+			$selectedCountry = "";
+?>
+					<option value="<?php print($countryArr[0]); ?>"<?php print($selectedCountry); ?>><?php print($countryArr[1]); ?></option>
+<?php
+	}
+?>
+				</select>
 				<p class="help-block">Страна или регион учащегося</p>
 			</div>
 			<div class="form-group">

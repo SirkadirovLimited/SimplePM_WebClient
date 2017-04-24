@@ -15,7 +15,7 @@
 		if (isset($_POST[$param_post_name]) && strlen($_POST[$param_post_name]) >= $param_min_length && strlen($_POST[$param_post_name]) <= $param_max_length){
 			
 			if ($is_email)
-				filter_var($_POST[$param_post_name], FILTER_VALIDATE_EMAIL) or die("Email указан в неверном формате!" . $meta_refresh);
+				@(filter_var($_POST[$param_post_name], FILTER_VALIDATE_EMAIL) or die("Email указан в неверном формате!" . $meta_refresh));
 			
 			if (!$db->query("UPDATE `spm_users` SET `" . $param_db_name . "` = '" . $_POST[$param_post_name] . "' WHERE `id` = '" . (int)$_GET['id'] . "';"))
 				die('<strong>Поле "' . $param_real_name . '" заполнено не верно! Возможные причины:</strong><br/>
@@ -38,29 +38,29 @@
 	 */
 	 
 	//username
-	(!isset($_POST["username"])) or $_POST["username"] = htmlspecialchars(strip_tags(trim($_POST["username"])));
+	(!isset($_POST["username"])) or $_POST["username"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["username"])));
 	//email
-	(!isset($_POST["email"])) or $_POST["email"] = htmlspecialchars(strip_tags(trim($_POST["email"])));
+	(!isset($_POST["email"])) or $_POST["email"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["email"])));
 	
 	//secondname
-	(!isset($_POST["secondname"])) or $_POST["secondname"] = htmlspecialchars(strip_tags(trim($_POST["secondname"])));
+	(!isset($_POST["secondname"])) or $_POST["secondname"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["secondname"])));
 	//secondname
-	(!isset($_POST["firstname"])) or $_POST["firstname"] = htmlspecialchars(strip_tags(trim($_POST["firstname"])));
+	(!isset($_POST["firstname"])) or $_POST["firstname"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["firstname"])));
 	//secondname
-	(!isset($_POST["thirdname"])) or $_POST["thirdname"] = htmlspecialchars(strip_tags(trim($_POST["thirdname"])));
+	(!isset($_POST["thirdname"])) or $_POST["thirdname"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["thirdname"])));
 	
 	//bday
-	(!isset($_POST["bdate"])) or $_POST["bdate"] = htmlspecialchars(trim($_POST["bdate"]));
+	(!isset($_POST["bdate"])) or $_POST["bdate"] = mysqli_real_escape_string($db,trim($_POST["bdate"]));
 	
 	//country
-	(!isset($_POST["country"])) or $_POST["country"] = htmlspecialchars(strip_tags(trim($_POST["country"])));
+	(!isset($_POST["country"])) or $_POST["country"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["country"])));
 	//city
-	(!isset($_POST["city"])) or $_POST["city"] = htmlspecialchars(strip_tags(trim($_POST["city"])));
+	(!isset($_POST["city"])) or $_POST["city"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["city"])));
 	
 	//school
-	(!isset($_POST["school"])) or $_POST["school"] = htmlspecialchars(strip_tags(trim($_POST["school"])));
+	(!isset($_POST["school"])) or $_POST["school"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["school"])));
 	//group
-	(!isset($_POST["group"])) or $_POST["group"] = htmlspecialchars(strip_tags(trim($_POST["group"])));
+	(!isset($_POST["group"])) or $_POST["group"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["group"])));
 	
 	/*
 	 * ВТОРОй ШАГ ОТСЕИВАНИЯ ДУШ
@@ -83,7 +83,7 @@
 	changeProfileParam("bdate", "bdate", "Дата рождения", 10, 10);
 	
 	//country
-	changeProfileParam("country", "country", "Страна", 3, 100);
+	changeProfileParam("country", "country", "Страна", 1, 100);
 	//city
 	changeProfileParam("city", "city", "Город", 3, 100);
 	

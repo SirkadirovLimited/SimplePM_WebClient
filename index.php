@@ -27,6 +27,7 @@
 	require_once(_S_INC_ . "config.php");
 	require_once(_S_INC_ . "db.php");
 	require_once(_S_INC_FUNC_ . "info_msg.php");
+	require_once(_S_INC_CLASS_ . "CountryList.php");
 	//S_TPL defines
 	DEFINE("_S_TPL_", "./tpl/" . $_SPM_CONF["BASE"]["TPL_NAME"] . "/");
 	DEFINE("_S_TPL_ERR_", _S_TPL_ . "error_pages/");

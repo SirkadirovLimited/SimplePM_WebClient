@@ -51,10 +51,10 @@
 						</thead>
 						<tbody>
 <?php
-	if ($submission['hasError'] == true)
-		$result = '-';
-	else
-		$result = '+';
+if ($submission['hasError'] == true)
+	$result = '-';
+else
+	$result = '+';
 ?>
 <tr>
 	<td>Компиляция программы</td>
@@ -63,8 +63,8 @@
 </tr>
 							
 <?php
-	switch ($submission['testType']){
-		case "syntax":
+switch ($submission['testType']){
+	case "syntax":
 ?>
 <tr>
 	<td>Тесты отсутствуют</td>
@@ -72,8 +72,8 @@
 	<td>N/A</td>
 </tr>
 <?php
-			break;
-		case "debug":
+		break;
+	case "debug":
 ?>
 <tr>
 	<td>Пользовательский тест</td>
@@ -81,11 +81,11 @@
 	<td><?php print($submission['result']); ?></td>
 </tr>
 <?php
-			break;
-		case "release":
-			
-			$i = 1;
-			foreach (str_split($submission['result']) as $res){
+		break;
+	case "release":
+		
+		$i = 1;
+		foreach (str_split($submission['result']) as $res){
 ?>
 <tr>
 	<td>Тест #<?php print($i); ?></td>
@@ -93,26 +93,26 @@
 	<td><?php print($res); ?></td>
 </tr>
 <?php
-				$i++;
-			}
-			
-			break;
-	}
+			$i++;
+		}
+		
+		break;
+}
 ?>
 						</tbody>
 					</table>
 <?php
-	if ($submission['testType'] == "release"){
+if ($submission['testType'] == "release"){
 ?>
 					<strong>Начислено баллов: <?php print($submission['b']); ?> из <?php print($problemDifficulty); ?> возможных.</strong>
 <?php
-	}
-	elseif ($submission['testType'] == "debug" && $submission['output'] != null){
+}
+elseif ($submission['testType'] == "debug" && $submission['output'] != null){
 ?>
 					<!--pre style="border-radius: 0; text-align: left;"><?php print($submission['output']); ?></pre-->
 					<textarea class="form-control" style="width: 100%; resize: none;" rows="5" readonly><?php print($submission['output']); ?></textarea>
 <?php
-	}
+}
 ?>
 				</div>
 			</div>
@@ -120,3 +120,24 @@
 
 	</div>
 </div>
+
+<?php
+if (!$submission['seen']){
+?>
+<script>
+	Push.close('unseenResult');
+	Push.create('<?php print($_SPM_CONF["BASE"]["SITE_NAME"]); ?>', {
+		body: 'Получен результат проверки вашего решения для задачи <?php print($submission['problemId']); ?>! Просмотрите его сейчас!',
+		icon: {
+			x16: '<?php print(_S_MEDIA_IMG_); ?>smiles/<?php print($smile_name); ?>',
+			x32: '<?php print(_S_MEDIA_IMG_); ?>smiles/<?php print($smile_name); ?>'
+		},
+		tag: 'unseenResult',
+		timeout: 4000
+	});
+</script>
+<?php
+	if (!$db->query("UPDATE `spm_submissions` SET `seen` = true WHERE `submissionId` = '" . $submission['submissionId'] . "' LIMIT 1;"))
+		die('<strong>Произошла ошибка при попытке подключения к базе данных! Пожалуйста, обновите страницу!</strong>');
+}
+?>

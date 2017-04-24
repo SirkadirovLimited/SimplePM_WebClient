@@ -125,7 +125,7 @@
 			<li><a>Полное имя:<br/><b><?php print($user_info['secondname'] . " " . $user_info['firstname'] . " " . $user_info['thirdname']); ?></b></a></li>
 			<li><a>Дата рождения:<br/><b><?php print($user_info['bdate']); ?></b></a></li>
 			
-			<li><a>Страна:<br/><b><?php print($user_info['country']); ?></b></a></li>
+			<li><a>Страна:<br/><b><?php print(@$SPM_Countries_Get[$user_info['country']]); ?></b></a></li>
 			<li><a>Город:<br/><b><?php print($user_info['city']); ?></b></a></li>
 			<li><a>Учебное заведение:<br/><b><?php print($user_info['school']); ?></b></a></li>
 		</ul>

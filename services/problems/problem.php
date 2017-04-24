@@ -28,7 +28,7 @@
 		$submissionArgs = NULL;
 	}
 ?>
-<script src="<?php print(_S_TPL_); ?>plugins/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="<?php print(_S_TPL_); ?>plugins/ace/ace.js" charset="utf-8"></script>
 <style type="text/css">
     #codeEditor {
 		position: relative;
@@ -163,7 +163,7 @@
 <?php
 	}
 ?>
-<script src="<?php print(_S_TPL_); ?>js/jquery-1.min.js" type="text/javascript"></script>
+<!--script src="<?php print(_S_TPL_); ?>js/jquery-1.min.js" type="text/javascript"></script-->
 <script type="text/javascript">
 	var editor = ace.edit("codeEditor");
     //editor.setTheme("ace/theme/monokai");

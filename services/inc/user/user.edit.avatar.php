@@ -20,7 +20,7 @@
 				$imgc = new SimpleImage();
 				$imgc->load($_FILES['avatarFile']['tmp_name']);
 				$imgc->resizeToWidth(400);
-				$imgc->save($_FILES['avatarFile']['tmp_name'], $imgc->image_type, 100);
+				$imgc->save($_FILES['avatarFile']['tmp_name'], IMAGETYPE_JPEG, 100);
 				
 				
 				$image = file_get_contents( $_FILES['avatarFile']['tmp_name'] );
