@@ -77,10 +77,25 @@
 					<input class="btn btn-success btn-block btn-flat" type="submit" name="release" value="Отправка" style="margin: 0;" onclick="getcode();" />
 				</div>
 <?php
-	if (isset($submission)){
+	if (isset($submission) && !permission_check($_SESSION["permissions"], PERMISSION::administrator)){
 ?>
 				<div class="col-xs-12 col-md-12" style="padding: 0;">
 					<a href="index.php?service=problem_result&sid=<?php print($submission['submissionId']); ?>" class="btn btn-default btn-block btn-flat">Информация о последней попытке</a>
+				</div>
+<?php
+	}elseif (isset($submission) && permission_check($_SESSION["permissions"], PERMISSION::administrator)){
+?>
+				<div class="col-xs-6 col-md-6" style="padding: 0;">
+					<a href="index.php?service=problem_result&sid=<?php print($submission['submissionId']); ?>" class="btn btn-warning btn-block btn-flat">Информация о последней попытке</a>
+				</div>
+				<div class="col-xs-6 col-md-6" style="padding: 0;">
+					<input
+						type="submit"
+						name="setAsAuthorSolution"
+						class="btn btn-danger btn-flat btn-block"
+						value="Установить авторское решение"
+						onclick="getcode(); return confirm('ВНИМАНИЕ! Это действие может привести к необратимым последствиям и уничтожению предыдущего авторского решения! Вы действительно хотите его перезаписать?');"
+					>
 				</div>
 <?php
 	}
@@ -144,21 +159,6 @@
 <?php
 	if (permission_check($_SESSION['permissions'], PERMISSION::administrator) && isset($submission)){
 ?>
-<div class="panel panel-default" style="border-radius: 0;">
-	<div class="panel-body" style="padding: 0;">
-		<form action="index.php?service=problems.admin&action=setSolution" method="post" style="margin: 0;">
-			<input type="hidden" name="problemId" value="<?php print($problem_info['id']); ?>">
-			<input type="hidden" name="submissionId" value="<?php print($submission['submissionId']); ?>">
-			<input
-				type="submit"
-				name="apply"
-				class="btn btn-warning btn-flat btn-block"
-				value="Сделать текущую попытку авторским решением"
-				onclick="return confirm('ВНИМАНИЕ! Это действие может привести к необратимым последствиям и уничтожению предыдущего авторского решения! Вы действительно хотите его перезаписать?');"
-			>
-		</form>
-	</div>
-</div>
 
 <?php
 	}

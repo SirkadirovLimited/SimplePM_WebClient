@@ -9,6 +9,7 @@
 	/*
 	 * ПЕРВЫЙ ШАГ ОТСЕИВАНИЯ ДУШ
 	 */
+	$setAsAuthorSolution = 'false';
 	//TEST TYPE
 	if (isset($_POST['syntax']))
 		$testType = 'syntax';
@@ -16,6 +17,12 @@
 		$testType = 'debug';
 	if (isset($_POST['release']))
 		$testType = 'release';
+	//Проверка на установку авторского решения
+	if (isset($_POST['setAsAuthorSolution'])){
+		deniedOrAllowed(PERMISSION::administrator);
+		$testType = 'release';
+		$setAsAuthorSolution = 'true';
+	}
 	//CODE LANGUAGE
 	@$codeLang = switchCodeLang($_POST['codeLang']);
 	
@@ -35,6 +42,7 @@
 	
 	//Запись новой попытки в БД
 	$db_query_create_submission = "INSERT INTO `spm_submissions` SET 
+				`setAsAuthorSolution` = " . $setAsAuthorSolution . ",
 				`problemCode`='" . $_POST['code'] . "', 
 				`userId` = '" . $_SESSION['uid'] ."', 
 				`problemId` = '" . $_POST['problemId'] . "', 
