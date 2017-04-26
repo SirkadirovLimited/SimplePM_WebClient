@@ -25,6 +25,11 @@
 				 background-size: 100% 100%;
 			}
 		</style>
+		<script>
+			if (navigator.userAgent.indexOf("MSIE") != -1){
+				alert('ВНИМАНИЕ! Internet Explorer не поддерживается сайтом. Используйте более современный браузер!');
+			}
+		</script>
 	</head>
 	<body class="hold-transition login-page">
 

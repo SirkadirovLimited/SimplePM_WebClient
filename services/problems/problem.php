@@ -163,9 +163,10 @@
 <?php
 	}
 ?>
-<!--script src="<?php print(_S_TPL_); ?>js/jquery-1.min.js" type="text/javascript"></script-->
+<!--script src="<?php print(_S_TPL_); ?>js/jquery-1.min.js"></script-->
 <script type="text/javascript">
 	var editor = ace.edit("codeEditor");
+
     //editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/pascal");
 	

@@ -68,7 +68,7 @@
 	if (!strlen($_POST['3name']) >= 3 && !strlen($_POST['3name'])<=255)
 		$errors_col++;
 	
-	if (!strlen($_POST['teacherId']) >= 3 && !strlen($_POST['teacherId'])<=255)
+	if (strlen($_POST['teacherId']) != $_SPM_CONF["TEACHERID"]["length"])
 		$errors_col++;
 	
 	if ($errors_col > 0){
@@ -81,7 +81,7 @@
 	 * ЧЕТВЁРТЫЙ ШАГ ОТСЕИВАНИЯ ДУШ, ФИНАЛЬНЫЙ
 	 * TeacherID
 	*/
-	if (!$db_result = $db->query("SELECT * FROM `spm_teacherId` WHERE teacherId = '" . $_POST['teacherId'] . "'")){
+	if (!$db_result = $db->query("SELECT * FROM `spm_teacherId` WHERE teacherId = '" . $_POST['teacherId'] . "' AND `enabled` = true LIMIT 1;")){
 		print("<strong>Произошла ошибка при попытке подключения к базе данных. Повторите попытку позже!</strong>");
 		print("<meta http-equiv='refresh' content='3;URL=index.php?service=register' />");
 		exit;
@@ -112,8 +112,20 @@
 	$teacherId = $TeacherID['userId'];
 	$permissions = $TeacherID['newUserPermission'];
 	
-	$db_query = "INSERT INTO  `spm_users` SET `username` = '$login', `password` = '$password', `firstname` = '$name1', `secondname` = '$name2', `thirdname` = '$name3', `bdate` = '$bday', 
-				`email` = '$email', `teacherId` = '$teacherId', `permissions` = '$permissions', `group` = 'student'";
+	$db_query = "INSERT INTO 
+					`spm_users` 
+				SET 
+					`username` = '$login', 
+					`password` = '$password', 
+					`firstname` = '$name1', 
+					`secondname` = '$name2', 
+					`thirdname` = '$name3', 
+					`bdate` = '$bday', 
+					`email` = '$email', 
+					`teacherId` = '$teacherId', 
+					`permissions` = '$permissions', 
+					`group` = 'user'
+				";
 
 	if(!$db->query($db_query)){
 		print("<strong>Форма заполнена не корректно!</strong>");

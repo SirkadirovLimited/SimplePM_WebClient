@@ -1,7 +1,6 @@
 <?php DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED'); ?>
 <!--TEACHER-->
 <li class="header">Учитель</li>
-<!--li><a href="index.php?service=problems.ready"><i class="fa fa-list-alt"></i> <span>Учительский архив</span></a></li-->
 <li class="treeview">
 	<a href="#">
 		<i class="fa fa-group"></i> <span>Ученики</span>
@@ -27,3 +26,4 @@
 		<li><a href="index.php?service=classworks&create">Создать урок</a></li-->
 	</ul>
 </li>
+<li><a href="index.php?service=teacherID"><i class="fa fa-lock"></i> <span>TeacherID</span></a></li>

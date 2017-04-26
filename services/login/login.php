@@ -93,12 +93,11 @@
 <?php
 	}
 ?>
-	
 	<button type="submit" class="btn btn-primary btn-block btn-flat">Войти</button>
-	<br/>
-	<a href="index.php?service=agreement">Лицензионное соглашение</a><br/>
-	<a href="index.php?service=forgot">Забыли логин/пароль?</a><br/>
-	<a href="index.php?service=register" class="text-center">Регистрация</a>
+	<div style="margin-top: 10px;">
+		<a href="index.php?service=forgot">Восстановление доступа к аккаунту</a><br/>
+		<a href="index.php?service=register">Регистрация нового пользователя</a>
+	</div>
 </form>
 
 <?php

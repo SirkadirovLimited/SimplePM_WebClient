@@ -86,8 +86,12 @@
 	$_SPM_CONF["PASSWD"]["maxlength"] = 40; //Максимальная длина пароля
 	/*PASSWORD_SETTINGS-END*/
 	
+	/*TEACHERID_SETTINGS-START*/
+	$_SPM_CONF["TEACHERID"]["length"] = 15; //Длина пароля TeacherID
+	/*TEACHERID_SETTINGS-END*/
+	
 	/*SECURITY-START*/
-	$_SPM_CONF["SECURITY"]["require_captcha"] = true; //Требовать ввода капчи при
+	$_SPM_CONF["SECURITY"]["require_captcha"] = false; //Требовать ввода капчи при
 	                                                  //анонимном использовании сайта
 	/*SECURITY-END*/
 ?>
