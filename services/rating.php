@@ -139,7 +139,10 @@
 				<tbody>
 <?php
 		while ($user = $db_result->fetch_assoc()) {
-			
+			if ($user["bcount"] == null)
+				$user["bcount"] = 0;
+			if ($user["rating"] == null)
+				$user["rating"] = 0;
 ?>
 					<tr>
 						<td><?php print($user["id"]); ?></td>

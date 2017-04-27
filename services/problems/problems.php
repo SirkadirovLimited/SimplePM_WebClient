@@ -159,13 +159,24 @@
 				die('Ошибка при подключении к базе данных. Перезагрузите страницу!');
 			elseif ($db_res_cat->num_rows == 0){
 				$cat_name = "Все задачи";
-				$db_res_cat->free();
-				unset($db_res_cat);
 			} else {
 				$cat_name = $db_res_cat->fetch_assoc()["name"];
-				$db_res_cat->free();
-				unset($db_res_cat);
 			}
+			$db_res_cat->free();
+			unset($db_res_cat);
+			
+			//Запросы на решаемость
+			$tmp_query_full = "SELECT count(`submissionId`) FROM `spm_submissions` WHERE `problemId` = '" . $problem['id'] . "';";
+			$tmp_query_success = "SELECT count(`submissionId`) FROM `spm_submissions` WHERE `problemId` = '" . $problem['id'] . "' AND `b` = '" . $problem['difficulty'] . "';";
+			
+			if (!$submissions_total = ($db->query($tmp_query_full))->fetch_array()[0])
+				$submissions_total = 0;
+			if (!$submissions_successful = $db->query($tmp_query_success)->fetch_array()[0])
+				$submissions_successful = 0;
+			
+			unset($tmp_query_full);
+			unset($tmp_query_success);
+			
 			//submissionInfo
 			$submissionQuery = "SELECT `b` FROM `spm_submissions` WHERE (
 									`userId` = '" . $_SESSION['uid'] . "' AND 
@@ -195,10 +206,12 @@
 						<td><?php print($problem["id"]); ?></td>
 						<td><a href="index.php?service=problem&id=<?php print($problem["id"]); ?>"><?php print($problem["name"]); ?></a></td>
 						<td><?php print($cat_name); ?></td>
-						<td>0 / 0</td>
+						<td><?php print($submissions_successful); ?> / <?php print($submissions_total); ?></td>
 						<td><?php print($problem["difficulty"]); ?></td>
 					</tr>
 <?php
+			unset($submissions_successful);
+			unset($submissions_total);
 		}
 ?>
 				</tbody>
