@@ -83,13 +83,14 @@ switch ($submission['testType']){
 <?php
 		break;
 	case "release":
-		
+		$submission["exitcodes"] = mb_substr($submission["exitcodes"], 1, mb_strlen($submission["exitcodes"])-1);
+		$exitcodes = explode("|", $submission["exitcodes"]);
 		$i = 1;
 		foreach (str_split($submission['result']) as $res){
 ?>
 <tr>
 	<td>Тест #<?php print($i); ?></td>
-	<td>?</td>
+	<td><?php print(@$exitcodes[$i-1]); ?></td>
 	<td><?php print($res); ?></td>
 </tr>
 <?php
