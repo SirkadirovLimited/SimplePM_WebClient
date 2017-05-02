@@ -11,7 +11,7 @@
 	
 	$problem_info = $db_problem->fetch_assoc();
 	
-	if (! $db_submission_get = $db->query("SELECT * FROM `spm_submissions` WHERE (`userId` = '" . $_SESSION['uid'] . "' AND `problemId` = '" . $problem_info['id'] . "') ORDER BY `submissionId` DESC LIMIT 1;"))
+	if (!$db_submission_get = $db->query("SELECT * FROM `spm_submissions` WHERE (`userId` = '" . $_SESSION['uid'] . "' AND `problemId` = '" . $problem_info['id'] . "') ORDER BY `submissionId` DESC LIMIT 1;"))
 		die('<strong>Ошибка при выполнении запроса к базе данных! Пожалуйста, посетите сайт позже!</strong>');
 	
 	SPM_header("Задача " . $problem_info['id'], "Редактор");
@@ -26,6 +26,26 @@
 	}else{
 		$submissionCode = NULL;
 		$submissionArgs = NULL;
+	}
+	$db_submission_get->free();
+	unset($db_submission_get);
+	
+	if (isset($_GET['authorSolution'])){
+		
+		(permission_check($_SESSION['permissions'], PERMISSION::teacher) || permission_check($_SESSION['permissions'], PERMISSION::administrator))
+			or die('<strong>Error 403: ACCESS DENIED!</strong>');
+		
+		if (!$db_query = $db->query("SELECT `code` FROM `spm_problems_ready` WHERE `problemId` = '" . $problem_info['id'] . "' LIMIT 1;"))
+			die('<strong>Ошибка при выполнении запроса к базе данных! Пожалуйста, обновите страницу!</strong>');
+		
+		if ($db_query->num_rows > 0)
+			$submissionCode = htmlspecialchars($db_query->fetch_array()[0]);
+		else
+		{
+			print('<strong>Указанная задача не имеет авторского решения!</strong>');
+			SPM_footer();
+			exit;
+		}
 	}
 ?>
 <script src="<?php print(_S_TPL_); ?>plugins/ace/ace.js" charset="utf-8"></script>
@@ -76,6 +96,15 @@
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
 					<input class="btn btn-success btn-block btn-flat" type="submit" name="release" value="Отправка" style="margin: 0;" onclick="getcode();" />
 				</div>
+<?php
+	if (permission_check($_SESSION["permissions"], PERMISSION::teacher) || permission_check($_SESSION["permissions"], PERMISSION::administrator)){
+?>
+				<div class="col-xs-12 col-md-12" style="padding: 0;">
+					<a href="index.php?service=problem&id=<?php print($problem_info['id']); ?>&authorSolution" class="btn btn-default btn-block btn-flat">Получить авторское решение</a>
+				</div>
+<?php
+	}
+?>
 <?php
 	if (isset($submission) && !permission_check($_SESSION["permissions"], PERMISSION::administrator)){
 ?>

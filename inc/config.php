@@ -43,6 +43,10 @@
 	$_SPM_CONF["SERVICE"]["problem_send"] = "problems/problem_send.php"; //require student
 	$_SPM_CONF["SERVICE"]["problem_result"] = "problems/problem_result.php"; //require student
 	$_SPM_CONF["SERVICE"]["bad_problems"] = "problems/bad_problems.php"; //require student
+	//                             OLYMPIADS SERVICES
+	$_SPM_CONF["SERVICE"]["olympiads"] = "olympiads/olympiads.php"; //require teacher/administrator
+	$_SPM_CONF["SERVICE"]["olympiads.edit"] = "olympiads/olympiads.edit.php"; //require teacher/administrator
+	$_SPM_CONF["SERVICE"]["olympiads.result"] = "olympiads/olympiads.result.php"; //require session(uid)
 	//                             USER SERVICES
 	$_SPM_CONF["SERVICE"]["user"] = "user/user.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["user.edit"] = "user/user.edit.php"; //require session(uid)
