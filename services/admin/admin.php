@@ -2,8 +2,6 @@
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	deniedOrAllowed(PERMISSION::administrator);
 	
-	global $_SPM_CONF;
-	
 	SPM_header("Панель администратора");
 ?>
 <style>

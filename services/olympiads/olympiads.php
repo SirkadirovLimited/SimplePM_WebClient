@@ -15,7 +15,7 @@
 	else
 		$count_where = "`teacherId` = '" . $_SESSION["uid"] . "'";
 	
-	if (!$db_result = $db->query("SELECT count(id) FROM `spm_olympiads` WHERE " . $count_where))
+	if (!$db_result = $db->query("SELECT count(id) FROM `spm_olympiads` WHERE " . $count_where . ";"))
 		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
 	
 	$total_olympiads_number = (int)($db_result->fetch_array()[0]);
@@ -43,7 +43,7 @@
 	<div class="col-md-6">
 		<div class="small-box bg-blue">
 			<div class="inner">
-				<h3><?php print($total_olympiads_number); ?></h3>
+				<h3><?=$total_olympiads_number?></h3>
 				<p>ВСЕГО ОЛИМПИАД</p>
 			</div>
 		</div>
@@ -67,15 +67,11 @@
 		<h3 class="panel-title">Олимпиады</h3>
 	</div>
 	<div class="panel-body" style="padding: 0;">
-<?php
-	if ($total_olympiads_number == 0 || $db_result->num_rows === 0){
-?>
+<?php if ($total_olympiads_number == 0 || $db_result->num_rows === 0):?>
 		<div align="center">
 			<h4 style="margin: 10px;">Список олимпиад пуст!</h4>
 		</div>
-<?php
-	}else{
-?>
+<?php else: ?>
 		<div class="table-responsive" style="border-radius: 0; margin: 0;">
 			<table class="table table-bordered table-hover" style="margin: 0;">
 				<thead>
@@ -87,29 +83,27 @@
 				</thead>
 				<tbody>
 <?php
-		while ($olymp = $db_result->fetch_assoc()) {
+		while ($olymp = $db_result->fetch_assoc()):
+			if (!$students_count = $db->query("SELECT count(`id`) FROM `spm_olympiads_students` WHERE `olympId` = '" . $olymp['id'] . "';"))
+				$students_count = 0;
+			else
+				$students_count = $students_count->fetch_array()[0];
 ?>
 					<tr>
-						<td><?php print($olymp['id']); ?></td>
-						<td><a href=""><?php print($olymp['name']); ?></a></td>
-						<td><b>Начинается:</b> <?php print($olymp['startTime']); ?><br/><b>Заканчивается:</b> <?php print($olymp['endTime']); ?></td>
-						<td>?</td>
+						<td><?=$olymp['id']?></td>
+						<td><a href=""><?=$olymp['name']?></a></td>
+						<td><b>Начинается:</b> <?=$olymp['startTime']?><br/><b>Заканчивается:</b> <?=$olymp['endTime']?></td>
+						<td><?php print($students_count); ?></td>
 						<td>
-							<form action="" method="post">
-								<button type="submit" class="btn btn-warning btn-xs" name="edit">EDIT</button>
-								<button type="submit" class="btn btn-danger btn-xs" name="del">DEL</button>
-							</form>
+							<a href="index.php?service=olympiads.edit?id=<?=$olymp['id']?>" class="btn btn-warning btn-xs">EDIT</a>
+							<a href="index.php?service=olympiads?del=<?=$olymp['id']?>" class="btn btn-danger btn-xs">EDIT</a>
 						</td>
 					</tr>
-<?php
-		}
-?>
+<?php unset($students_count); endwhile; ?>
 				</tbody>
 			</table>
 		</div>
-<?php
-	}
-?>
+<?php endif; ?>
 	</div>
 </div>
 <?php

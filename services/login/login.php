@@ -64,8 +64,10 @@
 		$_SESSION['banned'] = $user['banned'];
 		
 		header("Location: index.php?service=" . $_SPM_CONF["SERVICE"]["_AUTOSTART_SERVICE_"]);
-	}else{
-		include_once(_S_TPL_ . "pre-login/header.php");
+		exit;
+	}
+	
+	include_once(_S_TPL_ . "pre-login/header.php");
 ?>
 <p class="login-box-msg">Войдите в систему чтобы продолжить.</p>
 <?php spm_login_error_view(); ?>
@@ -79,8 +81,7 @@
 		<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 	</div>
 	
-<?php
-	if ($_SPM_CONF["SECURITY"]["require_captcha"]){
+<?php if ($_SPM_CONF["SECURITY"]["require_captcha"]):
 ?>
 	<div class="row" style="margin-bottom: 15px;">
 		<div class="col-md-2"></div>
@@ -90,9 +91,7 @@
 		</div>
 		<div class="col-md-2"></div>
 	</div>
-<?php
-	}
-?>
+<?php endif; ?>
 	<button type="submit" class="btn btn-primary btn-block btn-flat">Войти</button>
 	<div style="margin-top: 10px;">
 		<a href="index.php?service=forgot">Восстановление доступа к аккаунту</a><br/>
@@ -101,6 +100,5 @@
 </form>
 
 <?php
-		include_once(_S_TPL_ . "pre-login/footer.php");
-	}
+	include_once(_S_TPL_ . "pre-login/footer.php");
 ?>

@@ -37,11 +37,8 @@
 	
 ?>
 
-<a href="index.php?service=user&id=<?php print($_GET['id']); ?>" class="btn btn-default" style="margin-bottom: 10px; margin-right: 5px;">
+<a href="index.php?service=user&id=<?=$_GET['id']?>" class="btn btn-default" style="margin-bottom: 10px; margin-right: 5px;">
 	<span class="glyphicon glyphicon-chevron-left"></span> Профиль пользователя
-</a>
-<a href="index.php?service=user" class="btn btn-danger" style="margin-bottom: 10px; margin-right: 5px;">
-	<span class="glyphicon glyphicon-trash"></span> Удалить пользователя
 </a>
 
 <?php
