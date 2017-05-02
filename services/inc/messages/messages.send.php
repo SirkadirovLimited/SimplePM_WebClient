@@ -1,15 +1,14 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	defined("__spm.messages.send_as_post__") or die('403 ACCESS DENIED');
-	isset($_SESSION["uid"]) or die('403 ACCESS DENIED');
 	
 	global $spm_sendmsg_user;
 	
-	isset($_POST["msg_title"]) || strlen(trim($_POST["msg_title"]) == 0) or $_POST["msg_title"] = "Ничего важного, просто по делам насущным :)";
+	isset($_POST["msg_title"]) && strlen(strip_tags(trim($_POST["msg_title"]) > 0)) or $_POST["msg_title"] = "Ничего важного:)";
 	
-	strlen($_POST["msg_title"])>=1 && strlen($_POST["msg_title"])<=255 or die("<strong>Введённая вами тема не соответствует требованиям!</strong>");
+	(strlen($_POST["msg_title"])>=1 && strlen($_POST["msg_title"])<=255) or die("<strong>Введённая вами тема не соответствует требованиям!</strong>");
 	
-	isset($_POST["msg_message"]) && ( strlen($_POST["msg_message"])>=2 && strlen($_POST["msg_message"])<=30000 ) or die("<strong>Введённое вами сообщение не соотвествует требованиям!</strong>");
+	isset($_POST["msg_message"]) && ( strlen(strip_tags(trim($_POST["msg_message"])))>=2 && strlen($_POST["msg_message"])<=30000 ) or die("<strong>Введённое вами сообщение не соотвествует требованиям!</strong>");
 	
 	$_POST["msg_title"] = htmlspecialchars(strip_tags(trim($_POST["msg_title"])));
 	$_POST["msg_message"] = htmlspecialchars(strip_tags($_POST["msg_message"]));

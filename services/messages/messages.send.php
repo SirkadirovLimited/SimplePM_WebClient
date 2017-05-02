@@ -19,7 +19,7 @@
 		include_once(_S_SERV_INC_ . "messages/messages.send.php");
 	}
 	
-	if (isset($_GET["reply"]) && strlen($_GET["reply"]) > 0 && (int)$_GET["reply"] > 0){
+	if (isset($_GET["reply"]) && strlen($_GET["reply"]) > 0 && (int)$_GET["reply"] > 0):
 		
 		if (!$reply = $db->query("SELECT * FROM `spm_messages` WHERE `id` = '" . (int)$_GET["reply"] . "' AND (`from` = '" . $_SESSION["uid"] . "' OR `to` = '" . $_SESSION["uid"] . "') LIMIT 1;"))
 			die('<strong>Произошла ошибка при попытке выполнения запроса к базе данных. Пожалуйста, посетите сайт позже!</strong>');
@@ -38,28 +38,29 @@
 		
 		$_s_title = "RE:" . $reply_row["title"];
 		$_s_message = " \r\n=================\r\n" . $reply_row["date"] . " \"" . $reply_row["title"] . "\"\r\n=================\r\n" . $reply_row["message"];
-	} else {
+	else:
 		$_s_title = "";
 		$_s_message = "";
-	}
+	endif;
 	
 	SPM_header("Отправить сообщение");
 ?>
 <div class="form-group">
 	<label for="whoGet">Получатель</label>
-	<input type="text" class="form-control" id="whoGet" value="<?php print($spm_sendmsg_user["secondname"] . " " . $spm_sendmsg_user["firstname"]); ?>, <?php print($spm_sendmsg_user["group"]); ?>" readonly>
+	<input type="text" class="form-control" id="whoGet" value="<?=$spm_sendmsg_user["secondname"] . " " . $spm_sendmsg_user["firstname"]?>, <?=$spm_sendmsg_user["group"]?>" readonly>
 </div>
-<form action="index.php?service=messages.send&id=<?php print($spm_sendmsg_user["id"]); ?>" method="post">
+<form action="index.php?service=messages.send&id=<?=$spm_sendmsg_user["id"]?>" method="post">
 	<div class="form-group">
 		<label for="title">Тема сообщения</label>
-		<input type="text" class="form-control" id="title" name="msg_title" minlength="1" maxlength="255" value="<?php print($_s_title); ?>">
+		<input type="text" class="form-control" id="title" name="msg_title" minlength="0" maxlength="255" value="<?=$_s_title?>">
 	</div>
 	<div class="form-group">
 		<label for="message">Сообщение</label>
-		<textarea class="form-control" id="message" name="msg_message" rows="10" minlength="2" maxlength="30000" required><?php print($_s_message); ?></textarea>
+		<textarea class="form-control" id="message" name="msg_message" rows="10" minlength="2" maxlength="30000" required><?=$_s_message?></textarea>
 	</div>
-	
+<?php if ((int)$_GET["id"] != $_SESSION["uid"]): ?>
 	<input type="submit" class="btn btn-success btn-block" name="msgSend" value="Отправить">
+<?php endif; ?>
 	<a href="index.php?service=messages.list" class="btn btn-warning btn-block">Отменить</a>
 </form>
 <?php

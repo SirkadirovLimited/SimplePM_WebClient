@@ -112,16 +112,12 @@
 			</div>
 		</div>
 <!--PROBLEMS LIST-->
-<?php
-	if ($total_articles_number == 0 || $db_result->num_rows == 0){
-?>
+<?php if ($total_articles_number == 0 || $db_result->num_rows == 0): ?>
 		<div align="center">
 			<h3>Задач не найдено</h3>
 			<p class="lead">По вашему запросу задач не найдено! Попробуйте ввести другой поисковый запрос.</p>
 		</div>
-<?php
-	}else{
-?>
+<?php else: ?>
 		<div class="table-responsive" style="margin: 0;">
 			<table class="table table-hover" style="background-color: white; margin: 0;">
 				<thead>
@@ -129,15 +125,15 @@
 						<th width="10%">
 							ID&nbsp;
 							<small>
-								<a href="<?php print(generate_sort_url(1, $_SORT_BY['id'], $_SORT['asc'])); ?>"><i class="fa fa-caret-square-o-down"></i></a>
-								<a href="<?php print(generate_sort_url(1, $_SORT_BY['id'], $_SORT['desc'])); ?>"><i class="fa fa-caret-square-o-up"></i></a>
+								<a href="<?=generate_sort_url(1, $_SORT_BY['id'], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
+								<a href="<?=generate_sort_url(1, $_SORT_BY['id'], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
 							</small>
 						</th>
 						<th width="40%">
 							Название задачи&nbsp;
 							<small>
-								<a href="<?php print(generate_sort_url(1, $_SORT_BY['name'], $_SORT['asc'])); ?>"><i class="fa fa-caret-square-o-down"></i></a>
-								<a href="<?php print(generate_sort_url(1, $_SORT_BY['name'], $_SORT['desc'])); ?>"><i class="fa fa-caret-square-o-up"></i></a>
+								<a href="<?=generate_sort_url(1, $_SORT_BY['name'], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
+								<a href="<?=generate_sort_url(1, $_SORT_BY['name'], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
 							</small>
 						</th>
 						<th width="30%">Категория</th>
@@ -145,23 +141,24 @@
 						<th width="10%">
 							B&nbsp;
 							<small>
-								<a href="<?php print(generate_sort_url(1, $_SORT_BY["b"], $_SORT['asc'])); ?>"><i class="fa fa-caret-square-o-down"></i></a>
-								<a href="<?php print(generate_sort_url(1, $_SORT_BY["b"], $_SORT['desc'])); ?>"><i class="fa fa-caret-square-o-up"></i></a>
+								<a href="<?=generate_sort_url(1, $_SORT_BY["b"], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
+								<a href="<?=generate_sort_url(1, $_SORT_BY["b"], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
 							</small>
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 <?php
-		while ($problem = $db_result->fetch_assoc()) {
-			//category
-			if (!$db_res_cat = $db->query("SELECT `name` FROM `spm_problems_categories` WHERE `id`='" . $problem['catId'] . "' LIMIT 1;"))
+		while ($problem = $db_result->fetch_assoc()):
+			//Категория
+			if (!$db_res_cat = $db->query("SELECT `name` FROM `spm_problems_categories` WHERE `id`='" . $problem['catId'] . "' LIMIT 1;")):
 				die('Ошибка при подключении к базе данных. Перезагрузите страницу!');
-			elseif ($db_res_cat->num_rows == 0){
+			elseif ($db_res_cat->num_rows == 0):
 				$cat_name = "Все задачи";
-			} else {
+			else:
 				$cat_name = $db_res_cat->fetch_assoc()["name"];
-			}
+			endif;
+			
 			$db_res_cat->free();
 			unset($db_res_cat);
 			
@@ -202,24 +199,20 @@
 			}
 			
 ?>
-					<tr class="<?php print($subm_result); ?>">
-						<td><?php print($problem["id"]); ?></td>
-						<td><a href="index.php?service=problem&id=<?php print($problem["id"]); ?>"><?php print($problem["name"]); ?></a></td>
-						<td><?php print($cat_name); ?></td>
-						<td><?php print($submissions_successful); ?> / <?php print($submissions_total); ?></td>
-						<td><?php print($problem["difficulty"]); ?></td>
+					<tr class="<?=$subm_result?>">
+						<td><?=$problem["id"]?></td>
+						<td><a href="index.php?service=problem&id=<?=$problem["id"]?>"><?=$problem["name"]?></a></td>
+						<td><?=$cat_name?></td>
+						<td><?=$submissions_successful?> / <?=$submissions_total?></td>
+						<td><?=$problem["difficulty"]?></td>
 					</tr>
-<?php
-			unset($submissions_successful);
-			unset($submissions_total);
-		}
-?>
+<?php endwhile; ?>
 				</tbody>
 				<thead>
 					<tr>
 						<th width="10%"></th>
 						<th width="40%">
-							Страница <?php print($_GET["page"]); ?> из <?php print($total_pages); ?>
+							Страница <?=$_GET["page"]?> из <?=$total_pages?>
 						</th>
 						<th width="30%"></th>
 						<th width="10%"></th>
@@ -228,9 +221,7 @@
 				</thead>
 			</table>
 		</div>
-<?php
-	}
-?>
+<?php endif;?>
 
 <?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4, "problems", "&catId=&query=" . $_GET["query"] . "&sortby=" . $_GET["sortby"] . "&sort=" . $_GET["sort"]); ?>
 <?php SPM_footer(); ?>
