@@ -32,6 +32,9 @@
 			die('<strong>Произошла ошибка при выполнении запроса к базе данных! Пожалуйста, обновите страницу!</strong>');
 		
 		unset($tmp_query);
+		
+		header('location: index.php?service=teacherID');
+		exit;
 	}
 	
 	if (isset($_POST['turnOn'])):

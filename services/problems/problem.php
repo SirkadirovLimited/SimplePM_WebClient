@@ -176,8 +176,8 @@
 <!--script src="<?php print(_S_TPL_); ?>js/jquery-1.min.js"></script-->
 <script type="text/javascript">
 	var editor = ace.edit("codeEditor");
-
-    //editor.setTheme("ace/theme/monokai");
+	
+    editor.setTheme("ace/theme/default");
     editor.getSession().setMode("ace/mode/pascal");
 	
 	editor.getSession().on("change", function () { $('textarea[name="code"]').val(editor.getSession().getValue()); });

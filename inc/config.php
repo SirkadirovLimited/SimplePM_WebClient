@@ -40,6 +40,7 @@
 	//                             PROBLEMS SERVICES
 	$_SPM_CONF["SERVICE"]["problems"] = "problems/problems.php"; //require student
 	$_SPM_CONF["SERVICE"]["problem"] = "problems/problem.php"; //require student
+	$_SPM_CONF["SERVICE"]["problem.edit"] = "admin/problems/problem.edit.php"; //require administrator
 	$_SPM_CONF["SERVICE"]["problem_send"] = "problems/problem_send.php"; //require student
 	$_SPM_CONF["SERVICE"]["problem_result"] = "problems/problem_result.php"; //require student
 	$_SPM_CONF["SERVICE"]["bad_problems"] = "problems/bad_problems.php"; //require student

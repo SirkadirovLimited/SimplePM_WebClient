@@ -45,9 +45,16 @@
 								<input type="text" class="form-control" placeholder="ГГГГ-ММ-ДД ЧЧ:ММ:СС" reqired>
 							</td>
 						</tr>
+						<tr>
+							<td>Минимальный балл</td>
+							<td>
+								<input type="number" class="form-control" placeholder="0" value="0" reqired>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
+			
 		</div>
 	</div>
 <?php if (!isset($_GET['id'])): ?>
@@ -70,25 +77,28 @@
 						</tr>
 						<tr>
 							<td>Добавление задач по категориям<br/>(выбрать необходимые)</td>
+							<?php
+								if (!$db_cat_result = $db->query("SELECT * FROM `spm_problems_categories`;"))
+									die(header('location: index.php?service=error&err=db_error'));
+							?>
 							<td>
 								<select class="form-control" size="5" multiple>
 									<option selected>НЕТ</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
+									<?php while ($problem_category = $db_cat_result->fetch_assoc()): ?>
+									<option value="<?=$problem_category['id']?>"><?=$problem_category['name']?></option>
+									<?php endwhile; ?>
+									<?php unset($problem_category); ?>
 								</select>
 							</td>
+							<?php
+								$db_cat_result->free();
+								unset($db_cat_result);
+							?>
 						</tr>
 					</tbody>
 				</table>
 			</div>
+			
 		</div>
 	</div>
 
@@ -114,40 +124,42 @@
 							<td>
 								<select class="form-control" size="5" multiple>
 									<option selected>НЕТ</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
 								</select>
 							</td>
 						</tr>
+						<?php if (permission_check($_SESSION["permissions"], PERMISSION::administrator)): ?>
 						<tr>
+							<?php
+								if(!$db_teacher_query = $db->query("SELECT `userId` FROM `spm_teacherid` WHERE `newUserPermission` = '2';"))
+									die(header('location: index.php?service=error&err=db_error'));
+							?>
 							<td>Добавление участников по учителям<br/>(выбрать необходимые)</td>
 							<td>
 								<select class="form-control" size="5" multiple>
 									<option selected>НЕТ</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
-									<option>Test</option>
+									<?php
+										while ($teacher_id = $db_teacher_query->fetch_assoc()):
+										$teacher_id = $teacher_id["userId"];
+										if (!$teacher_query = $db->query("SELECT `firstname`, `secondname`, `thirdname` FROM `spm_users` WHERE `id` = '" . $teacher_id . "' LIMIT 1;"))
+											die(header('location: index.php?service=error&err=db_error'));
+										$teacherInfo = $teacher_query->fetch_assoc();
+									?>
+									<option value="<?=$teacher_id?>">
+										<?=$teacherInfo["secondname"] . " " . 
+										   $teacherInfo["firstname"] . " " . 
+										   $teacherInfo["thirdname"] . ", id" . 
+										   $teacher_id
+										?>
+									</option>
+									<?php endwhile; ?>
 								</select>
 							</td>
 						</tr>
+						<?php endif; ?>
 					</tbody>
 				</table>
 			</div>
+			
 		</div>
 	</div>
 <?php endif; ?>
