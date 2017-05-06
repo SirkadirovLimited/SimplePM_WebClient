@@ -13,7 +13,7 @@
 		else
 			$action = "index.php?service=news.admin&create";
 ?>
-<script src="<?php print(_S_TPL_); ?>js/tinymce/tinymce.min.js"></script>
+<script src="<?=_S_TPL_?>js/tinymce/tinymce.min.js"></script>
 <script>
 tinymce.init({
   selector: 'textarea',
@@ -30,21 +30,21 @@ tinymce.init({
   image_advtab: true,
  });
 </script>
-<form action="<?php print($action); ?>" method="post">
+<form action="<?=$action?>" method="post">
 	<div class="form-group">
 		<label for="pageId">ID новости</label>
-		<input type="text" class="form-control" id="pageId" value="<?php print($id); ?>" readonly>
+		<input type="text" class="form-control" id="pageId" value="<?=$id?>" readonly>
 	</div>
 	<div class="form-group">
 		<label for="name">Название новости</label>
-		<input type="text" class="form-control" name="pname" id="name" minlength="1" maxlength="255" value="<?php print($name); ?>" required>
+		<input type="text" class="form-control" name="pname" id="name" minlength="1" maxlength="255" value="<?=$name?>" required>
 	</div>
 	<div class="form-group">
 		<label for="content">Контент новости</label>
-		<textarea class="form-control" name="pcontent" id="content" rows="10"><?php print($content); ?></textarea>
+		<textarea class="form-control" name="pcontent" id="content" rows="10"><?=$content?></textarea>
 	</div>
 	<input type="submit" class="btn btn-primary btn-block" value="Сохранить" name="save">
-	<a class="btn btn-danger btn-block" href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=news.admin">Отменить</a>
+	<a class="btn btn-danger btn-block" href="index.php?service=news.admin">Отменить</a>
 </form>
 <?php
 		

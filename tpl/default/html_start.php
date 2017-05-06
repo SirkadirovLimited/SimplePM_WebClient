@@ -28,5 +28,5 @@
 		</style>
 		<script src="<?php print(_S_TPL_); ?>js/push.min.js"></script>
 	</head>
-	<body class="hold-transition skin-blue sidebar-mini layout-boxed">
-		<div class="wrapper">
+	<body class="hold-transition skin-blue sidebar-mini layout-boxed" style="height: auto;">
+		<div class="wrapper" style="height: auto;">
