@@ -4,6 +4,8 @@
 	deniedOrAllowed(PERMISSION::administrator);
 	
 	/*
-	 * ПЫТАНИЕ ОГНЁМ
+	 * ИСПЫТАНИЕ ОГНЁМ
 	 */
+	
+	
 ?>

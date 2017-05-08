@@ -62,22 +62,25 @@
 						<th width="70%">Значение поля</th>
 					</thead>
 					<tbody>
+						
 						<tr>
 							<td>
 								Название задачи
 							</td>
 							<td style="padding: 0;">
-								<input type="text" class="form-control" placeholder="Hello, world!" maxlength="255" value="<?=$problem_info['name']?>" required>
+								<input type="text" name="name" class="form-control" placeholder="Hello, world!" maxlength="255" value="<?=$problem_info['name']?>" required>
 							</td>
 						</tr>
+						
 						<tr>
 							<td>
 								Задача доступна
 							</td>
 							<td>
-								<input type="checkbox" <?=($problem_info['enabled']) ? 'checked' : ''?>>
+								<input type="checkbox" name="enabled" <?=($problem_info['enabled']) ? 'checked' : ''?>>
 							</td>
 						</tr>
+						
 						<tr>
 							<td>
 								Категория задачи
@@ -87,7 +90,7 @@
 									if (!$db_cat_result = $db->query("SELECT * FROM `spm_problems_categories`;"))
 										die(header('location: index.php?service=error&err=db_error'));
 								?>
-								<select class="form-control" required>
+								<select name="catId" class="form-control" required>
 									<option>Не выбрана</option>
 									
 									<?php while ($problem_category = $db_cat_result->fetch_assoc()): ?>
@@ -103,22 +106,25 @@
 								?>
 							</td>
 						</tr>
+						
 						<tr>
 							<td>
 								Сложность задачи
 							</td>
 							<td style="padding: 0;">
-								<input type="number" class="form-control" min="1" max="100" value="<?=$problem_info['difficulty']?>" placeholder="Сложность задачи" required>
+								<input type="number" name="difficulty" class="form-control" min="1" max="100" value="<?=$problem_info['difficulty']?>" placeholder="Сложность задачи" required>
 							</td>
 						</tr>
+						
 						<tr>
 							<td>
 								Текст задачи
 							</td>
 							<td style="padding: 0;">
-								<textarea class="form-control editor" style="resize: none;" rows="10" placeholder="" maxlength="65535" required><?=$problem_info['description']?></textarea>
+								<textarea name="description" class="form-control editor" style="resize: none;" rows="10" maxlength="65535" required><?=$problem_info['description']?></textarea>
 							</td>
 						</tr>
+						
 						<tr>
 							<th>
 								Описание потоков
@@ -132,14 +138,72 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td style="padding: 0;"><textarea class="form-control" style="resize: none;" rows="5" placeholder="Во входном потоке..." maxlength="65535" required><?=$problem_info['input']?></textarea></td>
-											<td style="padding: 0;"><textarea class="form-control" style="resize: none;" rows="5" placeholder="В выходном потоке..." maxlength="65535" required><?=$problem_info['output']?></textarea></td>
+											<td style="padding: 0;">
+												<textarea
+													name="input"
+													class="form-control"
+													style="resize: none;"
+													rows="5"
+													placeholder="Во входном потоке..."
+													maxlength="65535"
+													required
+												><?=$problem_info['input']?></textarea>
+											</td>
+											<td style="padding: 0;">
+												<textarea
+													name="output"
+													class="form-control"
+													style="resize: none;"
+													rows="5"
+													placeholder="В выходном потоке..."
+													maxlength="65535"
+													required
+												><?=$problem_info['output']?></textarea>
+											</td>
 										</tr>
 									</tbody>
 								</table>
 								<!--/STREAM DESCRIPTION-->
 							</td>
 						</tr>
+						
+						<tr>
+							<td>
+								Лимит времени исполнения (debug)
+							</td>
+							<td style="padding: 0;">
+								<div class="input-group">
+									<input
+										type="number"
+										name="debugTimeLimit"
+										class="form-control"
+										value="<?=$problem_info['debugTimeLimit']?>"
+										placeholder="Сложность задачи"
+										required
+									>
+									<span class="input-group-addon">мс</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Лимит памяти исполнения (debug)
+							</td>
+							<td style="padding: 0;">
+								<div class="input-group">
+									<input
+										type="number"
+										name="debugMemoryLimit"
+										class="form-control"
+										value="<?=$problem_info['debugMemoryLimit']?>"
+										placeholder="Сложность задачи"
+										required
+									>
+									<span class="input-group-addon">мс</span>
+								</div>
+							</td>
+						</tr>
+						
 					</tbody>
 				</table>
 			</div>
