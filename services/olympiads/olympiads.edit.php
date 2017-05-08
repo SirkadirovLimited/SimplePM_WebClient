@@ -116,13 +116,9 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Добавление участников по идентификаторам<br/>(1 строка - 1 номер)</td>
-							<td><textarea class="form-control" style="resize: none;" rows="5"></textarea></td>
-						</tr>
-						<tr>
 							<td>Добавление участников по группам<br/>(выбрать необходимые)</td>
 							<td>
-								<select class="form-control" size="5" multiple>
+								<select class="form-control" size="5" name="users_groups[]" multiple>
 									<option selected>НЕТ</option>
 								</select>
 							</td>
@@ -135,7 +131,7 @@
 							?>
 							<td>Добавление участников по учителям<br/>(выбрать необходимые)</td>
 							<td>
-								<select class="form-control" size="5" multiple>
+								<select class="form-control" size="5" name="users_teachers[]" multiple>
 									<option selected>НЕТ</option>
 									<?php
 										while ($teacher_id = $db_teacher_query->fetch_assoc()):

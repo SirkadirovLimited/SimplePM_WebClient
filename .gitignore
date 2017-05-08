@@ -1,0 +1,4 @@
+# Exclude unused or user-specific files
+
+web.config
+.htpasswd
