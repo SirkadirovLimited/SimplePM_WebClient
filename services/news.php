@@ -29,51 +29,41 @@
 	
 	
 	SPM_header("Новости","Раздел новостей");
-	
-	//Create button
-	if(permission_check($_SESSION['permissions'], PERMISSION::administrator)){
 ?>
+
+<?php if(permission_check($_SESSION['permissions'], PERMISSION::administrator)): ?>
 <div align="right" style="margin-bottom: 10px;">
 	<a href="index.php?service=news.admin&create" class="btn btn-success btn-flat">Создать новость</a>
 	<a href="index.php?service=news.admin" class="btn btn-primary btn-flat">Управление</a>
 </div>
-<?php
-	}
-	
-	if ($total_articles_number == 0 || $db_result->num_rows === 0){
-?>
+<?php endif; ?>
+
+
+<?php if ($total_articles_number == 0 || $db_result->num_rows === 0): ?>
 <div align="center">
 	<h1>Упс!</h1>
 	<p class="lead">Новостей ещё нет, но не огорчайтесь! Скоро они появятся! :)</p>
 </div>
-<?php
-	}else{
+<?php else: ?>
 			
-		while ($article = $db_result->fetch_assoc()) {
-?>
-<div class="panel panel-primary" id="article-<?php print($article['id']); ?>" style="margin-bottom: 10px; border-radius: 0;">
-	<div class="panel-heading" style="border-radius: 0;">
-		<h3 class="panel-title"><a href="#article-<?php print($article['id']); ?>"><?php print($article['title']); ?></a></h3>
-	</div>
-	<div class="panel-body">
-		<?php print(htmlspecialchars_decode($article['content'])); ?>
-	</div>
-	<div class="panel-footer">
-		<a href="index.php?service=user&id=<?php print($article['authorId']); ?>">Профиль автора</a> / Дата публикации: <?php print($article['date']); ?>
-		<?php
-			if (permission_check($_SESSION['permissions'], PERMISSION::administrator)){
-				print(" / <a href='index.php?service=news.admin&edit=" . $article['id'] . "'>Редактировать</a>");
-			}
-		?>
-	</div>
-</div>
-<?php
-		}
-		unset($article);
-		unset($db_result);
-		
-	}
-?>
+	<?php while ($article = $db_result->fetch_assoc()): ?>
+		<div class="panel panel-primary" id="article-<?php print($article['id']); ?>" style="margin-bottom: 10px; border-radius: 0;">
+			<div class="panel-heading" style="border-radius: 0;">
+				<h3 class="panel-title"><a href="#article-<?=$article['id']?>"><?=$article['title']?></a></h3>
+			</div>
+			<div class="panel-body">
+				<?=htmlspecialchars_decode($article['content'])?>
+			</div>
+			<div class="panel-footer">
+				<a href="index.php?service=user&id=<?=$article['authorId']?>">Профиль автора</a> / Дата публикации: <?=$article['date']?>
+				
+				<?php if (permission_check($_SESSION['permissions'], PERMISSION::administrator)): ?>
+				&nbsp;/&nbsp;<a href='index.php?service=news.admin&edit=<?=$article["id"]?>'>Редактировать</a>
+				<?php endif; ?>
+			</div>
+		</div>
+	<?php endwhile; ?>
+<?php endif; ?>
 
 <?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4); ?>
 

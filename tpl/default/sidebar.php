@@ -16,12 +16,12 @@
 				//teacher
 				if (permission_check($_SESSION['permissions'], PERMISSION::teacher))
 					include_once(_S_TPL_ . "sidebar/teacher.inc.php");
-				//olymp
-				//if (permission_check($_SESSION['permissions'], PERMISSION::olymp))
-				//	include_once(_S_TPL_ . "sidebar/olymp.inc.php");
 				//admin
 				if (permission_check($_SESSION['permissions'], PERMISSION::administrator))
 					include_once(_S_TPL_ . "sidebar/admin.inc.php");
+				//olymp
+				if (permission_check($_SESSION['permissions'], PERMISSION::olymp))
+					include_once(_S_TPL_ . "sidebar/olymp.inc.php");
 			?>
 		</ul>
 	</section>

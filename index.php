@@ -47,18 +47,18 @@
 		if (!$db_result = $db->query("SELECT `sessionId`, `banned`, `online` FROM `spm_users` WHERE `id` = '" . mysqli_real_escape_string($db, $_SESSION['uid']) . "' LIMIT 1;"))
 			die('<strong>Произошла ошибка при попытке подключения к базе данных! Пожалуйста, посетите сайт позже!</strong>');
 		
-		if ($db_result->num_rows == 0){
+		if ($db_result->num_rows == 0):
 			unset($_SESSION);
 			header('location: index.php');
 			die;
-		}
+		endif;
 		
 		$userInfo = $db_result->fetch_assoc();
 		$db_result->free();
 		unset($db_result);
 		
 		//Check if user banned
-		if ($userInfo['banned'] == 1){
+		if ($userInfo['banned'] == 1):
 			
 			if (!$db->query("UPDATE `spm_users` SET `online` = 0 WHERE `id` = '" . mysqli_real_escape_string($db, $_SESSION['uid']) . "' LIMIT 1;"))
 				die('<strong>Произошла ошибка при попытке подключения к базе данных! Пожалуйста, посетите сайт позже!</strong>');
@@ -66,18 +66,13 @@
 			unset($_SESSION);
 			header('location: index.php');
 			die;
-		}
+		endif;
 		//Check if another user logged in in the same account
-		if ($userInfo['sessionId'] != session_id()){
+		if ($userInfo['sessionId'] != session_id()):
 			unset($_SESSION['uid']);
 			header('location: index.php');
 			die;
-		}
-		
-		if ($userInfo['online'] == 0){
-			if (!$db->query("UPDATE `spm_users` SET `online` = 1 WHERE `id` = '" . mysqli_real_escape_string($db, $_SESSION['uid']) . "' LIMIT 1;"))
-				die('<strong>Произошла ошибка при попытке подключения к базе данных! Пожалуйста, посетите сайт позже!</strong>');
-		}
+		endif;
 	}
 	
 	//Functions autorun
@@ -91,15 +86,15 @@
 	if(!isset($_SESSION['uid']) &&  !isset($_SPM_CONF["SERVICE_NOLOGIN"][$_spm_run_service]))
 		$_spm_run_service = "login";
 	
-	if (!isset($_SPM_CONF["SERVICE"][$_spm_run_service]) && !isset($_SESSION['uid'])){
+	if (!isset($_SPM_CONF["SERVICE"][$_spm_run_service]) && !isset($_SESSION['uid'])):
 		include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["404"]);
 		die();
-	}elseif ( ( !isset($_SPM_CONF["SERVICE"][$_spm_run_service]) && isset($_SESSION['uid']) ) || !file_exists(_S_SERV_ . $_SPM_CONF["SERVICE"][$_spm_run_service])){
+	elseif ( ( !isset($_SPM_CONF["SERVICE"][$_spm_run_service]) && isset($_SESSION['uid']) ) || !file_exists(_S_SERV_ . $_SPM_CONF["SERVICE"][$_spm_run_service])):
 		SPM_header("Ошибка 404");
 		include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["404"]);
 		SPM_footer();
 		die();
-	}
+	endif;
 	//CONTENT
 	include_once(_S_SERV_ . $_SPM_CONF["SERVICE"][$_spm_run_service]);
 	

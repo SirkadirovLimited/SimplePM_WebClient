@@ -3,5 +3,5 @@
 <div align="center">
 	<h1>Упс... данная страница не найдена!</h1>
 	<p class="lead">Извините, но запрашиваемая вами страница не найдена. Проверьте ваш запрос или начните навигацию с главной страницы сайта.</p>
-	<p><a href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>" class="btn btn-primary">Перейти на главную</a></p>
+	<p><a href="index.php" class="btn btn-primary btn-flat">Перейти на главную</a></p>
 </div>

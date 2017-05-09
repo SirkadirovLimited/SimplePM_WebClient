@@ -61,7 +61,7 @@
 	if (!$db_result = $db->query("SELECT `id`,`difficulty`,`catId`,`name` FROM `spm_problems` WHERE " . $selectedCatIdText . " AND " . $queryText . " ORDER BY `" . $_GET["sortby"] . "` " . $_GET["sort"] . " LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
 		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
 	
-	SPM_header("Архив задач");
+	SPM_header("Архив задач", "Просмотр всех доступных задач");
 	
 	/*
 	 * FUNCTIONS
@@ -74,54 +74,52 @@
 		return "index.php?service=problems&catId=&page=" . $page . "&query=" . $_GET["query"] . "&sortby=" . $sortby . "&sort=" . $sort;
 	}
 ?>
+
+<?php if (permission_check($_SESSION["permissions"], PERMISSION::administrator)): ?>
+<div align="right" style="margin-bottom: 10px;">
+	<a href="index.php?service=problem.edit" class="btn btn-success btn-flat">Создать задачу</a>
+</div>
+<?php endif; ?>
 <!--SEARCH-->
-		<div class="row">
-			<div class="col-md-8">
-				<form action="" mathod="post">
-					<!--HIDDEN VARIABLES-->
-					<input type="hidden" name="service" value="problems" />
-					<input type="hidden" name="page" value="1" />
-					<!--QUERY SELECTER-->
-					<input class="form-control" name="query" placeholder="№ задачи / название задачи" value="<?php print($_GET['query']); ?>">
-					<input type="submit" class="btn btn-success btn-block btn-flat" value="Поиск">
-				</form>
-			</div>
-			<div class="col-md-4">
-				<form action="index.php" method="get">
-					<!--HIDDEN VARIABLES-->
-					<input type="hidden" name="service" value="problems" />
-					<input type="hidden" name="page" value="1" />
-					<!--CATEGORY SELECTER-->
-					<select class="form-control" name="catId" required>
-						<option value="*" selected>Все темы и подтемы</option>
+<div class="row">
+	<div class="col-md-8">
+		<form action="" mathod="post">
+			<!--HIDDEN VARIABLES-->
+			<input type="hidden" name="service" value="problems" />
+			<input type="hidden" name="page" value="1" />
+			<!--QUERY SELECTER-->
+			<input class="form-control" name="query" placeholder="№ задачи / название задачи" value="<?php print($_GET['query']); ?>">
+			<input type="submit" class="btn btn-success btn-block btn-flat" value="Поиск">
+		</form>
+	</div>
+	<div class="col-md-4">
+		<form action="index.php" method="get">
+			<!--HIDDEN VARIABLES-->
+			<input type="hidden" name="service" value="problems" />
+			<input type="hidden" name="page" value="1" />
+			<!--CATEGORY SELECTER-->
+			<select class="form-control" name="catId" required>
+				<option value="*" selected>Все темы и подтемы</option>
 <?php
 	if(!$db_result_cat = $db->query("SELECT * FROM `spm_problems_categories`"))
-		die('Ошибка при попытке подключения к базе данных, попробуйте выполнить ваш запрос позже!');
+		die(header('location: index.php?service=error&err=db_error'));
 	
-	while ($problem_cat = $db_result_cat->fetch_assoc()){
+	while ($problem_cat = $db_result_cat->fetch_assoc()):
 ?>
-						<option value="<?php print($problem_cat["id"]); ?>"><?php print($problem_cat["name"]); ?></option>
-<?php
-	}
-	unset($problem_cat);
-	unset($db_result_cat);
-?>
-					</select>
-					<input type="submit" class="btn btn-primary btn-block btn-flat" value="Применить">
-				</form>
-			</div>
-		</div>
+				<option value="<?php print($problem_cat["id"]); ?>"><?php print($problem_cat["name"]); ?></option>
+<?php endwhile; ?>
+			</select>
+			<input type="submit" class="btn btn-primary btn-block btn-flat" value="Применить">
+		</form>
+	</div>
+</div>
 <!--PROBLEMS LIST-->
-<?php
-	if ($total_articles_number == 0 || $db_result->num_rows == 0){
-?>
+<?php if ($total_articles_number == 0 || $db_result->num_rows == 0): ?>
 		<div align="center">
 			<h3>Задач не найдено</h3>
 			<p class="lead">По вашему запросу задач не найдено! Попробуйте ввести другой поисковый запрос.</p>
 		</div>
-<?php
-	}else{
-?>
+<?php else: ?>
 		<div class="table-responsive" style="margin: 0;">
 			<table class="table table-hover" style="background-color: white; margin: 0;">
 				<thead>
@@ -129,39 +127,40 @@
 						<th width="10%">
 							ID&nbsp;
 							<small>
-								<a href="<?php print(generate_sort_url(1, $_SORT_BY['id'], $_SORT['asc'])); ?>"><i class="fa fa-caret-square-o-down"></i></a>
-								<a href="<?php print(generate_sort_url(1, $_SORT_BY['id'], $_SORT['desc'])); ?>"><i class="fa fa-caret-square-o-up"></i></a>
+								<a href="<?=generate_sort_url(1, $_SORT_BY['id'], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
+								<a href="<?=generate_sort_url(1, $_SORT_BY['id'], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
 							</small>
 						</th>
 						<th width="40%">
 							Название задачи&nbsp;
 							<small>
-								<a href="<?php print(generate_sort_url(1, $_SORT_BY['name'], $_SORT['asc'])); ?>"><i class="fa fa-caret-square-o-down"></i></a>
-								<a href="<?php print(generate_sort_url(1, $_SORT_BY['name'], $_SORT['desc'])); ?>"><i class="fa fa-caret-square-o-up"></i></a>
+								<a href="<?=generate_sort_url(1, $_SORT_BY['name'], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
+								<a href="<?=generate_sort_url(1, $_SORT_BY['name'], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
 							</small>
-						</th>
-						<th width="30%">Категория</th>
-						<th width="10%">Решаемость</th>
-						<th width="10%">
-							B&nbsp;
-							<small>
-								<a href="<?php print(generate_sort_url(1, $_SORT_BY["b"], $_SORT['asc'])); ?>"><i class="fa fa-caret-square-o-down"></i></a>
-								<a href="<?php print(generate_sort_url(1, $_SORT_BY["b"], $_SORT['desc'])); ?>"><i class="fa fa-caret-square-o-up"></i></a>
-							</small>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
+				</th>
+				<th width="30%">Категория</th>
+				<th width="10%">Решаемость</th>
+				<th width="10%">
+					B&nbsp;
+					<small>
+						<a href="<?=generate_sort_url(1, $_SORT_BY["b"], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
+						<a href="<?=generate_sort_url(1, $_SORT_BY["b"], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
+					</small>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
 <?php
-		while ($problem = $db_result->fetch_assoc()) {
-			//category
-			if (!$db_res_cat = $db->query("SELECT `name` FROM `spm_problems_categories` WHERE `id`='" . $problem['catId'] . "' LIMIT 1;"))
+		while ($problem = $db_result->fetch_assoc()):
+			//Категория
+			if (!$db_res_cat = $db->query("SELECT `name` FROM `spm_problems_categories` WHERE `id`='" . $problem['catId'] . "' LIMIT 1;")):
 				die('Ошибка при подключении к базе данных. Перезагрузите страницу!');
-			elseif ($db_res_cat->num_rows == 0){
+			elseif ($db_res_cat->num_rows == 0):
 				$cat_name = "Все задачи";
-			} else {
+			else:
 				$cat_name = $db_res_cat->fetch_assoc()["name"];
-			}
+			endif;
+			
 			$db_res_cat->free();
 			unset($db_res_cat);
 			
@@ -202,35 +201,45 @@
 			}
 			
 ?>
-					<tr class="<?php print($subm_result); ?>">
-						<td><?php print($problem["id"]); ?></td>
-						<td><a href="index.php?service=problem&id=<?php print($problem["id"]); ?>"><?php print($problem["name"]); ?></a></td>
-						<td><?php print($cat_name); ?></td>
-						<td><?php print($submissions_successful); ?> / <?php print($submissions_total); ?></td>
-						<td><?php print($problem["difficulty"]); ?></td>
-					</tr>
-<?php
-			unset($submissions_successful);
-			unset($submissions_total);
-		}
-?>
-				</tbody>
-				<thead>
-					<tr>
-						<th width="10%"></th>
-						<th width="40%">
-							Страница <?php print($_GET["page"]); ?> из <?php print($total_pages); ?>
-						</th>
-						<th width="30%"></th>
-						<th width="10%"></th>
-						<th width="10%"></th>
-					</tr>
-				</thead>
-			</table>
-		</div>
-<?php
-	}
-?>
+			<tr class="<?=$subm_result?>">
+				<td>
+					<?=$problem["id"]?>
+					<?php if (permission_check($_SESSION["permissions"], PERMISSION::administrator)): ?>
+					<button class="btn btn-primary btn-flat btn-xs"
+							type="button"
+							data-toggle="collapse"
+							data-target="#control-<?=$problem["id"]?>">
+						...
+					</button>
+					<div class="collapse" id="control-<?=$problem["id"]?>" style="margin-top: 20px;">
+						<a href="index.php?service=problem.edit&id=<?=$problem['id']?>" class="btn btn-warning btn-flat btn-xs btn-block">EDIT</a>
+						<form action="index.php?service=problems" method="post">
+							<input type="submit" class="btn btn-danger btn-flat btn-xs btn-block" value="DEL">
+						</form>
+					</div>
+					<?php endif; ?>
+				</td>
+				<td><a href="index.php?service=problem&id=<?=$problem["id"]?>"><?=$problem["name"]?></a></td>
+				<td><?=$cat_name?></td>
+				<td><?=$submissions_successful?> / <?=$submissions_total?></td>
+				<td><?=$problem["difficulty"]?></td>
+			</tr>
+<?php endwhile; ?>
+		</tbody>
+		<thead>
+			<tr>
+				<th width="10%"></th>
+				<th width="40%">
+					Страница <?=$_GET["page"]?> из <?=$total_pages?>
+				</th>
+				<th width="30%"></th>
+				<th width="10%"></th>
+				<th width="10%"></th>
+			</tr>
+		</thead>
+	</table>
+</div>
+<?php endif;?>
 
 <?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4, "problems", "&catId=&query=" . $_GET["query"] . "&sortby=" . $_GET["sortby"] . "&sort=" . $_GET["sort"]); ?>
 <?php SPM_footer(); ?>

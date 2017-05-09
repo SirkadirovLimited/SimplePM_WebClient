@@ -31,8 +31,8 @@
 ?>
 <div style="margin-bottom: 5px;">
 	<div class="btn-group" role="group" style="margin: 1px;">
-		<a href="index.php?service=messages.list&inbox" class="btn btn-default<?php print($add_class_inbox); ?>">Входящие</a>
-		<a href="index.php?service=messages.list&outbox" class="btn btn-default<?php print($add_class_outbox); ?>">Исходящие</a>
+		<a href="index.php?service=messages.list&inbox" class="btn btn-default<?=$add_class_inbox?>">Входящие</a>
+		<a href="index.php?service=messages.list&outbox" class="btn btn-default<?=$add_class_outbox?>">Исходящие</a>
 	</div>
 </div>
 <?php
@@ -50,9 +50,10 @@
 			if (!$db_get_uinfo = $db->query("SELECT `firstname`,`secondname`,`thirdname`,`group` FROM `spm_users` WHERE `id` = '" . $msgListItem[$fto1_query] . "' LIMIT 1;"))
 				die('<strong>КРИТИЧЕСКАЯ ОШИБКА: Невозможно выполнить запрос к базе данных! Пожалуйста, повторите ваш запрос позже.</strong>');
 			
-			if ($db_get_uinfo->num_rows === 0)
+			if ($db_get_uinfo->num_rows === 0){
 				$msg_sender = "Пользователь удалён";
-			else {
+				$msg_sender_group = "user";
+			} else {
 				$msg_sender_arr = $db_get_uinfo->fetch_assoc();
 				$msg_sender = $msg_sender_arr["secondname"] . " " . $msg_sender_arr["firstname"] . " " . $msg_sender_arr["thirdname"];
 				$msg_sender_group = $msg_sender_arr["group"];
@@ -70,15 +71,15 @@
 ?>
 <div class="media">
 	<div class="media-left">
-		<a href="index.php?service=user&id=<?php print($msgListItem[$fto1_query]); ?>">
-			<img class="img-circle" src="index.php?service=image&uid=<?php print($msgListItem[$fto1_query]); ?>" width="64px" height="64px" alt="Sender avatar">
+		<a href="index.php?service=user&id=<?=$msgListItem[$fto1_query]?>">
+			<img class="img-circle" src="index.php?service=image&uid=<?=$msgListItem[$fto1_query]?>" width="64px" height="64px" alt="Sender avatar">
 		</a>
 	</div>
 	<div class="media-body">
-		<h4 class="media-heading"><a href="index.php?service=user&id=<?php print($msgListItem[$fto1_query]); ?>"><?php print($msg_sender); ?></a>, <?php print($msg_sender_group); ?></h4>
-		<b><?php print($msgListItem["title"]); ?></b><br/>
-		<a href="index.php?service=messages.send&id=<?php print($msgListItem[$fto1_query]); ?>&reply=<?php print($msgListItem["id"]); ?>">Просмотреть сообщение</a>
-		/ <a href="index.php?service=messages.list&del=<?php print($msgListItem["id"]); ?>"
+		<h4 class="media-heading"><a href="index.php?service=user&id=<?=$msgListItem[$fto1_query]?>"><?=$msg_sender?></a>, <?=$msg_sender_group?></h4>
+		<b><?=$msgListItem["title"]?></b><br/>
+		<a href="index.php?service=messages.send&id=<?=$msgListItem[$fto1_query]?>&reply=<?=$msgListItem["id"]?>">Просмотреть сообщение</a>
+		/ <a href="index.php?service=messages.list&del=<?=$msgListItem["id"]?>"
 			onclick="return confirm('Вы действительно хотите удалить данное сообщение? Это действие отменить не возможно!')">Удалить</a><br/>
 	</div>
 </div>

@@ -1,7 +1,7 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 ?>
-<div class="content-wrapper">
+<div class="content-wrapper" style="background-color: #efefef;">
 	<section class="content-header">
 		<h1>
 			<?php print($_TPL_PAGENAME); ?>

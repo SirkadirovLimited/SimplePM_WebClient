@@ -13,8 +13,9 @@
 		define("_SPM_register_", 1);
 		include_once(_S_SERV_INC_ . "register.php");
 		
-	}else{
-		include_once(_S_TPL_ . "pre-login/header.php");
+	}
+	
+	include_once(_S_TPL_ . "pre-login/header.php");
 ?>
 <p class="login-box-msg">Все поля обязательны для заполнения.</p>
 
@@ -80,6 +81,5 @@
 	<a href="index.php?service=login" class="btn btn-default btn-block btn-flat">Уже есть аккаунт?</a>
 </form>
 <?php
-		include_once(_S_TPL_ . "pre-login/footer.php");
-	}
+	include_once(_S_TPL_ . "pre-login/footer.php");
 ?>

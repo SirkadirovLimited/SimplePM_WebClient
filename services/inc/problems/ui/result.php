@@ -22,13 +22,9 @@
 ?>
 <pre style="border-radius: 0;"><?php print($submission['compiler_text']); ?></pre>
 
-<?php
-	if ($submission['errorOutput'] != null && $submission['errorOutput'] != ""){
-?>
+<?php if ($submission['errorOutput'] != null && $submission['errorOutput'] != ""): ?>
 <pre style="border-radius: 0;"><?php print($submission['errorOutput']); ?></pre>
-<?php
-	}
-?>
+<?php endif; ?>
 
 <div class="panel panel-default" style="border-radius: 0;">
 	<div class="panel-heading">Результаты тестирования</div>
@@ -51,7 +47,7 @@
 						</thead>
 						<tbody>
 <?php
-if ($submission['hasError'] == true)
+if ($submission['hasError'])
 	$result = '-';
 else
 	$result = '+';
@@ -102,19 +98,12 @@ switch ($submission['testType']){
 ?>
 						</tbody>
 					</table>
-<?php
-if ($submission['testType'] == "release"){
-?>
+<?php if ($submission['testType'] == "release"): ?>
 					<strong>Начислено баллов: <?php print($submission['b']); ?> из <?php print($problemDifficulty); ?> возможных.</strong>
-<?php
-}
-elseif ($submission['testType'] == "debug" && $submission['output'] != null){
-?>
+<?php elseif ($submission['testType'] == "debug" && $submission['output'] != null): ?>
 					<!--pre style="border-radius: 0; text-align: left;"><?php print($submission['output']); ?></pre-->
 					<textarea class="form-control" style="width: 100%; resize: none;" rows="5" readonly><?php print($submission['output']); ?></textarea>
-<?php
-}
-?>
+<?php endif;?>
 				</div>
 			</div>
 		</div>
@@ -122,9 +111,7 @@ elseif ($submission['testType'] == "debug" && $submission['output'] != null){
 	</div>
 </div>
 
-<?php
-if (!$submission['seen']){
-?>
+<?php if (!$submission['seen']): ?>
 <script>
 	Push.close('unseenResult');
 	Push.create('<?php print($_SPM_CONF["BASE"]["SITE_NAME"]); ?>', {
@@ -140,5 +127,5 @@ if (!$submission['seen']){
 <?php
 	if (!$db->query("UPDATE `spm_submissions` SET `seen` = true WHERE `submissionId` = '" . $submission['submissionId'] . "' LIMIT 1;"))
 		die('<strong>Произошла ошибка при попытке подключения к базе данных! Пожалуйста, обновите страницу!</strong>');
-}
+endif;
 ?>
