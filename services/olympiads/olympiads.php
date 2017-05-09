@@ -16,7 +16,7 @@
 		$count_where = "`teacherId` = '" . $_SESSION["uid"] . "'";
 	
 	if (!$db_result = $db->query("SELECT count(id) FROM `spm_olympiads` WHERE " . $count_where . ";"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	$total_olympiads_number = (int)($db_result->fetch_array()[0]);
 	$olympiads_per_page = $_SPM_CONF["SERVICES"]["news"]["articles_per_page"];
@@ -35,7 +35,7 @@
 	
 	//SQL queries and formatting
 	if (!$db_result = $db->query("SELECT * FROM `spm_olympiads` ORDER BY `id` DESC LIMIT " . ($current_page * $olympiads_per_page - $olympiads_per_page) . " , " . $olympiads_per_page . ";"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	SPM_header("Олимпиадный режим", "Список олимпиад");
 ?>

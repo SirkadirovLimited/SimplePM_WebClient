@@ -29,7 +29,7 @@
 							`teacherId` = '" . $teacherId . "'
 						;";
 		if (!$db->query($tmp_query))
-			die('<strong>Произошла ошибка при выполнении запроса к базе данных! Пожалуйста, обновите страницу!</strong>');
+			die(header('location: index.php?service=error&err=db_error'));
 		
 		unset($tmp_query);
 		
@@ -57,7 +57,7 @@
 	endif;
 	
 	if (!$db_query = $db->query("SELECT `teacherId`,`enabled` FROM `spm_teacherid` WHERE `userId` = '" . $_SESSION['uid'] . "' LIMIT 1;"))
-		die('<strong>Произошла ошибка при выполнении запроса к базе данных! Пожалуйста, обновите страницу!</strong>');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	if ($db_query->num_rows == 0):
 		

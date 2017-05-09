@@ -6,7 +6,7 @@
 	isset($_GET['id']) && (int)$_GET['id']>=0 or $_GET['id'] = null;
 	
 	if (isset($_POST['save']))
-		include_once(_S_SERV_INC_ . "");
+		include_once(_S_SERV_INC_ . "admin/problem.edit.sender.php");
 	
 	if ($_GET['id'] != null){
 		
@@ -34,6 +34,12 @@
 	}
 	
 	SPM_header("Задача " . $problem_info['id'], "Редактирование задачи", "Управление задачами");
+?>
+
+<?php
+	!isset($_GET['success']) or _spm_view_msg("<b>Задание выполнено успешно!</b>
+	<br/>Условия задачи успешно изменены! Просим заметить, что при изменении сложности задачи рейтинг учеников, решивших задачу не изменяется!",
+	"success");
 ?>
 
 <script src="<?=_S_TPL_?>js/tinymce/tinymce.min.js"></script>
@@ -77,7 +83,7 @@
 								Задача доступна
 							</td>
 							<td>
-								<input type="checkbox" name="enabled" <?=($problem_info['enabled']) ? 'checked' : ''?>>
+								<input type="checkbox" name="enabled" value="1" <?=($problem_info['enabled']) ? 'checked' : ''?>>
 							</td>
 						</tr>
 						
@@ -121,7 +127,7 @@
 								Текст задачи
 							</td>
 							<td style="padding: 0;">
-								<textarea name="description" class="form-control editor" style="resize: none;" rows="10" maxlength="65535" required><?=$problem_info['description']?></textarea>
+								<textarea name="description" class="form-control editor" style="resize: none;" rows="10" maxlength="65535"><?=$problem_info['description']?></textarea>
 							</td>
 						</tr>
 						
@@ -146,7 +152,6 @@
 													rows="5"
 													placeholder="Во входном потоке..."
 													maxlength="65535"
-													required
 												><?=$problem_info['input']?></textarea>
 											</td>
 											<td style="padding: 0;">
@@ -157,7 +162,6 @@
 													rows="5"
 													placeholder="В выходном потоке..."
 													maxlength="65535"
-													required
 												><?=$problem_info['output']?></textarea>
 											</td>
 										</tr>
