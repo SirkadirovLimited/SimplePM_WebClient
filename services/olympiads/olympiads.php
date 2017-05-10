@@ -60,5 +60,6 @@
 	</div>
 </div>
 <?php
+	include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4, "olympiads");
 	SPM_footer();
 ?>
