@@ -36,10 +36,6 @@
 	$_SPM_CONF["SERVICE"]["view"] = "view.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["rating"] = "rating.php"; //require session(uid)
 	
-	//                             PROJECTS
-	$_SPM_CONF["SERVICE"]["projects"] = "projects/projects.php"; //require session(uid)
-	$_SPM_CONF["SERVICE"]["projects.add"] = "projects/projects.add.php"; //require session(uid)
-	
 	//                             PROBLEMS SERVICES
 	$_SPM_CONF["SERVICE"]["problems"] = "problems/problems.php"; //require student
 	$_SPM_CONF["SERVICE"]["problem"] = "problems/problem.php"; //require student
@@ -71,7 +67,6 @@
 	
 	$_SPM_CONF["SERVICE"]["view.admin"] = "admin/view.admin.php"; //require permission 256
 	$_SPM_CONF["SERVICE"]["news.admin"] = "admin/news.admin.php"; //require permission 256
-	$_SPM_CONF["SERVICE"]["config.admin"] = "admin/config.admin.php"; //require permission 256
 	
 	$_SPM_CONF["SERVICE"]["teacherID"] = "admin/teacherID.php"; //require teacher/admin
 	$_SPM_CONF["SERVICE"]["users.admin"] = "admin/users.admin.php"; //require teacher/admin
