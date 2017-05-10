@@ -36,6 +36,8 @@
 	//S_SERV defines
 	DEFINE("_S_SERV_", "./services/");
 	DEFINE("_S_SERV_INC_", _S_SERV_ . "inc/");
+	//S_VIEW defines
+	DEFINE("_S_VIEW_", "./views/");
 	//S_MEDIA defines
 	DEFINE("_S_MEDIA_", "./media/");
 	DEFINE("_S_MEDIA_FILES_", _S_MEDIA_ . "files/");
