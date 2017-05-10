@@ -10,7 +10,7 @@
 	
 	if ($_GET['id'] != null){
 		
-		if (!$query_ptr = $db->query("SELECT * FROM `spm_problems` WHERE `id` = '" . $_GET['id'] . "' LIMIT 1;"))
+		if (!$query_ptr = $db->query("SELECT * FROM `spm_problems` WHERE `id` = '" . (int)$_GET['id'] . "' LIMIT 1;"))
 			die(header('location: index.php?service=error&err=db_error'));
 		
 		if ($query_ptr->num_rows == 0)
@@ -100,7 +100,6 @@
 									<option>Не выбрана</option>
 									
 									<?php while ($problem_category = $db_cat_result->fetch_assoc()): ?>
-									<?php  ?>
 									<option value="<?=$problem_category['id']?>" <?=($problem_category['id'] == $problem_info['catId']) ? 'selected' : ''?>><?=$problem_category['name']?></option>
 									<?php endwhile; ?>
 									
@@ -217,7 +216,7 @@
 				</div>
 				<div class="col-md-6" style="padding: 0;">
 					<?php if($problem_info['id'] != null): ?>
-					<a href=""
+					<a href="index.php?service=problem.edit.tests&id=<?=$problem_info['id']?>"
 					   class="btn btn-warning btn-flat btn-block"
 					   style="padding: 10px; margin: 0;"
 					>

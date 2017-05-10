@@ -2,61 +2,14 @@
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	deniedOrAllowed(PERMISSION::olymp);
 	
-	/*
-	 * PAGINATION SCRIPT
-	 */
-	
-	isset($_GET['page']) or $_GET['page'] = 1;
-	
-	(int)$_GET['page']>0 or $_GET['page']=1;
-	
-	if (permission_check($_SESSION["uid"], PERMISSION::administrator))
-		$count_where = "1";
-	else
-		$count_where = "`teacherId` = '" . $_SESSION["uid"] . "'";
-	
-	if (!$db_result = $db->query("SELECT count(id) FROM `spm_olympiads` WHERE " . $count_where . ";"))
-		die(header('location: index.php?service=error&err=db_error'));
-	
-	$total_olympiads_number = (int)($db_result->fetch_array()[0]);
-	$olympiads_per_page = $_SPM_CONF["SERVICES"]["news"]["articles_per_page"];
-	$current_page = (int)$_GET['page'];
-	
-	$db_result->free();
-	unset($db_result);
-	
-	if ($total_olympiads_number > 0 && $olympiads_per_page > 0)
-		$total_pages = ceil($total_olympiads_number / $olympiads_per_page);
-	else
-		$total_pages = 1;
-	
-	if ($current_page > $total_pages)
-		$current_page = 1;
-	
-	//SQL queries and formatting
-	if (!$db_result = $db->query("SELECT * FROM `spm_olympiads` ORDER BY `id` DESC LIMIT " . ($current_page * $olympiads_per_page - $olympiads_per_page) . " , " . $olympiads_per_page . ";"))
-		die(header('location: index.php?service=error&err=db_error'));
+	//Включение управляющего выборкой
+	//данных об олимпиадах из базы данных
+	include(_S_SERV_INC_ . "olympiads/list.controller.php");
 	
 	SPM_header("Олимпиадный режим", "Список олимпиад");
+	
+	include(_S_VIEW_ . "olympiads/olympiads.list/stats.bar.php");
 ?>
-<div class="row">
-	<div class="col-md-6">
-		<div class="small-box bg-blue">
-			<div class="inner">
-				<h3><?=$total_olympiads_number?></h3>
-				<p>ВСЕГО ОЛИМПИАД</p>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-6">
-		<div class="small-box bg-yellow">
-			<div class="inner">
-				<h3>0</h3>
-				<p>УЧАЩИХСЯ ЗАДЕЙСТВОВАНО</p>
-			</div>
-		</div>
-	</div>
-</div>
 
 <div align="right" style="margin-bottom: 10px;">
 	<a href="index.php?service=olympiads.edit" class="btn btn-success btn-flat">Запланировать олимпиаду</a>

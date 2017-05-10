@@ -12,4 +12,4 @@
 			<li class="active"><?php print($_TPL_PAGESUBNAME); ?></li>
 		</ol>
 	</section>
-    <section class="content" id="content">
+    <section class="content" id="content" style="word-wrap: break-word;">

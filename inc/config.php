@@ -6,7 +6,7 @@
 	 */
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	/*
-	** MAIN SPM CONFIGURATION FILE
+	** MAIN SimplePM CONFIGURATION FILE
 	*/
 	//Base configuration
 	$_SPM_CONF["BASE"]["SITE_NAME"] = "SimplePM";
@@ -30,39 +30,51 @@
 	$_SPM_CONF["SERVICE"]["login"] = "login/login.php"; //nologin
 	$_SPM_CONF["SERVICE"]["forgot"] = "login/forgot.php"; //nologin
 	$_SPM_CONF["SERVICE"]["logout"] = "login/logout.php"; //require session(uid)
+	
 	//                             BASE SERVICES
 	$_SPM_CONF["SERVICE"]["news"] = "news.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["view"] = "view.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["rating"] = "rating.php"; //require session(uid)
+	
 	//                             PROJECTS
 	$_SPM_CONF["SERVICE"]["projects"] = "projects/projects.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["projects.add"] = "projects/projects.add.php"; //require session(uid)
+	
 	//                             PROBLEMS SERVICES
 	$_SPM_CONF["SERVICE"]["problems"] = "problems/problems.php"; //require student
 	$_SPM_CONF["SERVICE"]["problem"] = "problems/problem.php"; //require student
+	
 	$_SPM_CONF["SERVICE"]["problem.edit"] = "admin/problems/problem.edit.php"; //require administrator
+	$_SPM_CONF["SERVICE"]["problem.edit.tests"] = "admin/problems/problem.edit.tests.php"; //require administrator
+	
 	$_SPM_CONF["SERVICE"]["problem_send"] = "problems/problem_send.php"; //require student
 	$_SPM_CONF["SERVICE"]["problem_result"] = "problems/problem_result.php"; //require student
-	$_SPM_CONF["SERVICE"]["bad_problems"] = "problems/bad_problems.php"; //require student
+	
 	//                             OLYMPIADS SERVICES
 	$_SPM_CONF["SERVICE"]["olympiads"] = "olympiads/olympiads.php"; //require teacher/administrator
 	$_SPM_CONF["SERVICE"]["olympiads.edit"] = "olympiads/olympiads.edit.php"; //require teacher/administrator
 	$_SPM_CONF["SERVICE"]["olympiads.result"] = "olympiads/olympiads.result.php"; //require session(uid)
+	
 	//                             USER SERVICES
 	$_SPM_CONF["SERVICE"]["user"] = "user/user.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["user.edit"] = "user/user.edit.php"; //require session(uid)
+	
 	//                             FILES HOSTING SERVICES
 	$_SPM_CONF["SERVICE"]["image"] = "image.php"; //require session(uid)
+	
 	//                             MESSAGING SERVICE
 	$_SPM_CONF["SERVICE"]["messages.list"] = "messages/messages.list.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["messages.send"] = "messages/messages.send.php"; //require session(uid)
+	
 	//                             ADMIN SERVICES
-	$_SPM_CONF["SERVICE"]["teacherID"] = "admin/teacherID.php"; //require teacher/admin
-	$_SPM_CONF["SERVICE"]["users.admin"] = "admin/users.admin.php"; //require teacher/admin
 	$_SPM_CONF["SERVICE"]["admin"] = "admin/admin.php"; //require permission 256
+	
 	$_SPM_CONF["SERVICE"]["view.admin"] = "admin/view.admin.php"; //require permission 256
 	$_SPM_CONF["SERVICE"]["news.admin"] = "admin/news.admin.php"; //require permission 256
 	$_SPM_CONF["SERVICE"]["config.admin"] = "admin/config.admin.php"; //require permission 256
+	
+	$_SPM_CONF["SERVICE"]["teacherID"] = "admin/teacherID.php"; //require teacher/admin
+	$_SPM_CONF["SERVICE"]["users.admin"] = "admin/users.admin.php"; //require teacher/admin
 	/*SERVICES-END*/
 	
 	/*SERVICES_NOLOGIN-START*/
