@@ -18,7 +18,7 @@
 						margin-bottom: 10px;
 					}
 				</style>
-				<img src="index.php?service=image&uid=<?php print($_GET['id']); ?>" class="userAvatar" />
+				<img src="index.php?service=image&uid=<?=$_GET['id']?>" class="userAvatar" />
 			</div>
 			<div class="col-md-8">
 				<form enctype="multipart/form-data" action="" method="post">

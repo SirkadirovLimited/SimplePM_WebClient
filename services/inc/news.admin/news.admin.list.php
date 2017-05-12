@@ -27,24 +27,22 @@
 	if ($current_page > $total_pages)
 		$current_page = 1;
 	
-	if (!$db_result = $db->query("SELECT * FROM `spm_news` ORDER BY `id` DESC LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . ($current_page * $articles_per_page) . ";"))
+	if (!$db_result = $db->query("SELECT * FROM `spm_news` ORDER BY `id` DESC LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
 		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
 ?>
 <div align="right" style="margin-bottom: 10px;">
-	<a class="btn btn-primary" href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=news.admin&create">Создать новость</a>
+	<a class="btn btn-primary" href="index.php?service=news.admin&create">Создать новость</a>
 </div>
 <div class="table-responsive">
 	<table class="table table-bordered table-hover" style="background-color: white;">
 		<tr class="active">
-			<th>ID</th>
-			<th>Название новости</th>
-			<th>Автор</th>
-			<th>Дата публикации</th>
-			<th>Действия</th>
+			<th width="10%">ID</th>
+			<th width="40%">Название новости</th>
+			<th width="20%">Автор</th>
+			<th width="20%">Дата публикации</th>
+			<th width="10%">Действия</th>
 		</tr>
-<?php
-	if ($total_articles_number == 0 || $db_result->num_rows === 0){
-?>
+<?php if ($total_articles_number == 0 || $db_result->num_rows == 0): ?>
 		<tr>
 			<td></td>
 			<td><b>Тут пусто :( Создай пожалуйста новую запись, чтобы раб твой рад был, мой господин! Смилуйся надо мной!</b></td>
@@ -52,29 +50,22 @@
 			<td></td>
 			<td></td>
 		</tr>
-<?php
-	}else{
-		while ($article = $db_result->fetch_assoc()) {
-?>
+<?php else: ?>
+		<?php while ($article = $db_result->fetch_assoc()): ?>
 		<tr>
-			<td><?php print($article['id']); ?></td>
-			<td><a href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=news.admin&edit=<?php print($article['id']); ?>">
-					<?php print($article['title']); ?>
+			<td><?=$article['id']?></td>
+			<td><a href="index.php?service=news.admin&edit=<?=$article['id']?>">
+					<?=$article['title']?>
 				</a></td>
-			<td><a href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=user&id=<?php print($article['authorId']); ?>">
+			<td><a href="index.php?service=user&id=<?=$article['authorId']?>">
 					Профиль автора
 				</a></td>
-			<td><?php print($article['date']); ?></td>
-			<td><a class="btn btn-default btn-xs" href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=news.admin&edit=<?php print($article['id']); ?>">EDIT</a>
-				<a class="btn btn-default btn-xs" href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=news.admin&del=<?php print($article['id']); ?>" onclick ="return confirm('Вы действительно хотите удалить эту страницу? Это действие не обратимо!');">DEL</a> </td>
+			<td><?=$article['date']?></td>
+			<td><a class="btn btn-warning btn-xs" href="index.php?service=news.admin&edit=<?=$article['id']?>">EDIT</a>
+				<a class="btn btn-danger btn-xs" href="index.php?service=news.admin&del=<?=$article['id']?>" onclick ="return confirm('Вы действительно хотите удалить эту страницу? Это действие не обратимо!');">DEL</a> </td>
 		</tr>
-<?php
-		}
-?>
-<?php
-		unset($db_result);
-	}
-?>
+		<?php endwhile; ?>
+<?php endif; ?>
 	</table>
 </div>
 <?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4); ?>

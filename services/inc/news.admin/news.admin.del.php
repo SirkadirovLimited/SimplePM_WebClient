@@ -6,7 +6,7 @@
 	global $db;
 	global $_SPM_CONF;
 	
-	if (!$db->query("DELETE FROM `spm_news` WHERE id='" . htmlspecialchars(trim($_GET['del'])) . "'")){
+	if (!$db->query("DELETE FROM `spm_news` WHERE id='" . $_GET['del'] . "'")){
 		_spm_view_msg("Произошла непредвиденная ошибка при удалении новости с базы данных. Накажите вашего сисадмина за это!", "danger");
 	}else{
 		_spm_view_msg("Новость успешно удалена и больше не доступна.", "success");
