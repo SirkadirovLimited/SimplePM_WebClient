@@ -8,18 +8,20 @@
 	/*
 	** MAIN SimplePM CONFIGURATION FILE
 	*/
-	//Base configuration
-	$_SPM_CONF["BASE"]["SITE_NAME"] = "SimplePM";
-	$_SPM_CONF["BASE"]["SITE_DESCRIPTION"] = "SPM test site.";
-	$_SPM_CONF["BASE"]["SITE_KEYWORDS"] = "SPM,demo,site,website,php,sirkadirov";
-	$_SPM_CONF["BASE"]["SITE_URL"] = "http://37.57.143.185:80/";
-	$_SPM_CONF["BASE"]["TPL_NAME"] = "default";
+	/*BASE_CONFIGURATION-START*/
+	$_SPM_CONF["BASE"]["SITE_NAME"] = "SimplePM"; //имя сайта
+	$_SPM_CONF["BASE"]["SITE_DESCRIPTION"] = "SPM test site."; //краткое описание сайта
+	$_SPM_CONF["BASE"]["SITE_KEYWORDS"] = "SPM,demo,site,website,php,sirkadirov"; //ключевые слова сайта
+	$_SPM_CONF["BASE"]["SITE_URL"] = $_SERVER['HTTP_HOST']; //адрес сайта (можно использовать $_SERVER['HTTP_HOST'])
+	$_SPM_CONF["BASE"]["TPL_NAME"] = "default"; //имя папки шаблона
+	/*BASE_CONFIGURATION-END*/
 	
-	//DB config
-	$_SPM_CONF["DB"]["user"] = "Sirkadirov";
-	$_SPM_CONF["DB"]["pass"] = "Dam900000zaua";
-	$_SPM_CONF["DB"]["host"] = "localhost";
-	$_SPM_CONF["DB"]["name"] = "simplepm";
+	/*DB-CONFIG-START*/
+	$_SPM_CONF["DB"]["user"] = "Sirkadirov"; //имя пользователя
+	$_SPM_CONF["DB"]["pass"] = "Dam900000zaua"; //пароль
+	$_SPM_CONF["DB"]["host"] = "localhost"; //ip или домен сервера
+	$_SPM_CONF["DB"]["name"] = "simplepm"; //имя базы данных
+	/*DB-CONFIG-END*/
 	
 	/*SERVICES-START*/
 	$_SPM_CONF["SERVICE"]["_AUTOSTART_SERVICE_"] = "news"; //Главный сервис

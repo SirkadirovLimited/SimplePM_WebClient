@@ -6,9 +6,9 @@
 	 */
 	
 	//FOR DEVELOPMENT ONLY!
-	ini_set('error_reporting', E_ALL);
-	ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
+	ini_set('error_reporting', E_ALL); // 0 for release!
+	ini_set('display_errors', 1); // 0 for release!
+	ini_set('display_startup_errors', 1); // 0 for release!
 	
 	//Save cookie life time for 24*2 hours, session will be alive in that time.
 	session_set_cookie_params(3600*24*2);
@@ -21,13 +21,13 @@
 	DEFINE("_S_INC_FUNC_", _S_INC_ . "func/");
 	DEFINE("_S_INC_CLASS_", _S_INC_ . "class/");
 	//S_REQUIRES
-	require_once(_S_INC_FUNC_ . "permissions_check.php");
-	require_once(_S_INC_FUNC_ . "gen_tpl.php");
-	require_once(_S_INC_FUNC_ . "guard.php");
-	require_once(_S_INC_ . "config.php");
-	require_once(_S_INC_ . "db.php");
-	require_once(_S_INC_FUNC_ . "info_msg.php");
-	require_once(_S_INC_CLASS_ . "CountryList.php");
+	include_once(_S_INC_FUNC_ . "permissions_check.php");
+	include_once(_S_INC_FUNC_ . "gen_tpl.php");
+	include_once(_S_INC_FUNC_ . "guard.php");
+	include_once(_S_INC_ . "config.php");
+	include_once(_S_INC_ . "db.php");
+	include_once(_S_INC_FUNC_ . "info_msg.php");
+	include_once(_S_INC_CLASS_ . "CountryList.php");
 	//S_TPL defines
 	DEFINE("_S_TPL_", "./tpl/" . $_SPM_CONF["BASE"]["TPL_NAME"] . "/");
 	DEFINE("_S_TPL_ERR_", _S_TPL_ . "error_pages/");
@@ -43,49 +43,19 @@
 	DEFINE("_S_MEDIA_FILES_", _S_MEDIA_ . "files/");
 	DEFINE("_S_MEDIA_IMG_", _S_MEDIA_ . "img/");
 	
-	//Some security checks for you
-	if ( isset( $_SESSION["uid"] ) && (int)$_SESSION["uid"] > 0){
-		
-		if (!$db_result = $db->query("SELECT `sessionId`, `banned`, `online` FROM `spm_users` WHERE `id` = '" . mysqli_real_escape_string($db, $_SESSION['uid']) . "' LIMIT 1;"))
-			die('<strong>Произошла ошибка при попытке подключения к базе данных! Пожалуйста, посетите сайт позже!</strong>');
-		
-		if ($db_result->num_rows == 0):
-			unset($_SESSION);
-			header('location: index.php');
-			die;
-		endif;
-		
-		$userInfo = $db_result->fetch_assoc();
-		$db_result->free();
-		unset($db_result);
-		
-		//Check if user banned
-		if ($userInfo['banned'] == 1):
-			
-			if (!$db->query("UPDATE `spm_users` SET `online` = 0 WHERE `id` = '" . mysqli_real_escape_string($db, $_SESSION['uid']) . "' LIMIT 1;"))
-				die('<strong>Произошла ошибка при попытке подключения к базе данных! Пожалуйста, посетите сайт позже!</strong>');
-			
-			unset($_SESSION);
-			header('location: index.php');
-			die;
-		endif;
-		//Check if another user logged in in the same account
-		if ($userInfo['sessionId'] != session_id()):
-			unset($_SESSION['uid']);
-			header('location: index.php');
-			die;
-		endif;
-	}
-	
 	//Functions autorun
 	_spm_guard_clearAllGet();
+	
+	//Some security checks for you
+	include_once(_S_INC_FUNC_ . "user_check.php");
 	
 	//Choosing service to start
 	if (isset($_GET['service']) && strlen($_GET['service']) > 0)
 		$_spm_run_service = preg_replace("/[^a-zA-Z0-9.-_\s]/", "", $_GET['service']);
-	else $_spm_run_service = $_SPM_CONF["SERVICE"]["_AUTOSTART_SERVICE_"];
+	else
+		$_spm_run_service = $_SPM_CONF["SERVICE"]["_AUTOSTART_SERVICE_"];
 	
-	if(!isset($_SESSION['uid']) &&  !isset($_SPM_CONF["SERVICE_NOLOGIN"][$_spm_run_service]))
+	if(!isset($_SESSION['uid']) && !isset($_SPM_CONF["SERVICE_NOLOGIN"][$_spm_run_service]))
 		$_spm_run_service = "login";
 	
 	if (!isset($_SPM_CONF["SERVICE"][$_spm_run_service]) && !isset($_SESSION['uid'])):
@@ -97,9 +67,10 @@
 		SPM_footer();
 		die();
 	endif;
+	
 	//CONTENT
 	include_once(_S_SERV_ . $_SPM_CONF["SERVICE"][$_spm_run_service]);
 	
-	//Close database connection for more security
+	//Close database connection
 	$db->close();
 ?>
