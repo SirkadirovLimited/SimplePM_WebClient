@@ -14,6 +14,7 @@
 	$_SPM_CONF["BASE"]["SITE_KEYWORDS"] = "SPM,demo,site,website,php,sirkadirov"; //ключевые слова сайта
 	$_SPM_CONF["BASE"]["SITE_URL"] = $_SERVER['HTTP_HOST']; //адрес сайта (можно использовать $_SERVER['HTTP_HOST'])
 	$_SPM_CONF["BASE"]["TPL_NAME"] = "default"; //имя папки шаблона
+	$_SPM_CONF["BASE"]["ADMIN_MAIL"] = "admin@sirkadirov.com"; //email администратора
 	/*BASE_CONFIGURATION-END*/
 	
 	/*DB-CONFIG-START*/
