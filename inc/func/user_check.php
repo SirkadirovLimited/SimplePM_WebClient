@@ -1,4 +1,6 @@
 <?php
+	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
+	
 	if ( isset( $_SESSION["uid"] ) && (int)$_SESSION["uid"] > 0){
 		
 		if (!$db_result = $db->query("SELECT `sessionId`, `banned`, `online` FROM `spm_users` WHERE `id` = '" . mysqli_real_escape_string($db, $_SESSION['uid']) . "' LIMIT 1;"))

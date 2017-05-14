@@ -3,10 +3,6 @@
 	
 	include_once(_S_TPL_ . "pre-login/header.php");
 ?>
-<div class="alert alert-warning alert-dismissible" role="alert">
-	<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-	<strong><span class="glyphicon glyphicon-warning-sign"></span> ВНИМАНИЕ!</strong> Сервис не предоставляется учителям, кураторам и администраторам! Если вы потеряли доступ к аккаунту, обратитесь к вашему куратору.
-</div>
 
 <p class="login-box-msg"><strong>Забыли пароль?</strong></p>
 <form action="index.php?service=login" method="post">
