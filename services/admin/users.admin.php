@@ -1,9 +1,6 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
-	global $db;
-	global $_SESSION;
-	
 	if (!permission_check($_SESSION['permissions'], PERMISSION::teacher)
 		&& !permission_check($_SESSION['permissions'], PERMISSION::administrator)){
 		include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["access_denied"]);
@@ -92,9 +89,7 @@
 			</tr>
 		</thead>
 		<tbody>
-	<?php
-	if ($total_articles_number == 0 || $db_result->num_rows === 0){
-?>
+<?php if ($total_articles_number == 0 || $db_result->num_rows === 0): ?>
 			<tr>
 				<td></td>
 				<td><b>Тут пусто :( Создай пожалуйста новую страницу, чтобы раб твой рад был, мой господин! Смилуйся надо мной!</b></td>
@@ -104,30 +99,25 @@
 				<td></td>
 				<td></td>
 			</tr>
-<?php
-	}else{
-		while ($user = $db_result->fetch_assoc()) {
-?>
+<?php else: ?>
+			<?php while ($user = $db_result->fetch_assoc()): ?>
 			<tr>
 				<td><?php print($user['id']); ?></td>
 				<td>
-					<a href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=user&id=<?php print($user['id']); ?>">
-						<?php print($user['secondname'] . " " . $user['firstname'] . " " . $user['thirdname']); ?>
+					<a href="index.php?service=user&id=<?=$user['id']?>">
+						<?=$user['secondname'] . " " . $user['firstname'] . " " . $user['thirdname']?>
 					</a>
 				</td>
-				<td><?php print($user['username']); ?></td>
-				<td><?php print($user['group']); ?></td>
-				<td><?php if ($user['teacherId']>0) print("<a href='" . $_SPM_CONF["BASE"]["SITE_URL"] . "index.php?service=user&id=" . $user['teacherId'] . "'>ID_" . $user['teacherId'] . "</a>"); else print("Тёмная сторона Силы"); ?></td>
-				<td><?php print($user['permissions']); ?></td>
-				<td><a class="btn btn-primary btn-xs" href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=user.edit&id=<?php print($user['id']); ?>">EDIT</a>
-					<a class="btn btn-warning btn-xs" href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=users.admin&ban=<?php print($user['id']); ?>" onclick="return confirm('Вы действительно хотите заблокировать этого пользователя? Не легче его просто застрелить?');">BAN</a>
-					<a class="btn btn-danger btn-xs" href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=users.admin&del=<?php print($user['id']); ?>" onclick="return confirm('Вы действительно хотите удалить этого пользователя? Это действие не обратимо!');">DEL</a> </td>
+				<td><?=$user['username']?></td>
+				<td><?=$user['group']?></td>
+				<td><?php if ($user['teacherId']>0) print("<a href='index.php?service=user&id=" . $user['teacherId'] . "'>ID_" . $user['teacherId'] . "</a>"); else print("Тёмная сторона Силы"); ?></td>
+				<td><?=$user['permissions']?></td>
+				<td><a class="btn btn-primary btn-xs" href="index.php?service=user.edit&id=<?=$user['id']?>">EDIT</a>
+					<a class="btn btn-warning btn-xs" href="index.php?service=users.admin&ban=<?=$user['id']?>" onclick="return confirm('Вы действительно хотите заблокировать этого пользователя? Не легче его просто застрелить?');">BAN</a>
+					<a class="btn btn-danger btn-xs" href="index.php?service=users.admin&del=<?=$user['id']?>" onclick="return confirm('Вы действительно хотите удалить этого пользователя? Это действие не обратимо!');">DEL</a> </td>
 			</tr>
-<?php
-		}
-		unset($db_result);
-	}
-?>
+			<?php endwhile; ?>
+<?php endif; ?>
 		</tbody>
 	</table>
 </div>
