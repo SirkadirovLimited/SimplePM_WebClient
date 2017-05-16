@@ -11,9 +11,12 @@
 		</a>
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
-				<?php include(_S_MOD_ . "messagesmenu.php"); ?>
-				<?php include(_S_MOD_ . "onlinemenu.php"); ?>
-				<?php include(_S_MOD_ . "birthdaysmenu.php"); ?>
+				<?php include(_S_MOD_ . "olympiad.php"); ?>
+				<?php if (!isset($_SESSION["olymp"])): ?>
+					<?php include(_S_MOD_ . "messagesmenu.php"); ?>
+					<?php include(_S_MOD_ . "onlinemenu.php"); ?>
+					<?php include(_S_MOD_ . "birthdaysmenu.php"); ?>
+				<?php endif; ?>
 				<?php include(_S_MOD_ . "usermenu.php"); ?>
 			</ul>
 		</div>

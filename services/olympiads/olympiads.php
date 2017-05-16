@@ -49,7 +49,7 @@
 						<td><?php print($students_count); ?></td>
 						<td>
 							<a href="index.php?service=olympiads.edit&id=<?=$olymp['id']?>" class="btn btn-warning btn-xs">EDIT</a>
-							<a href="index.php?service=olympiads?del=<?=$olymp['id']?>" class="btn btn-danger btn-xs">EDIT</a>
+							<a href="index.php?service=olympiads?del=<?=$olymp['id']?>" class="btn btn-danger btn-xs">DEL</a>
 						</td>
 					</tr>
 <?php unset($students_count); endwhile; ?>
