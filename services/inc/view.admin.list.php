@@ -29,8 +29,19 @@
 			<td><a href="index.php?service=view&id=<?=$pages['id']?>">
 					<?=$pages['name']?>
 				</a></td>
-			<td><a class="btn btn-warning btn-xs" href="index.php?service=view.admin&edit=<?=$pages['id']?>">EDIT</a>
-				<a class="btn btn-danger btn-xs" href="index.php?service=view.admin&del=<?=$pages['id']?>" onclick ="return confirm('Вы действительно хотите удалить эту страницу? Это действие не обратимо!');">DEL</a> </td>
+			<td>
+				<div class="btn-group">
+					<a
+						class="btn btn-warning btn-sm"
+						href="index.php?service=view.admin&edit=<?=$pages['id']?>"
+					><span class="fa fa-pencil"></span></a>
+					<a
+						class="btn btn-danger btn-sm"
+						href="index.php?service=view.admin&del=<?=$pages['id']?>"
+						onclick ="return confirm('Вы действительно хотите удалить эту страницу? Это действие не обратимо!');"
+					><span class="fa fa-trash"></span></a>
+				</div>
+			</td>
 		</tr>
 		<?php endwhile; ?>
 	</table>

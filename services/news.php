@@ -23,7 +23,6 @@
 	if ($current_page > $total_pages)
 		$current_page = 1;
 	
-	//SQL queries and formatting
 	if (!$db_result = $db->query("SELECT * FROM `spm_news` ORDER BY `id` DESC LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
 		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
 	

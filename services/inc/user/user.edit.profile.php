@@ -38,29 +38,52 @@
 	 */
 	 
 	//username
-	(!isset($_POST["username"])) or $_POST["username"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["username"])));
+	(!isset($_POST["username"])) or $_POST["username"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["username"])));
 	//email
-	(!isset($_POST["email"])) or $_POST["email"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["email"])));
+	(!isset($_POST["email"])) or $_POST["email"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["email"])));
 	
 	//secondname
-	(!isset($_POST["secondname"])) or $_POST["secondname"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["secondname"])));
+	(!isset($_POST["secondname"])) or $_POST["secondname"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["secondname"])));
 	//secondname
-	(!isset($_POST["firstname"])) or $_POST["firstname"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["firstname"])));
+	(!isset($_POST["firstname"])) or $_POST["firstname"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["firstname"])));
 	//secondname
-	(!isset($_POST["thirdname"])) or $_POST["thirdname"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["thirdname"])));
+	(!isset($_POST["thirdname"])) or $_POST["thirdname"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["thirdname"])));
 	
 	//bday
-	(!isset($_POST["bdate"])) or $_POST["bdate"] = mysqli_real_escape_string($db,trim($_POST["bdate"]));
+	(!isset($_POST["bdate"])) or $_POST["bdate"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["bdate"])));
 	
 	//country
-	(!isset($_POST["country"])) or $_POST["country"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["country"])));
+	(!isset($_POST["country"])) or $_POST["country"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["country"])));
 	//city
-	(!isset($_POST["city"])) or $_POST["city"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["city"])));
+	(!isset($_POST["city"])) or $_POST["city"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["city"])));
 	
 	//school
-	(!isset($_POST["school"])) or $_POST["school"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["school"])));
+	(!isset($_POST["school"])) or $_POST["school"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["school"])));
 	//group
-	(!isset($_POST["group"])) or $_POST["group"] = mysqli_real_escape_string($db,strip_tags(trim($_POST["group"])));
+	(!isset($_POST["group"])) or $_POST["group"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["group"])));
+	
+	if (isset($_POST["group"])){
+		$query_str = "SELECT `teacherId` FROM `spm_users` WHERE `id` = '" . (int)$_GET["id"] . "' LIMIT 1;";
+		
+		if (!$query = $db->query($query_str))
+			die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.');
+		
+		if ($query->num_rows == 0)
+			die('Информация о пользователе введена не верно!');
+		
+		$teacherId = $query->fetch_array()[0];
+		$query->free();
+		
+		$query_str = "SELECT count(`id`) FROM `spm_users_groups` WHERE `id` = '" . (int)$_POST["group"] . "' AND `teacherId` = '" . $teacherId . "' LIMIT 1;";
+		
+		if (!$query = $db->query($query_str))
+			die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.');
+		
+		$count = $query->fetch_array()[0];
+		
+		if ($query->num_rows == 0 || $count == null || $count == 0)
+			die('Заданная группа пользователей не найдена либо вы не имеете доступа к ней!');
+	}
 	
 	/*
 	 * ВТОРОй ШАГ ОТСЕИВАНИЯ ДУШ
@@ -97,5 +120,5 @@
 	 * Ковчег
 	 */
 	
-	header('location: index.php?service=user&id=' . (int)$_GET['id']);
+	exit(header('location: index.php?service=user&id=' . (int)$_GET['id']));
 ?>

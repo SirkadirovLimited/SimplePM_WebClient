@@ -50,10 +50,10 @@
 	$_SPM_CONF["SERVICE"]["problem_send"] = "problems/problem_send.php"; //require student
 	$_SPM_CONF["SERVICE"]["problem_result"] = "problems/problem_result.php"; //require student
 	
-	//                             OLYMPIADS SERVICES
-	$_SPM_CONF["SERVICE"]["olympiads"] = "olympiads/olympiads.php"; //require teacher/administrator
-	$_SPM_CONF["SERVICE"]["olympiads.edit"] = "olympiads/olympiads.edit.php"; //require teacher/administrator
-	$_SPM_CONF["SERVICE"]["olympiads.result"] = "olympiads/olympiads.result.php"; //require session(uid)
+	//                             CLASSWORKS SERVICES
+	$_SPM_CONF["SERVICE"]["classworks"] = "classworks/classworks.php"; //require teacher
+	$_SPM_CONF["SERVICE"]["classworks.edit"] = "classworks/classworks.edit.php"; //require teacher
+	$_SPM_CONF["SERVICE"]["classworks.result"] = "classworks/classworks.result.php"; //require session(uid)
 	
 	//                             USER SERVICES
 	$_SPM_CONF["SERVICE"]["user"] = "user/user.php"; //require session(uid)

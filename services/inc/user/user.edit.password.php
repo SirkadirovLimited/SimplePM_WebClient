@@ -4,10 +4,10 @@
 	
 	global $user_info;
 	
-	$user_id = (int)trim(strip_tags($_GET['id']));
-	$old_passwd = htmlspecialchars(trim(strip_tags($_POST['old-password'])));
-	$passwd = htmlspecialchars(trim(strip_tags($_POST['password'])));
-	$passwd_retype = htmlspecialchars(trim(strip_tags($_POST['password2'])));
+	$user_id = (int)mysqli_real_escape_string($db, trim(strip_tags($_GET['id'])));
+	$old_passwd = mysqli_real_escape_string($db, trim(strip_tags($_POST['old-password'])));
+	$passwd =mysqli_real_escape_string($db, trim(strip_tags($_POST['password'])));
+	$passwd_retype = mysqli_real_escape_string($db, trim(strip_tags($_POST['password2'])));
 	
 	$errors_count = 0;
 	
@@ -19,10 +19,8 @@
 	if ($user_id <= 0)
 		$errors_count++;
 	
-	
-	
 	if (!(strlen($old_passwd) >= $_SPM_CONF["PASSWD"]["minlength"]) || !(strlen($old_passwd) <= $_SPM_CONF["PASSWD"]["maxlength"]))
-		die(1);
+		$errors_count++;
 	
 	if (!(strlen($passwd) >= $_SPM_CONF["PASSWD"]["minlength"]) || !(strlen($passwd) <= $_SPM_CONF["PASSWD"]["maxlength"]))
 		$errors_count++;
@@ -54,9 +52,12 @@
 		print("<meta http-equiv='refresh' content='3;URL=index.php?service=user.edit&id=$user_id' />");
 		die();
 	}
+	
 	$db_pass->free();
 	unset($db_pass);
 	
 	if (!$db->query("UPDATE `spm_users` SET `password` = '" . $passwd . "' WHERE `id`='" . $user_id . "'"))
 		die("<strong>Возникла ошибка при попытке подключения к базе данных / пользователь не найден / введены неверные данные!</strong>");
+	
+	exit(header('location: index.php?service=user.edit&id=$user_id'));
 ?>
