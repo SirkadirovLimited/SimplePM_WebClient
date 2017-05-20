@@ -1,70 +1,62 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
+	/*
+	 * Запрещаем доступ уже авторизированным пользователям
+	 */
 	if (isset($_SESSION['uid'])) {
 		SPM_header("Ошибка 403");
 		include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["access_denied"]);
 		SPM_footer();
-		exit();
+		exit;
 	}
 	
 	require_once(_S_SERV_INC_ . "pre-login/login.php");
 	
+	/*
+	 * Основной скрипт входа пользователей в систему
+	 */
 	if (isset($_POST['login']) && isset($_POST['password'])){
 		
-		if ($_SPM_CONF["SECURITY"]["require_captcha"]){
-			if( !( ( isset($_POST['captcha']) && isset($_SESSION["captcha_code"]) ) && ( $_POST['captcha'] == $_SESSION["captcha_code"] ) ) ){
-				header("Location: index.php?service=login&err=badcaptcha");
-				die();
-			}
-		}
+		if ($_SPM_CONF["SECURITY"]["require_captcha"])
+			if (!(isset($_POST['captcha']) && isset($_SESSION["captcha_code"]) && $_POST['captcha'] == $_SESSION["captcha_code"]))
+				exit(header("location: index.php?service=login&err=badcaptcha"));
 		
-		$login = htmlspecialchars(strip_tags(trim($_POST['login'])));
-		$pass = htmlspecialchars(strip_tags(trim($_POST['password'])));
+		$login = mysqli_real_escape_string($db, strip_tags(trim($_POST['login'])));
+		$pass = mysqli_real_escape_string($db, strip_tags(trim($_POST['password'])));
 		$password = md5(md5(md5($pass)));
 		
-		if (!((strlen($login)>=3) && (strlen($login)<=100))){
-			header("Location: index.php?err=badlogin");
-			die();
-		}
+		if (!((strlen($login)>=3) && (strlen($login)<=100)))
+			exit(header("location: index.php?err=badlogin"));
 		
-		if (!(strlen($pass)>=$_SPM_CONF["PASSWD"]["minlength"]) && !(strlen($pass)<=$_SPM_CONF["PASSWD"]["maxlength"])){
-			header("Location: index.php?service=login&err=badpass");
-			die();
-		}
+		if (!(strlen($pass)>=$_SPM_CONF["PASSWD"]["minlength"]) && !(strlen($pass)<=$_SPM_CONF["PASSWD"]["maxlength"]))
+			exit(header("location: index.php?service=login&err=badpass"));
 		
-		if (!$db_result = $db->query("SELECT * FROM `spm_users` WHERE `username` = '$login' AND `password` = '$password' LIMIT 1;")){
-			header("Location: index.php?service=login&err=db");
-		}
+		if (!$db_result = $db->query("SELECT * FROM `spm_users` WHERE `username` = '$login' AND `password` = '$password' LIMIT 1;"))
+			exit(header("location: index.php?service=login&err=db"));
 		
-		if ($db_result->num_rows == 0){
-			header("Location: index.php?service=login&err=nouser");
-			die();
-		}
+		if ($db_result->num_rows == 0)
+			exit(header("location: index.php?service=login&err=nouser"));
 		
 		$user = $db_result->fetch_assoc();
 		
 		$db_result->free();
 		unset($db_result);
 		
-		if ($user['id']>0 && $user['banned'] == 1){
-			header("Location: " . $_SPM_CONF["BASE"]["SITE_URL"] . "index.php?service=login&err=banned");
-			die();
-		}
+		if ($user['id']>0 && $user['banned'] == 1)
+			exit(header("location: index.php?service=login&err=banned"));
 		
-		if (!$db_result = $db->query("UPDATE `spm_users` SET `online` = '1', `sessionId` = '" . session_id() . "' WHERE `id` = " . $user['id'] . " LIMIT 1;")){
-			header("Location: " . $_SPM_CONF["BASE"]["SITE_URL"] . "index.php?service=login&err=db");
-			die();
-		}
+		if (!$db_result = $db->query("UPDATE `spm_users` SET `online` = '1', `sessionId` = '" . session_id() . "' WHERE `id` = " . $user['id'] . " LIMIT 1;"))
+			exit(header("location: index.php?service=login&err=db"));
 		
 		$_SESSION['uid'] = $user['id'];
 		$_SESSION['username'] = $user['username'];
 		$_SESSION['full_name'] = $user['secondname'] . " " . $user['firstname'];
 		$_SESSION['permissions'] = $user['permissions'];
+		$_SESSION['teacherId'] = $user['teacherId'];
 		$_SESSION['banned'] = $user['banned'];
 		
-		header("Location: index.php?service=" . $_SPM_CONF["SERVICE"]["_AUTOSTART_SERVICE_"]);
-		exit;
+		exit(header("Location: index.php?service=" . $_SPM_CONF["SERVICE"]["_AUTOSTART_SERVICE_"]));
 	}
 	
 	include_once(_S_TPL_ . "pre-login/header.php");
@@ -77,7 +69,7 @@
 		<span class="glyphicon glyphicon-user form-control-feedback"></span>
 	</div>
 	<div class="form-group has-feedback">
-		<input type="password" class="form-control" placeholder="Пароль" name="password" minlength="<?php print($_SPM_CONF["PASSWD"]["minlength"]); ?>" maxlength="<?php print($_SPM_CONF["PASSWD"]["maxlength"]); ?>" required>
+		<input type="password" class="form-control" placeholder="Пароль" name="password" minlength="<?=$_SPM_CONF["PASSWD"]["minlength"]?>" maxlength="<?=$_SPM_CONF["PASSWD"]["maxlength"]?>" required>
 		<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 	</div>
 	
@@ -99,6 +91,4 @@
 	</div>
 </form>
 
-<?php
-	include_once(_S_TPL_ . "pre-login/footer.php");
-?>
+<?php include_once(_S_TPL_ . "pre-login/footer.php"); ?>

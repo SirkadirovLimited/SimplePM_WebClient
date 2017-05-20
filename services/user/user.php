@@ -115,6 +115,7 @@
 		<h3 style="margin-top: 0;">Основная информация</h3>
 		<ul class="nav nav-pills nav-stacked">
 			<li><a>Полное имя:<br/><b><?=$user_info['secondname'] . " " . $user_info['firstname'] . " " . $user_info['thirdname']?></b></a></li>
+			<li><a>Имя пользователя:<br/><b><?=$user_info['username']?></b></a></li>
 			<li><a>Дата рождения:<br/><b><?=$user_info['bdate']?></b></a></li>
 			
 			<li><a>Страна:<br/><b><?=@$SPM_Countries_Get[$user_info['country']]?></b></a></li>
@@ -129,7 +130,7 @@
 		<h3>Важная информация</h3>
 		<ul class="nav nav-pills nav-stacked">
 			<li><a>Права доступа:<br/><b><?=$user_info['permissions']?></b></a></li>
-			<li><a>Группа:<br/><b><?=$user_info['group']?></b></a></li>
+			<li><a>Группа:<br/><b>TODO (<?=$user_info['group']?>)</b></a></li>
 			<li><?=spm_getTeacherLinkById($user_info['teacherId'])?></li>
 		</ul>
 	</div>

@@ -61,8 +61,19 @@
 					Профиль автора
 				</a></td>
 			<td><?=$article['date']?></td>
-			<td><a class="btn btn-warning btn-xs" href="index.php?service=news.admin&edit=<?=$article['id']?>">EDIT</a>
-				<a class="btn btn-danger btn-xs" href="index.php?service=news.admin&del=<?=$article['id']?>" onclick ="return confirm('Вы действительно хотите удалить эту страницу? Это действие не обратимо!');">DEL</a> </td>
+			<td>
+				<div class="btn-group">
+					<a
+						class="btn btn-warning btn-sm"
+						href="index.php?service=news.admin&edit=<?=$article['id']?>"
+					><span class="fa fa-pencil"></span></a>
+					<a
+						class="btn btn-danger btn-sm"
+						href="index.php?service=news.admin&del=<?=$article['id']?>"
+						onclick ="return confirm('Вы действительно хотите удалить эту страницу? Это действие не обратимо!');"
+					><span class="fa fa-trash"></span></a>
+				</div>
+			</td>
 		</tr>
 		<?php endwhile; ?>
 <?php endif; ?>
