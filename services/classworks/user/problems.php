@@ -1,26 +1,39 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-		
-	isset($_GET['page']) or $_GET['page'] = 1;
 	
+	/////////////////////////////////////
+	
+	isset($_GET['page']) or $_GET['page'] = 1;
 	(int)$_GET['page']>0 or $_GET['page']=1;
+	
+	/////////////////////////////////////
 	
 	if (!$db_result = $db->query("SELECT count(id) FROM `spm_classworks_problems` WHERE `classworkId` = '" . $_SESSION["classwork"] . "';"))
 		die(header('location: index.php?service=error&err=db_error'));
+	
+	/////////////////////////////////////
 	
 	$total_articles_number = (int)($db_result->fetch_array()[0]);
 	$articles_per_page = $_SPM_CONF["SERVICES"]["problems"]["articles_per_page"];
 	$current_page = (int)$_GET['page'];
 	
+	/////////////////////////////////////
+	
 	$db_result->free();
+	
+	/////////////////////////////////////
 	
 	if ($total_articles_number > 0 && $articles_per_page > 0)
 		$total_pages = ceil($total_articles_number / $articles_per_page);
 	else
 		$total_pages = 1;
 	
+	/////////////////////////////////////
+	
 	if ($current_page > $total_pages)
 		$current_page = 1;
+	
+	/////////////////////////////////////
 	
 	$query_str = "
 		SELECT
@@ -33,6 +46,7 @@
 			1
 		;
 	";
+	
 	if (!$query = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
@@ -41,6 +55,8 @@
 	
 	$classwork = $query->fetch_assoc();
 	$query->free();
+	
+	/////////////////////////////////////
 	
 	$query_str = "
 		SELECT
@@ -59,6 +75,8 @@
 	
 	if (!$query = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
+	
+	/////////////////////////////////////
 	
 	function get_ball_by_submission($problemId){
 		
@@ -95,6 +113,8 @@
 		
 		return $result;
 	}
+	
+	/////////////////////////////////////
 	
 	SPM_header("Урок #" . $_SESSION["classwork"], "Список доступных задач");
 ?>
