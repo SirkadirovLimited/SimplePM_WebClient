@@ -28,5 +28,5 @@
 		</style>
 		<script src="<?=_S_TPL_?>js/push.min.js"></script>
 	</head>
-	<body class="hold-transition skin-blue sidebar-mini layout-boxed" style="height: auto;" onload="startTimer()">
+	<body class="hold-transition skin-blue sidebar-collapse layout-boxed" style="height: auto;" onload="startTimer()">
 		<div class="wrapper" style="height: auto;">

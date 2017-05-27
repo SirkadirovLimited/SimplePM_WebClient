@@ -41,18 +41,16 @@
 			</div>
 			<div class="form-group">
 				<label for="country">Страна / Регион</label>
-				<select type="text" class="form-control" id="country" name="country" placeholder="<?=$user_info['country']?>">
+				<select class="form-control" id="country" name="country">
 <?php
-	foreach ($SPM_Countries_Select as $countryArr){
+	foreach ($SPM_Countries_Select as $countryArr):
 		if ($user_info['country'] == $countryArr[0])
 			$selectedCountry = " selected";
 		else
 			$selectedCountry = "";
 ?>
 					<option value="<?=$countryArr[0]?>"<?=$selectedCountry?>><?=$countryArr[1]?></option>
-<?php
-	}
-?>
+<?php endforeach; ?>
 				</select>
 				<p class="help-block">Страна или регион учащегося</p>
 			</div>
@@ -68,7 +66,32 @@
 			</div>
 			<div class="form-group">
 				<label for="group">Группа</label>
-				<input type="text" class="form-control" id="group" name="group" placeholder="<?=$user_info['group']?>" value="">
+				<select class="form-control" id="group" name="group">
+<?php
+	
+	$query_str = "
+		SELECT
+			`id`,
+			`name`
+		FROM
+			`spm_users_groups`
+		WHERE
+			`teacherId` = '" . $user_info['teacherId'] . "'
+		;
+	";
+	
+	if (!$query = $db->query($query_str))
+		die(header('location: index.php?service=error&err=db_error'));
+	
+	while ($group = $query->fetch_assoc()):
+		if ($user_info['group'] == $group['id'])
+			$selectedGroup = " selected";
+		else
+			$selectedGroup = "";
+?>
+					<option value="<?=$group['id']?>"<?=$selectedGroup?>><?=$group['name']?></option>
+<?php endwhile; ?>
+				</select>
 				<p class="help-block">Группа или класс учащегося</p>
 			</div>
 			

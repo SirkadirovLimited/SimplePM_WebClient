@@ -64,10 +64,14 @@
 		$current_page = 1;
 	
 	if (!$db_result = $db->query("SELECT * FROM `spm_users` WHERE " . $where_selector . " ORDER BY `id` LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.');
 	
 	SPM_header("Пользователи системы", "Управление");
 ?>
+
+<div align="right" style="margin-bottom: 10px;">
+	<a href="index.php?service=groups.admin" class="btn btn-success btn-flat">Группы пользователей</a>
+</div>
 
 <div class="table-responsive">
 	<table class="table table-bordered table-hover" style="background-color: white;">
@@ -95,6 +99,13 @@
 			</tr>
 <?php else: ?>
 			<?php while ($user = $db_result->fetch_assoc()): ?>
+			<?php
+				if (!$query_group = $db->query("SELECT `name` FROM `spm_users_groups` WHERE `id` = '" . $user['group'] . "' LIMIT 1;"))
+					die(header('location: index.php?service=error&err=db_error'));
+				
+				$user['group_name'] = @$query_group->fetch_assoc()['name'];
+				$query_group->free();
+			?>
 			<tr>
 				<td><?=$user['id']?></td>
 				<td>
@@ -103,7 +114,7 @@
 					</a>
 				</td>
 				<td><?=$user['username']?></td>
-				<td><?=$user['group']?></td>
+				<td><?=$user['group_name']?></td>
 				<td><?php if ($user['teacherId']>0) print("<a href='index.php?service=user&id=" . $user['teacherId'] . "'>ID_" . $user['teacherId'] . "</a>"); else print("Тёмная сторона Силы"); ?></td>
 				<td><?=$user['permissions']?></td>
 				<td>

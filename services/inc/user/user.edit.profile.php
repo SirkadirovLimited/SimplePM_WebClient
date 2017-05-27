@@ -66,7 +66,7 @@
 		$query_str = "SELECT `teacherId` FROM `spm_users` WHERE `id` = '" . (int)$_GET["id"] . "' LIMIT 1;";
 		
 		if (!$query = $db->query($query_str))
-			die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.');
+			die(header('location: index.php?service=error&err=db_error'));
 		
 		if ($query->num_rows == 0)
 			die('Информация о пользователе введена не верно!');
@@ -77,7 +77,7 @@
 		$query_str = "SELECT count(`id`) FROM `spm_users_groups` WHERE `id` = '" . (int)$_POST["group"] . "' AND `teacherId` = '" . $teacherId . "' LIMIT 1;";
 		
 		if (!$query = $db->query($query_str))
-			die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.');
+			die(header('location: index.php?service=error&err=db_error'));
 		
 		$count = $query->fetch_array()[0];
 		

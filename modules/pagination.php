@@ -35,8 +35,8 @@
 			}
 ?>
 <nav align="right" style="margin: 0;">
-	<ul class="pagination">
-		<li><a href="index.php?service=<?php print($service); ?>&page=1<?php print($addition); ?>">«</a></li>
+	<ul class="pagination" style="margin: 0; border-radius: 0;">
+		<li><a href="index.php?service=<?php print($service); ?>&page=1<?php print($addition); ?>" style="border-radius: 0;">«</a></li>
 <?php
 			//Выводим ссылки на страницы в виде списка
 			foreach ($links_array as $link){
@@ -48,7 +48,7 @@
 					print("<li><a href='index.php?service=" . $service . "&page=" . $link . $addition . "'>" . $link . "</a></li>");
 			}
 ?>
-		<li><a href="index.php?service=<?php print($service); ?>&page=<?php print($pages_count . $addition); ?>">»</a></li>
+		<li><a href="index.php?service=<?php print($service); ?>&page=<?php print($pages_count . $addition); ?>" style="border-radius: 0;">»</a></li>
 	</ul>
 </nav>
 <?php

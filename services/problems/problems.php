@@ -12,44 +12,44 @@
 	include(_S_VIEW_ . "problems/problems.list/problems.searchbar.php"); ?>
 <!--PROBLEMS LIST-->
 <?php if ($total_articles_number == 0 || $db_result->num_rows == 0): ?>
-		<div align="center">
-			<h3>Задач не найдено</h3>
-			<p class="lead">По вашему запросу задач не найдено! Попробуйте ввести другой поисковый запрос.</p>
-		</div>
+<div align="center">
+	<h3>Задач не найдено</h3>
+	<p class="lead">По вашему запросу задач не найдено! Попробуйте ввести другой поисковый запрос.</p>
+</div>
 <?php else: ?>
-		<div class="table-responsive" style="margin: 0;">
-			<table class="table table-hover" style="background-color: white; margin: 0;">
-				<thead>
-					<tr>
-						<th width="10%">
-							ID&nbsp;
-							<small>
-								<a href="<?=generate_sort_url(1, $_SORT_BY['id'], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
-								<a href="<?=generate_sort_url(1, $_SORT_BY['id'], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
-							</small>
-						</th>
-						<th width="40%">
-							Название задачи&nbsp;
-							<small>
-								<a href="<?=generate_sort_url(1, $_SORT_BY['name'], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
-								<a href="<?=generate_sort_url(1, $_SORT_BY['name'], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
-							</small>
+<div class="table-responsive" style="margin: 0;">
+	<table class="table table-hover" style="background-color: white; margin: 0;">
+		<thead>
+			<tr>
+				<th width="10%">
+					ID&nbsp;
+					<small>
+						<a href="<?=generate_sort_url(1, $_SORT_BY['id'], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
+						<a href="<?=generate_sort_url(1, $_SORT_BY['id'], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
+					</small>
+				</th>
+				<th width="40%">
+					Название задачи&nbsp;
+					<small>
+						<a href="<?=generate_sort_url(1, $_SORT_BY['name'], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
+						<a href="<?=generate_sort_url(1, $_SORT_BY['name'], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
+					</small>
 				</th>
 				<th width="30%">Категория</th>
 				<th width="10%">Решаемость</th>
 				<th width="10%">
 					B&nbsp;
 					<small>
-						<a href="<?=generate_sort_url(1, $_SORT_BY["b"], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
-						<a href="<?=generate_sort_url(1, $_SORT_BY["b"], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
+						<a href="<?=generate_sort_url(1, $_SORT_BY["difficulty"], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
+						<a href="<?=generate_sort_url(1, $_SORT_BY["difficulty"], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
 					</small>
 				</th>
 			</tr>
 		</thead>
 		<tbody>
-<?php while ($problem = $db_result->fetch_assoc()): ?>
-	<?php include(_S_VIEW_ . "problems/problems.list/problem.item.php"); ?>
-<?php endwhile; ?>
+		<?php while ($problem = $db_result->fetch_assoc()): ?>
+			<?php include(_S_VIEW_ . "problems/problems.list/problem.item.php"); ?>
+		<?php endwhile; ?>
 		</tbody>
 		<thead>
 			<tr>
