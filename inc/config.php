@@ -110,6 +110,7 @@
 	/*SECURITY-START*/
 	$_SPM_CONF["SECURITY"]["require_captcha"] = false; //Требовать ввода капчи при
 	                                                  //анонимном использовании сайта
+	$_SPM_CONF["SECURITY"]["alpha_version_warning"] = true;
 	/*SECURITY-END*/
 	
 	function spm_prepare_classwork(){

@@ -37,6 +37,14 @@
 </div>
 <?php endif; ?>
 
+<?php if ($_SPM_CONF["SECURITY"]["alpha_version_warning"]): ?>
+<div class="callout callout-danger">
+	<h4>Обратите внимание!</h4>
+	<p>Система находится в стадии активной разарботки. Некоторый функционал может быть реализован не полностью! 
+	В случае обнаружения ошибок незамедлительно свяжитесь с разарботчиком системы по email: <b>admin@sirkadirov.com</b></p>
+</div>
+<?php endif; ?>
+
 
 <?php if ($total_articles_number == 0 || $db_result->num_rows === 0): ?>
 <div align="center">
