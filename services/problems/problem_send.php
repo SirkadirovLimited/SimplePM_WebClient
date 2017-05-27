@@ -139,6 +139,8 @@
 			`spm_submissions`
 		SET
 			`setAsAuthorSolution` = " . $setAsAuthorSolution . ",
+			`classworkId` = '" . $classworkId . "',
+			`olympId` = '0',
 			`problemCode`='" . $_POST['code'] . "',
 			`userId` = '" . $_SESSION['uid'] ."',
 			`problemId` = '" . $_POST['problemId'] . "',
