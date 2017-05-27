@@ -18,43 +18,50 @@
 				$db_get->free();
 				unset($db_get);
 				
-				return "<a href='index.php?service=user&id=" . $teacherId . "'>Учитель/Куратор:<br/><b>" . $tUser['secondname'] . " " . $tUser['firstname'] . " " . $tUser['thirdname'] . ", " . $tUser['group'] . "</b></a>";
+				if (!$query = $db->query("SELECT `name` FROM `spm_users_groups` WHERE `id` = '" . $teacherId . "' LIMIT 1;"))
+					die(header('location: index.php?service=error&err=db_error'));
+				
+				$tUser['group_name'] = @$query->fetch_array()[0];
+				
+				return "<a href='index.php?service=user&id=" . $teacherId . "'>Учитель/Куратор:<br/><b>" . $tUser['secondname'] . " " . $tUser['firstname'] . " " . $tUser['thirdname'] . ", " . $tUser['group_name'] . "</b></a>";
 			endif;
 		endif;
 		
 	}
 	
-	if (!isset($_GET['id']) || strlen(trim($_GET['id'])) == 0):
-		
-		header("Location: index.php?service=user&id=" . $_SESSION['uid']);
-		
-	else:
-		$id = intval( htmlspecialchars( trim( $_GET['id'] ) ), 0 ); //Stay safe
-		if (!$db_result = $db->query("SELECT * FROM `spm_users` WHERE id = '$id'"))
-			die("<strong>Произошла ошибка при отправке запроса к базе данных. Посетите данную страницу позже.</strong>");
-		
-		if ($db_result->num_rows == 0):
-			
-			SPM_header("Ошибка 404");
-			include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["404"]);
-			SPM_footer();
-			exit();
-			
-		else:
-			
-			$user_info = $db_result->fetch_assoc();
-			
-			$db_result->free();
-			unset($db_result);
-			
-			if ($user_info['online'] == true)
-				$user_is_online = "<span class='label label-success'>Online</span>";
-			else
-				$user_is_online = "<span class='label label-danger'>Offline</span>";
-			
-			$user_fullname = $user_info['secondname'] . " " . $user_info['firstname'] . " " . $user_info['thirdname'];
-			
-			SPM_header($user_fullname, "Профиль пользователя", "Профиль пользователя");
+	if (!isset($_GET['id']) || strlen(trim($_GET['id'])) == 0) {
+		exit(header("Location: index.php?service=user&id=" . $_SESSION['uid']));
+	}
+	
+	$id = intval( htmlspecialchars( trim( $_GET['id'] ) ), 0 ); //Stay safe
+	if (!$db_result = $db->query("SELECT * FROM `spm_users` WHERE id = '$id'"))
+		die("<strong>Произошла ошибка при отправке запроса к базе данных. Посетите данную страницу позже.</strong>");
+	
+	if ($db_result->num_rows == 0){
+		SPM_header("Ошибка 404");
+		include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["404"]);
+		SPM_footer();
+		exit();
+	}
+	
+	$user_info = $db_result->fetch_assoc();
+	
+	$db_result->free();
+	unset($db_result);
+	
+	if ($user_info['online'] == true)
+		$user_is_online = "<span class='label label-success'>Online</span>";
+	else
+		$user_is_online = "<span class='label label-danger'>Offline</span>";
+	
+	$user_fullname = $user_info['secondname'] . " " . $user_info['firstname'] . " " . $user_info['thirdname'];
+	
+	if (!$query = $db->query("SELECT `name` FROM `spm_users_groups` WHERE `id` = '" . $user_info['group'] . "' LIMIT 1;"))
+		die(header('location: index.php?service=error&err=db_error'));
+	
+	$user_info['group_name'] = @$query->fetch_array()[0];
+	
+	SPM_header($user_fullname, "Профиль пользователя", "Профиль пользователя");
 ?>
 <div class="row">
 	<div class="col-md-4">
@@ -99,15 +106,15 @@
 		<?php if ($_SESSION['uid'] == $user_info['id']): ?>
 		<h3>Редактирование</h3>
 		<ul class="nav nav-pills nav-stacked">
-			<li role="presentation"><a href="index.php?service=user.edit&id=<?=$id?>#editProfile">Редактировать информацию</a></li>
-			<li role="presentation"><a href="index.php?service=user.edit&id=<?=$id?>#editAvatar">Изменить аватар</a></li>
-			<li role="presentation"><a href="index.php?service=user.edit&id=<?=$id?>#editPass">Изменить пароль</a></li>
-			<li role="presentation"><a href="index.php?service=user.edit&id=<?=$id?>#settings">Настройки</a></li>
+			<li><a href="index.php?service=user.edit&id=<?=$id?>#editProfile">Редактировать информацию</a></li>
+			<li><a href="index.php?service=user.edit&id=<?=$id?>#editAvatar">Изменить аватар</a></li>
+			<li><a href="index.php?service=user.edit&id=<?=$id?>#editPass">Изменить пароль</a></li>
+			<li><a href="index.php?service=user.edit&id=<?=$id?>#settings">Настройки</a></li>
 		</ul>
 		<?php else: ?>
 		<h3>Действия</h3>
 		<ul class="nav nav-pills nav-stacked">
-			<li role="presentation"><a href="index.php?service=messages.send&id=<?php print($id); ?>">Отправить сообщение</a></li>
+			<li><a href="index.php?service=messages.send&id=<?php print($id); ?>">Отправить сообщение</a></li>
 		</ul>
 		<?php endif; ?>
 	</div>
@@ -130,15 +137,9 @@
 		<h3>Важная информация</h3>
 		<ul class="nav nav-pills nav-stacked">
 			<li><a>Права доступа:<br/><b><?=$user_info['permissions']?></b></a></li>
-			<li><a>Группа:<br/><b>TODO (<?=$user_info['group']?>)</b></a></li>
+			<li><a>Группа:<br/><b><?=$user_info['group_name']?> (gid<?=$user_info['group']?>)</b></a></li>
 			<li><?=spm_getTeacherLinkById($user_info['teacherId'])?></li>
 		</ul>
 	</div>
 </div>
-<?php		
-
-			unset($user_info);
-		endif;
-		SPM_footer();
-	endif;
-?>
+<?php SPM_footer(); ?>

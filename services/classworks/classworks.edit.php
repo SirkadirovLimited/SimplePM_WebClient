@@ -71,7 +71,29 @@
 							</td>
 							<td>
 								<select name="studentGroup" class="form-control">
-									<option></option>
+<?php
+	$query_str = "
+		SELECT
+			`id`,
+			`name`
+		FROM
+			`spm_users_groups`
+		WHERE
+			`teacherId` = '" . $_SESSION["uid"] . "'
+		;
+	";
+	
+	if (!$query = $db->query($query_str))
+		die(header('location: index.php?service=error&err=db_error'));
+	
+	while ($group = $query->fetch_assoc()):
+		if ($user_info['group'] == $group['id'])
+			$selectedGroup = " selected";
+		else
+			$selectedGroup = "";
+?>
+					<option value="<?=$group['id']?>"<?=$selectedGroup?>><?=$group['name']?></option>
+<?php endwhile; ?>
 								</select>
 							</td>
 						</tr>

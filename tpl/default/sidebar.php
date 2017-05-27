@@ -6,6 +6,18 @@
 <aside class="main-sidebar">
 	<section class="sidebar">
 		<ul class="sidebar-menu">
+			<?php if (isset($_SESSION["classwork"])): ?>
+			
+			<li class="header">РЕЖИМ УРОКА</li>
+			<li><a href="index.php?service=classworks.problems"><i class="fa fa-users"></i> <span>Урок</span></a></li>
+			<li><a href="index.php?service=classworks.result"><i class="fa fa-users"></i> <span>Рейтинг</span></a></li>
+			
+			<?php elseif (isset($_SESSION["olymp"])): ?>
+			
+			<li class="header">СОРЕВНОВАНИЕ</li>
+			
+			<?php else: ?>
+			
 			<li class="header">ГЛАВНОЕ МЕНЮ</li>
 			<?php
 				//user
@@ -23,6 +35,8 @@
 				//if (permission_check($_SESSION['permissions'], PERMISSION::olymp))
 				//	include_once(_S_TPL_ . "sidebar/olymp.inc.php");
 			?>
+			
+			<?php endif; ?>
 		</ul>
 	</section>
 </aside>

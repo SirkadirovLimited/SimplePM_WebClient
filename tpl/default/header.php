@@ -6,13 +6,11 @@
 	</a>
 
 	<nav class="navbar navbar-static-top" role="navigation">
-		<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-			<span class="sr-only">Toggle navigation</span>
-		</a>
+		<a href="#" class="sidebar-toggle" data-toggle="offcanvas" title="Показать или скрыть главное меню системы"></a>
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
-				<?php include(_S_MOD_ . "olympiad.php"); ?>
-				<?php if (!isset($_SESSION["olymp"])): ?>
+				<?php include(_S_MOD_ . "classwork.php"); ?>
+				<?php if (!isset($_SESSION["classwork"])): ?>
 					<?php include(_S_MOD_ . "messagesmenu.php"); ?>
 					<?php include(_S_MOD_ . "onlinemenu.php"); ?>
 					<?php include(_S_MOD_ . "birthdaysmenu.php"); ?>

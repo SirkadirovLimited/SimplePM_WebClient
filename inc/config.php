@@ -15,6 +15,7 @@
 	$_SPM_CONF["BASE"]["SITE_URL"] = $_SERVER['HTTP_HOST']; //адрес сайта (можно использовать $_SERVER['HTTP_HOST'])
 	$_SPM_CONF["BASE"]["TPL_NAME"] = "default"; //имя папки шаблона
 	$_SPM_CONF["BASE"]["ADMIN_MAIL"] = "admin@sirkadirov.com"; //email администратора
+	date_default_timezone_set('Europe/Kiev'); //временная зона, подробнее на http://php.net/manual/ru/timezones.php
 	/*BASE_CONFIGURATION-END*/
 	
 	/*DB-CONFIG-START*/
@@ -25,8 +26,6 @@
 	/*DB-CONFIG-END*/
 	
 	/*SERVICES-START*/
-	$_SPM_CONF["SERVICE"]["_AUTOSTART_SERVICE_"] = "news"; //Главный сервис
-	
 	$_SPM_CONF["SERVICE"]["agreement"] = "agreement.php";
 	
 	$_SPM_CONF["SERVICE"]["register"] = "login/register.php"; //nologin
@@ -74,6 +73,7 @@
 	
 	$_SPM_CONF["SERVICE"]["teacherID"] = "admin/teacherID.php"; //require teacher/admin
 	$_SPM_CONF["SERVICE"]["users.admin"] = "admin/users.admin.php"; //require teacher/admin
+	$_SPM_CONF["SERVICE"]["groups.admin"] = "admin/groups.admin.php"; //require teacher/admin
 	/*SERVICES-END*/
 	
 	/*SERVICES_NOLOGIN-START*/
@@ -92,6 +92,7 @@
 	/*ERROR_PAGES-END*/
 	
 	/*SERVICES_SETTINGS-START*/
+	$_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"] = "news";
 	$_SPM_CONF["SERVICES"]["news"]["articles_per_page"] = 5;
 	$_SPM_CONF["SERVICES"]["rating"]["articles_per_page"] = 30;
 	$_SPM_CONF["SERVICES"]["problems"]["articles_per_page"] = 30;
@@ -110,4 +111,27 @@
 	$_SPM_CONF["SECURITY"]["require_captcha"] = false; //Требовать ввода капчи при
 	                                                  //анонимном использовании сайта
 	/*SECURITY-END*/
+	
+	function spm_prepare_classwork(){
+		
+		global $_SPM_CONF;
+		unset($_SPM_CONF["SERVICE"]);
+		
+		//Available services
+		$_SPM_CONF["SERVICE"]["logout"] = "login/logout.php";
+		
+		$_SPM_CONF["SERVICE"]["classworks.problems"] = "classworks/user/problems.php";
+		$_SPM_CONF["SERVICE"]["classworks.result"] = "classworks/classworks.result.php";
+		
+		$_SPM_CONF["SERVICE"]["image"] = "image.php";
+		
+		$_SPM_CONF["SERVICE"]["problem"] = "problems/problem.php";
+		$_SPM_CONF["SERVICE"]["problem_send"] = "problems/problem_send.php";
+		$_SPM_CONF["SERVICE"]["problem_result"] = "problems/problem_result.php";
+		
+		
+		//Autostart service (main service)
+		$_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"] = "classworks.problems";
+		
+	}
 ?>

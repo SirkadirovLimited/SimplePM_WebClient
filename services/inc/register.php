@@ -124,7 +124,7 @@
 					`email` = '$email', 
 					`teacherId` = '$teacherId', 
 					`permissions` = '$permissions', 
-					`group` = 'user'
+					`group` = '0'
 				";
 
 	if(!$db->query($db_query)){
