@@ -2,12 +2,28 @@
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	deniedOrAllowed(PERMISSION::teacher);
 	
+	/////////////////////////////////////
+	
 	isset($_GET['id']) && (int)$_GET['id'] > 0 or $_GET['id'] = 0;
 	$_GET['id'] = (int)$_GET['id'];
 	
-	if (isset($_GET['id']) && (int)$_GET['id'] > 0){
+	/////////////////////////////////////
+	
+	if ($_GET['id'] > 0){
 		
-		$query_str = "SELECT * FROM `spm_classworks` WHERE `id` = '" . (int)$_GET['id'] . "' AND `teacherId` = '" . $_SESSION["uid"] . "' LIMIT 1;";
+		$query_str = "
+			SELECT
+				*
+			FROM
+				`spm_classworks`
+			WHERE
+				`id` = '" . (int)$_GET['id'] . "'
+			AND
+				`teacherId` = '" . $_SESSION["uid"] . "'
+			LIMIT
+				1
+			;
+		";
 		
 		if (!$query = $db->query($query_str))
 			die(header('location: index.php?service=error&err=db_error'));
@@ -16,12 +32,108 @@
 			die('<strong>Урок с таким идентификатором не найден!</strong>');
 		
 		$cwork_info = $query->fetch_assoc();
+		
 	} else {
 		$cwork_info['id'] = "AUTO INCREMENT";
 		$cwork_info['minb'] = 0;
 	}
 	
+	/////////////////////////////////////
 	
+	if (isset($_POST["sender"])){
+		
+		////////
+		
+		$_GET['id'] > 0 or $_GET['id'] = "null";
+		
+		////////
+		
+		isset($_POST["name"]) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		isset($_POST["description"]) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		
+		isset($_POST["startTime"]) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		isset($_POST["endTime"]) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		
+		isset($_POST["studentsGroup"]) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		
+		////////
+		
+		$_POST["name"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["name"])));
+		$_POST["description"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["description"])));
+		
+		$_POST["startTime"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["startTime"])));
+		$_POST["endTime"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["endTime"])));
+		
+		$_POST["studentsGroup"] = (int)$_POST["studentsGroup"];
+		
+		////////
+		
+		(strlen($_POST["name"]) > 0 && strlen($_POST["name"]) <= 255) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		(strlen($_POST["description"]) > 0 && strlen($_POST["description"]) <= 65535) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		
+		(strlen($_POST["startTime"]) == 19) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		(strlen($_POST["endTime"]) == 19) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		
+		$_POST["studentsGroup"] > 0 or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		
+		////////
+		
+		$query_substr = "
+				`name` = '" . $_POST["name"] . "',
+				`description` = '" . $_POST["description"] . "',
+				
+				`startTime` = '" . $_POST["startTime"] . "',
+				`endTime` = '" . $_POST["endTime"] . "',
+				
+				`studentsGroup` = '" . $_POST["studentsGroup"] . "',
+				
+				`teacherId` = '" . $_SESSION["uid"] . "'
+		";
+		$query_str = "
+			INSERT INTO
+				`spm_classworks`
+			SET
+				`id` = " . $_GET["id"] . ",
+				
+				" . $query_substr . "
+			ON DUPLICATE KEY UPDATE
+				" . $query_substr . "
+			;
+		";
+		
+		if (!$db->query($query_str))
+			die(mysqli_error($db));//die(header('location: index.php?service=error&err=db_error'));
+		
+		////////
+		
+		//Получаем идентификатор урока
+		$_classworkId = $db->insert_id;
+		
+		if (isset($_POST['problems-by-id'])){
+		
+			$problems = explode("\n", $_POST['problems-by-id']);
+			
+			foreach ($problems as $problem){
+				$problemId = (int)mysqli_real_escape_string($db, strip_tags(trim($problem)));
+				
+				$query_str = "
+							INSERT INTO
+								`spm_classworks_problems`
+							SET
+								`classworkId` = '" . $_classworkId . "',
+								`problemId` = '" . $problemId . "'
+							;
+				";
+				
+				@$db->query($query_str);
+			}
+			
+		}
+		
+		////////
+		
+		exit(header('location: ' . $_SERVER['REQUEST_URI']));
+	}
 	
 	SPM_header("Подсистема уроков", "Редактирование урока");
 ?>
@@ -46,21 +158,21 @@
 							<td><input type="text" class="form-control" value="<?=$cwork_info['id']?>" disabled></td>
 						</tr>
 						<tr>
-							<td>Название олимпиады<span style="color: red;" data-toggle="tooltip" data-placement="right" title="Поле обязательно для заполнения">*</span></td>
+							<td>Название урока<span style="color: red;" data-toggle="tooltip" data-placement="right" title="Поле обязательно для заполнения">*</span></td>
 							<td><input type="text" class="form-control" name="name" value="<?=@$cwork_info['name']?>" reqired></td>
 						</tr>
 						<tr>
-							<td>Описание олимпиады<span style="color: red;" data-toggle="tooltip" data-placement="right" title="Поле обязательно для заполнения">*</span></td>
+							<td>Описание урока<span style="color: red;" data-toggle="tooltip" data-placement="right" title="Поле обязательно для заполнения">*</span></td>
 							<td><textarea class="form-control" style="resize: none;" name="description" rows="5" reqired><?=@$cwork_info['description']?></textarea></td>
 						</tr>
 						<tr>
-							<td>Дата и время начала олимпиады<span style="color: red;" data-toggle="tooltip" data-placement="right" title="Поле обязательно для заполнения">*</span></td>
+							<td>Дата и время начала урока<span style="color: red;" data-toggle="tooltip" data-placement="right" title="Поле обязательно для заполнения">*</span></td>
 							<td>
 								<input type="text" class="form-control" name="startTime" placeholder="ГГГГ-ММ-ДД ЧЧ:ММ:СС" value="<?=@$cwork_info['startTime']?>" reqired>
 							</td>
 						</tr>
 						<tr>
-							<td>Дата и время окончания олимпиады<span style="color: red;" data-toggle="tooltip" data-placement="right" title="Поле обязательно для заполнения">*</span></td>
+							<td>Дата и время окончания урока<span style="color: red;" data-toggle="tooltip" data-placement="right" title="Поле обязательно для заполнения">*</span></td>
 							<td>
 								<input type="text" class="form-control" name="endTime" placeholder="ГГГГ-ММ-ДД ЧЧ:ММ:СС" value="<?=@$cwork_info['endTime']?>" reqired>
 							</td>
@@ -71,7 +183,7 @@
 								Группа учащихся<span style="color: red;" data-toggle="tooltip" data-placement="right" title="Поле обязательно для заполнения">*</span>
 							</td>
 							<td>
-								<select name="studentGroup" class="form-control">
+								<select name="studentsGroup" class="form-control">
 <?php
 	$query_str = "
 		SELECT
