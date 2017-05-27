@@ -64,11 +64,8 @@
 						<td>
 							<form action="" method="post" style="margin: 0;">
 								<input type="hidden" name="id" value="<?=$classwork['id']?>">
-								<div class="btn-group">
-									<a href="index.php?service=classworks.result&id=<?=$classwork['id']?>" class="btn btn-primary btn-xs">STAT</a>
-									<a href="index.php?service=classworks.edit&id=<?=$classwork['id']?>" class="btn btn-warning btn-xs">EDIT</a>
-									<button class="btn btn-danger btn-xs" type="submit" name="delClasswork">DEL</button>
-								</div>
+								<a href="index.php?service=classworks.result&id=<?=$classwork['id']?>" class="btn btn-primary btn-xs">STAT</a>
+								<a href="index.php?service=classworks.edit&id=<?=$classwork['id']?>" class="btn btn-warning btn-xs">EDIT</a>
 							</form>
 						</td>
 					</tr>

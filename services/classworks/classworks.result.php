@@ -68,7 +68,29 @@
 	
 	/////////////////////////////////////
 	
-	SPM_header("Урок #1", "Статистика урока");
+	$query_str = "
+		SELECT
+			count(`problemId`)
+		FROM
+			`spm_classworks_problems`
+		WHERE
+			`classworkId` = '" . $_GET["id"] . "'
+		;
+	";
+	
+	if (!$query = $db->query($query_str))
+		die(header('location: index.php?service=error&err=db_error'));
+	
+	if ($query->num_rows == 0)
+		$problems_count = 0;
+	else
+		$problems_count = $query->fetch_array()[0];
+	
+	$query->free();
+	
+	/////////////////////////////////////
+	
+	SPM_header("Урок #" . $_GET["id"], "Статистика урока");
 ?>
 
 <div class="box box-default box-solid" style="border-radius: 0;">
@@ -139,7 +161,27 @@
 							<a href="index.php?service=user&id=<?=$user['id']?>"><?=$user['secondname']?> <?=$user['firstname']?> <?=$user['thirdname']?></a>
 						</td>
 						<td>
-							0 / 2
+							<?php
+								$query_str = "
+									SELECT
+										count(`submissionId`)
+									FROM
+										`spm_submissions`
+									WHERE
+										`userId` = '" . $user['id'] . "'
+									AND
+										`classworkId` = '" . $_GET["id"] . "'
+									;
+								";
+								
+								if (!$query = $db->query($query_str))
+									header('location: index.php?service=error&err=db_error');
+								
+								$right_problems_count = @($query->fetch_array()[0]);
+								
+								@$query->free();
+							?>
+							<?=@(int)$right_problems_count?> / <?=@(int)$problems_count?>
 						</td>
 						<td>
 							<?=$user['sum(`b`)']?>
