@@ -7,7 +7,7 @@
 	(int)$_GET['page']>0 or $_GET['page']=1;
 	
 	if (!$db_result = $db->query("SELECT count(id) FROM `spm_classworks` WHERE `teacherId` = '" . $_SESSION["uid"] . "';"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	$total_articles_number = (int)($db_result->fetch_array()[0]);
 	$articles_per_page = $_SPM_CONF["SERVICES"]["news"]["articles_per_page"];
@@ -25,7 +25,7 @@
 		$current_page = 1;
 	
 	if (!$db_result = $db->query("SELECT * FROM `spm_classworks` WHERE `teacherId` = '" . $_SESSION["uid"] . "' ORDER BY `id` DESC LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	SPM_header("Подсистема уроков", "Список уроков");
 ?>
@@ -49,7 +49,8 @@
 			<table class="table table-bordered table-hover" style="margin: 0;">
 				<thead>
 					<th width="10%">ID</th>
-					<th width="39%">Наименование</th>
+					<th width="29%">Наименование</th>
+					<th width="10%">Группа</th>
 					<th width="15%">Время начала</th>
 					<th width="15%">Время конца</th>
 					<th width="11%">Действия</th>
@@ -59,6 +60,7 @@
 					<tr>
 						<td><?=$classwork['id']?></td>
 						<td><?=$classwork['name']?></td>
+						<td>gid_<?=$classwork['studentsGroup']?></td>
 						<td><?=$classwork['startTime']?></td>
 						<td><?=$classwork['endTime']?></td>
 						<td>
