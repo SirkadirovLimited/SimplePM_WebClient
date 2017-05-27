@@ -22,6 +22,7 @@
 	}
 	
 	
+	
 	SPM_header("Подсистема уроков", "Редактирование урока");
 ?>
 
@@ -135,7 +136,7 @@
 <?php endif; ?>
 
 	<div align="right">
-		<a class="btn btn-danger btn-flat" href="index.php?service=olympiads">Отменить</a>
+		<a class="btn btn-danger btn-flat" href="index.php?service=classworks">Отменить</a>
 		<input type="reset" class="btn btn-warning btn-flat" value="Сбросить изменения">
 		<input type="submit" class="btn btn-success btn-flat" name="sender" value="Применить">
 	</div>
