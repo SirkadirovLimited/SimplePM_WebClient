@@ -80,8 +80,8 @@
 <!--PROBLEMS LIST-->
 <?php if ($total_articles_number == 0 || $db_result->num_rows == 0): ?>
 		<div align="center">
-			<h3>Задач не найдено</h3>
-			<p class="lead">По вашему запросу задач не найдено! Попробуйте ввести другой поисковый запрос.</p>
+			<h3>Пользователей не найдено!</h3>
+			<p class="lead">По вашему запросу пользователей не найдено! Попробуйте ввести другой поисковый запрос.</p>
 		</div>
 <?php else: ?>
 		<div class="table-responsive" style="margin: 0; width: 100%;">
@@ -140,11 +140,18 @@
 			if ($user["rating"] == null)
 				$user["rating"] = 0;
 ?>
+					<?php
+						if (!$query_group = $db->query("SELECT `name` FROM `spm_users_groups` WHERE `id` = '" . $user['group'] . "' LIMIT 1;"))
+							die(header('location: index.php?service=error&err=db_error'));
+						
+						$user['group_name'] = @$query_group->fetch_assoc()['name'];
+						$query_group->free();
+					?>
 					<tr>
 						<td><?=$user["id"]?></td>
 						<td><a href="index.php?service=user&id=<?=$user["id"]?>"><?=$user["username"]?></a></td>
 						<td><a href="index.php?service=user&id=<?=$user["id"]?>"><?=$user["secondname"] . " " . $user["firstname"] . " " . $user["thirdname"]?></a></td>
-						<td><?=$user["group"]?></td>
+						<td><?=$user['group_name']?></td>
 						<td><?=$user["bcount"]?></td>
 						<td><?=$user["rating"]?></td>
 					</tr>
