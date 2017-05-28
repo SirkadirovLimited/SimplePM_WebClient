@@ -51,7 +51,7 @@
 			</div>
 			<div class="panel-body" style="padding: 0;">
 				<!--SPM-->
-				<a href="index.php?service=problems.admin" style="margin: 0;" class="btn btn-warning btn-xlarge btn-block btn-flat">
+				<a href="index.php?service=problems.admin" style="margin: 0;" class="btn btn-warning btn-xlarge btn-block btn-flat disabled">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
 						Сгенерировать новые Teacher ID<br/>для всех
@@ -70,19 +70,19 @@
 			</div>
 			<div class="panel-body" style="padding: 0;">
 				<!--SECURITY-->
-				<a href="index.php?service=config.admin" style="margin: 0;" class="btn btn-danger btn-xlarge btn-block btn-flat">
+				<a href="index.php?service=config.admin" style="margin: 0;" class="btn btn-danger btn-xlarge btn-block btn-flat disabled">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
 						Редактировать файл<br/>конфигурации SimplePM_WebClient
 					</p>
 				</a>
-				<a href="index.php?service=bigbrother.admin" style="margin: 0;" class="btn btn-danger btn-xlarge btn-block btn-flat">
+				<a href="index.php?service=bigbrother.admin" style="margin: 0;" class="btn btn-danger btn-xlarge btn-block btn-flat disabled">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
 						Подозрительные действия<br/>пользователей
 					</p>
 				</a>
-				<a href="index.php?service=optimisation.admin" style="margin: 0;" class="btn btn-danger btn-xlarge btn-block btn-flat">
+				<a href="index.php?service=optimisation.admin" style="margin: 0;" class="btn btn-danger btn-xlarge btn-block btn-flat disabled">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
 						Оптимизация базы данных<br/>SimplePM
@@ -103,7 +103,7 @@
 		<!--SIMPLEPM_WEBCLIENT-->
 		<div class="row" style="margin: 0;">
 			<div class="col-md-4" style="padding: 0;">
-				<a href="index.php?service=problems.admin" class="btn btn-success btn-xlarge btn-block btn-flat">
+				<a href="http://spm.sirkadirov.com/" class="btn btn-success btn-xlarge btn-block btn-flat">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
 						Перейти на официальный сайт<br/>SimplePM
@@ -111,7 +111,7 @@
 				</a>
 			</div>
 			<div class="col-md-4" style="padding: 0;">
-				<a href="index.php?service=problems.admin" class="btn btn-success btn-xlarge btn-block btn-flat">
+				<a href="index.php?service=problems.admin" class="btn btn-success btn-xlarge btn-block btn-flat disabled">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
 						Проверить SimplePM_WebClient<br/>на наличие обновлений
@@ -119,7 +119,7 @@
 				</a>
 			</div>
 			<div class="col-md-4" style="padding: 0;">
-				<a href="index.php?service=problems.admin" class="btn btn-success btn-xlarge btn-block btn-flat">
+				<a href="http://spm.sirkadirov.com/" class="btn btn-success btn-xlarge btn-block btn-flat">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
 						Перейти к документации SimplePM<br/>(внешней)
@@ -127,7 +127,7 @@
 				</a>
 			</div>
 			<div class="col-md-4" style="padding: 0;">
-				<a href="index.php?service=problems.admin" class="btn btn-success btn-xlarge btn-block btn-flat">
+				<a href="index.php?service=problems.admin" class="btn btn-success btn-xlarge btn-block btn-flat disabled">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
 						Поддержать проект<br/>
@@ -136,7 +136,7 @@
 				</a>
 			</div>
 			<div class="col-md-4" style="padding: 0;">
-				<a href="index.php?service=problems.admin" class="btn btn-success btn-xlarge btn-block btn-flat">
+				<a href="https://github.com/SirkadirovLimited/" class="btn btn-success btn-xlarge btn-block btn-flat">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
 						Официальный репозиторий<br/>
@@ -145,7 +145,7 @@
 				</a>
 			</div>
 			<div class="col-md-4" style="padding: 0;">
-				<a href="index.php?service=problems.admin" class="btn btn-success btn-xlarge btn-block btn-flat">
+				<a href="index.php?service=problems.admin" class="btn btn-success btn-xlarge btn-block btn-flat disabled">
 					<p class="admin-btn">
 						<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
 						Информация о внешних сервисах<br/>
@@ -156,5 +156,26 @@
 		</div>
 		<!--SIMPLEPM_WEBCLIENT-->
 	</div>
-</div>	
+</div>
+
+<div class="panel panel-default" style="border-radius: 0;">
+	<div class="panel-heading" style="border-radius: 0;">
+		<h3 class="panel-title">Связь с автором системы</h3>
+	</div>
+	<div class="panel-body">
+		<dl class="dl-horizontal" style="margin: 20px 20px 20px 0px;">
+			<dt>Автор системы</dt>
+			<dd>Кадиров Юрий Викторович</dd>
+			
+			<dt>Email тех. поддержки</dt>
+			<dd>admin@sirkadirov.com</dd>
+			
+			<dt>Телефон тех. поддержки</dt>
+			<dd>+380 (98) 121-16-52 (перед звонком через СМС представиться)</dd>
+			
+			<dt>Примечание</dt>
+			<dd>Вибачте за російську мову! Українська локалізація буде вже з наступного оновлення!</dd>
+		</dl>
+	</div>
+</div>
 <?php SPM_footer(); ?>
