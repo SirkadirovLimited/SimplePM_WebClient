@@ -37,6 +37,7 @@
 	$_SPM_CONF["SERVICE"]["news"] = "news.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["view"] = "view.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["rating"] = "rating.php"; //require session(uid)
+	$_SPM_CONF["SERVICE"]["error"] = "error.php"; //require session(uid)
 	
 	//                             PROBLEMS SERVICES
 	$_SPM_CONF["SERVICE"]["problems"] = "problems/problems.php"; //require >=student
@@ -130,6 +131,7 @@
 		$_SPM_CONF["SERVICE"]["problem_send"] = "problems/problem_send.php";
 		$_SPM_CONF["SERVICE"]["problem_result"] = "problems/problem_result.php";
 		
+		$_SPM_CONF["SERVICE"]["error"] = "error.php";
 		
 		//Autostart service (main service)
 		$_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"] = "classworks.problems";

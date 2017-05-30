@@ -27,6 +27,7 @@
 	include_once(_S_INC_ . "config.php");
 	include_once(_S_INC_ . "db.php");
 	include_once(_S_INC_FUNC_ . "info_msg.php");
+	include_once(_S_INC_FUNC_ . "user_info.php");
 	include_once(_S_INC_CLASS_ . "CountryList.php");
 	//S_TPL defines
 	DEFINE("_S_TPL_", "./tpl/" . $_SPM_CONF["BASE"]["TPL_NAME"] . "/");
@@ -46,63 +47,10 @@
 	//Functions autorun
 	_spm_guard_clearAllGet();
 	
-	//Some security checks for you
-	include_once(_S_INC_FUNC_ . "user_check.php");
-	
-	/* CLASSWORKS-START */
-	if (isset($_SESSION["uid"]) && permission_check($_SESSION["permissions"], PERMISSION::student)){
-		$query_str = "
-			SELECT
-				`teacherId`,
-				`group`
-			FROM
-				`spm_users`
-			WHERE
-				`id` = '" . $_SESSION["uid"] . "'
-			LIMIT
-				1
-			;
-		";
-		
-		if (!$query = $db->query($query_str))
-			die(header('location: index.php?service=error&err=db_error'));
-		
-		$user = $query->fetch_assoc();
-		$query->free();
-		
-		$query_str = "
-			SELECT
-				`id`
-			FROM
-				`spm_classworks`
-			WHERE
-				`teacherId` = '" . $user["teacherId"] . "'
-			AND
-				`studentsGroup` = '" . $user["group"] . "'
-			AND
-				`startTime` <= now()
-			AND
-				`endTime` >= now()
-			LIMIT
-				1
-			;
-		";
-		
-		if (!$query = $db->query($query_str))
-			die(header('location: index.php?service=error&err=db_error'));
-		
-		if ($query->num_rows == 0)
-			unset($_SESSION["classwork"]);
-		else
-		{
-			$_SESSION["classwork"] = $query->fetch_array()[0];
-			spm_prepare_classwork();
-		}
-		
-		$query->free();
-		unset($query);
-	}
-	/* CLASSWORK-END */
+	/* CHECKS-START */
+	include_once(_S_INC_FUNC_ . "user_check.php"); //user checker
+	include_once(_S_INC_FUNC_ . "classworks_check.php"); //classworks checker
+	/* CHECKS-END */
 	
 	//Choosing service to start
 	if (isset($_GET['service']) && strlen($_GET['service']) > 0)

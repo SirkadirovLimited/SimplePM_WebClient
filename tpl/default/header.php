@@ -11,7 +11,6 @@
 			<ul class="nav navbar-nav">
 				<?php include(_S_MOD_ . "classwork.php"); ?>
 				<?php if (!isset($_SESSION["classwork"])): ?>
-					<?php include(_S_MOD_ . "messagesmenu.php"); ?>
 					<?php include(_S_MOD_ . "onlinemenu.php"); ?>
 					<?php include(_S_MOD_ . "birthdaysmenu.php"); ?>
 				<?php endif; ?>

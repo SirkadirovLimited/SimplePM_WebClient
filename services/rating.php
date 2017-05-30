@@ -34,7 +34,6 @@
 	$current_page = (int)$_GET['page'];
 	
 	$db_result->free();
-	unset($db_result);
 	
 	if ($total_articles_number > 0 && $articles_per_page > 0)
 		$total_pages = ceil($total_articles_number / $articles_per_page);
@@ -46,7 +45,7 @@
 	
 	//SQL queries and formatting
 	if (!$db_result = $db->query("SELECT `id`,`firstname`,`secondname`,`thirdname`,`username`,`group`,`rating`,`bcount` FROM `spm_users` ORDER BY `" . $_GET["sortby"] . "` " . $_GET["sort"] . " LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die(header('location: index.php?service=error&err=db_error'));
 
 	SPM_header("Рейтинг учащихся", "Глобальный");
 	
@@ -62,7 +61,7 @@
 ?>
 <!--SEARCH-->
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-12">
 				<form action="" method="get">
 					<select class="form-control" name="category" required>
 						<option value="0" selected>Все группы</option>
@@ -71,10 +70,6 @@
 				</form>
 			</div>
 			<div class="col-md-9">
-				<form action="" mathod="post">
-					<input class="form-control" name="searchText" placeholder="ФИО / Логин учащегося" value="<?=$_GET['query']?>">
-					<input type="submit" class="btn btn-success btn-block btn-flat" name="searchCmd" value="Поиск">
-				</form>
 			</div>
 		</div>
 <!--PROBLEMS LIST-->
@@ -172,5 +167,5 @@
 		</div>
 <?php endif;?>
 
-<?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4, "rating", "&query=" . $_GET["query"] . "&sortby=" . $_GET["sortby"] . "&sort=" . $_GET["sort"]); ?>
+<?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4, "rating", "&sortby=" . $_GET["sortby"] . "&sort=" . $_GET["sort"]); ?>
 <?php SPM_footer(); ?>

@@ -58,8 +58,6 @@
 		
 		GROUP BY
 			`userId`
-		ORDER BY
-			sum(`b`) DESC
 		;
 	";
 	
@@ -93,14 +91,14 @@
 	SPM_header("Урок #" . $_GET["id"], "Статистика урока");
 ?>
 
-<div class="box box-default box-solid" style="border-radius: 0;">
+<div class="box box-default box-solid" style="border-radius: 0; margin-bottom: 20px; overflow: hidden;">
 	<div class="box-header with-border" style="border-radius: 0;">
 		<h3 class="box-title">Информация об уроке</h3>
 	</div>
-	<div class="box-body" style="padding: 0;">
+	<div class="box-body" style="padding: 0; overflow-x: auto; padding-right: 15px;">
 		
-		<div class="row">
-			<div class="col-md-6">
+		<div class="row-fluid">
+			<div class="col-md-6 col-xs-6">
 				
 				<dl class="dl-horizontal" style="margin: 20px 20px 20px 0px;">
 					<dt>Название урока</dt>
@@ -114,7 +112,7 @@
 				</dl>
 				
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-6 col-xs-6">
 				
 				<dl class="dl-horizontal" style="margin: 20px 20px 20px 0px;">
 					<dt>Время начала</dt>
@@ -124,7 +122,7 @@
 					<dd><?=$classwork['endTime']?></dd>
 					
 					<dt>Учитель</dt>
-					<dd><a href="index.php?service=user&id=<?=$classwork['teacherId']?>"><span class="fa fa-user"></span> id<?=$classwork['teacherId']?></a></dd>
+					<dd><a href="index.php?service=user&id=<?=$classwork['teacherId']?>"><span class="fa fa-user"></span> <?=spm_getUserFullnameByID($classwork['teacherId'])?></a></dd>
 				</dl>
 				
 			</div>
@@ -133,67 +131,85 @@
 	</div>
 </div>
 
-<div class="box box-primary box-solid" style="border-radius: 0;">
-	<div class="box-header with-border" style="border-radius: 0;">
-		<h3 class="box-title">Рейтинг пользователей</h3>
-	</div>
-	<div class="box-body" style="padding: 0;">
-		
-		<div class="table-responsive" style="background-color: white;">
-			<table class="table table-bordered table-hover" style="margin: 0;">
-				<thead>
-					<th width="10%">ID</th>
-					<th width="20%">Имя пользователя</th>
-					<th width="50%">Полное имя</th>
-					<th width="10%">Задач</th>
-					<th width="10%">B</th>
-				</thead>
-				<tbody>
-					<?php while ($user = $users_query->fetch_assoc()): ?>
-					<tr>
-						<td>
-							<?=$user['id']?>
-						</td>
-						<td>
-							<a href="index.php?service=user&id=<?=$user['id']?>"><?=$user['username']?></a>
-						</td>
-						<td>
-							<a href="index.php?service=user&id=<?=$user['id']?>"><?=$user['secondname']?> <?=$user['firstname']?> <?=$user['thirdname']?></a>
-						</td>
-						<td>
-							<?php
-								$query_str = "
-									SELECT
-										count(`submissionId`)
-									FROM
-										`spm_submissions`
-									WHERE
-										`userId` = '" . $user['id'] . "'
-									AND
-										`classworkId` = '" . $_GET["id"] . "'
-									;
-								";
-								
-								if (!$query = $db->query($query_str))
-									header('location: index.php?service=error&err=db_error');
-								
-								$right_problems_count = @($query->fetch_array()[0]);
-								
-								@$query->free();
-							?>
-							<?=@(int)$right_problems_count?> / <?=@(int)$problems_count?>
-						</td>
-						<td>
-							<?=$user['sum(`b`)']?>
-						</td>
-					</tr>
-					<?php endwhile; ?>
-					<?php $users_query->free(); ?>
-				</tbody>
-			</table>
-		</div>
+<link rel="stylesheet" href="<?=_S_TPL_?>plugins/datatables/dataTables.bootstrap.css">
+<script src="<?=_S_TPL_?>plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?=_S_TPL_?>plugins/datatables/dataTables.bootstrap.min.js"></script>
 
-	</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#studentsRatingTable').DataTable({
+			"responsive": true,
+			"lengthChange": false,
+			"language": {
+				"zeroRecords": "Ничего не найдено!",
+				"info": "Страница _PAGE_ из _PAGES_",
+				"infoEmpty": "Ничего не найдено!",
+				"infoFiltered": "(отфильтровано из _MAX_ записей)"
+			}
+		});
+	} );
+</script>
+<style>
+	@media all and (max-width: 480px) {
+		#scroller {
+			overflow-x: scroll;
+		}
+	}
+</style>
+
+<div id="scroller">
+	
+	<table id="studentsRatingTable" class="table table-bordered table-hover datatable responsive no-wrap" style="background-color: white; padding: 0;">
+		<thead>
+				<th>ID</th>
+				<th>Имя пользователя</th>
+				<th>Полное имя</th>
+				<th>Задач</th>
+				<th>B</th>
+			</thead>
+			<tbody>
+				<?php while ($user = $users_query->fetch_assoc()): ?>
+				<tr>
+				<td>
+					<?=$user['id']?>
+				</td>
+				<td>
+					<a href="index.php?service=user&id=<?=$user['id']?>"><?=$user['username']?></a>
+				</td>
+				<td>
+					<a href="index.php?service=user&id=<?=$user['id']?>"><?=$user['secondname']?> <?=$user['firstname']?> <?=$user['thirdname']?></a>
+				</td>
+				<td>
+					<?php
+						$query_str = "
+							SELECT
+								count(`submissionId`)
+							FROM
+								`spm_submissions`
+							WHERE
+								`userId` = '" . $user['id'] . "'
+							AND
+								`classworkId` = '" . $_GET["id"] . "'
+							;
+						";
+						
+						if (!$query = $db->query($query_str))
+							header('location: index.php?service=error&err=db_error');
+						
+						$right_problems_count = @($query->fetch_array()[0]);
+						
+						@$query->free();
+					?>
+					<?=@(int)$right_problems_count?> / <?=@(int)$problems_count?>
+				</td>
+				<td>
+					<?=$user['sum(`b`)']?>
+				</td>
+			</tr>
+			<?php endwhile; ?>
+			<?php $users_query->free(); ?>
+		</tbody>
+	</table>
+	
 </div>
-
 <?php SPM_footer(); ?>

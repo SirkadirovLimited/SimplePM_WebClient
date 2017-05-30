@@ -26,6 +26,7 @@
 				 background-size: 100% 100%;
 			 }
 		</style>
+		<script src="<?=_S_TPL_?>plugins/jQuery/jquery-2.2.3.min.js"></script>
 		<script src="<?=_S_TPL_?>js/push.min.js"></script>
 	</head>
 	<body class="hold-transition skin-blue sidebar-collapse layout-boxed" style="height: auto;" onload="startTimer()">

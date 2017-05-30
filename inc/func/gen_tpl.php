@@ -3,6 +3,10 @@
 	
 	function SPM_header($_TPL_PAGENAME, $_TPL_PAGEDESC = null, $_TPL_PAGESUBNAME = null){
 		if (isset($_SESSION['uid'])){
+			
+			global $db;
+			global $_SPM_CONF;
+			
 			if ($_TPL_PAGESUBNAME == null)
 				$_TPL_PAGESUBNAME = $_TPL_PAGENAME;
 			

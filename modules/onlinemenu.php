@@ -1,13 +1,39 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
-	if (!$db_count = $db->query("SELECT COUNT(*) AS online_count FROM `spm_users` WHERE online = '1'"))
-			die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
-	if (!$db_result = $db->query("SELECT * FROM `spm_users` WHERE online = '1' LIMIT 0,5"))
-			die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+	$db_query = "
+		SELECT
+			count(`id`)
+		FROM
+			`spm_users`
+		WHERE
+			online = '1'
+		;
+	";
 	
-	$users_online_count = $db_count->fetch_assoc()["online_count"];
-	unset($db_count);
+	if (!$db_count = $db->query($db_query))
+			die(header('location: index.php?service=error&err=db_error'));
+	
+	$db_query = "
+		SELECT
+			`id`,
+			`secondname`,
+			`firstname`,
+			`username`
+		FROM
+			`spm_users`
+		WHERE
+			online = '1'
+		LIMIT
+			0, 5
+		;
+	";
+	
+	if (!$db_result = $db->query($db_query))
+			die(header('location: index.php?service=error&err=db_error'));
+	
+	$users_online_count = $db_count->fetch_array()[0];
+	$db_count->free();
 ?>
 <li class="dropdown messages-menu">
 	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Кто онлайн?">
@@ -38,3 +64,6 @@
 		<li class="footer"><a href="index.php?service=online">Полный список</a></li>
 	</ul>
 </li>
+<?php
+	$db_result->free();
+?>
