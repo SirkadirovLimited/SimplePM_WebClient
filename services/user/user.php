@@ -56,10 +56,7 @@
 	
 	$user_fullname = $user_info['secondname'] . " " . $user_info['firstname'] . " " . $user_info['thirdname'];
 	
-	if (!$query = $db->query("SELECT `name` FROM `spm_users_groups` WHERE `id` = '" . $user_info['group'] . "' LIMIT 1;"))
-		die(header('location: index.php?service=error&err=db_error'));
-	
-	$user_info['group_name'] = @$query->fetch_array()[0];
+	$user_info['group_name'] = spm_getUserGroupByID($user_info['group']);
 	
 	SPM_header($user_fullname, "Профиль пользователя", "Профиль пользователя");
 ?>
@@ -109,12 +106,11 @@
 			<li><a href="index.php?service=user.edit&id=<?=$id?>#editProfile">Редактировать информацию</a></li>
 			<li><a href="index.php?service=user.edit&id=<?=$id?>#editAvatar">Изменить аватар</a></li>
 			<li><a href="index.php?service=user.edit&id=<?=$id?>#editPass">Изменить пароль</a></li>
-			<li><a href="index.php?service=user.edit&id=<?=$id?>#settings">Настройки</a></li>
 		</ul>
 		<?php else: ?>
 		<h3>Действия</h3>
 		<ul class="nav nav-pills nav-stacked">
-			<li><a href="index.php?service=messages.send&id=<?php print($id); ?>">Отправить сообщение</a></li>
+			<li><a href="index.php?service=messages&uid=<?=$id?>">Отправить сообщение</a></li>
 		</ul>
 		<?php endif; ?>
 	</div>

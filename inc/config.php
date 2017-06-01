@@ -63,8 +63,7 @@
 	$_SPM_CONF["SERVICE"]["image"] = "image.php"; //require session(uid)
 	
 	//                             MESSAGING SERVICE
-	$_SPM_CONF["SERVICE"]["messages.list"] = "messages/messages.list.php"; //require session(uid)
-	$_SPM_CONF["SERVICE"]["messages.send"] = "messages/messages.send.php"; //require session(uid)
+	$_SPM_CONF["SERVICE"]["messages"] = "messages/messages.php"; //require session(uid)
 	
 	//                             ADMIN SERVICES
 	$_SPM_CONF["SERVICE"]["admin"] = "admin/admin.php"; //require permission 256
@@ -97,6 +96,7 @@
 	$_SPM_CONF["SERVICES"]["news"]["articles_per_page"] = 5;
 	$_SPM_CONF["SERVICES"]["rating"]["articles_per_page"] = 30;
 	$_SPM_CONF["SERVICES"]["problems"]["articles_per_page"] = 30;
+	$_SPM_CONF["SERVICES"]["messages"]["max_messages_to_show"] = 1000;
 	/*SERVICES_SETTINGS-END*/
 	
 	/*PASSWORD_SETTINGS-START*/

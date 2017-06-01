@@ -1,7 +1,7 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
-	if (isset($_GET['uid']) && ((int)$_GET['uid'] > 0)) {
+	if (isset($_GET['uid']) && ((int)$_GET['uid'] >= 0)) {
 		
 		/*
 		 * ФУНКЦИОНАЛ АВАТАРОВ ПОЛЬЗОВАТЕЛЕЙ
@@ -52,7 +52,13 @@
 		
 	}
 	else
+	{
+		header("Content-type: image/png");
+		header("Cache-control: public");
+		header("Cache-control: max-age=99999999");
+		
 		print(file_get_contents(_S_MEDIA_IMG_ . "no-img.png"));
+	}
 	
 	exit;
 ?>

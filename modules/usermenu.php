@@ -38,7 +38,7 @@
 		<li class="user-body" style="padding: 0;">
 			<ul class="nav nav-pills nav-stacked">
 				<li><a href="index.php?service=user&id=<?=$_SESSION['uid']?>"><i class="fa fa-user"></i> Мой профиль</a></li>
-				<li><a href="index.php?service=messages.list"><i class="fa fa-comments"></i> Мои сообщения <i class="fa pull-right"><span class="badge"><?=$messagesCount?></span></i></a></li>
+				<li><a href="index.php?service=messages"><i class="fa fa-comments"></i> Мои сообщения <i class="fa pull-right"><span class="badge"><?=$messagesCount?></span></i></a></li>
 			</ul>
 		</li>
 		<li class="user-footer">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Май 28 2017 г., 12:38
+-- Время создания: Июн 01 2017 г., 21:57
 -- Версия сервера: 5.7.18-log
 -- Версия PHP: 7.1.1
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `spm_classworks` (
   `teacherId` bigint(20) UNSIGNED NOT NULL,
   `studentsGroup` bigint(20) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Olympiads';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Olympiads';
 
 -- --------------------------------------------------------
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `spm_classworks_problems` (
   `classworkId` bigint(20) UNSIGNED NOT NULL,
   `problemId` mediumint(8) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Problems list for olympiads';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='Problems list for olympiads';
 
 -- --------------------------------------------------------
 
@@ -90,12 +90,9 @@ CREATE TABLE IF NOT EXISTS `spm_messages` (
   `unread` tinyint(1) NOT NULL DEFAULT '1',
   `from` int(10) UNSIGNED NOT NULL,
   `to` int(10) UNSIGNED NOT NULL,
-  `delFrom` tinyint(1) NOT NULL DEFAULT '0',
-  `delTo` tinyint(1) NOT NULL DEFAULT '0',
-  `title` tinytext NOT NULL,
   `message` mediumtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Messages table';
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='Messages table';
 
 -- --------------------------------------------------------
 
@@ -110,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `spm_news` (
   `title` tinytext NOT NULL,
   `content` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='News table';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='News table';
 
 --
 -- Дамп данных таблицы `spm_news`
@@ -130,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `spm_pages` (
   `name` text NOT NULL,
   `content` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='SimplePM pages table';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='SimplePM pages table';
 
 --
 -- Дамп данных таблицы `spm_pages`
@@ -163,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `spm_problems` (
   `input_ex` text,
   `output_ex` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1015 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `spm_problems`
@@ -195,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `spm_problems_categories` (
   `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` tinytext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `spm_problems_categories`
@@ -280,7 +277,7 @@ CREATE TABLE IF NOT EXISTS `spm_problems_tests` (
   `timeLimit` smallint(5) UNSIGNED NOT NULL DEFAULT '200',
   `description` tinytext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `spm_problems_tests`
@@ -360,7 +357,7 @@ CREATE TABLE IF NOT EXISTS `spm_submissions` (
   `result` tinytext,
   `b` float UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`submissionId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Problem submissions';
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8 COMMENT='Problem submissions';
 
 -- --------------------------------------------------------
 
@@ -407,7 +404,7 @@ CREATE TABLE IF NOT EXISTS `spm_users` (
   `online` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -420,7 +417,7 @@ CREATE TABLE IF NOT EXISTS `spm_users_groups` (
   `name` tinytext NOT NULL,
   `teacherId` bigint(20) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User groups';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='User groups';
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

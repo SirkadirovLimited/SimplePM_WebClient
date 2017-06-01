@@ -44,7 +44,6 @@
 <?php
 
 	require_once(_S_SERV_INC_ . "user/ui/avatar.php");
-	require_once(_S_SERV_INC_ . "user/ui/settings.php");
 	require_once(_S_SERV_INC_ . "user/ui/profile.php");
 	require_once(_S_SERV_INC_ . "user/ui/password.php");
 	

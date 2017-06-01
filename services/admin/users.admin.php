@@ -99,13 +99,6 @@
 			</tr>
 <?php else: ?>
 			<?php while ($user = $db_result->fetch_assoc()): ?>
-			<?php
-				if (!$query_group = $db->query("SELECT `name` FROM `spm_users_groups` WHERE `id` = '" . $user['group'] . "' LIMIT 1;"))
-					die(header('location: index.php?service=error&err=db_error'));
-				
-				$user['group_name'] = @$query_group->fetch_assoc()['name'];
-				$query_group->free();
-			?>
 			<tr>
 				<td><?=$user['id']?></td>
 				<td>
@@ -114,8 +107,8 @@
 					</a>
 				</td>
 				<td><?=$user['username']?></td>
-				<td><?=$user['group_name']?></td>
-				<td><?php if ($user['teacherId']>0) print("<a href='index.php?service=user&id=" . $user['teacherId'] . "'>ID_" . $user['teacherId'] . "</a>"); else print("Тёмная сторона Силы"); ?></td>
+				<td><?=spm_getUserGroupByID($user['group'])?></td>
+				<td><a href="index.php?service=user&id=<?=$user['teacherId']?>"><?=spm_getUserFullnameByID($user['teacherId'])?></a></td>
 				<td><?=$user['permissions']?></td>
 				<td>
 					<div class="btn-group">
