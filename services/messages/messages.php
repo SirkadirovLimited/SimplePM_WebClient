@@ -216,7 +216,7 @@
 				</div>
 				<img class="direct-chat-img" src="index.php?service=image&uid=<?=$message['from']?>" alt="Аватар">
 				<div class="direct-chat-text">
-					<?=spm_runSmilesRun(htmlspecialchars_decode(str_replace("\n", "<br/>", $message['message'])))?>
+					<?=htmlspecialchars_decode(str_replace("\n", "<br/>", $message['message']))?>
 				</div>
 			</div>
 			<?php elseif ($message['from'] == $_SESSION["uid"]): ?>
@@ -227,7 +227,7 @@
 				</div>
 				<img class="direct-chat-img" src="index.php?service=image&uid=<?=$message['from']?>" alt="Аватар">
 				<div class="direct-chat-text">
-					<?=spm_runSmilesRun(htmlspecialchars_decode(str_replace("\n", "<br/>", $message['message'])))?>
+					<?=htmlspecialchars_decode(str_replace("\n", "<br/>", $message['message']))?>
 				</div>
 			</div>
 			<?php endif; ?>
