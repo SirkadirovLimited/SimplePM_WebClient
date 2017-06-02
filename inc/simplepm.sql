@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Июн 01 2017 г., 21:57
+-- Время создания: Июн 02 2017 г., 17:25
 -- Версия сервера: 5.7.18-log
 -- Версия PHP: 7.1.1
 
@@ -90,9 +90,9 @@ CREATE TABLE IF NOT EXISTS `spm_messages` (
   `unread` tinyint(1) NOT NULL DEFAULT '1',
   `from` int(10) UNSIGNED NOT NULL,
   `to` int(10) UNSIGNED NOT NULL,
-  `message` mediumtext NOT NULL,
+  `message` blob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='Messages table';
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='Messages table';
 
 -- --------------------------------------------------------
 

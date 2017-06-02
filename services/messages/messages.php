@@ -149,6 +149,7 @@
 		</div>
 	</div>
 	<div class="box-body">
+		
 		<div class="direct-chat-messages" style="height: 70vh;">
 			<?php if ($_GET["uid"] <= 0): ?>
 			
@@ -234,6 +235,7 @@
 			<?php endwhile; ?>
 			<?php endif; ?>
 		</div>
+		
 		<div class="direct-chat-contacts" style="height: 70vh;">
 			<ul class="contacts-list">
 				<?php while ($contact = $query_contacts->fetch_array()): ?>
@@ -257,15 +259,56 @@
 				<?php endwhile; ?>
 			</ul>
 		</div>
+		
 	</div>
 	<div class="box-footer">
+		<script>
+			function insertAtCaret(areaId, text) {
+				var txtarea = document.getElementById(areaId);
+				if (!txtarea) { return; }
+
+				var scrollPos = txtarea.scrollTop;
+				var strPos = 0;
+				var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ?
+					"ff" : (document.selection ? "ie" : false ) );
+				if (br == "ie") {
+					txtarea.focus();
+					var range = document.selection.createRange();
+					range.moveStart ('character', -txtarea.value.length);
+					strPos = range.text.length;
+				} else if (br == "ff") {
+					strPos = txtarea.selectionStart;
+				}
+
+				var front = (txtarea.value).substring(0, strPos);
+				var back = (txtarea.value).substring(strPos, txtarea.value.length);
+				txtarea.value = front + text + back;
+				strPos = strPos + text.length;
+				if (br == "ie") {
+					txtarea.focus();
+					var ieRange = document.selection.createRange();
+					ieRange.moveStart ('character', -txtarea.value.length);
+					ieRange.moveStart ('character', strPos);
+					ieRange.moveEnd ('character', 0);
+					ieRange.select();
+				} else if (br == "ff") {
+					txtarea.selectionStart = strPos;
+					txtarea.selectionEnd = strPos;
+					txtarea.focus();
+				}
+
+				txtarea.scrollTop = scrollPos;
+			}
+		</script>
 		<form
 			action="<?=$_SERVER["REQUEST_URI"]?>"
 			method="post"
+			accept-charset="utf-8"
 			style="margin: 0;"
 		>
 			<div class="input-group">
 				<textarea
+					id="message"
 					name="message"
 					placeholder="Введите ваше сообщение..."
 					rows="1"
@@ -273,9 +316,15 @@
 					style="resize: none;"
 					autocomplete="off"
 					<?=($_GET["uid"] == 0 ? "disabled" : "")?>
+					
 					required
 				></textarea>
 				<span class="input-group-btn">
+					<a
+						data-toggle="modal"
+						data-target="#modal-emoticons"
+						class="btn btn-default btn-flat"
+					>🙂</a>
 					<button
 						type="submit"
 						class="btn btn-primary btn-flat"
@@ -287,19 +336,36 @@
 				</span>
 			</div>
 		</form>
-		<small style="padding-left: 2px; padding-top: 2px;">
-			<b>
-				Смайлы: 
-				<a data-toggle="tooltip" title="XD (смеющийся)">XD</a> 
-				<a data-toggle="tooltip" title=":) (радостный)">:)</a> 
-				<a data-toggle="tooltip" title=":( (грустный)">:(</a> 
-				<a data-toggle="tooltip" title=":DEVIL: (очень злой)">:DEVIL:</a> 
-				<a data-toggle="tooltip" title=":| (нет слов)">:|</a> 
-				<a data-toggle="tooltip" title=":WORRIED: (озабоченный)">:WORRIED:</a> 
-				<a data-toggle="tooltip" title=":A: (злой)">:A:</a> 
-				<a data-toggle="tooltip" title="BD (крутой)">BD</a>
-			</b>
-		</small>
+	</div>
+</div>
+
+<div class="modal modal-primary fade" id="modal-emoticons">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span>&times;</span></button>
+				<h4 class="modal-title">Вставка стикера</h4>
+			</div>
+			<div class="modal-body">
+				<?php
+					$emoticons_arr = array(
+						'😀', '😁', '😂', '😃', '😄', '😅', '😆', '😇', '😈', 
+						'😉', '😊', '😋', '😌', '😍', '😎', '😏', '😐', '😑', 
+						'😒', '😓', '😔', '😕', '😖', '😗', '😘', '😙', '😚', 
+						'😛', '😜', '😝', '😞', '😟', '😠', '😡', '😢', '😣', 
+						'😤', '😥', '😦', '😧', '😨', '😩', '😪', '😫', '😬', 
+						'😭', '😮', '😯', '😰', '😱', '😲', '😳', '😴', '😵', 
+						'😶', '😷', '😸', '😹', '😺', '😻', '😼', '😽', '😾', 
+						'😿', '🙀', '🙁', '🙂', '🙃', '🙄', '🙅', '🙆', '🙇', 
+						'🙈', '🙉', '🙊', '🙋', '🙌', '🙍', '🙎', '🙏'
+					);
+				?>
+				<?php foreach ($emoticons_arr as $emoticon): ?>
+				<a href="#"><span style="font-size: 20px;" onclick="insertAtCaret('message', '<?=$emoticon?>'); return false;"><?=$emoticon?></span></a>&nbsp;
+				<?php endforeach; ?>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -311,6 +377,9 @@
 	/////////////////////////////////////
 	//    TEMPORARY TABLES CLEARING    //
 	/////////////////////////////////////
+	
+	if (isset($query_messages))
+		$query_messages->free();
 	
 	$query_contacts->free();
 	

@@ -28,7 +28,6 @@
 	include_once(_S_INC_ . "db.php");
 	include_once(_S_INC_FUNC_ . "info_msg.php");
 	include_once(_S_INC_FUNC_ . "user_info.php");
-	include_once(_S_INC_FUNC_ . "smiles.php");
 	include_once(_S_INC_CLASS_ . "CountryList.php");
 	//S_TPL defines
 	DEFINE("_S_TPL_", "./tpl/" . $_SPM_CONF["BASE"]["TPL_NAME"] . "/");
