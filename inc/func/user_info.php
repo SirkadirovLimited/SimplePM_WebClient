@@ -68,6 +68,38 @@
 		
 	}
 	
+	function spm_getUserShortnameByID($userId){
+		
+		global $db;
+		
+		$query_str = "
+			SELECT
+				`firstname`,
+				`secondname`
+			FROM
+				`spm_users`
+			WHERE
+				`id` = '" . (int)$userId . "'
+			LIMIT
+				1
+			;
+		";
+		
+		if (!$query = $db->query($query_str))
+			die(header('location: index.php?service=error&err=db_error'));
+		
+		if ($query->num_rows == 0)
+			$result = "Тёмная сторона Силы";
+		else {
+			$user_info = $query->fetch_assoc();
+			
+			$result = $user_info['secondname'] . " " . $user_info['firstname'];
+		}
+		
+		return $result;
+		
+	}
+	
 	function spm_getUserGroupByID($groupId){
 		
 		global $db;

@@ -117,7 +117,7 @@
 ?>
 <div class="box box-primary box-solid direct-chat" style="margin-bottom: 0;">
 	<div class="box-header with-border">
-		<h3 class="box-title"><?=spm_getUserFullnameByID($_GET["uid"])?></h3>
+		<h3 class="box-title"><?=spm_getUserShortnameByID($_GET["uid"])?></h3>
 		<div class="box-tools pull-right">
 			<?php if ($_GET["uid"] > 0): ?>
 			<a
@@ -238,6 +238,7 @@
 		
 		<div class="direct-chat-contacts" style="height: 70vh;">
 			<ul class="contacts-list">
+				<?php if ($query_contacts->num_rows > 0): ?>
 				<?php while ($contact = $query_contacts->fetch_array()): ?>
 				<?php
 					$selected_id = ($contact[0] == $_SESSION["uid"] ? $contact[1] : $contact[0]);
@@ -257,6 +258,22 @@
 					</a>
 				</li>
 				<?php endwhile; ?>
+				<?php else: ?>
+				<li>
+					<a>
+						<img class="contacts-list-img" src="index.php?service=image&uid=0" style="min-height: 40px; min-width: 40px;">
+						<div class="contacts-list-info">
+							<span class="contacts-list-name">
+								<i>Список пуст</i>
+								<small class="contacts-list-date pull-right"></small>
+							</span>
+							<span class="contacts-list-msg">
+								Для добавления контакта создайте новую беседу
+							</span>
+						</div>
+					</a>
+				</li>
+				<?php endif; ?>
 			</ul>
 		</div>
 		
@@ -271,6 +288,7 @@
 				var strPos = 0;
 				var br = ((txtarea.selectionStart || txtarea.selectionStart == '0') ?
 					"ff" : (document.selection ? "ie" : false ) );
+				
 				if (br == "ie") {
 					txtarea.focus();
 					var range = document.selection.createRange();
@@ -279,24 +297,25 @@
 				} else if (br == "ff") {
 					strPos = txtarea.selectionStart;
 				}
-
+				
 				var front = (txtarea.value).substring(0, strPos);
 				var back = (txtarea.value).substring(strPos, txtarea.value.length);
+				
 				txtarea.value = front + text + back;
 				strPos = strPos + text.length;
 				if (br == "ie") {
 					txtarea.focus();
 					var ieRange = document.selection.createRange();
-					ieRange.moveStart ('character', -txtarea.value.length);
-					ieRange.moveStart ('character', strPos);
-					ieRange.moveEnd ('character', 0);
+					ieRange.moveStart('character', -txtarea.value.length);
+					ieRange.moveStart('character', strPos);
+					ieRange.moveEnd('character', 0);
 					ieRange.select();
 				} else if (br == "ff") {
 					txtarea.selectionStart = strPos;
 					txtarea.selectionEnd = strPos;
 					txtarea.focus();
 				}
-
+				
 				txtarea.scrollTop = scrollPos;
 			}
 		</script>
@@ -316,14 +335,13 @@
 					style="resize: none;"
 					autocomplete="off"
 					<?=($_GET["uid"] == 0 ? "disabled" : "")?>
-					
 					required
 				></textarea>
 				<span class="input-group-btn">
 					<a
 						data-toggle="modal"
 						data-target="#modal-emoticons"
-						class="btn btn-default btn-flat"
+						class="<?=($_GET["uid"] == 0 ? "disabled " : "")?>btn btn-default btn-flat"
 					>🙂</a>
 					<button
 						type="submit"

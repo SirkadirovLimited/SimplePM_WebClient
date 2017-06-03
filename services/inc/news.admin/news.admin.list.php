@@ -10,7 +10,7 @@
 	(int)$_GET['page']>0 or die('<strong>Попытка ввода SQL инъекции заблокирована.</strong>');
 	
 	if (!$db_result = $db->query("SELECT count(*) AS news_count FROM `spm_news`"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	$total_articles_number = (int)($db_result->fetch_assoc()["news_count"]);
 	$articles_per_page = 10;
@@ -28,20 +28,20 @@
 		$current_page = 1;
 	
 	if (!$db_result = $db->query("SELECT * FROM `spm_news` ORDER BY `id` DESC LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die(header('location: index.php?service=error&err=db_error'));
 ?>
 <div align="right" style="margin-bottom: 10px;">
 	<a class="btn btn-primary" href="index.php?service=news.admin&create">Создать новость</a>
 </div>
 <div class="table-responsive">
 	<table class="table table-bordered table-hover" style="background-color: white;">
-		<tr class="active">
+		<thead>
 			<th width="10%">ID</th>
 			<th width="40%">Название новости</th>
 			<th width="20%">Автор</th>
 			<th width="20%">Дата публикации</th>
 			<th width="10%">Действия</th>
-		</tr>
+		</thead>
 <?php if ($total_articles_number == 0 || $db_result->num_rows == 0): ?>
 		<tr>
 			<td></td>
@@ -79,4 +79,4 @@
 <?php endif; ?>
 	</table>
 </div>
-<?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4); ?>
+<?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4, "news.admin"); ?>

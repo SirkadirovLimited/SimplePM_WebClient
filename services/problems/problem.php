@@ -1,11 +1,18 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
+	
+	/////////////////////////////////////
+	//         SECURITY CHECKS         //
+	/////////////////////////////////////
+	
 	deniedOrAllowed(PERMISSION::student);
 	
 	(isset($_GET['id']) && (int)$_GET['id'] > 0)
 		or die('<strong>ID задачи не указан!</strong>');
 	
-	/* CLASSWORK FUNCTIONALITY STARTS */
+	/////////////////////////////////////
+	//    CLASSWORKS SUBSYSTEM CODE    //
+	/////////////////////////////////////
 	
 	if (isset($_SESSION["classwork"]))
 		$classworkId = $_SESSION["classwork"];
@@ -36,8 +43,8 @@
 		
 	}
 	
-	/* CLASSWORK FUNCTIONALITY ENDS */
-	
+	/////////////////////////////////////
+	//   SELECT PROBLEM INFORMATION    //
 	/////////////////////////////////////
 	
 	$query_str = "
@@ -58,8 +65,11 @@
 	($query->num_rows > 0) or die('<strong>Указанная задача не найдена!</strong>');
 	
 	$problem_info = $query->fetch_assoc();
+	
 	$query->free();
 	
+	/////////////////////////////////////
+	//    GET LAST USER SUBMISSION     //
 	/////////////////////////////////////
 	
 	$query_str = "
@@ -83,7 +93,7 @@
 	";
 	
 	if (!$query = $db->query($query_str))
-		die('<strong>Ошибка при выполнении запроса к базе данных! Пожалуйста, посетите сайт позже!</strong>');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	if ($query->num_rows > 0){
 		$submission = $query->fetch_assoc();
@@ -94,23 +104,73 @@
 		$submissionCode = NULL;
 		$submissionArgs = NULL;
 	}
+	
 	$query->free();
 	
+	/////////////////////////////////////
+	//      GET AUTHOR SOLUTION        //
 	/////////////////////////////////////
 	
 	if (isset($_GET['authorSolution'])){
 		
-		(permission_check($_SESSION['permissions'], PERMISSION::teacher | PERMISSION::administrator))
-			or die('<strong>Error 403: ACCESS DENIED!</strong>');
+		deniedOrAllowed(PERMISSION::teacher | PERMISSION::administrator);
 		
-		if (!$db_query = $db->query("SELECT `code` FROM `spm_problems_ready` WHERE `problemId` = '" . $problem_info['id'] . "' LIMIT 1;"))
-			die('<strong>Ошибка при выполнении запроса к базе данных! Пожалуйста, обновите страницу!</strong>');
+		$query_str = "
+			SELECT
+				`code`
+			FROM
+				`spm_problems_ready`
+			WHERE
+				`problemId` = '" . $problem_info['id'] . "'
+			LIMIT
+				1
+			;
+		";
 		
-		if ($db_query->num_rows > 0)
+		if (!$query = $db->query($query_str))
+			die(header('location: index.php?service=error&err=db_error'));
+		
+		if ($query->num_rows > 0)
 			$submissionCode = htmlspecialchars($db_query->fetch_array()[0]);
 		else
 			die('<strong>Указанная задача не имеет авторского решения!</strong>');
+		
+		$query->free();
+		
 	}
+	
+	/////////////////////////////////////
+	//         GET I/O EXAMPLES        //
+	/////////////////////////////////////
+	
+	$query_str = "
+		SELECT
+			`input`,
+			`output`
+		FROM
+			`spm_problems_tests`
+		WHERE
+			`problemId` = '" . (int)$_GET['id'] . "'
+		LIMIT
+			1
+		;
+	";
+	
+	if (!$query = $db->query($query_str))
+		die(header('location: index.php?service=error&err=db_error'));
+	
+	if ($query->num_rows == 1){
+		
+		$tmpArr = $query->fetch_assoc();
+		
+		$problem_info['input_ex'] = $tmpArr['input'];
+		$problem_info['output_ex'] = $tmpArr['output'];
+		
+		unset($tmpArr);
+		
+	}
+	
+	$query->free();
 	
 	/////////////////////////////////////
 	
