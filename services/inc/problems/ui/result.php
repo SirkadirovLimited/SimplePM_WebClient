@@ -12,6 +12,8 @@
 	
 	if ($submission['hasError'] == true)
 		$smile_name = "philosofy.png";
+	elseif ($submission['testType'] == "debug" && strpos($submission['result'], '-') !== false)
+		$smile_name = "bad_thing.jpeg";
 	elseif ($submission['b'] <= 0 && $submission['testType'] == "release")
 		$smile_name = "lol.png";
 	elseif ($submission['b'] < $problemDifficulty && $submission['testType'] == "release")
