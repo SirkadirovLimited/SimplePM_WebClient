@@ -1,7 +1,5 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	mb_internal_encoding('UTF-8');
-	$user_shortname = explode(" ", $_SESSION['full_name']);
 ?>
 <aside class="main-sidebar">
 	<section class="sidebar">

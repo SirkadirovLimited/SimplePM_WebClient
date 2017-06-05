@@ -5,22 +5,48 @@
 	 * PUBLIC DISTRIBUTION RESTRICTED!
 	 */
 	
-	//FOR DEVELOPMENT ONLY!
+	/////////////////////////////////////
+	//   DEVELOPMENT-ONLY VARIABLES    //
+	/////////////////////////////////////
+	
 	ini_set('error_reporting', E_ALL); // 0 for release!
 	ini_set('display_errors', 1); // 0 for release!
 	ini_set('display_startup_errors', 1); // 0 for release!
 	
-	//Save cookie life time for 24*2 hours, session will be alive in that time.
+	/////////////////////////////////////
+	//         SOME SETTINGS           //
+	/////////////////////////////////////
+	
 	session_set_cookie_params(3600*24*2);
-	//Starting session
 	session_start();
-	//SOME DEFINES AND INCLUDES
+	
+	mb_internal_encoding('UTF-8');
+	
+	/////////////////////////////////////
+	//        REQUIRED DEFINES         //
+	/////////////////////////////////////
+	
 	DEFINE("SPM_GENUINE", 1); //Security define
-	//S_INC defines
+	
 	DEFINE("_S_INC_", "./inc/");
 	DEFINE("_S_INC_FUNC_", _S_INC_ . "func/");
 	DEFINE("_S_INC_CLASS_", _S_INC_ . "class/");
-	//S_REQUIRES
+	
+	DEFINE("_S_MOD_", "./modules/");
+	
+	DEFINE("_S_SERV_", "./services/");
+	DEFINE("_S_SERV_INC_", _S_SERV_ . "inc/");
+	
+	DEFINE("_S_VIEW_", "./views/");
+	
+	DEFINE("_S_MEDIA_", "./media/");
+	DEFINE("_S_MEDIA_FILES_", _S_MEDIA_ . "files/");
+	DEFINE("_S_MEDIA_IMG_", _S_MEDIA_ . "img/");
+	
+	/////////////////////////////////////
+	//        REQUIRED INCLUDES        //
+	/////////////////////////////////////
+	
 	include_once(_S_INC_FUNC_ . "permissions_check.php");
 	include_once(_S_INC_FUNC_ . "gen_tpl.php");
 	include_once(_S_INC_FUNC_ . "guard.php");
@@ -29,30 +55,31 @@
 	include_once(_S_INC_FUNC_ . "info_msg.php");
 	include_once(_S_INC_FUNC_ . "user_info.php");
 	include_once(_S_INC_CLASS_ . "CountryList.php");
-	//S_TPL defines
+	
+	/////////////////////////////////////
+	//            DEFINES-2            //
+	/////////////////////////////////////
+	
 	DEFINE("_S_TPL_", "./tpl/" . $_SPM_CONF["BASE"]["TPL_NAME"] . "/");
 	DEFINE("_S_TPL_ERR_", _S_TPL_ . "error_pages/");
-	//S_MOD defines
-	DEFINE("_S_MOD_", "./modules/");
-	//S_SERV defines
-	DEFINE("_S_SERV_", "./services/");
-	DEFINE("_S_SERV_INC_", _S_SERV_ . "inc/");
-	//S_VIEW defines
-	DEFINE("_S_VIEW_", "./views/");
-	//S_MEDIA defines
-	DEFINE("_S_MEDIA_", "./media/");
-	DEFINE("_S_MEDIA_FILES_", _S_MEDIA_ . "files/");
-	DEFINE("_S_MEDIA_IMG_", _S_MEDIA_ . "img/");
 	
-	//Functions autorun
+	/////////////////////////////////////
+	//    REQUIRED AUTORUN FUNCTIONS   //
+	/////////////////////////////////////
+	
 	_spm_guard_clearAllGet();
 	
-	/* CHECKS-START */
+	/////////////////////////////////////
+	//            CHECKERS             //
+	/////////////////////////////////////
+	
 	include_once(_S_INC_FUNC_ . "user_check.php"); //user checker
 	include_once(_S_INC_FUNC_ . "classworks_check.php"); //classworks checker
-	/* CHECKS-END */
 	
-	//Choosing service to start
+	/////////////////////////////////////
+	//         SERVICE CHANGER         //
+	/////////////////////////////////////
+	
 	if (isset($_GET['service']) && strlen($_GET['service']) > 0)
 		$_spm_run_service = preg_replace("/[^a-zA-Z0-9.-_\s]/", "", $_GET['service']);
 	else
@@ -71,9 +98,15 @@
 		die();
 	endif;
 	
-	//CONTENT
+	/////////////////////////////////////
+	//   INCLUDING CONTENT GENERATOR   //
+	/////////////////////////////////////
+	
 	include_once(_S_SERV_ . $_SPM_CONF["SERVICE"][$_spm_run_service]);
 	
-	//Close database connection
+	/////////////////////////////////////
+	//     CLOSE CONNECTIONS, ETC.     //
+	/////////////////////////////////////
+	
 	$db->close();
 ?>

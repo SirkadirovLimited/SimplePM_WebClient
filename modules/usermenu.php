@@ -25,7 +25,7 @@
 <li class="dropdown user user-menu">
 	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Выпадающее меню пользователя">
 		&nbsp;<img src="index.php?service=image&uid=<?=$_SESSION['uid']?>" class="user-image" alt="Аватар">
-		<span class="hidden-xs"><?=$_SESSION['full_name']?></span>&nbsp;
+		<span class="hidden-xs"><?=spm_getUserShortnameByID($_SESSION['uid'])?></span>&nbsp;
 	</a>
 	<ul class="dropdown-menu" style="border-color: #3c8dbc; padding: 0; border-radius: 0;">
 		<li class="user-header">
@@ -43,7 +43,7 @@
 		</li>
 		<li class="user-footer">
 			<div class="pull-right">
-				<a href="index.php?service=logout" class="btn btn-default btn-flat">Выйти</a>
+				<a href="index.php?service=logout" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i> Выйти</a>
 			</div>
 		</li>
 	</ul>

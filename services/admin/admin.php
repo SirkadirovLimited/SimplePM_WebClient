@@ -37,10 +37,10 @@
 		</a>
 	</div>
 	<div class="col-md-4" style="padding: 0;">
-		<a href="index.php?service=problems.admin" style="margin: 0;" class="btn btn-warning btn-xlarge btn-block btn-flat">
+		<a href="index.php?service=teacherID" style="margin: 0;" class="btn btn-warning btn-xlarge btn-block btn-flat">
 			<p class="admin-btn">
 				<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
-				Сгенерировать новые Teacher ID<br/>для всех
+				Teacher ID<br/>(Управление)
 			</p>
 		</a>
 	</div>

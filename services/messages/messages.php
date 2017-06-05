@@ -252,7 +252,31 @@
 								<small class="contacts-list-date pull-right"></small>
 							</span>
 							<span class="contacts-list-msg">
-								Перейти к диалогу
+								<?php
+									$query_str = "
+										SELECT
+											count(`id`)
+										FROM
+											`spm_messages`
+										WHERE
+											`from` = '" . $selected_id . "'
+										AND
+											`unread` = true
+										;
+									";
+									
+									if ($query = $db->query($query_str)):
+										$unread_count = (int)$query->fetch_array()[0];
+										$query->free();
+									else:
+										$unread_count = 0;
+									endif;
+								?>
+								<?php if ($unread_count == 0): ?>
+								Нет новых сообщений
+								<?php else: ?>
+								Новых сообщений: <?=$unread_count?>
+								<?php endif; ?>
 							</span>
 						</div>
 					</a>
