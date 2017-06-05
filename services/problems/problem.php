@@ -163,8 +163,8 @@
 		
 		$tmpArr = $query->fetch_assoc();
 		
-		$problem_info['input_ex'] = $tmpArr['input'];
-		$problem_info['output_ex'] = $tmpArr['output'];
+		$problem_info['input_ex'] = str_replace("\n", "<br/>", $tmpArr['input']);
+		$problem_info['output_ex'] = str_replace("\n", "<br/>", $tmpArr['output']);
 		
 		unset($tmpArr);
 		
