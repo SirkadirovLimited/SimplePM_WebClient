@@ -5,7 +5,7 @@
 	global $submission;
 	
 	if (!$db_problem_result = $db->query("SELECT `difficulty` FROM `spm_problems` WHERE `id` = '" . $submission['problemId'] . "' LIMIT 1;"))
-		die('<strong>Произошла ошибка при попытке совершения запроса к базе данных. Пожалуйста, повторите ваш запрос позже!</strong>');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	$problemDifficulty = $db_problem_result->fetch_array()[0];
 	$db_problem_result->free();

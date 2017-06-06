@@ -6,30 +6,51 @@
 	 * УДАЛЕНИЕ ПОЛЬЗОВАТЕЛЕЙ
 	 */
 	if (isset($_GET['del']) && $_GET['del'] > 1){
+		
 		if ((int)$_GET['del'] == $_SESSION['uid'])
 			die('<strong>Вы не можете удалить собственный аккаунт!</strong>>');
 		
 		if (!permission_check($_SESSION['permissions'], PERMISSION::administrator)){
 			
 			if (!$user_query = $db->query("SELECT * FROM `spm_users` WHERE `id` = " . (int)$_GET['del'] . ""))
-				die('<strong>Произошла ошибка при выполнении запроса к базе данных!</strong>');
+				die(header('location: index.php?service=error&err=db_error'));
 			
 			if($user_query->num_rows === 0)
 				die('<strong>Пользователь с таким идентификатором не найден!</strong>');
 			
 			$users_admin_user = $user_query->fetch_assoc();
 			$user_query->free();
-			unset($user_query);
 			
-			if ($users_admin_user["teacherId"] != $_SESSION["uid"]){
+			if ($users_admin_user["teacherId"] != $_SESSION["uid"])
 				die('<strong>Вы не можете удалить данного пользователя!</strong>');
-			}
 			
 		}
-		if (!$db->query("DELETE FROM `spm_users` WHERE `id` = " . (int)$_GET['del']))
+		
+		$query_str = "
+			DELETE FROM
+				`spm_users`
+			WHERE
+				`id` = '" . (int)$_GET['del'] . "'
+			LIMIT
+				1
+			;
+		";
+		
+		$query_str_2 = "
+			DELETE FROM
+				`spm_teacherid`
+			WHERE
+				`userId` = '" . (int)$_GET['del'] . "'
+			LIMIT
+				1
+			;
+		";
+		
+		if (!$db->query($query_str) || !$db->query($query_str_2))
 			die('<strong>ПОЛЬЗОВАТЕЛЬ НЕ НАЙДЕН ИЛИ ПРОИЗОШЛА ОШИБКА ПРИ ПОПЫТКЕ ЕГО УДАЛИТЬ.</strong>');
 		else
 			exit(header('location: index.php?service=users.admin'));
+		
 	}
 	
 	/*
@@ -46,12 +67,13 @@
 	if (!isset($_GET['page']))
 		$_GET['page'] = 1;
 	
-	(int)$_GET['page']>0 or die('<strong>Попытка ввода SQL инъекции заблокирована.</strong>');
+	(int)$_GET['page']>0
+		or die('<strong>Попытка ввода SQL инъекции заблокирована.</strong>');
 	
-	if (!$db_result = $db->query("SELECT count(*) AS us_count FROM `spm_users` WHERE " . $where_selector . ";"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+	if (!$db_result = $db->query("SELECT count(*) FROM `spm_users` WHERE " . $where_selector . ";"))
+		die(header('location: index.php?service=error&err=db_error'));
 	
-	$total_articles_number = (int)($db_result->fetch_assoc()["us_count"]);
+	$total_articles_number = (int)($db_result->fetch_array()[0]);
 	$articles_per_page = 10;
 	$current_page = (int)$_GET['page'];
 	
@@ -63,8 +85,22 @@
 	if ($current_page > $total_pages)
 		$current_page = 1;
 	
-	if (!$db_result = $db->query("SELECT * FROM `spm_users` WHERE " . $where_selector . " ORDER BY `id` LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.');
+	$query_str = "
+		SELECT
+			*
+		FROM
+			`spm_users`
+		WHERE
+			" . $where_selector . "
+		ORDER BY
+			`id` ASC
+		LIMIT
+			" . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . "
+		;
+	";
+	
+	if (!$db_result = $db->query($query_str))
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	SPM_header("Пользователи системы", "Управление");
 ?>
