@@ -17,7 +17,7 @@
 *.RTF	 diff=astextplain
 
 # Language preferences
-*.js linguist-vendored=false
-*.css linguist-vendored=false
+*.js linguist-language=PHP
+*.css linguist-language=PHP
 *.html linguist-language=PHP
 *.php linguist-language=PHP
