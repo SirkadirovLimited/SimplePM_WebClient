@@ -18,4 +18,6 @@
 
 # Language preferences
 *.js linguist-vendored=false
-*.html linguist-vendored=false
+*.css linguist-vendored=false
+*.html linguist-language=PHP
+*.php linguist-language=PHP
