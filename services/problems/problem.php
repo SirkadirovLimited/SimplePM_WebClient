@@ -96,13 +96,21 @@
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	if ($query->num_rows > 0){
+		
 		$submission = $query->fetch_assoc();
 		
 		$submissionCode = htmlspecialchars($submission['problemCode']);
 		$submissionArgs = $submission['customTest'];
+		$submissionLang = $submission['codeLang'];
+		
+		unset($submission);
+		
 	} else {
+		
 		$submissionCode = NULL;
 		$submissionArgs = NULL;
+		$submissionLang = "unset";
+		
 	}
 	
 	$query->free();
@@ -216,9 +224,33 @@
 			style="margin: 0;" placeholder="Введите собственный тест для совершения отладки приложения"><?=$submissionArgs?></textarea>
 			
 			<!-- CODE LANGUAGE SELECT -->
-			<select class="form-control" name="codeLang" required>
-				<option value>Выберите компилятор</option>
-				<option value="1" selected>Free Pascal</option>
+			<select class="form-control" name="codeLang" id="codeLang" onchange="changeHighlight()" required>
+				<option value <?=($submissionLang == "unset" ? "selected" : "")?>>Выберите компилятор</option>
+				
+				<?php if ($_SPM_CONF["PROG_LANGS"]["pascal"]): ?>
+				<option value="1" <?=($submissionLang == "freepascal" ? "selected" : "")?>>Pascal (Free Pascal / Object Pascal / Delphi)</option>
+				<?php endif; ?>
+				
+				<?php if ($_SPM_CONF["PROG_LANGS"]["csharp"]): ?>
+				<option value="2" <?=($submissionLang == "csharp" ? "selected" : "")?>>Mono / C# (.NET framework)</option>
+				<?php endif; ?>
+				
+				<?php if ($_SPM_CONF["PROG_LANGS"]["cpp"]): ?>
+				<option value="3" <?=($submissionLang == "cpp" ? "selected" : "")?>>C++ (Visual C++)</option>
+				<?php endif; ?>
+				
+				<?php if ($_SPM_CONF["PROG_LANGS"]["c"]): ?>
+				<option value="4" <?=($submissionLang == "c" ? "selected" : "")?>>C (Visual C)</option>
+				<?php endif; ?>
+				
+				<?php if ($_SPM_CONF["PROG_LANGS"]["lua"]): ?>
+				<option value="5" <?=($submissionLang == "lua" ? "selected" : "")?>>Lua (Lua for Windows)</option>
+				<?php endif; ?>
+				
+				<?php if ($_SPM_CONF["PROG_LANGS"]["java"]): ?>
+				<option value="6" <?=($submissionLang == "java" ? "selected" : "")?>>Java</option>
+				<?php endif; ?>
+				
 			</select>
 			<!-- /CODE LANGUAGE SELECT -->
 			
@@ -305,11 +337,40 @@
 	</div>
 </div>
 <script type="text/javascript">
+	function changeHighlight(){
+		var editor = ace.edit("codeEditor");
+		var selectedLangId = document.getElementById("codeLang").value;
+		
+		switch (selectedLangId) {
+			case "1":
+				editor.getSession().setMode("ace/mode/pascal");
+				break;
+			case "2":
+				editor.getSession().setMode("ace/mode/csharp");
+				break;
+			case "3":
+				editor.getSession().setMode("ace/mode/cpp");
+				break;
+			case "4":
+				editor.getSession().setMode("ace/mode/c");
+				break;
+			case "5":
+				editor.getSession().setMode("ace/mode/lua");
+				break;
+			case "6":
+				editor.getSession().setMode("ace/mode/java");
+				break;
+		}
+	}
+	
+	$(document).ready(function () {
+		changeHighlight();
+	});
+	
 	var editor = ace.edit("codeEditor");
 	
-    editor.setTheme("ace/theme/default");
-    editor.getSession().setMode("ace/mode/pascal");
-	
+    //editor.setTheme("ace/theme/default");
+    
 	editor.getSession().on("change", function () { $('textarea[name="code"]').val(editor.getSession().getValue()); });
 	
 	function getcode() { document.getElementById("code").innerHTML = editor.getValue(); }

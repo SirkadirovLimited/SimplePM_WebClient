@@ -128,7 +128,7 @@
 	";
 	
 	if (!$db->query($query_str))
-		die('Произошла ошибка при попытке подключения к базе данных! Повторите ваш запрос позже.' . $meta_refresh);
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	/////////////////////////////////////
 	//     NEW SUBMISSION INSERTER     //
@@ -151,7 +151,7 @@
 	";
 	
 	if (!$db->query($query_str))
-		die('<strong>Произошла ошибка при попытке отправки запроса к базе данных!</strong>' . $meta_refresh);
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	/////////////////////////////////////
 	

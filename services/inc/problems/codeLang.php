@@ -7,6 +7,8 @@
 		const csharp = 2;
 		const cpp = 3;
 		const c = 4;
+		const lua = 5;
+		const java = 6;
 	}
 	
 	function switchCodeLang($codeLang){
@@ -23,6 +25,9 @@
 				break;
 			case CODE_LANG::c:
 				return 'c';
+				break;
+			case CODE_LANG::lua:
+				return 'lua';
 				break;
 			default:
 				die('<strong>Язык программирования, на котором написано приложение, не выбран!</strong>');

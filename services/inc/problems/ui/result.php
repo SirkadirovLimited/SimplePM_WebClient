@@ -98,7 +98,7 @@
 					<?php if ($submission['testType'] == "release"): ?>
 					<strong>Начислено баллов: <?=$submission['b']?> из <?=$problemDifficulty?> возможных.</strong>
 					<?php elseif ($submission['testType'] == "debug" && $submission['output'] != null): ?>
-					<textarea class="form-control" style="width: 100%; resize: none;" rows="5" readonly><?=str_replace("\n", "<br/>", $submission['output'])?></textarea>
+					<textarea class="form-control" style="width: 100%; resize: none;" rows="5" readonly><?=$submission['output']?></textarea>
 					<?php endif;?>
 				</div>
 			</div>
