@@ -15,3 +15,7 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# Language preferences
+*.js linguist-vendored=false
+*.html linguist-vendored=false
