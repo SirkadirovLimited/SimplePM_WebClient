@@ -149,7 +149,6 @@
 			`customTest` = '" . $_POST['args'] . "'
 		;
 	";
-	
 	if (!$db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	

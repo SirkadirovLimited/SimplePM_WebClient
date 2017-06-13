@@ -9,9 +9,9 @@
 		global $_SPM_CONF;
 		
 		if ($id > 0)
-			$action = $_SPM_CONF["BASE"]["SITE_URL"] . "index.php?service=view.admin&edit=" . $id;
+			$action = "index.php?service=view.admin&edit=" . $id;
 		else
-			$action = $_SPM_CONF["BASE"]["SITE_URL"] . "index.php?service=view.admin&create";
+			$action = "index.php?service=view.admin&create";
 ?>
 <script src="<?php print(_S_TPL_); ?>js/tinymce/tinymce.min.js"></script>
 <style>
