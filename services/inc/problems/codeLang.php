@@ -9,6 +9,7 @@
 		const c = 4;
 		const lua = 5;
 		const java = 6;
+		const python = 7;
 	}
 	
 	function switchCodeLang($codeLang){
@@ -28,6 +29,9 @@
 				break;
 			case CODE_LANG::lua:
 				return 'lua';
+				break;
+			case CODE_LANG::python:
+				return 'python';
 				break;
 			default:
 				die('<strong>Язык программирования, на котором написано приложение, не выбран!</strong>');

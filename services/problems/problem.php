@@ -232,7 +232,7 @@
 				<?php endif; ?>
 				
 				<?php if ($_SPM_CONF["PROG_LANGS"]["csharp"]): ?>
-				<option value="2" <?=($submissionLang == "csharp" ? "selected" : "")?>>Mono / C# (.NET framework)</option>
+				<option value="2" <?=($submissionLang == "csharp" ? "selected" : "")?>>Mono / C#</option>
 				<?php endif; ?>
 				
 				<?php if ($_SPM_CONF["PROG_LANGS"]["cpp"]): ?>
@@ -244,7 +244,11 @@
 				<?php endif; ?>
 				
 				<?php if ($_SPM_CONF["PROG_LANGS"]["lua"]): ?>
-				<option value="5" <?=($submissionLang == "lua" ? "selected" : "")?>>Lua (Lua for Windows)</option>
+				<option value="5" <?=($submissionLang == "lua" ? "selected" : "")?>>Lua</option>
+				<?php endif; ?>
+				
+				<?php if ($_SPM_CONF["PROG_LANGS"]["python"]): ?>
+				<option value="7" <?=($submissionLang == "python" ? "selected" : "")?>>Python</option>
 				<?php endif; ?>
 				
 				<?php if ($_SPM_CONF["PROG_LANGS"]["java"]): ?>
@@ -359,6 +363,9 @@
 				break;
 			case "6":
 				editor.getSession().setMode("ace/mode/java");
+				break;
+			case "7":
+				editor.getSession().setMode("ace/mode/python");
 				break;
 		}
 	}

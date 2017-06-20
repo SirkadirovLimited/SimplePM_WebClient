@@ -120,6 +120,7 @@
 	$_SPM_CONF["PROG_LANGS"]["cpp"] = false;
 	$_SPM_CONF["PROG_LANGS"]["c"] = false;
 	$_SPM_CONF["PROG_LANGS"]["lua"] = true;
+	$_SPM_CONF["PROG_LANGS"]["python"] = true;
 	$_SPM_CONF["PROG_LANGS"]["java"] = false;
 	/*PROGRAMMING_LANGUAGES-END*/
 	
