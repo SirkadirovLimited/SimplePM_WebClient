@@ -58,7 +58,7 @@ tinymce.init({
 	if (isset($_GET['edit']) && strlen($_GET['edit']) > 0){
 		
 		if (!$db_result = $db->query("SELECT * FROM `spm_news` WHERE id = '" . htmlspecialchars(strip_tags(trim($_GET['edit']))) . "'"))
-			die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+			die(header('location: index.php?service=error&err=db_error'));
 		
 		if ($db_result->num_rows === 0){
 			include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["404"]);

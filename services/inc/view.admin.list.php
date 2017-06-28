@@ -4,7 +4,7 @@
 	deniedOrAllowed(PERMISSION::administrator);
 	
 	if (!$db_result = $db->query("SELECT * FROM `spm_pages`"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die(header('location: index.php?service=error&err=db_error'));
 ?>
 <div align="right" style="margin-bottom: 10px;">
 	<a class="btn btn-primary" href="index.php?service=view.admin&create">Создать страницу</a>

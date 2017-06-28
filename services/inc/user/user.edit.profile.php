@@ -69,7 +69,7 @@
 			die(header('location: index.php?service=error&err=db_error'));
 		
 		if ($query->num_rows == 0)
-			die('Информация о пользователе введена не верно!');
+			die(header('location: index.php?service=error&err=input'));
 		
 		$teacherId = $query->fetch_array()[0];
 		$query->free();
@@ -82,7 +82,7 @@
 		$count = $query->fetch_array()[0];
 		
 		if ($query->num_rows == 0 || $count == null || $count == 0)
-			die('Заданная группа пользователей не найдена либо вы не имеете доступа к ней!');
+			die(header('location: index.php?service=error&err=input'));
 	}
 	
 	/*

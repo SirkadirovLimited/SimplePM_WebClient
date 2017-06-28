@@ -1,6 +1,6 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	defined("__spm_admin_problems_edit__") or die('403 Access denied!');
+	defined("__spm_admin_problems_edit__") or die(header('location: index.php?service=error&err=403'));
 	deniedOrAllowed(PERMISSION::administrator);
 	
 	/*
@@ -45,8 +45,8 @@
 	($problem_info['enabled'] == 0 || $problem_info['enabled'] == 1) or $problem_info['enabled'] = 1;
 	($problem_info['difficulty'] >= 1 && $problem_info['difficulty'] <= 100) or $problem_info['difficulty'] = 1;
 	($problem_info['catId'] > 0) or $problem_info['catId'] = 1;
-	(strlen($problem_info['name']) > 0 && strlen($problem_info['name'])<=255) or die('<strong>Имя задачи имеет не допустимый размер</strong>');
-	(strlen($problem_info['description']) > 0 && strlen($problem_info['description']) <= 65535) or die('<strong>Описание задачи не соответствует требованиям!</strong>');
+	(strlen($problem_info['name']) > 0 && strlen($problem_info['name'])<=255) or die(header('location: index.php?service=error&err=input'));
+	(strlen($problem_info['description']) > 0 && strlen($problem_info['description']) <= 65535) or die(header('location: index.php?service=error&err=input'));
 	($problem_info['debugTimeLimit'] > 0) or $problem_info['debugTimeLimit'] = 200;
 	($problem_info['debugMemoryLimit'] > 0) or $problem_info['debugMemoryLimit'] = 20971520;
 	(strlen($problem_info['input']) > 0 && strlen($problem_info['input']) <= 65535) or $problem_info['input'] = null;

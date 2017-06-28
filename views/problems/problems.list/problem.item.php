@@ -1,7 +1,7 @@
 <?php
 	//Категория
 	if (!$db_res_cat = $db->query("SELECT `name` FROM `spm_problems_categories` WHERE `id`='" . $problem['catId'] . "' LIMIT 1;")):
-		die('Ошибка при подключении к базе данных. Перезагрузите страницу!');
+		die(header('location: index.php?service=error&err=db_error'));
 	elseif ($db_res_cat->num_rows == 0):
 		$cat_name = "Все задачи";
 	else:
@@ -25,7 +25,7 @@
 							`problemId` = '" . $problem['id'] . "'
 						) ORDER BY `submissionId` DESC LIMIT 1;";
 	if (!$submissionInfoLink = $db->query($submissionQuery))
-		die('Ошибка при подключении к базе данных. Перезагрузите страницу!');
+		die(header('location: index.php?service=error&err=db_error'));
 	elseif ($submissionInfoLink->num_rows == 0)
 		$subm_result = "";
 	else{

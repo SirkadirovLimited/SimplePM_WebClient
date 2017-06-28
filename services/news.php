@@ -6,7 +6,7 @@
 	(int)$_GET['page']>0 or $_GET['page']=1;
 	
 	if (!$db_result = $db->query("SELECT count(id) FROM `spm_news`"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	$total_articles_number = (int)($db_result->fetch_array()[0]);
 	$articles_per_page = $_SPM_CONF["SERVICES"]["news"]["articles_per_page"];
@@ -24,7 +24,7 @@
 		$current_page = 1;
 	
 	if (!$db_result = $db->query("SELECT * FROM `spm_news` ORDER BY `id` DESC LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	
 	SPM_header("Новости","Раздел новостей");

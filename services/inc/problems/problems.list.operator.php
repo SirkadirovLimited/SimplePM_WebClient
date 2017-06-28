@@ -36,7 +36,7 @@
 	
 	//Count all problems in the archive
 	if (!$db_result = $db->query("SELECT count(id) AS problems_count FROM `spm_problems` WHERE " . $selectedCatIdText . " AND " . $queryText . ""))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	$total_articles_number = (int)($db_result->fetch_assoc()["problems_count"]);
 	$articles_per_page = $_SPM_CONF["SERVICES"]["problems"]["articles_per_page"];
@@ -58,7 +58,7 @@
 	 * SQL SELECT query with params
 	 */
 	if (!$db_result = $db->query("SELECT `id`,`difficulty`,`catId`,`name` FROM `spm_problems` WHERE (" . $selectedCatIdText . " AND " . $queryText . ") ORDER BY `" . $_GET["sortby"] . "` " . $_GET["sort"] . " LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	SPM_header("Архив задач", "Просмотр всех доступных задач");
 	

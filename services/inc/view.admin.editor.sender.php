@@ -9,14 +9,14 @@
 	if (isset($_GET['edit']) && isset($_POST['pname']) && isset($_POST['pcontent'])){
 		
 		if(!$db_check = $db->query("SELECT * FROM `spm_pages` WHERE id = '" . htmlspecialchars(trim($_GET['edit'])) . "'"))
-			die('Произошла неизвестная ошибка при обращении к базе данных!');
+			die(header('location: index.php?service=error&err=db_error'));
 		
 		if ($db_check->num_rows === 0){
 			_spm_view_msg("Страница которую вы пытались изменить не существует или была перенесена на новый адрес.", "danger");
 			exit;
 		}else{
 			if(!$db->query("UPDATE `spm_pages` SET `name` = '" . htmlspecialchars(trim($_POST['pname'])) . "', `content` = '" . htmlspecialchars(trim($_POST['pcontent'])) . "' WHERE `id` = " . htmlspecialchars(trim($_GET['edit'])) . ";"))
-				die('<b>Произошла неизвестная ошибка при обращении к базе данных!</b>');
+				die(header('location: index.php?service=error&err=db_error'));
 			else{
 				$link = "index.php?service=view&id=" . (int)$_GET['edit'];
 				_spm_view_msg("Внесённые вами изменения были успешно сохранены. Не желаете ли вы <a href='$link'>просмотреть</a> их?", "success");
@@ -28,7 +28,7 @@
 	}elseif (!isset($_GET['edit']) && isset($_POST['pname']) && isset($_POST['pcontent'])){
 		
 		if(!$db_result = $db->query("INSERT INTO `spm_pages` (`name`, `content`) VALUES ('" . htmlspecialchars(trim($_POST['pname'])) . "', '" . htmlspecialchars(trim($_POST['pcontent'])) . "');")){
-			_spm_view_msg("Произошла непредвиденная ошибка при попытке подключения к базе данных. Обратитесь к системному администратору.", "danger");
+			die(header('location: index.php?service=error&err=db_error'));
 			exit;
 		}else{
 			$link = "index.php?service=view&id=" . $db->insert_id;

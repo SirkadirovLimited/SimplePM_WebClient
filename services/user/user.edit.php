@@ -5,26 +5,18 @@
 	(isset($_GET['id']) && strlen($_GET['id'])>0 && (int)$_GET['id']>0) or $_GET['id'] = $_SESSION["uid"];
 	
 	if (!$user = $db->query("SELECT * FROM `spm_users` WHERE `id` = '" . (int)$_GET['id'] . "' LIMIT 1;"))
-		die('Произошла непредвиденная ошибка при попытке выборки из базы данных. Пожалуйста, повторите ваш запрос позже!');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	if ($user->num_rows === 0){
-		SPM_header("Ошибка 404");
-		include(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["404"]);
-		SPM_footer();
-		die();
-	}
+		die(header('location: index.php?service=error&err=404'));
 	
 	$user_info = $user->fetch_assoc();
 	
 	$user->free();
 	unset($user);
 	
-	if (!permission_check($_SESSION["permissions"], PERMISSION::administrator) && ($user_info["teacherId"] != $_SESSION["uid"]) && ($user_info["id"] != $_SESSION["uid"])) {
-		SPM_header("Ошибка 403");
-		include(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["access_denied"]);
-		SPM_footer();
-		die();
-	}
+	if (!permission_check($_SESSION["permissions"], PERMISSION::administrator) && ($user_info["teacherId"] != $_SESSION["uid"]) && ($user_info["id"] != $_SESSION["uid"]))
+		die(header('location: index.php?service=error&err=403'));
 	
 	if (isset($_POST['editPass']))
 		include_once(_S_SERV_INC_ . "user/user.edit.password.php");
@@ -42,7 +34,6 @@
 </a>
 
 <?php
-
 	require_once(_S_SERV_INC_ . "user/ui/avatar.php");
 	require_once(_S_SERV_INC_ . "user/ui/profile.php");
 	require_once(_S_SERV_INC_ . "user/ui/password.php");

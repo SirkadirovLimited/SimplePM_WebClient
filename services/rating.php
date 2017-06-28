@@ -27,7 +27,7 @@
 	
 	
 	if (!$db_result = $db->query("SELECT count(id) FROM `spm_users`"))
-		die('Произошла непредвиденная ошибка при выполнении запроса к базе данных.<br/>');
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	$total_articles_number = (int)($db_result->fetch_array()[0]);
 	$articles_per_page = $_SPM_CONF["SERVICES"]["rating"]["articles_per_page"];
