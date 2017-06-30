@@ -2,12 +2,12 @@
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	define("__spm.user.edit__", 1);
 	
-	(isset($_GET['id']) && strlen($_GET['id'])>0 && (int)$_GET['id']>0) or $_GET['id'] = $_SESSION["uid"];
+	(isset($_GET['id']) && strlen($_GET['id'])>0 && (int)$_GET['id'] > 0) or $_GET['id'] = $_SESSION["uid"];
 	
 	if (!$user = $db->query("SELECT * FROM `spm_users` WHERE `id` = '" . (int)$_GET['id'] . "' LIMIT 1;"))
 		die(header('location: index.php?service=error&err=db_error'));
 	
-	if ($user->num_rows === 0){
+	if ($user->num_rows === 0)
 		die(header('location: index.php?service=error&err=404'));
 	
 	$user_info = $user->fetch_assoc();
@@ -29,7 +29,7 @@
 	
 ?>
 
-<a href="index.php?service=user&id=<?=$_GET['id']?>" class="btn btn-default" style="margin-bottom: 10px; margin-right: 5px;">
+<a href="index.php?service=user&id=<?=$_GET['id']?>" class="btn btn-default">
 	<span class="glyphicon glyphicon-chevron-left"></span> Профиль пользователя
 </a>
 
