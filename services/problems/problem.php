@@ -273,10 +273,12 @@
 					<input class="btn btn-success btn-block btn-flat" type="submit" name="release" value="Отправка" style="margin: 0;" onclick="getcode();" />
 				</div>
 				
+				<?php if (isset($submission['submissionId'])): ?>
 				<!-- Last submission info -->
 				<div class="col-xs-12 col-md-12" style="padding: 0;">
 					<a href="index.php?service=problem_result&sid=<?=$submission['submissionId']?>" class="btn btn-default btn-block btn-flat">Информация о последней попытке</a>
 				</div>
+				<?php endif; ?>
 				
 				<?php if (permission_check($_SESSION["permissions"], PERMISSION::teacher | PERMISSION::administrator)): ?>
 				

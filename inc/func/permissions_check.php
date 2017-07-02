@@ -18,11 +18,7 @@
 	}
 	
 	function deniedOrAllowed($permission){
-		global $_SPM_CONF;
-		
-		if (!isset($_SESSION['uid']) || !permission_check($_SESSION['permissions'], $permission)){
-			include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["access_denied"]);
-			exit;
-		}
+		if (!isset($_SESSION['uid']) || !permission_check($_SESSION['permissions'], $permission))
+			die(header('location: index.php?service=error&err=403'));
 	}
 ?>

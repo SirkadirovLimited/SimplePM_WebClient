@@ -108,7 +108,7 @@
 					<dd><?=$classwork['description']?></dd>
 					
 					<dt>Группа учащихся</dt>
-					<dd>gid_<?=$classwork['studentsGroup']?></dd>
+					<dd><?=spm_getUserGroupByID($classwork['studentsGroup'])?> (gid_<?=$classwork['studentsGroup']?>)</dd>
 				</dl>
 				
 			</div>

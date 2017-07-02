@@ -31,7 +31,7 @@
 		die(header('location: index.php?service=error&err=db_error'));
 ?>
 <div align="right" style="margin-bottom: 10px;">
-	<a class="btn btn-primary" href="index.php?service=news.admin&create">Создать новость</a>
+	<a class="btn btn-primary btn-flat" href="index.php?service=news.admin&create">Создать новость</a>
 </div>
 <div class="table-responsive">
 	<table class="table table-bordered table-hover" style="background-color: white;">

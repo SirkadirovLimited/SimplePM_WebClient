@@ -2,7 +2,10 @@
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	define("__spm.user.edit__", 1);
 	
-	(isset($_GET['id']) && strlen($_GET['id'])>0 && (int)$_GET['id'] > 0) or $_GET['id'] = $_SESSION["uid"];
+	(isset($_GET['id']) && (int)$_GET['id'] > 0) or $_GET['id'] = $_SESSION["uid"];
+	
+	if ((int)$_GET['id'] == 1 && $_SESSION["uid"] != 1)
+		die(header('location: index.php?service=error&err=403'));
 	
 	if (!$user = $db->query("SELECT * FROM `spm_users` WHERE `id` = '" . (int)$_GET['id'] . "' LIMIT 1;"))
 		die(header('location: index.php?service=error&err=db_error'));

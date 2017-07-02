@@ -15,6 +15,7 @@
 	$_SPM_CONF["BASE"]["SITE_URL"] = $_SERVER['HTTP_HOST']; //адрес сайта (можно использовать $_SERVER['HTTP_HOST'])
 	$_SPM_CONF["BASE"]["TPL_NAME"] = "default"; //имя папки шаблона
 	$_SPM_CONF["BASE"]["ADMIN_MAIL"] = "admin@sirkadirov.com"; //email администратора
+	$_SPM_CONF["BASE"]["ONLINE_TIME"] = 10 * 60; //каждое действие гарантирует 10 минутный онлайн
 	date_default_timezone_set('Europe/Kiev'); //временная зона, подробнее на http://php.net/manual/ru/timezones.php
 	/*BASE_CONFIGURATION-END*/
 	
@@ -82,14 +83,6 @@
 	$_SPM_CONF["SERVICE_NOLOGIN"]["forgot"] = $_SPM_CONF["SERVICE"]["forgot"];
 	$_SPM_CONF["SERVICE_NOLOGIN"]["agreement"] = $_SPM_CONF["SERVICE"]["agreement"];
 	/*SERVICES_NOLOGIN-END*/
-	
-	/*ERROR_PAGES-START*/
-	$_SPM_CONF["ERR_PAGE"]["404"] = "404.php"; //Страница не найдена
-	$_SPM_CONF["ERR_PAGE"]["access_denied"] = "access_denied.php"; //Доступ запрещён
-	$_SPM_CONF["ERR_PAGE"]["403"] = "access_denied.php"; //Доступ запрещён
-	$_SPM_CONF["ERR_PAGE"]["unauthorized"] = "unauthorized.php"; //Неавторизирован
-	$_SPM_CONF["ERR_PAGE"]["401"] = "unauthorized.php"; //Доступ запрещён
-	/*ERROR_PAGES-END*/
 	
 	/*SERVICES_SETTINGS-START*/
 	$_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"] = "news";

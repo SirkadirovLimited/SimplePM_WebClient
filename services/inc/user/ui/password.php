@@ -10,7 +10,7 @@
 		<form action="index.php?service=user.edit&id=<?php print($_GET['id']); ?>" method="post">
 			<div class="form-group">
 				<label for="old-password">Текущий пароль</label>
-				<input type="password" class="form-control" id="old-password" name="old-password" placeholder="*************" required>
+				<input type="password" class="form-control" id="old-password" name="old-password" placeholder="*************">
 			</div>
 			
 			<div class="form-group">

@@ -54,11 +54,11 @@
 <?php else: ?>
 			
 	<?php while ($article = $db_result->fetch_assoc()): ?>
-		<div class="panel panel-primary" id="article-<?php print($article['id']); ?>" style="margin-bottom: 10px; border-radius: 0;">
+		<div class="panel panel-primary" id="article-<?=$article['id']?>" style="margin-bottom: 10px; border-radius: 0;">
 			<div class="panel-heading" style="border-radius: 0;">
 				<h3 class="panel-title"><a href="#article-<?=$article['id']?>"><?=$article['title']?></a></h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" style="font-size: 12pt;">
 				<?=htmlspecialchars_decode($article['content'])?>
 			</div>
 			<div class="panel-footer">

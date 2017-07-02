@@ -53,7 +53,7 @@
 		</a>
 	</div>
 	<div class="col-md-4" style="padding: 0;">
-		<a href="https://github.com/SirkadirovLimited/" class="btn btn-success btn-xlarge btn-block btn-flat">
+		<a href="https://github.com/SirkadirovTeam/" class="btn btn-success btn-xlarge btn-block btn-flat">
 			<p class="admin-btn">
 				<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
 				Официальный репозиторий<br/>

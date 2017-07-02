@@ -92,10 +92,7 @@
 		include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["404"]);
 		die();
 	elseif ( ( !isset($_SPM_CONF["SERVICE"][$_spm_run_service]) && isset($_SESSION['uid']) ) || !file_exists(_S_SERV_ . $_SPM_CONF["SERVICE"][$_spm_run_service])):
-		SPM_header("Ошибка 404");
-		include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["404"]);
-		SPM_footer();
-		die();
+		die(header('location: index.php?service=error&err=404'));
 	endif;
 	
 	/////////////////////////////////////
