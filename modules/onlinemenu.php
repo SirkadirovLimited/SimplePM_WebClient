@@ -7,7 +7,7 @@
 		FROM
 			`spm_users`
 		WHERE
-			online = '1'
+			(now() - `lastOnline`) < " . $_SPM_CONF["BASE"]["ONLINE_TIME"] . "
 		;
 	";
 	
@@ -23,7 +23,7 @@
 		FROM
 			`spm_users`
 		WHERE
-			online = '1'
+			(now() - `lastOnline`) < " . $_SPM_CONF["BASE"]["ONLINE_TIME"] . "
 		LIMIT
 			0, 5
 		;

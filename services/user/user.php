@@ -9,7 +9,7 @@
 			return "<a>Учитель/Куратор:<br/><b>Тёмная сторона силы, admin</b></a>";
 		elseif($teacherId > 0):
 			if (!$db_get = $db->query("SELECT `firstname`,`secondname`,`thirdname`,`group` FROM `spm_users` WHERE `id`='" . $teacherId . "' LIMIT 1;"))
-				die('<strong>Произошла ошибка при попытке соединения с базой данных! Пожалуйста, повторите ваш запрос позже!</strong>');
+				die(header('location: index.php?service=error&err=db_error'));
 			
 			if ($db_get->num_rows == 0):
 				return "<a>Учитель/Куратор:<br/><b>Ничейный пользователь</b></a>";
@@ -29,27 +29,23 @@
 		
 	}
 	
-	if (!isset($_GET['id']) || strlen(trim($_GET['id'])) == 0) {
-		exit(header("Location: index.php?service=user&id=" . $_SESSION['uid']));
-	}
+	if (!isset($_GET['id']) || strlen(trim($_GET['id'])) == 0)
+		exit(header("location: index.php?service=user&id=" . $_SESSION['uid']));
 	
-	$id = intval( htmlspecialchars( trim( $_GET['id'] ) ), 0 ); //Stay safe
+	$id = (int)$_GET['id']; //Stay safe
+	
 	if (!$db_result = $db->query("SELECT * FROM `spm_users` WHERE id = '$id'"))
-		die("<strong>Произошла ошибка при отправке запроса к базе данных. Посетите данную страницу позже.</strong>");
+		die(header('location: index.php?service=error&err=db_error'));
 	
-	if ($db_result->num_rows == 0){
-		SPM_header("Ошибка 404");
-		include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["404"]);
-		SPM_footer();
-		exit();
-	}
+	if ($db_result->num_rows == 0)
+		die(header('location: index.php?service=error&err=404'));
 	
 	$user_info = $db_result->fetch_assoc();
 	
 	$db_result->free();
 	unset($db_result);
 	
-	if ($user_info['online'] == true)
+	if (spm_getUserOnline($id))
 		$user_is_online = "<span class='label label-success'>Online</span>";
 	else
 		$user_is_online = "<span class='label label-danger'>Offline</span>";
