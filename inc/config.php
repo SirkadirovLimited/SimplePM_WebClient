@@ -16,6 +16,7 @@
 	$_SPM_CONF["BASE"]["TPL_NAME"] = "default"; //имя папки шаблона
 	$_SPM_CONF["BASE"]["ADMIN_MAIL"] = "admin@sirkadirov.com"; //email администратора
 	$_SPM_CONF["BASE"]["ONLINE_TIME"] = 10 * 60; //каждое действие гарантирует 10 минутный онлайн
+	$_SPM_CONF["BASE"]["DEFAULT_LOCALE"] = "ru";
 	date_default_timezone_set('Europe/Kiev'); //временная зона, подробнее на http://php.net/manual/ru/timezones.php
 	/*BASE_CONFIGURATION-END*/
 	

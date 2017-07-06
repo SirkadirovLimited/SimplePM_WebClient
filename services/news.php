@@ -1,5 +1,6 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
+	include(LOCALE . "news.php");
 	
 	isset($_GET['page']) or $_GET['page'] = 1;
 	
@@ -27,29 +28,28 @@
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	
-	SPM_header("Новости","Раздел новостей");
+	SPM_header($LANG["page_title"], $LANG["page_desc"]);
 ?>
 
 <?php if(permission_check($_SESSION['permissions'], PERMISSION::administrator)): ?>
 <div align="right" style="margin-bottom: 10px;">
-	<a href="index.php?service=news.admin&create" class="btn btn-success btn-flat">Создать новость</a>
-	<a href="index.php?service=news.admin" class="btn btn-primary btn-flat">Управление</a>
+	<a href="index.php?service=news.admin&create" class="btn btn-success btn-flat"><?=$LANG["create_news"]?></a>
+	<a href="index.php?service=news.admin" class="btn btn-primary btn-flat"><?=$LANG["config"]?></a>
 </div>
 <?php endif; ?>
 
 <?php if ($_SPM_CONF["SECURITY"]["alpha_version_warning"]): ?>
 <div class="callout callout-danger">
-	<h4>Обратите внимание!</h4>
-	<p>Система находится в стадии активной разарботки. Некоторый функционал может быть реализован не полностью! 
-	В случае обнаружения ошибок незамедлительно свяжитесь с разарботчиком системы по email: <b>admin@sirkadirov.com</b></p>
+	<h4><?=$LANG["func_warning_title"]?></h4>
+	<p><?=$LANG["func_warning_text"]?></p>
 </div>
 <?php endif; ?>
 
 
 <?php if ($total_articles_number == 0 || $db_result->num_rows === 0): ?>
 <div align="center">
-	<h1>Упс!</h1>
-	<p class="lead">Новостей ещё нет, но не огорчайтесь! Скоро они появятся! :)</p>
+	<h1><?=$LANG["oops"]?></h1>
+	<p class="lead"><?=$LANG["no_news"]?></p>
 </div>
 <?php else: ?>
 			
@@ -62,10 +62,10 @@
 				<?=htmlspecialchars_decode($article['content'])?>
 			</div>
 			<div class="panel-footer">
-				<a href="index.php?service=user&id=<?=$article['authorId']?>">Профиль автора</a> / Дата публикации: <?=$article['date']?>
+				<a href="index.php?service=user&id=<?=$article['authorId']?>"><?=$LANG["author_profile"]?></a> / <?=$LANG["pub_date"]?>: <?=$article['date']?>
 				
 				<?php if (permission_check($_SESSION['permissions'], PERMISSION::administrator)): ?>
-				&nbsp;/&nbsp;<a href='index.php?service=news.admin&edit=<?=$article["id"]?>'>Редактировать</a>
+				&nbsp;/&nbsp;<a href='index.php?service=news.admin&edit=<?=$article["id"]?>'><?=$LANG["edit"]?></a>
 				<?php endif; ?>
 			</div>
 		</div>

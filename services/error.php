@@ -1,5 +1,6 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
+	include(LOCALE . "error.php");
 	
 	isset($_GET["err"]) or $_GET["err"] = "404";
 	
@@ -27,27 +28,27 @@
 		break;
 	}
 	
-	SPM_header("Ошибка " . $errId, "Страница информации");
+	SPM_header($LANG["page_title"] . $errId, $LANG["page_desc"]);
 ?>
 <div class="error-page">
 	<h2 class="headline text-red"><?=$errId?></h2>
 	<div class="error-content">
-		<h3><i class="fa fa-warning text-red"></i> Упс... Что-то произошло!</h3>
+		<h3><i class="fa fa-warning text-red"></i> <?=$LANG["h3_title"]?></h3>
 		<p>
-			Произошла ошибка при обработке вашего запроса. Все введённые вами данные утрачены.
-			Попробуйте сделать всё <a href="index.php">заново</a> и не плачте!
-			Информацию о часто возникаемых ошибках можно просмотреть на данной странице.
+			<?=$LANG["text_1"]?>
+			<?=$LANG["text_2"]?>
+			<?=$LANG["text_3"]?>
 		</p>
 		
 		<a
 			href="https://github.com/SirkadirovTeam/SimplePM_WebClient/wiki/Информация-об-ошибках"
 			target="_blank"
 			class="btn btn-warning btn-flat btn-block"
-		>Информация об ошибке</a>
+		><?=$LANG["err_info"]?></a>
 		<a
 			href="mailto:<?=$_SPM_CONF["BASE"]["ADMIN_MAIL"]?>?subject=SimplePM error <?=$errId?>, uid <?=$SESSION['uid']?>"
 			class="btn btn-danger btn-flat btn-block"
-		>Наказать виновного!</a>
+		><?=$LANG["send_email"]?></a>
 	</div>
 </div>
 <?php SPM_footer(); ?>
