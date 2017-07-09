@@ -1,6 +1,7 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	deniedOrAllowed(PERMISSION::student);
+	deniedOrAllowed(PERMISSION::student | PERMISSION::teacher | PERMISSION::administrator);
+	
 	//Включение скрипта, по запросу удаляющего определённую задачу
 	include(_S_SERV_INC_ . "admin/problem.del.php");
 	//Включение скрипта, отвечающего за выборку из БД

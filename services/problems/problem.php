@@ -5,10 +5,10 @@
 	//         SECURITY CHECKS         //
 	/////////////////////////////////////
 	
-	deniedOrAllowed(PERMISSION::student);
+	deniedOrAllowed(PERMISSION::student | PERMISSION::teacher | PERMISSION::administrator);
 	
 	(isset($_GET['id']) && (int)$_GET['id'] > 0)
-		or die('<strong>ID задачи не указан!</strong>');
+		or die(header('location: index.php?service=error&err=input'));
 	
 	/////////////////////////////////////
 	//    CLASSWORKS SUBSYSTEM CODE    //
@@ -39,7 +39,7 @@
 			die(header('location: index.php?service=error&err=db_error'));
 		
 		if ($query->num_rows == 0 || $query->fetch_array()[0] == 0)
-			die('<strong>Задача с указанным ID не включена в урок!</strong>');
+			die(header('location: index.php?service=error&err=403'));
 		
 	}
 	
@@ -60,9 +60,9 @@
 	";
 	
 	if (!$query = $db->query($query_str))
-		die('<strong>Указанная задача не найдена!</strong>');
+		die(header('location: index.php?service=error&err=404'));
 	
-	($query->num_rows > 0) or die('<strong>Указанная задача не найдена!</strong>');
+	($query->num_rows > 0) or die(header('location: index.php?service=error&err=404'));
 	
 	$problem_info = $query->fetch_assoc();
 	
@@ -102,8 +102,6 @@
 		$submissionCode = htmlspecialchars($submission['problemCode']);
 		$submissionArgs = $submission['customTest'];
 		$submissionLang = $submission['codeLang'];
-		
-		unset($submission);
 		
 	} else {
 		
@@ -273,7 +271,7 @@
 					<input class="btn btn-success btn-block btn-flat" type="submit" name="release" value="Отправка" style="margin: 0;" onclick="getcode();" />
 				</div>
 				
-				<?php if (isset($submission['submissionId'])): ?>
+				<?php if (isset($submission['problemCode'])): ?>
 				<!-- Last submission info -->
 				<div class="col-xs-12 col-md-12" style="padding: 0;">
 					<a href="index.php?service=problem_result&sid=<?=$submission['submissionId']?>" class="btn btn-default btn-block btn-flat">Информация о последней попытке</a>
@@ -384,4 +382,4 @@
 	
 	function getcode() { document.getElementById("code").innerHTML = editor.getValue(); }
 </script>
-<?php SPM_footer(); ?>
+<?php unset($submission); SPM_footer(); ?>
