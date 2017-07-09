@@ -21,6 +21,8 @@
 	
 	if ($messagesCount == null)
 		$messagesCount = 0;
+	
+	$enablelinks = !isset($_SESSION["classwork"], $_SESSION["olymp"]);
 ?>
 <li class="dropdown user user-menu">
 	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Выпадающее меню пользователя">
@@ -35,12 +37,17 @@
 				<small>@<?=$_SESSION['username']?></small>
 			</p>
 		</li>
+		<?php if ($enablelinks): ?>
 		<li class="user-body" style="padding: 0;">
 			<ul class="nav nav-pills nav-stacked">
 				<li><a href="index.php?service=user&id=<?=$_SESSION['uid']?>"><i class="fa fa-user"></i> Мой профиль</a></li>
 				<li><a href="index.php?service=messages"><i class="fa fa-comments"></i> Мои сообщения <i class="fa pull-right"><span class="badge"><?=$messagesCount?></span></i></a></li>
+				<?php if (permission_check($_SESSION["permissions"], PERMISSION::student)): ?>
+				<li><a href="index.php?service=olympiads"><i class="fa fa-book"></i> Олимпиадный режим</a></li>
+				<?php endif; ?>
 			</ul>
 		</li>
+		<?php endif; ?>
 		<li class="user-footer">
 			<div class="pull-right">
 				<a href="index.php?service=logout" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i> Выйти</a>
@@ -48,7 +55,7 @@
 		</li>
 	</ul>
 </li>
-<?php if ($messagesCount > 0): ?>
+<?php if ($messagesCount > 0 && $enablelinks): ?>
 <script>
 	Push.close('unreadMessages');
 	Push.create('<?=$_SPM_CONF["BASE"]["SITE_NAME"]?>', {

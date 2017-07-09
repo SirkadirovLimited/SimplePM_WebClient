@@ -57,6 +57,9 @@
 	$_SPM_CONF["SERVICE"]["classworks.edit"] = "classworks/classworks.edit.php"; //require teacher
 	$_SPM_CONF["SERVICE"]["classworks.result"] = "classworks/classworks.result.php"; //require session(uid)
 	
+	//                             OLYMPIADS SERVICES
+	$_SPM_CONF["SERVICE"]["olympiads"] = "olymp/olympiads.php"; //require session(uid)
+	
 	//                             USER SERVICES
 	$_SPM_CONF["SERVICE"]["user"] = "user/user.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["user.edit"] = "user/user.edit.php"; //require session(uid)
