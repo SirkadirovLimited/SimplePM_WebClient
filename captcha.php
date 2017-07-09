@@ -1,8 +1,8 @@
 <?php
 	session_start();
 	
-	$code=mt_rand(1000,9999);
-	$_SESSION["captcha_code"]=$code;
+	$code = mt_rand(1000,9999);
+	$_SESSION["captcha_code"] = $code;
 	
 	$im = imagecreatetruecolor(200, 100);
 	

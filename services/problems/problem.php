@@ -139,7 +139,7 @@
 			die(header('location: index.php?service=error&err=db_error'));
 		
 		if ($query->num_rows > 0)
-			$submissionCode = htmlspecialchars($db_query->fetch_array()[0]);
+			$submissionCode = htmlspecialchars($query->fetch_array()[0]);
 		else
 			die('<strong>Указанная задача не имеет авторского решения!</strong>');
 		
