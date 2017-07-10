@@ -12,7 +12,7 @@
 	";
 	
 	if (!$db_count = $db->query($db_query))
-			die(header('location: index.php?service=error&err=db_error'));
+		die(header('location: index.php?service=error&err=db_error'));
 	
 	$db_query = "
 		SELECT

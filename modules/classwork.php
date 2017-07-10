@@ -2,6 +2,7 @@
 <?php if (isset($_SESSION["classwork"])): ?>
 
 <?php
+	
 	global $db;
 	
 	$query_str = "
@@ -27,6 +28,7 @@
 	
 	$clw_now = new DateTime(date("Y-m-d H:i:s"));
 	$clw_end = new DateTime($classwork["endTime"]);
+	
 	$clw_diff = $clw_now->diff($clw_end);
 	$clw_diff = $clw_diff->format("%H:%i:%s");
 	
@@ -42,7 +44,7 @@
 		if (s == 0) {
 			if (m == 0) {
 				if (h == 0) {
-					alert("Время вышло! Ссылка на таблицу результатов отправлена в личном сообщении!");
+					alert("Время вышло! Вы будете автоматически переадресованы на страницу результатов соревнования.");
 					window.location.reload();
 					return;
 				}
@@ -58,6 +60,10 @@
 		}
 		else
 			s--;
+		
+		if (m < 10)
+			m = "0" + m;
+		
 		if (s < 10)
 			s = "0" + s;
 		

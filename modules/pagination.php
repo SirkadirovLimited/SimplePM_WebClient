@@ -10,7 +10,7 @@
 		
 		//Проверяем, чтобы значение переменной, которая хранит номер текущей страницы
 		//было меньше либо равно количеству страниц.
-		if ($current_page <= $pages_count){
+		if ($current_page <= $pages_count):
 			
 			//Объявляем массив элементов
 			$links_array = array();
@@ -36,7 +36,7 @@
 ?>
 <nav align="right" style="margin: 0;">
 	<ul class="pagination" style="margin: 0; border-radius: 0;">
-		<li><a href="index.php?service=<?php print($service); ?>&page=1<?php print($addition); ?>" style="border-radius: 0;">«</a></li>
+		<li><a href="index.php?service=<?=$service?>&page=1<?=$addition?>" style="border-radius: 0;">«</a></li>
 <?php
 			//Выводим ссылки на страницы в виде списка
 			foreach ($links_array as $link){
@@ -48,12 +48,12 @@
 					print("<li><a href='index.php?service=" . $service . "&page=" . $link . $addition . "'>" . $link . "</a></li>");
 			}
 ?>
-		<li><a href="index.php?service=<?php print($service); ?>&page=<?php print($pages_count . $addition); ?>" style="border-radius: 0;">»</a></li>
+		<li><a href="index.php?service=<?=$service?>&page=<?=$pages_count . $addition?>" style="border-radius: 0;">»</a></li>
 	</ul>
 </nav>
 <?php
 			
-		}
+		endif;
 		
 	}
 ?>
