@@ -234,11 +234,11 @@
 				<?php endif; ?>
 				
 				<?php if ($_SPM_CONF["PROG_LANGS"]["cpp"]): ?>
-				<option value="3" <?=($submissionLang == "cpp" ? "selected" : "")?>>C++ (Visual C++)</option>
+				<option value="3" <?=($submissionLang == "cpp" ? "selected" : "")?>>C++ (GNU Compiler Collection, g++)</option>
 				<?php endif; ?>
 				
 				<?php if ($_SPM_CONF["PROG_LANGS"]["c"]): ?>
-				<option value="4" <?=($submissionLang == "c" ? "selected" : "")?>>C (Visual C)</option>
+				<option value="4" <?=($submissionLang == "c" ? "selected" : "")?>>C (GNU Compiler Collection, gcc)</option>
 				<?php endif; ?>
 				
 				<?php if ($_SPM_CONF["PROG_LANGS"]["lua"]): ?>
@@ -353,10 +353,10 @@
 				editor.getSession().setMode("ace/mode/csharp");
 				break;
 			case "3":
-				editor.getSession().setMode("ace/mode/cpp");
+				editor.getSession().setMode("ace/mode/c_cpp");
 				break;
 			case "4":
-				editor.getSession().setMode("ace/mode/c");
+				editor.getSession().setMode("ace/mode/c_cpp");
 				break;
 			case "5":
 				editor.getSession().setMode("ace/mode/lua");

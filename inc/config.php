@@ -114,8 +114,8 @@
 	/*PROGRAMMING_LANGUAGES-START*/
 	$_SPM_CONF["PROG_LANGS"]["pascal"] = true;
 	$_SPM_CONF["PROG_LANGS"]["csharp"] = true;
-	$_SPM_CONF["PROG_LANGS"]["cpp"] = false;
-	$_SPM_CONF["PROG_LANGS"]["c"] = false;
+	$_SPM_CONF["PROG_LANGS"]["cpp"] = true;
+	$_SPM_CONF["PROG_LANGS"]["c"] = true;
 	$_SPM_CONF["PROG_LANGS"]["lua"] = true;
 	$_SPM_CONF["PROG_LANGS"]["python"] = true;
 	$_SPM_CONF["PROG_LANGS"]["java"] = false;
