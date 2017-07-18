@@ -29,13 +29,12 @@
 			die(header('location: index.php?service=error&err=db_error'));
 		
 		if ($query->num_rows == 0)
-			die('<strong>Урок с таким идентификатором не найден!</strong>');
+			die(header('location: index.php?service=error&err=404'));
 		
 		$cwork_info = $query->fetch_assoc();
 		
 	} else {
 		$cwork_info['id'] = "AUTO INCREMENT";
-		$cwork_info['minb'] = 0;
 	}
 	
 	/////////////////////////////////////
@@ -48,13 +47,13 @@
 		
 		////////
 		
-		isset($_POST["name"]) or die(header('location: ' . $_SERVER['REQUEST_URI']));
-		isset($_POST["description"]) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		isset($_POST["name"]) or die(header('location: index.php?service=error&err=input'));
+		isset($_POST["description"]) or die(header('location: index.php?service=error&err=input'));
 		
-		isset($_POST["startTime"]) or die(header('location: ' . $_SERVER['REQUEST_URI']));
-		isset($_POST["endTime"]) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		isset($_POST["startTime"]) or die(header('location: index.php?service=error&err=input'));
+		isset($_POST["endTime"]) or die(header('location: index.php?service=error&err=input'));
 		
-		isset($_POST["studentsGroup"]) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		isset($_POST["studentsGroup"]) or die(header('location: index.php?service=error&err=input'));
 		
 		////////
 		
@@ -68,13 +67,13 @@
 		
 		////////
 		
-		(strlen($_POST["name"]) > 0 && strlen($_POST["name"]) <= 255) or die(header('location: ' . $_SERVER['REQUEST_URI']));
-		(strlen($_POST["description"]) > 0 && strlen($_POST["description"]) <= 65535) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		(strlen($_POST["name"]) > 0 && strlen($_POST["name"]) <= 255) or die(header('location: index.php?service=error&err=input'));
+		(strlen($_POST["description"]) > 0 && strlen($_POST["description"]) <= 65535) or die(header('location: index.php?service=error&err=input'));
 		
-		(strlen($_POST["startTime"]) == 19) or die(header('location: ' . $_SERVER['REQUEST_URI']));
-		(strlen($_POST["endTime"]) == 19) or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		(strlen($_POST["startTime"]) == 19) or die(header('location: index.php?service=error&err=input'));
+		(strlen($_POST["endTime"]) == 19) or die(header('location: index.php?service=error&err=input'));
 		
-		$_POST["studentsGroup"] > 0 or die(header('location: ' . $_SERVER['REQUEST_URI']));
+		$_POST["studentsGroup"] > 0 or die(header('location: index.php?service=error&err=input'));
 		
 		////////
 		
@@ -89,6 +88,7 @@
 				
 				`teacherId` = '" . $_SESSION["uid"] . "'
 		";
+		
 		$query_str = "
 			INSERT INTO
 				`spm_classworks`
@@ -138,7 +138,7 @@
 	SPM_header("Подсистема уроков", "Редактирование урока");
 ?>
 
-<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
+<form method="post">
 	
 	<div class="box box-primary box-solid" style="border-radius: 0;">
 		<div class="box-header with-border" style="border-radius: 0;">
@@ -184,6 +184,10 @@
 							</td>
 							<td>
 								<select name="studentsGroup" class="form-control">
+									<?php if ($_GET['id'] > 0): ?>
+									<option value="<?=$cwork_info['studentsGroup']?>" selected><?=spm_getUserGroupByID($cwork_info['studentsGroup'])?> (выбрано)</option>
+									<?php endif; ?>
+									
 									<?php
 										$query_str = "
 											SELECT
@@ -198,11 +202,10 @@
 										
 										if (!$query = $db->query($query_str))
 											die(header('location: index.php?service=error&err=db_error'));
-										
-										while ($group = $query->fetch_assoc()):
-											$selectedGroup = ($user_info['group'] == $group['id'] ? " selected" : "");
 									?>
-									<option value="<?=$group['id']?>"<?=$selectedGroup?>><?=$group['name']?></option>
+									
+									<?php while ($group = $query->fetch_assoc()): ?>
+									<option value="<?=$group['id']?>"><?=$group['name']?></option>
 									<?php endwhile; ?>
 								</select>
 							</td>

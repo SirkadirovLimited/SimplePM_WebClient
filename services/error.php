@@ -43,7 +43,7 @@
 		</p>
 		
 		<a
-			href="https://github.com/SirkadirovTeam/SimplePM_WebClient/wiki/Информация-об-ошибках"
+			href="https://spm.sirkadirov.com/wiki/doku.php?id=services:error-pages"
 			target="_blank"
 			class="btn btn-warning btn-flat btn-block"
 		><?=$LANG["err_info"]?></a>

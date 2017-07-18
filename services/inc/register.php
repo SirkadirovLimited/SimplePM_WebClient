@@ -86,7 +86,7 @@
 		print("<meta http-equiv='refresh' content='3;URL=index.php?service=register' />");
 		exit;
 	}
-	if ($db_result->num_rows === 0){
+	if ($db_result->num_rows == 0){
 		print("<strong>TeacherID введён некорректно или был временно отключён.</strong>");
 		print("<meta http-equiv='refresh' content='3;URL=index.php?service=register' />");
 		exit;

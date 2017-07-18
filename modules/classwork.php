@@ -45,7 +45,7 @@
 			if (m == 0) {
 				if (h == 0) {
 					alert("Время вышло! Вы будете автоматически переадресованы на страницу результатов соревнования.");
-					window.location.reload();
+					window.location.href = "index.php?service=classworks.result&id=<?=$_SESSION["classwork"]?>";
 					return;
 				}
 				h--;
@@ -53,16 +53,13 @@
 				if (h < 10)
 					h = "0" + h;
 			}
+			
 			m--;
-			if (m < 10)
-				m = "0" + m;
+			
 			s = 59;
 		}
 		else
 			s--;
-		
-		if (m < 10)
-			m = "0" + m;
 		
 		if (s < 10)
 			s = "0" + s;

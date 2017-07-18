@@ -2,11 +2,24 @@
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	deniedOrAllowed(PERMISSION::teacher);
 	
+	if (isset($_POST['del']))
+		include(_S_SERV_INC_ . "classworks/classworks.del.php");
+	
 	isset($_GET['page']) or $_GET['page'] = 1;
 	
 	(int)$_GET['page']>0 or $_GET['page']=1;
 	
-	if (!$db_result = $db->query("SELECT count(id) FROM `spm_classworks` WHERE `teacherId` = '" . $_SESSION["uid"] . "';"))
+	$query_str = "
+		SELECT
+			count(id)
+		FROM
+			`spm_classworks`
+		WHERE
+			`teacherId` = '" . $_SESSION["uid"] . "'
+		;
+	";
+	
+	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	$total_articles_number = (int)($db_result->fetch_array()[0]);
@@ -24,7 +37,25 @@
 	if ($current_page > $total_pages)
 		$current_page = 1;
 	
-	if (!$db_result = $db->query("SELECT * FROM `spm_classworks` WHERE `teacherId` = '" . $_SESSION["uid"] . "' ORDER BY `id` DESC LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
+	$query_str = "
+		SELECT
+			`id`,
+			`name`,
+			`studentsGroup`,
+			`startTime`,
+			`endTime`
+		FROM
+			`spm_classworks`
+		WHERE
+			`teacherId` = '" . $_SESSION["uid"] . "'
+		ORDER BY
+			`id` DESC
+		LIMIT
+			" . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . "
+		;
+	";
+	
+	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	SPM_header("Подсистема уроков", "Список уроков");
@@ -64,10 +95,11 @@
 						<td><?=$classwork['startTime']?></td>
 						<td><?=$classwork['endTime']?></td>
 						<td>
-							<form action="" method="post" style="margin: 0;">
+							<form method="post" style="margin: 0;">
 								<input type="hidden" name="id" value="<?=$classwork['id']?>">
 								<a href="index.php?service=classworks.result&id=<?=$classwork['id']?>" class="btn btn-primary btn-xs">STAT</a>
 								<a href="index.php?service=classworks.edit&id=<?=$classwork['id']?>" class="btn btn-warning btn-xs">EDIT</a>
+								<button type="submit" name="del" class="btn btn-danger btn-xs">DEL</button>
 							</form>
 						</td>
 					</tr>

@@ -102,7 +102,7 @@
 	/*PASSWORD_SETTINGS-END*/
 	
 	/*TEACHERID_SETTINGS-START*/
-	$_SPM_CONF["TEACHERID"]["length"] = 15; //Длина пароля TeacherID
+	$_SPM_CONF["TEACHERID"]["length"] = 5; //Длина пароля TeacherID
 	/*TEACHERID_SETTINGS-END*/
 	
 	/*SECURITY-START*/
