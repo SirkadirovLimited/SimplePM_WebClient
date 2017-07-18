@@ -16,6 +16,8 @@
 		break;
 		case "404":
 			$errId = "404";
+			if (isset($_SESSION["classwork"]) || isset($_SESSION["olymp"]))
+				exit(header('location: index.php'));
 		break;
 		case "403":
 			$errId = "403";

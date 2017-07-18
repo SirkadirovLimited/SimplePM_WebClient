@@ -102,7 +102,7 @@
 		";
 		
 		if (!$db->query($query_str))
-			die(mysqli_error($db));//die(header('location: index.php?service=error&err=db_error'));
+			die(header('location: index.php?service=error&err=db_error'));
 		
 		////////
 		
@@ -132,7 +132,7 @@
 		
 		////////
 		
-		exit(header('location: ' . $_SERVER['REQUEST_URI']));
+		exit(header('location: index.php?service=classworks'));
 	}
 	
 	SPM_header("Подсистема уроков", "Редактирование урока");
@@ -184,29 +184,26 @@
 							</td>
 							<td>
 								<select name="studentsGroup" class="form-control">
-<?php
-	$query_str = "
-		SELECT
-			`id`,
-			`name`
-		FROM
-			`spm_users_groups`
-		WHERE
-			`teacherId` = '" . $_SESSION["uid"] . "'
-		;
-	";
-	
-	if (!$query = $db->query($query_str))
-		die(header('location: index.php?service=error&err=db_error'));
-	
-	while ($group = $query->fetch_assoc()):
-		if ($user_info['group'] == $group['id'])
-			$selectedGroup = " selected";
-		else
-			$selectedGroup = "";
-?>
-					<option value="<?=$group['id']?>"<?=$selectedGroup?>><?=$group['name']?></option>
-<?php endwhile; ?>
+									<?php
+										$query_str = "
+											SELECT
+												`id`,
+												`name`
+											FROM
+												`spm_users_groups`
+											WHERE
+												`teacherId` = '" . $_SESSION["uid"] . "'
+											;
+										";
+										
+										if (!$query = $db->query($query_str))
+											die(header('location: index.php?service=error&err=db_error'));
+										
+										while ($group = $query->fetch_assoc()):
+											$selectedGroup = ($user_info['group'] == $group['id'] ? " selected" : "");
+									?>
+									<option value="<?=$group['id']?>"<?=$selectedGroup?>><?=$group['name']?></option>
+									<?php endwhile; ?>
 								</select>
 							</td>
 						</tr>

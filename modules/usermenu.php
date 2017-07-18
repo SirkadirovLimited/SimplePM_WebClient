@@ -22,7 +22,7 @@
 	if ($messagesCount == null)
 		$messagesCount = 0;
 	
-	$enablelinks = !isset($_SESSION["classwork"], $_SESSION["olymp"]);
+	$enablelinks = !isset($_SESSION["classwork"]) && !isset($_SESSION["olymp"]);
 ?>
 <li class="dropdown user user-menu">
 	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Выпадающее меню пользователя">

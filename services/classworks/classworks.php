@@ -60,7 +60,7 @@
 					<tr>
 						<td><?=$classwork['id']?></td>
 						<td><?=$classwork['name']?></td>
-						<td>gid_<?=$classwork['studentsGroup']?></td>
+						<td><?=spm_getUserGroupByID($classwork['studentsGroup'])?></td>
 						<td><?=$classwork['startTime']?></td>
 						<td><?=$classwork['endTime']?></td>
 						<td>
