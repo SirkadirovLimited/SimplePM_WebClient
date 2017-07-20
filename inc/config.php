@@ -10,13 +10,14 @@
 	*/
 	/*BASE_CONFIGURATION-START*/
 	$_SPM_CONF["BASE"]["SITE_NAME"] = "SimplePM"; //имя сайта
-	$_SPM_CONF["BASE"]["SITE_DESCRIPTION"] = "SPM test site."; //краткое описание сайта
-	$_SPM_CONF["BASE"]["SITE_KEYWORDS"] = "SPM,demo,site,website,php,sirkadirov"; //ключевые слова сайта
+	$_SPM_CONF["BASE"]["SITE_DESCRIPTION"] = "Тестовий сайт SimplePM"; //краткое описание сайта
+	$_SPM_CONF["BASE"]["SITE_KEYWORDS"] = "SPM,SimplePM,demo,site,website,php,sirkadirov"; //ключевые слова сайта
 	$_SPM_CONF["BASE"]["SITE_URL"] = $_SERVER['HTTP_HOST']; //адрес сайта (можно использовать $_SERVER['HTTP_HOST'])
 	$_SPM_CONF["BASE"]["TPL_NAME"] = "default"; //имя папки шаблона
 	$_SPM_CONF["BASE"]["ADMIN_MAIL"] = "admin@sirkadirov.com"; //email администратора
 	$_SPM_CONF["BASE"]["ONLINE_TIME"] = 10 * 60; //каждое действие гарантирует 10 минутный онлайн
 	$_SPM_CONF["BASE"]["DEFAULT_LOCALE"] = "ru";
+	$_SPM_CONF["BASE"]["ENABLE_TRANSLATOR"] = false; //предоставить пользователям доступ к меню переводчика
 	date_default_timezone_set('Europe/Kiev'); //временная зона, подробнее на http://php.net/manual/ru/timezones.php
 	/*BASE_CONFIGURATION-END*/
 	
@@ -28,7 +29,6 @@
 	/*DB-CONFIG-END*/
 	
 	/*SERVICES-START*/
-	$_SPM_CONF["SERVICE"]["agreement"] = "agreement.php";
 	
 	$_SPM_CONF["SERVICE"]["register"] = "login/register.php"; //nologin
 	$_SPM_CONF["SERVICE"]["login"] = "login/login.php"; //nologin
@@ -85,7 +85,6 @@
 	$_SPM_CONF["SERVICE_NOLOGIN"]["login"] = $_SPM_CONF["SERVICE"]["login"];
 	$_SPM_CONF["SERVICE_NOLOGIN"]["register"] = $_SPM_CONF["SERVICE"]["register"];
 	$_SPM_CONF["SERVICE_NOLOGIN"]["forgot"] = $_SPM_CONF["SERVICE"]["forgot"];
-	$_SPM_CONF["SERVICE_NOLOGIN"]["agreement"] = $_SPM_CONF["SERVICE"]["agreement"];
 	/*SERVICES_NOLOGIN-END*/
 	
 	/*SERVICES_SETTINGS-START*/

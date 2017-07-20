@@ -41,11 +41,11 @@
 		<span class="label label-warning"><?=$users_online_count?></span>
 	</a>
 	<ul class="dropdown-menu">
-		<li class="header">Пользователи онлайн (<?=$users_online_count?>)</li>
+		<li class="header">Користувачі онлайн (<?=$users_online_count?>)</li>
 		<li>
 			<ul class="menu">
 			<?php if ($db_result->num_rows === 0): ?>
-				<b>Тут никого нет...Стоп! А ты кто такой?!</b>
+				<b>Тут нікого немає. А що ти тут робиш?!</b>
 			<?php else: ?>
 				<?php while ($u_w_o_s = $db_result->fetch_assoc()): ?>
 				<li>
@@ -61,7 +61,6 @@
 			<?php endif; ?>
 			</ul>
 		</li>
-		<li class="footer"><a href="index.php?service=online">Полный список</a></li>
 	</ul>
 </li>
 <?php

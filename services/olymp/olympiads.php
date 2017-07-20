@@ -1,7 +1,7 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
-	SPM_header("Олимпиадный режим", "Список олимпиад");
+	SPM_header("Олімпіадний режим", "Головна сторінка");
 ?>
 <img
 	src="<?=_S_MEDIA_IMG_?>headers/olymp.jpg"
@@ -17,10 +17,12 @@
 			
 			<form method="post">
 				
-				<h4>Присоединиться к приватному соревнованию</h4>
+				<h4>Приєднатися до закритого змагання</h4>
 				
 				<div class="input-group">
-					<input type="text" placeholder="Ключ приватного соревнования" class="form-control" required>
+					<select class="form-control" required>
+						<option>Оберіть змагання</option>
+					</select>
 					<div class="input-group-btn">
 						<button type="submit" class="btn btn-default btn-flat">
 							&nbsp;<i class="glyphicon glyphicon-chevron-right"></i>&nbsp;
@@ -36,11 +38,11 @@
 			
 			<form method="post">
 				
-				<h4>Присоединиться к публичному соревнованию</h4>
+				<h4>Приєднатися до публічного змагання</h4>
 				
 				<div class="input-group">
 					<select class="form-control" required>
-						<option>Выбрать соревнование</option>
+						<option>Оберіть змагання</option>
 					</select>
 					<div class="input-group-btn">
 						<button type="submit" class="btn btn-default btn-flat">
@@ -61,7 +63,7 @@
 
 <div align="center" style="padding: 20px 10px 20px 10px; background-color: #f39c12; color: white;">
 	
-	<h4>Поддерживаемые браузеры</h4>
+	<h4>Підтримувані браузери</h4>
 	
 	<span style="font-size: 25pt;">
 		<i class="fa fa-opera"></i>

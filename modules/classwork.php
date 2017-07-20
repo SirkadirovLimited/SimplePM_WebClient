@@ -44,7 +44,7 @@
 		if (s == 0) {
 			if (m == 0) {
 				if (h == 0) {
-					alert("Время вышло! Вы будете автоматически переадресованы на страницу результатов соревнования.");
+					alert("Упс! Часу більше немає... Ви будете переадресовані на сторінку результатів змагання.");
 					window.location.href = "index.php?service=classworks.result&id=<?=$_SESSION["classwork"]?>";
 					return;
 				}
@@ -69,7 +69,7 @@
 	}
 </script>
 <li class="dropdown messages-menu">
-	<a class="dropdown-toggle" title="Время до окончания урока">
+	<a class="dropdown-toggle" title="Час до закінчення змагання">
 		&nbsp;<i class="fa fa-hourglass-half"></i>&nbsp;
 		<strong id="classwork_timer"><?=$clw_diff?></strong>
 	</a>

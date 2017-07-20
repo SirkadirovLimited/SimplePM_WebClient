@@ -40,17 +40,17 @@
 		<?php if ($enablelinks): ?>
 		<li class="user-body" style="padding: 0;">
 			<ul class="nav nav-pills nav-stacked">
-				<li><a href="index.php?service=user&id=<?=$_SESSION['uid']?>"><i class="fa fa-user"></i> Мой профиль</a></li>
-				<li><a href="index.php?service=messages"><i class="fa fa-comments"></i> Мои сообщения <i class="fa pull-right"><span class="badge"><?=$messagesCount?></span></i></a></li>
+				<li><a href="index.php?service=user&id=<?=$_SESSION['uid']?>"><i class="fa fa-user"></i> Мій профіль</a></li>
+				<li><a href="index.php?service=messages"><i class="fa fa-comments"></i> Мої повідомлення <i class="fa pull-right"><span class="badge"><?=$messagesCount?></span></i></a></li>
 				<?php if (permission_check($_SESSION["permissions"], PERMISSION::student)): ?>
-				<li><a href="index.php?service=olympiads"><i class="fa fa-book"></i> Олимпиадный режим</a></li>
+				<li><a href="index.php?service=olympiads"><i class="fa fa-book"></i> Олімпіадний режим</a></li>
 				<?php endif; ?>
 			</ul>
 		</li>
 		<?php endif; ?>
 		<li class="user-footer">
 			<div class="pull-right">
-				<a href="index.php?service=logout" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i> Выйти</a>
+				<a href="index.php?service=logout" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i> Вийти</a>
 			</div>
 		</li>
 	</ul>
@@ -59,7 +59,7 @@
 <script>
 	Push.close('unreadMessages');
 	Push.create('<?=$_SPM_CONF["BASE"]["SITE_NAME"]?>', {
-		body: 'У вас есть [<?=$messagesCount?>] новых непрочитанных сообщений!',
+		body: 'Ви маєте [<?=$messagesCount?>] нових повідомлень!',
 		icon: {
 			x16: '<?=_S_MEDIA_IMG_?>mail.png',
 			x32: '<?=_S_MEDIA_IMG_?>mail.png'

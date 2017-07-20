@@ -75,8 +75,6 @@
 		</div>
 	</div>
 	
-	<p>Регистрируясь, вы автоматически принимаете условия <a href="index.php?service=agreement">Лицензионного соглашения</a></p>
-	
 	<button type="submit" class="btn btn-primary btn-block btn-flat" name="submit">Зарегистрироваться</button>
 	<a href="index.php?service=login" class="btn btn-default btn-block btn-flat">Уже есть аккаунт?</a>
 </form>

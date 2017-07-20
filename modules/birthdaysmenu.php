@@ -22,17 +22,17 @@
 		die(header('location: index.php?service=error&err=db_error'));
 ?>
 <li class="dropdown messages-menu">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Дни рождения в этом месяце">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Дні народження">
 		&nbsp;<i class="fa fa-birthday-cake"></i>&nbsp;
 		<span class="label label-danger"><?=$db_result->num_rows?></span>
 	</a>
 	<ul class="dropdown-menu">
-		<li class="header">Дни рождения</li>
+		<li class="header">Дні народження</li>
 		<li>
 			<ul class="menu">
 				<?php if ($db_result->num_rows === 0): ?>
 				
-				<b style='padding: 5px;'>Никто не празднует день рождения :(</b>
+				<b style='padding: 5px;'>Іменинників немає :(</b>
 				
 				<?php else: while ($u_w_o_s = $db_result->fetch_assoc()): ?>
 				
@@ -49,6 +49,5 @@
 				<?php endwhile; endif; ?>
 			</ul>
 		</li>
-		<li class="footer"><a href="#">Полный список</a></li>
 	</ul>
 </li>
