@@ -44,10 +44,29 @@
 		$current_page = 1;
 	
 	//SQL queries and formatting
-	if (!$db_result = $db->query("SELECT `id`,`firstname`,`secondname`,`thirdname`,`username`,`group`,`rating`,`bcount` FROM `spm_users` ORDER BY `" . $_GET["sortby"] . "` " . $_GET["sort"] . " LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
+	$query_str = "
+		SELECT
+			`id`,
+			`firstname`,
+			`secondname`,
+			`thirdname`,
+			`username`,
+			`group`,
+			`rating`,
+			`bcount`
+		FROM
+			`spm_users`
+		ORDER BY
+			`" . $_GET["sortby"] . "` " . $_GET["sort"] . "
+		LIMIT
+			" . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . "
+		;
+	";
+	
+	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 
-	SPM_header("Рейтинг учащихся", "Глобальный");
+	SPM_header("Учнівський рейтинг");
 	
 	/*
 	 * FUNCTIONS
@@ -64,9 +83,9 @@
 			<div class="col-md-12">
 				<form action="" method="get">
 					<select class="form-control" name="category" required>
-						<option value="0" selected>Все группы</option>
+						<option value="0" selected>Усі групи</option>
 					</select>
-					<input type="submit" class="btn btn-primary btn-block btn-flat" name="categoryCmd" value="Применить">
+					<input type="submit" class="btn btn-primary btn-block btn-flat" name="categoryCmd" value="Знайти">
 				</form>
 			</div>
 			<div class="col-md-9">
@@ -75,8 +94,8 @@
 <!--PROBLEMS LIST-->
 <?php if ($total_articles_number == 0 || $db_result->num_rows == 0): ?>
 		<div align="center">
-			<h3>Пользователей не найдено!</h3>
-			<p class="lead">По вашему запросу пользователей не найдено! Попробуйте ввести другой поисковый запрос.</p>
+			<h3>Користувачів не знайдено!</h3>
+			<p class="lead">За вашим запитом користувачів не знайдено. Будь ласка, сформулюйте інший пошуковий запит.</p>
 		</div>
 <?php else: ?>
 		<div class="table-responsive" style="margin: 0; width: 100%;">
@@ -91,21 +110,21 @@
 							</small>
 						</th>
 						<th width="20%">
-							Имя пользователя&nbsp;
+							Ім'я користувача&nbsp;
 							<small>
 								<a href="<?=generate_sort_url(1, $_SORT_BY['username'], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
 								<a href="<?=generate_sort_url(1, $_SORT_BY['username'], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
 							</small>
 						</th>
 						<th width="35%">
-							Полное имя&nbsp;
+							Повне ім'я&nbsp;
 							<small>
 								<a href="<?=generate_sort_url(1, $_SORT_BY['secondname'], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
 								<a href="<?=generate_sort_url(1, $_SORT_BY['secondname'], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
 							</small>
 						</th>
 						<th width="15%">
-							GROUP&nbsp;
+							Група&nbsp;
 							<small>
 								<a href="<?=generate_sort_url(1, $_SORT_BY["group"], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
 								<a href="<?=generate_sort_url(1, $_SORT_BY["group"], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
@@ -156,7 +175,7 @@
 					<tr>
 						<th></th>
 						<th>
-							Страница <?=$_GET["page"]?> из <?=$total_pages?>
+							Сторінка <?=$_GET["page"]?> з <?=$total_pages?>
 						</th>
 						<th></th>
 						<th></th>

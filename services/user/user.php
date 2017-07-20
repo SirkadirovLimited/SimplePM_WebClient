@@ -6,13 +6,13 @@
 		global $db;
 		
 		if ($teacherId == 0):
-			return "<a>Учитель/Куратор:<br/><b>Тёмная сторона силы, admin</b></a>";
+			return "<a>Учитель/Куратор:<br/><b>Темна сторона сили, admin</b></a>";
 		elseif($teacherId > 0):
 			if (!$db_get = $db->query("SELECT `firstname`,`secondname`,`thirdname`,`group` FROM `spm_users` WHERE `id`='" . $teacherId . "' LIMIT 1;"))
 				die(header('location: index.php?service=error&err=db_error'));
 			
 			if ($db_get->num_rows == 0):
-				return "<a>Учитель/Куратор:<br/><b>Ничейный пользователь</b></a>";
+				return "<a>Учитель/Куратор:<br/><b>Інкогніто</b></a>";
 			elseif ($db_get->num_rows === 1):
 				$tUser = $db_get->fetch_assoc();
 				$db_get->free();
@@ -54,7 +54,7 @@
 	
 	$user_info['group_name'] = spm_getUserGroupByID($user_info['group']);
 	
-	SPM_header($user_fullname, "Профиль пользователя", "Профиль пользователя");
+	SPM_header($user_fullname, "Профіль користувача", "Профіль користувача");
 ?>
 <div class="row">
 	<div class="col-md-4">
@@ -80,16 +80,16 @@
 		<div class="small-box bg-green">
 			<div class="inner">
 				<h3><?=$user_info["bcount"]?></h3>
-				<p>ПОЛУЧЕННЫЕ БАЛЛЫ</p>
+				<p>ОТРИМАНІ БАЛИ</p>
 			</div>
 			<a href="index.php?service=bad_problems&uid=<?=$user_info['id']?>" class="small-box-footer">
-				Отложенные задачи <i class="fa fa-arrow-circle-right"></i>
+				Відкладені задачи <i class="fa fa-arrow-circle-right"></i>
             </a>
 		</div>
 		<div class="small-box bg-yellow">
 			<div class="inner">
 				<h3><?=$user_info["rating"]?></h3>
-				<p>РЕЙТИНГ ПОЛЬЗОВАТЕЛЯ</p>
+				<p>БОЙОВИЙ РЕЙТИНГ</p>
 			</div>
 			<a href="index.php?service=rating" class="small-box-footer">
 				Глобальный рейтинг <i class="fa fa-arrow-circle-right"></i>
@@ -99,37 +99,37 @@
 		<?php if ($_SESSION['uid'] == $user_info['id']): ?>
 		<h3>Редактирование</h3>
 		<ul class="nav nav-pills nav-stacked">
-			<li><a href="index.php?service=user.edit&id=<?=$id?>#editProfile">Редактировать информацию</a></li>
-			<li><a href="index.php?service=user.edit&id=<?=$id?>#editAvatar">Изменить аватар</a></li>
-			<li><a href="index.php?service=user.edit&id=<?=$id?>#editPass">Изменить пароль</a></li>
+			<li><a href="index.php?service=user.edit&id=<?=$id?>#editProfile">Редагувати інформацію</a></li>
+			<li><a href="index.php?service=user.edit&id=<?=$id?>#editAvatar">Змінити аватар</a></li>
+			<li><a href="index.php?service=user.edit&id=<?=$id?>#editPass">Змінити пароль</a></li>
 		</ul>
 		<?php else: ?>
 		<h3>Действия</h3>
 		<ul class="nav nav-pills nav-stacked">
-			<li><a href="index.php?service=messages&uid=<?=$id?>">Отправить сообщение</a></li>
+			<li><a href="index.php?service=messages&uid=<?=$id?>">Відкрити діалог</a></li>
 		</ul>
 		<?php endif; ?>
 	</div>
 	<div class="col-md-8">
-		<h3 style="margin-top: 0;">Основная информация</h3>
+		<h3 style="margin-top: 0;">Базова інформація</h3>
 		<ul class="nav nav-pills nav-stacked">
-			<li><a>Полное имя:<br/><b><?=$user_info['secondname'] . " " . $user_info['firstname'] . " " . $user_info['thirdname']?></b></a></li>
-			<li><a>Имя пользователя:<br/><b><?=$user_info['username']?></b></a></li>
-			<li><a>Дата рождения:<br/><b><?=$user_info['bdate']?></b></a></li>
+			<li><a>Повне ім'я:<br/><b><?=$user_info['secondname'] . " " . $user_info['firstname'] . " " . $user_info['thirdname']?></b></a></li>
+			<li><a>Ім'я користувача:<br/><b><?=$user_info['username']?></b></a></li>
+			<li><a>Дата народження:<br/><b><?=$user_info['bdate']?></b></a></li>
 			
-			<li><a>Страна:<br/><b><?=@$SPM_Countries_Get[$user_info['country']]?></b></a></li>
-			<li><a>Город:<br/><b><?=$user_info['city']?></b></a></li>
-			<li><a>Учебное заведение:<br/><b><?=$user_info['school']?></b></a></li>
+			<li><a>Країна:<br/><b><?=@$SPM_Countries_Get[$user_info['country']]?></b></a></li>
+			<li><a>Місто:<br/><b><?=$user_info['city']?></b></a></li>
+			<li><a>Навчальний заклад:<br/><b><?=$user_info['school']?></b></a></li>
 		</ul>
-		<h3>Контакты</h3>
+		<h3>Контактна інформація</h3>
 		<ul class="nav nav-pills nav-stacked">
-			<li><a>Номер телефона:<br/><b><?=$user_info['phone']?></b></a></li>
+			<li><a>Номер телефону:<br/><b><?=$user_info['phone']?></b></a></li>
 			<li><a>Email:<br/><b><?=$user_info['email']?></b></a></li>
 		</ul>
-		<h3>Важная информация</h3>
+		<h3>Системна інформація</h3>
 		<ul class="nav nav-pills nav-stacked">
-			<li><a>Права доступа:<br/><b><?=$user_info['permissions']?></b></a></li>
-			<li><a>Группа:<br/><b><?=$user_info['group_name']?> (gid<?=$user_info['group']?>)</b></a></li>
+			<li><a>Права доступу:<br/><b><?=$user_info['permissions']?></b></a></li>
+			<li><a>Група:<br/><b><?=$user_info['group_name']?> (gid<?=$user_info['group']?>)</b></a></li>
 			<li><?=spm_getTeacherLinkById($user_info['teacherId'])?></li>
 		</ul>
 	</div>

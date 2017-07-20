@@ -1,6 +1,5 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	include(LOCALE . "view.php");
 	
 	function view_page($id){
 		
@@ -21,11 +20,11 @@
 			$db_result->free();
 			unset($db_result);
 			
-			SPM_header($page_info['name'], $LANG["page_desc"]);
+			SPM_header($page_info['name'], "Сторінка");
 			print(htmlspecialchars_decode($page_info['content']));
 			
 			if (permission_check($_SESSION['permissions'], PERMISSION::administrator))
-				print("<div align='right'><a href='index.php?service=view.admin&edit=" . $page_info['id'] . "' class='btn btn-default btn-xs'>" . $LANG["edit"] . "</a></div>");
+				print("<div align='right'><a href='index.php?service=view.admin&edit=" . $page_info['id'] . "' class='btn btn-default btn-xs'>Редагувати</a></div>");
 			
 			SPM_footer();
 			

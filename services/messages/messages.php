@@ -113,7 +113,7 @@
 	
 	/////////////////////////////////////
 	
-	SPM_header("Диалоги", "Старший брат следит за тобой!");
+	SPM_header("Діалоги", "");
 ?>
 <div class="box box-primary box-solid direct-chat" style="margin-bottom: 0;">
 	<div class="box-header with-border">
@@ -133,9 +133,9 @@
 					return false;
 				"
 				data-toggle="tooltip"
-				title="Просмотреть профиль собеседника"
+				title="Подивитись профіль співрозмовника"
 			>
-				<i class="fa fa-user"></i> <span class="hidden-xs">Профиль собеседника</span>
+				<i class="fa fa-user"></i> <span class="hidden-xs">Профіль співрозмовника</span>
 			</a>
 			<?php endif; ?>
 			<button
@@ -144,7 +144,7 @@
 				data-widget="chat-pane-toggle"
 				title="Меню выбора собеседника"
 			>
-				<i class="fa fa-comments"></i> <span class="hidden-xs">Выбор собеседника</span>
+				<i class="fa fa-comments"></i> <span class="hidden-xs">Вибір співрозмовника</span>
 			</button>
 		</div>
 	</div>
@@ -158,8 +158,8 @@
 				</div>
 				<img class="direct-chat-img" src="index.php?service=image&uid=0" alt="Аватар">
 				<div class="direct-chat-text">
-					Приветствуем вас в разделе "Диалоги"!<br/>
-					Тут вы можете общаться на различные темы, но запомните: тут запрещено делиться исходными кодами программ!
+					Раді вітати вас в підсистемі "Діалоги"!<br/>
+					З її допомогою ви можете спілкуватися з усіма користувачами системи.
 				</div>
 			</div>
 			<div class="direct-chat-msg">
@@ -167,8 +167,8 @@
 				</div>
 				<img class="direct-chat-img" src="index.php?service=image&uid=0" alt="Аватар">
 				<div class="direct-chat-text">
-					Для выбора собеседника используйте кнопку 
-					" <i><i class="fa fa-comments"></i> Выбор собеседника</i> ", которая расположена в меню выше.
+					Для вибору співрозмовника натисніть кнопку 
+					" <i><i class="fa fa-comments"></i> Вибір співрозмовника</i> ", що знаходиться у верхньому меню.
 				</div>
 			</div>
 			<div class="direct-chat-msg">
@@ -176,13 +176,13 @@
 				</div>
 				<img class="direct-chat-img" src="index.php?service=image&uid=0" alt="Аватар">
 				<div class="direct-chat-text">
-					Для того, чтобы начать новый диалог, выполните эти несложные действия:<br>
+					Для того, щоб створити новий діалог, треба зробити такі дії:<br>
 					<ol style="margin-top: 5px; margin-bottom: 5px;">
-						<li>Посетите профиль интересующего вас пользователя</li>
-						<li>В меню действий выберите пункт "Написать сообщение"</li>
-						<li>Общайтесь с удовольствием!</li>
+						<li>Відкрити профіль бажаного співрозмовника</li>
+						<li>У меню "Дії" виберіть пункт "Відкрити діалог"</li>
+						<li>Спілкуйтесь із радістю!</li>
 					</ol>
-					Спасибо за внимание!
+					Дякуємо за увагу!
 				</div>
 			</div>
 			
@@ -193,15 +193,8 @@
 				</div>
 				<img class="direct-chat-img" src="index.php?service=image&uid=0" alt="Аватар">
 				<div class="direct-chat-text">
-					Список сообщений пуст. а жаль...
-				</div>
-			</div>
-			<div class="direct-chat-msg">
-				<div class="direct-chat-info clearfix">
-				</div>
-				<img class="direct-chat-img" src="index.php?service=image&uid=0" alt="Аватар">
-				<div class="direct-chat-text">
-					Для создания нового сообщения воспользуйтесь формой, расположенной ниже.
+					Ви ще не відправили ні одного повідомлення.<br/>
+					Для створення нового повідомлення скористайтесь формою нижче.
 				</div>
 			</div>
 			
@@ -240,9 +233,7 @@
 			<ul class="contacts-list">
 				<?php if ($query_contacts->num_rows > 0): ?>
 				<?php while ($contact = $query_contacts->fetch_array()): ?>
-				<?php
-					$selected_id = ($contact[0] == $_SESSION["uid"] ? $contact[1] : $contact[0]);
-				?>
+				<?php $selected_id = ($contact[0] == $_SESSION["uid"] ? $contact[1] : $contact[0]); ?>
 				<li>
 					<a href="index.php?service=messages&uid=<?=$selected_id?>">
 						<img class="contacts-list-img" src="index.php?service=image&uid=<?=$selected_id?>" style="min-height: 40px; min-width: 40px;">
@@ -273,9 +264,9 @@
 									endif;
 								?>
 								<?php if ($unread_count == 0): ?>
-								Нет новых сообщений
+								Немає нових повідомлень
 								<?php else: ?>
-								Новых сообщений: <?=$unread_count?>
+								<?=$unread_count?> нових повідомлень
 								<?php endif; ?>
 							</span>
 						</div>
@@ -288,11 +279,11 @@
 						<img class="contacts-list-img" src="index.php?service=image&uid=0" style="min-height: 40px; min-width: 40px;">
 						<div class="contacts-list-info">
 							<span class="contacts-list-name">
-								<i>Список пуст</i>
+								<i>Діалогів немає</i>
 								<small class="contacts-list-date pull-right"></small>
 							</span>
 							<span class="contacts-list-msg">
-								Для добавления контакта создайте новую беседу
+								Для створення нового діалогу скористайтесь вказівками бота.
 							</span>
 						</div>
 					</a>
@@ -353,7 +344,7 @@
 				<textarea
 					id="message"
 					name="message"
-					placeholder="Введите ваше сообщение..."
+					placeholder="Введіть своє повідомлення..."
 					rows="1"
 					class="form-control"
 					style="resize: none;"
@@ -387,7 +378,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">
 					<span>&times;</span></button>
-				<h4 class="modal-title">Вставка стикера</h4>
+				<h4 class="modal-title">Додання стікеру</h4>
 			</div>
 			<div class="modal-body">
 				<?php
