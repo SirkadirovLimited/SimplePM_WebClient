@@ -3,13 +3,13 @@
 	deniedOrAllowed(PERMISSION::administrator);
 	
 	(isset($_GET['id']) && (int)$_GET['id'] > 0)
-		or die('<strong>ID задачи не указан либо указан не верно!</strong>');
+		or die(header('location: index.php?service=error&err=403'));
 	
 	if (!$is_set = $db->query("SELECT count(`id`) FROM `spm_problems` WHERE `id` = '" . (int)$_GET['id'] . "' LIMIT 1;"))
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	if ($is_set->fetch_array()[0] <= 0)
-		die('<strong>Задача с указанным ID не существует!</strong>');
+		die(header('location: index.php?service=error&err=404'));
 	
 	$is_set->free();
 	unset($is_set);
@@ -22,28 +22,28 @@
 	if (!$tests_query = $db->query("SELECT * FROM `spm_problems_tests` WHERE `problemID` = '" . (int)$_GET['id'] . "';"))
 		die(header('location: index.php?service=error&err=db_error'));
 	
-	SPM_header("Задача " . (int)$_GET['id'], "Управление тестами");
+	SPM_header("Задача " . (int)$_GET['id'], "Управління тестами");
 ?>
 
 <div align="left" style="margin-bottom: 10px;">
 	<a href="index.php?service=problem.edit&id=<?=(int)$_GET['id']?>" class="btn btn-default btn-flat">
 		<span class="glyphicon glyphicon-chevron-left"></span>
-		&nbsp;Редактирование задачи
+		&nbsp;Редагування задачі
 	</a>
 </div>
 
 <div class="table-responsive" style="margin: 0;">
 	<table class="table table-bordered table-hover" style="background-color: white; margin: 0;">
 		<thead>
-			<th width="10%">ID теста</th>
-			<th width="30%">Входной поток</th>
-			<th width="30%">Выходной поток</th>
-			<th width="10%">Time limit</th>
-			<th width="15%">Memory limit</th>
+			<th width="10%">ID тесту</th>
+			<th width="30%">Вхідний потік</th>
+			<th width="30%">Вихідний потік</th>
+			<th width="10%" title="Ліміт процессорного часу">Time limit</th>
+			<th width="15%" title="Ліміт пам'яті">Memory limit</th>
 			<th width="5%">Действия</th>
 		</thead>
 		<tbody>
-<?php while ($testInfo = $tests_query->fetch_assoc()): ?>
+			<?php while ($testInfo = $tests_query->fetch_assoc()): ?>
 			<tr>
 				<form action="<?=$_SERVER['REQUEST_URI']?>" method="post">
 					<td>
@@ -55,7 +55,6 @@
 							class="form-control"
 							name="input"
 							style="resize: none; height: 102px;"
-							placeholder="Во входном потоке..."
 						><?=$testInfo['input']?></textarea>
 					</td>
 					<td style="padding: 0;">
@@ -63,7 +62,6 @@
 							class="form-control"
 							name="output"
 							style="resize: none; height: 102px;"
-							placeholder="В выходном потоке..."
 						><?=$testInfo['output']?></textarea>
 					</td>
 					<td style="padding: 0;">
@@ -88,22 +86,22 @@
 							class="btn btn-success btn-flat btn-block"
 							style="margin: 0;"
 							name="save"
-						>SAVE</button>
+						>Зберегти</button>
 						<button
 							type="reset"
 							class="btn btn-warning btn-flat btn-block"
 							style="margin: 0;"
-						>CANCEL</button>
+						>Відміна</button>
 						<button
 							type="submit"
 							class="btn btn-danger btn-flat btn-block"
 							style="margin: 0;"
 							name="del"
-						>DEL</button>
+						>Видалити</button>
 					</td>
 				</form>
 			</tr>
-<?php endwhile; ?>
+			<?php endwhile; ?>
 		</tbody>
 	</table>
 </div>
@@ -112,7 +110,7 @@
 		class="btn btn-primary btn-flat btn-block"
 		type="submit"
 		name="addTest"
-	>Добавить новый тест</button>
+	>Додати новий тест</button>
 </form>
 
 <?php SPM_footer(); ?>

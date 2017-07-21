@@ -2,7 +2,7 @@
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	deniedOrAllowed(PERMISSION::administrator);
 	
-	SPM_header("Панель администратора");
+	SPM_header("Панель адміністратора", "Головна сторінка");
 ?>
 <style>
 	.admin-btn{
@@ -16,7 +16,7 @@
 		<a href="index.php?service=users.admin" style="margin: 0;" class="btn btn-primary btn-xlarge btn-block btn-flat">
 			<p class="admin-btn">
 				<h3><span class="glyphicon glyphicon-user"></span></h3>
-				Пользователи системы<br/>(Управление)
+				Користувачі системи<br/>(Управління)
 			</p>
 		</a>
 	</div>
@@ -24,7 +24,7 @@
 		<a href="index.php?service=news.admin" style="margin: 0;" class="btn btn-primary btn-xlarge btn-block btn-flat">
 			<p class="admin-btn">
 				<h3><span class="glyphicon glyphicon-align-justify"></span></h3>
-				Новости сайта<br/>(Управление)
+				Розділ новин<br/>(Управління)
 			</p>
 		</a>
 	</div>
@@ -32,7 +32,7 @@
 		<a href="index.php?service=view.admin" style="margin: 0;" class="btn btn-primary btn-xlarge btn-block btn-flat">
 			<p class="admin-btn">
 				<h3><span class="glyphicon glyphicon-book"></span></h3>
-				Страницы сайта<br/>(Управление)
+				Статичні сторінки<br/>(Управління)
 			</p>
 		</a>
 	</div>
@@ -40,7 +40,7 @@
 		<a href="index.php?service=teacherID" style="margin: 0;" class="btn btn-warning btn-xlarge btn-block btn-flat">
 			<p class="admin-btn">
 				<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
-				Teacher ID<br/>(Управление)
+				Teacher ID<br/>(Управління)
 			</p>
 		</a>
 	</div>
@@ -48,7 +48,7 @@
 		<a href="http://spm.sirkadirov.com/" class="btn btn-success btn-xlarge btn-block btn-flat">
 			<p class="admin-btn">
 				<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
-				Перейти на официальный сайт<br/>SimplePM
+				Перейти на офіційний сайт<br/>SimplePM
 			</p>
 		</a>
 	</div>
@@ -56,8 +56,8 @@
 		<a href="https://github.com/SirkadirovTeam/" class="btn btn-success btn-xlarge btn-block btn-flat">
 			<p class="admin-btn">
 				<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
-				Официальный репозиторий<br/>
-				проекта на GitHub
+				Офіційний репозиторій<br/>
+				проекту на GitHub
 			</p>
 		</a>
 	</div>
@@ -65,21 +65,18 @@
 
 <div class="panel panel-default" style="border-radius: 0; margin-top: 10px;">
 	<div class="panel-heading" style="border-radius: 0;">
-		<h3 class="panel-title">Связь с автором системы</h3>
+		<h3 class="panel-title">Зв'язок з автором системи</h3>
 	</div>
 	<div class="panel-body">
 		<dl class="dl-horizontal" style="margin: 20px 20px 20px 0px;">
-			<dt>Автор системы</dt>
-			<dd>Кадиров Юрий Викторович</dd>
+			<dt>Повне ім'я</dt>
+			<dd>Кадіров Юрій Вікторович</dd>
 			
-			<dt>Email тех. поддержки</dt>
+			<dt>Email тех. підтримки</dt>
 			<dd>admin@sirkadirov.com</dd>
 			
-			<dt>Телефон тех. поддержки</dt>
-			<dd>+380 (98) 121-16-52 (перед звонком через СМС представиться)</dd>
-			
-			<dt>Примечание</dt>
-			<dd>Вибачте за російську мову! Українська локалізація буде вже з наступного оновлення!</dd>
+			<dt>Телефон тех. підтримки</dt>
+			<dd>+380 (98) 121-16-52</dd>
 		</dl>
 	</div>
 </div>

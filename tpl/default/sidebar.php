@@ -6,17 +6,17 @@
 		<ul class="sidebar-menu">
 			<?php if (isset($_SESSION["classwork"])): ?>
 			
-			<li class="header">РЕЖИМ УРОКА</li>
+			<li class="header">РЕЖИМ УРОКУ</li>
 			<li><a href="index.php?service=classworks.problems"><i class="fa fa-users"></i> <span>Урок</span></a></li>
 			<li><a href="index.php?service=classworks.result"><i class="fa fa-users"></i> <span>Рейтинг</span></a></li>
 			
 			<?php elseif (isset($_SESSION["olymp"])): ?>
 			
-			<li class="header">СОРЕВНОВАНИЕ</li>
+			<li class="header">РЕЖИМ ЗМАГАННЯ</li>
 			
 			<?php else: ?>
 			
-			<li class="header">ГЛАВНОЕ МЕНЮ</li>
+			<li class="header">ГОЛОВНЕ МЕНЮ</li>
 			<?php
 				//user
 				include_once(_S_TPL_ . "sidebar/user.inc.php");
@@ -29,9 +29,6 @@
 				//admin
 				if (permission_check($_SESSION['permissions'], PERMISSION::administrator))
 					include_once(_S_TPL_ . "sidebar/admin.inc.php");
-				//olymp
-				//if (permission_check($_SESSION['permissions'], PERMISSION::olymp))
-				//	include_once(_S_TPL_ . "sidebar/olymp.inc.php");
 			?>
 			
 			<?php endif; ?>

@@ -186,29 +186,29 @@
 	//           LOAD HEADER           //
 	/////////////////////////////////////
 	
-	SPM_header("TeacherID", "Управление");
+	SPM_header("TeacherID", "Управління");
 ?>
 <div class="alert alert-<?=$teacherId_enabled?>" style="border-radius: 0;" align="center">
 	<h1><?=$teacherId?></h1>
-	<p><b>ВНИМАНИЕ!</b> Не передавайте этот код никому кроме ваших учеников, позаботьтесь о безопасности!</p>
+	<p><b>УВАГА!</b> Не передавайте цей код нікому, крім ваших учнів чи коллег.</p>
 </div>
 <p class="lead">
 	<form action="index.php?service=teacherID" method="post">
 		<div class="row">
 			<div class="col-md-4">
-				<input type="submit" name="turnOn" value="Включить" class="btn btn-success btn-block btn-lg btn-flat">
+				<button type="submit" name="turnOn" class="btn btn-success btn-block btn-lg btn-flat">Ввімкнути</button>
 			</div>
 			<div class="col-md-4">
-				<input type="submit" name="turnOff" value="Выключить" class="btn btn-danger btn-block btn-lg btn-flat">
+				<button type="submit" name="turnOff" class="btn btn-danger btn-block btn-lg btn-flat">Відімкнути</button>
 			</div>
 			<div class="col-md-4">
-				<input type="submit" name="regenerate" value="Сгенерировать новый" class="btn btn-warning btn-block btn-lg btn-flat">
+				<button type="submit" name="regenerate" class="btn btn-warning btn-block btn-lg btn-flat">Перегенерувати</button>
 			</div>
 		</div>
 	</form>
 </p>
 <div class="alert alert-info" style="border-radius: 0;">
-	<p class="lead"><strong>TeacherID</strong> - это ваш персональный идентификатор, с помощью которого ваши студенты или подчинённые могут регистрироваться в системе.</p>
+	<p class="lead"><strong>TeacherID</strong> - це ваш персональний ідентифікатор, що дозволяє вашим підопічним реєструватись у системі.</p>
 </div>
 
 <?php if (permission_check($_SESSION["permissions"], PERMISSION::administrator)): ?>
@@ -218,9 +218,9 @@
 			type="submit"
 			class="btn btn-danger btn-xs btn-flat"
 			name="fullRegenerate"
-			onclick="return confirm('ВНИМАНИЕ! Данное действие на слабом сервере и при большом количестве учителей и администраторов временно может вывести Web-сервер из работоспособного состояния! ВЫ УВЕРЕНЫ?');"
+			onclick="return confirm('УВАГА! Ця дія може вивести Web-сервер з ладу на деякий час. Все залежить від кількості вчителів та адміністраторів в системі.');"
 		>
-			Сгенерировать новые TeacherID для всех
+			Згенерувати нові TeacherID для всіх
 		</button>
 	</form>
 </div>

@@ -9,20 +9,20 @@
 	
 	//CONTENT STARTS HERE
 	if (isset($_GET['edit'])){
-		SPM_header("Редактирование страницы");
+		SPM_header("Сторінки сайту", "Редагування");
 		include_once(_S_SERV_INC_ . "view.admin.editor.php");
 		SPM_footer();
 	}elseif (isset($_GET['create'])){
-		SPM_header("Создание страницы");
+		SPM_header("Сторінки сайту", "Створення");
 		include_once(_S_SERV_INC_ . "view.admin.editor.php");
 		SPM_footer();
 	}elseif (isset($_GET['del'])){
-		SPM_header("Страницы сайта");
+		SPM_header("Сторінки сайту", "Список");
 		include_once(_S_SERV_INC_ . "view.admin.del.php");
 		include_once(_S_SERV_INC_ . "view.admin.list.php");
 		SPM_footer();
 	}else{
-		SPM_header("Страницы сайта");
+		SPM_header("Сторінки сайту", "Список");
 		include_once(_S_SERV_INC_ . "view.admin.list.php");
 		SPM_footer();
 	}

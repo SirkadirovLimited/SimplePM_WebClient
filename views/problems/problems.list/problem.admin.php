@@ -14,7 +14,7 @@
 			name="del"
 			class="btn btn-danger btn-flat btn-xs btn-block"
 			value="DEL"
-			onclick="return confirm('Вы уверены что хотите удалить данную задачу? Вся информация, связанная с ней будет также удалена!');"
+			onclick="return confirm('Ви дійсно хочете видалити цю задачу?');"
 		>
 	</form>
 </div>

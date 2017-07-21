@@ -6,7 +6,7 @@
 	</a>
 
 	<nav class="navbar navbar-static-top" role="navigation">
-		<a href="#" class="sidebar-toggle" data-toggle="offcanvas" title="Показать или скрыть главное меню системы"></a>
+		<a href="#" class="sidebar-toggle" data-toggle="offcanvas" title="Меню"></a>
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
 				<?php $_SPM_CONF["BASE"]["ENABLE_TRANSLATOR"] && include(_S_MOD_ . "translator.php"); ?>

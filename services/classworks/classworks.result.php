@@ -8,7 +8,7 @@
 	elseif (isset($_GET["id"]) && (int)$_GET["id"] > 0)
 		$_GET["id"] = (int)$_GET["id"];
 	else
-		die('<strong>Идентификатор урока указан не верно!</strong>');
+		die(header('location: index.php?service=error&err=404'));
 	
 	/////////////////////////////////////
 	
@@ -28,7 +28,7 @@
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	if ($query->num_rows == 0)
-		die('<strong>Идентификатор урока указан не верно!</strong>');
+		die(header('location: index.php?service=error&err=404'));
 	
 	
 	/////////////////////////////////////
@@ -88,12 +88,12 @@
 	
 	/////////////////////////////////////
 	
-	SPM_header("Урок #" . $_GET["id"], "Статистика урока");
+	SPM_header("Урок #" . $_GET["id"], "Статистика уроку");
 ?>
 
 <div class="box box-default box-solid" style="border-radius: 0; margin-bottom: 20px; overflow: hidden;">
 	<div class="box-header with-border" style="border-radius: 0;">
-		<h3 class="box-title">Информация об уроке</h3>
+		<h3 class="box-title">Інформація про урок</h3>
 	</div>
 	<div class="box-body" style="padding: 0; overflow-x: auto; padding-right: 15px;">
 		
@@ -101,13 +101,13 @@
 			<div class="col-md-6 col-xs-6">
 				
 				<dl class="dl-horizontal" style="margin: 20px 20px 20px 0px;">
-					<dt>Название урока</dt>
+					<dt>Назва уроку</dt>
 					<dd><?=$classwork['name']?></dd>
 					
-					<dt>Описание урока</dt>
+					<dt>Опис уроку</dt>
 					<dd><?=$classwork['description']?></dd>
 					
-					<dt>Группа учащихся</dt>
+					<dt>Група учнів</dt>
 					<dd><?=spm_getUserGroupByID($classwork['studentsGroup'])?> (gid_<?=$classwork['studentsGroup']?>)</dd>
 				</dl>
 				
@@ -115,13 +115,13 @@
 			<div class="col-md-6 col-xs-6">
 				
 				<dl class="dl-horizontal" style="margin: 20px 20px 20px 0px;">
-					<dt>Время начала</dt>
+					<dt>Час початку</dt>
 					<dd><?=$classwork['startTime']?></dd>
 					
-					<dt>Время конца</dt>
+					<dt>Час кінця</dt>
 					<dd><?=$classwork['endTime']?></dd>
 					
-					<dt>Учитель</dt>
+					<dt>Вчитель</dt>
 					<dd><a href="index.php?service=user&id=<?=$classwork['teacherId']?>"><span class="fa fa-user"></span> <?=spm_getUserFullnameByID($classwork['teacherId'])?></a></dd>
 				</dl>
 				
@@ -162,8 +162,8 @@
 	<table id="studentsRatingTable" class="table table-bordered table-hover datatable responsive no-wrap" style="background-color: white; padding: 0;">
 		<thead>
 				<th>ID</th>
-				<th>Имя пользователя</th>
-				<th>Полное имя</th>
+				<th>Ім'я користувача</th>
+				<th>Повне ім'я</th>
 				<th>Задач</th>
 				<th>B</th>
 			</thead>

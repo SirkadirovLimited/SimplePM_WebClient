@@ -13,9 +13,14 @@
 	$_SPM_CONF["BASE"]["SITE_DESCRIPTION"] = "Тестовий сайт SimplePM"; //краткое описание сайта
 	$_SPM_CONF["BASE"]["SITE_KEYWORDS"] = "SPM,SimplePM,demo,site,website,php,sirkadirov"; //ключевые слова сайта
 	$_SPM_CONF["BASE"]["SITE_URL"] = $_SERVER['HTTP_HOST']; //адрес сайта (можно использовать $_SERVER['HTTP_HOST'])
+	
 	$_SPM_CONF["BASE"]["TPL_NAME"] = "default"; //имя папки шаблона
+	$_SPM_CONF["BASE"]["TPL_TYPE_BOXED"] = false; //использовать ли шаблон фиксированной ширины
+	
 	$_SPM_CONF["BASE"]["ADMIN_MAIL"] = "admin@sirkadirov.com"; //email администратора
+	
 	$_SPM_CONF["BASE"]["ONLINE_TIME"] = 10 * 60; //каждое действие гарантирует 10 минутный онлайн
+	
 	$_SPM_CONF["BASE"]["DEFAULT_LOCALE"] = "ru";
 	$_SPM_CONF["BASE"]["ENABLE_TRANSLATOR"] = false; //предоставить пользователям доступ к меню переводчика
 	date_default_timezone_set('Europe/Kiev'); //временная зона, подробнее на http://php.net/manual/ru/timezones.php

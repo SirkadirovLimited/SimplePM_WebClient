@@ -4,15 +4,15 @@
 	
 	if (isset($_POST['rename'])){
 		(isset($_POST['id']) && (int)$_POST['id'] > 0)
-			or die('<strong>SQL инъекция отражена!</strong>');
+			or die(header('location: index.php?service=error&err=403'));
 		
 		isset($_POST['groupName'])
-			or die('<strong>SQL инъекция отражена!</strong>');
+			or die(header('location: index.php?service=error&err=403'));
 		
 		$_POST['groupName'] = mysqli_real_escape_string($db, strip_tags(trim($_POST['groupName'])));
 		
 		(strlen($_POST['groupName']) > 0 && strlen($_POST['groupName']) <= 255)
-			or die('<strong>SQL инъекция отражена!</strong>');
+			or die(header('location: index.php?service=error&err=403'));
 		
 		$query_str = "
 			UPDATE
@@ -36,7 +36,7 @@
 	
 	if (isset($_POST['del'])){
 		(isset($_POST['id']) && (int)$_POST['id'] > 0)
-			or die('<strong>SQL инъекция отражена!</strong>');
+			or die(header('location: index.php?service=error&err=403'));
 		
 		$query_str = "
 			DELETE FROM
@@ -84,7 +84,7 @@
 	if (!$query = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
-	SPM_header("Группы пользователей", "Управление");
+	SPM_header("Групи користувачів", "Управління");
 ?>
 
 <?php if ($query->num_rows > 0): ?>
@@ -97,20 +97,20 @@
 				<input type="text" name="groupName" value="<?=$group['name']?>" class="form-control">
 			</td>
 			<td width="10%" style="padding: 0;">
-				<button type="submit" name="rename" class="btn btn-success btn-flat btn-block"><span class="fa fa-pencil"></span> Сохранить</button>
+				<button type="submit" name="rename" class="btn btn-success btn-flat btn-block"><span class="fa fa-pencil"></span> Зберегти</button>
 			</td>
 			<td width="10%" style="padding: 0;">
-				<button type="submit" name="del" class="btn btn-danger btn-flat btn-block"><span class="fa fa-trash"></span> Удалить</button>
+				<button type="submit" name="del" class="btn btn-danger btn-flat btn-block"><span class="fa fa-trash"></span> Видалити</button>
 			</td>
 		</form>
 	</tr>
 	<?php endwhile; ?>
 </table>
 <?php else: ?>
-<div align="center"><h4>Ни одна группа пользователей ещё не создана!</h4></div>
+<div align="center"><h4>Ви ще не створили ні одної групи!</h4></div>
 <?php endif; ?>
 <form action="" method="post">
-	<button type="submit" class="btn btn-primary btn-flat btn-block" name="addGroup">Создать группу</button>
+	<button type="submit" class="btn btn-primary btn-flat btn-block" name="addGroup">Створити групу</button>
 </form>
 
 

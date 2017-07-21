@@ -29,5 +29,5 @@
 		<script src="<?=_S_TPL_?>plugins/jQuery/jquery-2.2.3.min.js"></script>
 		<script src="<?=_S_TPL_?>js/push.min.js"></script>
 	</head>
-	<body class="hold-transition skin-blue sidebar-collapse layout-boxed" style="height: auto;" onload="startTimer()">
+	<body class="hold-transition skin-blue <?=($_SPM_CONF["BASE"]["TPL_TYPE_BOXED"] ? 'sidebar-collapse layout-boxed' : '')?>" style="height: auto;" onload="startTimer()">
 		<div class="wrapper" style="height: auto;">

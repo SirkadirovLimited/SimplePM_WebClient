@@ -8,7 +8,7 @@
 	if (isset($_GET['del']) && $_GET['del'] > 1){
 		
 		if ((int)$_GET['del'] == $_SESSION['uid'])
-			die('<strong>Вы не можете удалить собственный аккаунт!</strong>>');
+			die(header('location: index.php?service=error&err=403'));
 		
 		if (!permission_check($_SESSION['permissions'], PERMISSION::administrator)){
 			
@@ -16,13 +16,13 @@
 				die(header('location: index.php?service=error&err=db_error'));
 			
 			if($user_query->num_rows === 0)
-				die('<strong>Пользователь с таким идентификатором не найден!</strong>');
+				die(header('location: index.php?service=error&err=404'));
 			
 			$users_admin_user = $user_query->fetch_assoc();
 			$user_query->free();
 			
 			if ($users_admin_user["teacherId"] != $_SESSION["uid"])
-				die('<strong>Вы не можете удалить данного пользователя!</strong>');
+				die(header('location: index.php?service=error&err=403'));
 			
 		}
 		
@@ -47,7 +47,7 @@
 		";
 		
 		if (!$db->query($query_str) || !$db->query($query_str_2))
-			die('<strong>ПОЛЬЗОВАТЕЛЬ НЕ НАЙДЕН ИЛИ ПРОИЗОШЛА ОШИБКА ПРИ ПОПЫТКЕ ЕГО УДАЛИТЬ.</strong>');
+			die(header('location: index.php?service=error&err=404'));
 		else
 			exit(header('location: index.php?service=users.admin'));
 		
@@ -68,7 +68,7 @@
 		$_GET['page'] = 1;
 	
 	(int)$_GET['page']>0
-		or die('<strong>Попытка ввода SQL инъекции заблокирована.</strong>');
+		or die(header('location: index.php?service=error&err=403'));
 	
 	if (!$db_result = $db->query("SELECT count(*) FROM `spm_users` WHERE " . $where_selector . ";"))
 		die(header('location: index.php?service=error&err=db_error'));
@@ -102,11 +102,11 @@
 	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
-	SPM_header("Пользователи системы", "Управление");
+	SPM_header("Користувачі системи", "Управління");
 ?>
 
 <div align="right" style="margin-bottom: 10px;">
-	<a href="index.php?service=groups.admin" class="btn btn-success btn-flat">Группы пользователей</a>
+	<a href="index.php?service=groups.admin" class="btn btn-success btn-flat">Групи користувачів</a>
 </div>
 
 <div class="table-responsive">
@@ -114,10 +114,10 @@
 		<thead>
 			<tr>
 				<th width="10%">ID</th>
-				<th width="33%">Ф.И.О.</th>
-				<th width="20%">Логин</th>
-				<th width="10%">Группа</th>
-				<th width="10%">Учитель</th>
+				<th width="33%">Повне ім'я</th>
+				<th width="20%">Логін</th>
+				<th width="10%">Група</th>
+				<th width="10%">Вчитель</th>
 				<th width="8%">Доступ</th>
 				<th width="9%"></th>
 			</tr>
@@ -126,7 +126,7 @@
 <?php if ($total_articles_number == 0 || $db_result->num_rows === 0): ?>
 			<tr>
 				<td></td>
-				<td><b>Ни одного пользователя не найдено! Используйте TeacherID, чтобы пригласить новых пользователей в систему!</b></td>
+				<td><b>Користувачів за вашим запитом не знайдено!</b></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -155,7 +155,7 @@
 						<a
 							class="btn btn-danger btn-sm"
 							href="index.php?service=users.admin&del=<?=$user['id']?>"
-							onclick="return confirm('Вы действительно хотите удалить этого пользователя? Это действие не обратимо!');"
+							onclick="return confirm('Ця дія потребує підтверждення, бо є незворотньою!');"
 						><span class="fa fa-trash"></span></a>
 					</div>
 				</td>

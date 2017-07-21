@@ -27,7 +27,7 @@
 		</style>
 		<script>
 			if (navigator.userAgent.indexOf("MSIE") != -1){
-				alert('ВНИМАНИЕ! Internet Explorer не поддерживается сайтом. Используйте более современный браузер!');
+				alert('УВАГА! Internet Explorer та Edge не підтримуються системою!');
 			}
 		</script>
 	</head>

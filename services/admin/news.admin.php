@@ -9,20 +9,20 @@
 	
 	//CONTENT STARTS HERE
 	if (isset($_GET['edit'])){
-		SPM_header("Новости","Редактирование");
+		SPM_header("Новини","Редагування");
 		include_once(_S_SERV_INC_ . "news.admin/news.admin.editor.php");
 		SPM_footer();
 	}elseif (isset($_GET['create'])){
-		SPM_header("Новости","Создание");
+		SPM_header("Новини","Створення");
 		include_once(_S_SERV_INC_ . "news.admin/news.admin.editor.php");
 		SPM_footer();
 	}elseif (isset($_GET['del'])){
-		SPM_header("Новости","Управление");
+		SPM_header("Новини","Управління");
 		include_once(_S_SERV_INC_ . "news.admin/news.admin.del.php");
 		include_once(_S_SERV_INC_ . "news.admin/news.admin.list.php");
 		SPM_footer();
 	}else{
-		SPM_header("Новости","Управление");
+		SPM_header("Новини","Управління");
 		include_once(_S_SERV_INC_ . "news.admin/news.admin.list.php");
 		SPM_footer();
 	}

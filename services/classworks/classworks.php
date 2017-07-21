@@ -80,11 +80,11 @@
 			<table class="table table-bordered table-hover" style="margin: 0;">
 				<thead>
 					<th width="10%">ID</th>
-					<th width="29%">Наименование</th>
-					<th width="10%">Группа</th>
-					<th width="15%">Время начала</th>
-					<th width="15%">Время конца</th>
-					<th width="11%">Действия</th>
+					<th width="29%">Назва</th>
+					<th width="10%">Група</th>
+					<th width="15%">Час початку</th>
+					<th width="15%">Час кінця</th>
+					<th width="11%">Дії</th>
 				</thead>
 				<tbody>
 					<?php while ($classwork = $db_result->fetch_assoc()): ?>
