@@ -28,18 +28,18 @@
 	elseif (isset($_POST['editProfile']))
 		include_once(_S_SERV_INC_ . "user/user.edit.profile.php");
 	
-	SPM_header("Редактирование пользователя");
+	SPM_header($user_info['secondname'] . ' ' . $user_info['firstname'] . ' ' . $user_info['thirdname'], "Редагування профілю", "Редагування профілю");
 	
 ?>
 
-<a href="index.php?service=user&id=<?=$_GET['id']?>" class="btn btn-default">
-	<span class="glyphicon glyphicon-chevron-left"></span> Профиль пользователя
+<a href="index.php?service=user&id=<?=$_GET['id']?>" class="btn btn-default btn-flat" style="margin-bottom: 10px;">
+	<span class="glyphicon glyphicon-chevron-left"></span> Профіль користувача
 </a>
 
 <?php
-	require_once(_S_SERV_INC_ . "user/ui/avatar.php");
-	require_once(_S_SERV_INC_ . "user/ui/profile.php");
-	require_once(_S_SERV_INC_ . "user/ui/password.php");
+	require_once(_S_VIEW_ . "user/edit/avatar.php");
+	require_once(_S_VIEW_ . "user/edit/profile.php");
+	require_once(_S_VIEW_ . "user/edit/password.php");
 	
 	SPM_footer();
 ?>

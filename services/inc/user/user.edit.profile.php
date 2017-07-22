@@ -2,31 +2,31 @@
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	defined("__spm.user.edit__") or die('403 ACCESS DENIED');
 	
-	$meta_refresh = "<meta http-equiv='refresh' content='5; url=index.php?service=user.edit&id=" . (int)$_GET['id'] . "'>";
-	
 	/*
 	 * FUNCTIONS LIST
 	 */
 	
-	function changeProfileParam($param_post_name, $param_db_name, $param_real_name, $param_min_length = 3, $param_max_length = 100, $is_email = false){
+	function changeProfileParam($param_post_name, $param_db_name, $param_min_length = 3, $param_max_length = 100, $is_email = false){
 		
 		global $db;
 		
 		if (isset($_POST[$param_post_name]) && strlen($_POST[$param_post_name]) >= $param_min_length && strlen($_POST[$param_post_name]) <= $param_max_length){
 			
 			if ($is_email)
-				@(filter_var($_POST[$param_post_name], FILTER_VALIDATE_EMAIL) or die("Email указан в неверном формате!" . $meta_refresh));
+				@(filter_var($_POST[$param_post_name], FILTER_VALIDATE_EMAIL)) or die(header('location: index.php?service=error&err=input'));
 			
-			if (!$db->query("UPDATE `spm_users` SET `" . $param_db_name . "` = '" . $_POST[$param_post_name] . "' WHERE `id` = '" . (int)$_GET['id'] . "';"))
-				die('<strong>Поле "' . $param_real_name . '" заполнено не верно! Возможные причины:</strong><br/>
-					 <ul>
-						<li>Значение поля должно быть уникальным (email, имя пользователя)</li>
-						<li>Значение поля указано в неверном формате (относится ко всем полям)</li>
-						<li>Значение поля не соответствует указанным размерам (относится ко всем полям)</li>
-						<li>Дата указана в неверном формате (относится к дате рождения)</li>
-						<li>Данная группа пользователей не существует или вы не имеете права ёё изменять (относится к группе)</li>
-					 </ul>
-					' . $meta_refresh);
+			$query_str = "
+				UPDATE
+					`spm_users`
+				SET
+					`" . $param_db_name . "` = '" . $_POST[$param_post_name] . "'
+				WHERE
+					`id` = '" . (int)$_GET['id'] . "'
+				;
+			";
+			
+			if (!$db->query($query_str))
+				die(header('location: index.php?service=error&err=input'));
 			
 		}
 		
@@ -41,6 +41,8 @@
 	(!isset($_POST["username"])) or $_POST["username"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["username"])));
 	//email
 	(!isset($_POST["email"])) or $_POST["email"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["email"])));
+	//phone
+	(!isset($_POST["phone"])) or $_POST["phone"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["phone"])));
 	
 	//secondname
 	(!isset($_POST["secondname"])) or $_POST["secondname"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["secondname"])));
@@ -63,7 +65,17 @@
 	(!isset($_POST["group"])) or $_POST["group"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["group"])));
 	
 	if (isset($_POST["group"])){
-		$query_str = "SELECT `teacherId` FROM `spm_users` WHERE `id` = '" . (int)$_GET["id"] . "' LIMIT 1;";
+		$query_str = "
+			SELECT
+				`teacherId`
+			FROM
+				`spm_users`
+			WHERE
+				`id` = '" . (int)$_GET["id"] . "'
+			LIMIT
+				1
+			;
+		";
 		
 		if (!$query = $db->query($query_str))
 			die(header('location: index.php?service=error&err=db_error'));
@@ -74,7 +86,19 @@
 		$teacherId = $query->fetch_array()[0];
 		$query->free();
 		
-		$query_str = "SELECT count(`id`) FROM `spm_users_groups` WHERE `id` = '" . (int)$_POST["group"] . "' AND `teacherId` = '" . $teacherId . "' LIMIT 1;";
+		$query_str = "
+			SELECT
+				count(`id`)
+			FROM
+				`spm_users_groups`
+			WHERE
+				`id` = '" . (int)$_POST["group"] . "'
+			AND
+				`teacherId` = '" . $teacherId . "'
+			LIMIT
+				1
+			;
+		";
 		
 		if (!$query = $db->query($query_str))
 			die(header('location: index.php?service=error&err=db_error'));
@@ -91,29 +115,31 @@
 	 */
 	
 	//username
-	changeProfileParam("username", "username", "Имя пользователя", 3, 100);
+	changeProfileParam("username", "username", 3, 100);
 	//email
-	changeProfileParam("email", "email", "Email", 6, 100, true);
+	changeProfileParam("email", "email", 6, 100, true);
+	//phone
+	changeProfileParam("phone", "phone", 6, 50);
 	
 	//secondname
-	changeProfileParam("secondname", "secondname", "Фамилия", 3, 100);
+	changeProfileParam("secondname", "secondname", 3, 100);
 	//firstname
-	changeProfileParam("firstname", "firstname", "Имя", 3, 100);
+	changeProfileParam("firstname", "firstname", 3, 100);
 	//thirdname
-	changeProfileParam("thirdname", "thirdname", "Отчество", 3, 100);
+	changeProfileParam("thirdname", "thirdname", 3, 100);
 	
 	//bday
-	changeProfileParam("bdate", "bdate", "Дата рождения", 10, 10);
+	changeProfileParam("bdate", "bdate", 10, 10);
 	
 	//country
-	changeProfileParam("country", "country", "Страна", 1, 100);
+	changeProfileParam("country", "country", 1, 100);
 	//city
-	changeProfileParam("city", "city", "Город", 3, 100);
+	changeProfileParam("city", "city", 3, 100);
 	
 	//school
-	changeProfileParam("school", "school", "Учебное заведение / Место работы", 5, 100);
+	changeProfileParam("school", "school", 5, 100);
 	//group
-	changeProfileParam("group", "group", "Группа пользователя", 1, 10);
+	changeProfileParam("group", "group", 1, 10);
 	
 	/*
 	 * ТРЕТИЙ ШАГ ОТСЕИВАНИЯ ДУШ

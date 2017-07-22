@@ -12,7 +12,7 @@
 	
 	$submission = $db_result->fetch_assoc();
     
-	SPM_header("Результат проверки №" . $submission['submissionId'], "Задача " . $submission['problemId'], "Результат проверки");
+	SPM_header("Спроба №" . $submission['submissionId'], "Задачаа " . $submission['problemId'], "Результат перевірки");
 	
 	if ($submission['status'] == "ready")
 		include_once(_S_SERV_INC_ . "problems/ui/result.php");
@@ -23,11 +23,11 @@
 <div class="panel panel-default" style="border-radius: 0;">
 	<div class="panel-body">
 		<a href="index.php?service=problem&id=<?php print($submission['problemId']); ?>" class="btn btn-primary btn-flat">
-			<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Вернуться к задаче
+			<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Повернутися до задачі
 		</a>
 		<?php if (!isset($_SESSION["classwork"], $_SESSION["olymp"])): ?>
 		<a href="index.php?service=problems" class="btn btn-default btn-flat">
-			<span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Архив задач
+			<span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Архів задач
 		</a>
 		<?php endif; ?>
 	</div>

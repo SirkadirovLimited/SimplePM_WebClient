@@ -4,7 +4,7 @@
 ?>
 <div class="box box-solid box-primary" id="editAvatar">
 	<div class="box-header">
-		<h3 class="box-title">Изменить аватар</h3>
+		<h3 class="box-title">Змінити аватар</h3>
 	</div>
 	<div class="box-body">
 		<div class="row">
@@ -24,12 +24,11 @@
 				<form enctype="multipart/form-data" action="" method="post">
 					<!--AVATAR UPLOAD-->
 					<div class="form-group">
-						<label for="avatarFile">Файл аватара</label>
+						<label for="avatarFile">Виберіть файл</label>
 						<input type="file" class="form-control" id="avatarFile" name="avatarFile">
-						<p class="help-block">Изображение JPG / JPEG / PNG / GIF разрешением не менее 480х320 и не более 1280х720</p>
+						<p class="help-block">Зображення у форматі JPG / JPEG / PNG / GIF розміром не менше 480х320 і не більше 1920х1080</p>
 					</div>
-					<input type="submit" class="btn btn-primary btn-block" name="editAvatar" value="Загрузить">
-					<input type="submit" class="btn btn-danger btn-block" name="delAvatar" value="Заменить на стандартный">
+					<button type="submit" class="btn btn-primary btn-block btn-flat" name="editAvatar">Завантажити</button>
 					<!--/AVATAR UPLOAD-->
 				</form>
 			</div>

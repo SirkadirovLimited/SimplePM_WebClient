@@ -73,13 +73,9 @@
 			<h4 style="z-index: 10; position: absolute; right: 20px; top: 10px;"><?=$user_is_online?></h4>
 		</div>
 		
-		<?php if (permission_check($user_info["permissions"], PERMISSION::administrator)):?>
-		<img src="<?=_S_MEDIA_IMG_?>dark_side.jpg" class="userAvatar" />
-		<?php endif; ?>
-		
 		<div class="small-box bg-green">
 			<div class="inner">
-				<h3><?=$user_info["bcount"]?></h3>
+				<h3><?=(int)$user_info["bcount"]?></h3>
 				<p>ОТРИМАНІ БАЛИ</p>
 			</div>
 			<a href="index.php?service=bad_problems&uid=<?=$user_info['id']?>" class="small-box-footer">
@@ -88,7 +84,7 @@
 		</div>
 		<div class="small-box bg-yellow">
 			<div class="inner">
-				<h3><?=$user_info["rating"]?></h3>
+				<h3><?=(int)$user_info["rating"]?></h3>
 				<p>БОЙОВИЙ РЕЙТИНГ</p>
 			</div>
 			<a href="index.php?service=rating" class="small-box-footer">
@@ -97,14 +93,14 @@
 		</div>
 		
 		<?php if ($_SESSION['uid'] == $user_info['id']): ?>
-		<h3>Редактирование</h3>
+		<h3>Редагування</h3>
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="index.php?service=user.edit&id=<?=$id?>#editProfile">Редагувати інформацію</a></li>
 			<li><a href="index.php?service=user.edit&id=<?=$id?>#editAvatar">Змінити аватар</a></li>
 			<li><a href="index.php?service=user.edit&id=<?=$id?>#editPass">Змінити пароль</a></li>
 		</ul>
 		<?php else: ?>
-		<h3>Действия</h3>
+		<h3>Дії</h3>
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="index.php?service=messages&uid=<?=$id?>">Відкрити діалог</a></li>
 		</ul>

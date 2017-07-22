@@ -28,28 +28,28 @@
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	
-	SPM_header($LANG["page_title"], $LANG["page_desc"]);
+	SPM_header("Новини", "Головна сторінка");
 ?>
 
 <?php if(permission_check($_SESSION['permissions'], PERMISSION::administrator)): ?>
 <div align="right" style="margin-bottom: 10px;">
-	<a href="index.php?service=news.admin&create" class="btn btn-success btn-flat"><?=$LANG["create_news"]?></a>
-	<a href="index.php?service=news.admin" class="btn btn-primary btn-flat"><?=$LANG["config"]?></a>
+	<a href="index.php?service=news.admin&create" class="btn btn-success btn-flat">Створити новину</a>
+	<a href="index.php?service=news.admin" class="btn btn-primary btn-flat">Управління новинами</a>
 </div>
 <?php endif; ?>
 
 <?php if ($_SPM_CONF["SECURITY"]["alpha_version_warning"]): ?>
 <div class="callout callout-danger">
-	<h4><?=$LANG["func_warning_title"]?></h4>
-	<p><?=$LANG["func_warning_text"]?></p>
+	<h4>УВАГА!</h4>
+	<p>Встановлена версія системи SimplePM може містити в собі недоробки та помилки. Якщо ви знайшли помилку - будь ласка, зверніться до автора за email: admin@sirkadirov.com. Дякуємо!</p>
 </div>
 <?php endif; ?>
 
 
 <?php if ($total_articles_number == 0 || $db_result->num_rows === 0): ?>
 <div align="center">
-	<h1><?=$LANG["oops"]?></h1>
-	<p class="lead"><?=$LANG["no_news"]?></p>
+	<h1>Упс!</h1>
+	<p class="lead">Новин за вашим запитом не знайдено...</p>
 </div>
 <?php else: ?>
 			
@@ -62,14 +62,15 @@
 				<?=htmlspecialchars_decode($article['content'])?>
 			</div>
 			<div class="panel-footer">
-				<a href="index.php?service=user&id=<?=$article['authorId']?>"><?=$LANG["author_profile"]?></a> / <?=$LANG["pub_date"]?>: <?=$article['date']?>
+				<a href="index.php?service=user&id=<?=$article['authorId']?>">Профіль автора</a> / Дата публікації: <?=$article['date']?>
 				
 				<?php if (permission_check($_SESSION['permissions'], PERMISSION::administrator)): ?>
-				&nbsp;/&nbsp;<a href='index.php?service=news.admin&edit=<?=$article["id"]?>'><?=$LANG["edit"]?></a>
+				&nbsp;/&nbsp;<a href='index.php?service=news.admin&edit=<?=$article["id"]?>'>Редагувати</a>
 				<?php endif; ?>
 			</div>
 		</div>
 	<?php endwhile; ?>
+	
 <?php endif; ?>
 
 <?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4); ?>

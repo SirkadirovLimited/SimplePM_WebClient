@@ -58,7 +58,7 @@
 	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
-	SPM_header("Подсистема уроков", "Список уроков");
+	SPM_header("Підсистема уроків", "Список уроків");
 ?>
 
 <div align="right" style="margin-bottom: 10px;">
@@ -73,7 +73,7 @@
 		<?php if ($total_articles_number == 0 || $db_result->num_rows === 0): ?>
 		<div align="center">
 			<h1>Упс!</h1>
-			<p class="lead">Вы ещё не создали ни один урок. Для создания урока воспользуйтесь кнопкой "Создать урок", которая расположена выше.</p>
+			<p class="lead">Ні одного уроку не знайдено!</p>
 		</div>
 		<?php else: ?>
 		<div class="table-responsive" style="background-color: white;">
@@ -88,7 +88,15 @@
 				</thead>
 				<tbody>
 					<?php while ($classwork = $db_result->fetch_assoc()): ?>
-					<tr>
+					<?php
+						if ($classwork['endTime'] < date("Y-m-d H:i:s"))
+							$tr_add_class = "active";
+						elseif ($classwork['startTime'] > date("Y-m-d H:i:s"))
+							$tr_add_class = "";
+						else
+							$tr_add_class = "success";
+					?>
+					<tr class="<?=$tr_add_class?>">
 						<td><?=$classwork['id']?></td>
 						<td><?=$classwork['name']?></td>
 						<td><?=spm_getUserGroupByID($classwork['studentsGroup'])?></td>

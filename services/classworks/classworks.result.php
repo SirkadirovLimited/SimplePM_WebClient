@@ -88,6 +88,30 @@
 	
 	/////////////////////////////////////
 	
+	$query_str = "
+		SELECT
+			sum(`difficulty`)
+		FROM
+			`spm_problems`
+		WHERE
+			`id` IN (
+				SELECT
+					`problemId`
+				FROM
+					`spm_classworks_problems`
+				WHERE
+					`classworkId` = '" . $_GET["id"] . "'
+			)
+		;
+	";
+	
+	if (!$query = $db->query($query_str))
+		die(header('location: index.php?service=error&err=db_error'));
+	
+	$users_max_b = $query->fetch_array()[0];
+	
+	/////////////////////////////////////
+	
 	SPM_header("Урок #" . $_GET["id"], "Статистика уроку");
 ?>
 
@@ -121,6 +145,9 @@
 					<dt>Час кінця</dt>
 					<dd><?=$classwork['endTime']?></dd>
 					
+					<dt title="Максимальна кількість балів">Максимальна кількість балів</dt>
+					<dd><?=$users_max_b?></dd>
+					
 					<dt>Вчитель</dt>
 					<dd><a href="index.php?service=user&id=<?=$classwork['teacherId']?>"><span class="fa fa-user"></span> <?=spm_getUserFullnameByID($classwork['teacherId'])?></a></dd>
 				</dl>
@@ -141,10 +168,10 @@
 			"responsive": true,
 			"lengthChange": false,
 			"language": {
-				"zeroRecords": "Ничего не найдено!",
-				"info": "Страница _PAGE_ из _PAGES_",
-				"infoEmpty": "Ничего не найдено!",
-				"infoFiltered": "(отфильтровано из _MAX_ записей)"
+				"zeroRecords": "Нічого не знайдено!",
+				"info": "Сторінка _PAGE_ з _PAGES_",
+				"infoEmpty": "Нічого не знайдено!",
+				"infoFiltered": "(знайдено з _MAX_ записів)"
 			}
 		});
 	} );
@@ -190,6 +217,8 @@
 								`userId` = '" . $user['id'] . "'
 							AND
 								`classworkId` = '" . $_GET["id"] . "'
+							AND
+								`b` > 0
 							;
 						";
 						
@@ -203,7 +232,7 @@
 					<?=@(int)$right_problems_count?> / <?=@(int)$problems_count?>
 				</td>
 				<td>
-					<?=$user['sum(`b`)']?>
+					<?=$user['sum(`b`)']?> / <?=$users_max_b?> (<?=@round($user['sum(`b`)'] / $users_max_b, 2)?>%)
 				</td>
 			</tr>
 			<?php endwhile; ?>
