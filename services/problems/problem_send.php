@@ -39,21 +39,21 @@
 	
 	/////////////////////////////////////
 	
-	isset($testType) or die('<strong>Тип проверки решения не указан!</strong>' . $meta_refresh);
+	isset($testType) or die(header('location: index.php?service=error&err=input'));
 	
 	/////////////////////////////////////
 	
 	(isset($_POST['problemId']) && ((int)$_POST['problemId'] > 0) && ($_POST['problemId'] = (int)$_POST['problemId']))
-		or die('<strong>Идентификатор задачи указан не верно!</strong>' . $meta_refresh);
+		or die(header('location: index.php?service=error&err=input'));
 	
 	/////////////////////////////////////
 	
 	(isset($_POST['code']) && (strlen($_POST['code']) > 0) && ($_POST['code'] = mysqli_real_escape_string($db, $_POST['code'])))
-		or die('<strong>Исходный код вашего решения не указан!</strong>' . $meta_refresh);
+		or die(header('location: index.php?service=error&err=input'));
 	
 	/////////////////////////////////////
 	
-	isset($_POST['args']) or die('<strong>Попытка POST инъекции заблокирована!</strong>' . $meta_refresh);
+	isset($_POST['args']) or die(header('location: index.php?service=error&err=input'));
 	$_POST['args'] = mysqli_real_escape_string($db, $_POST['args']);
 	
 	/////////////////////////////////////
@@ -107,7 +107,7 @@
 			die(header('location: index.php?service=error&err=db_error'));
 		
 		if ($query->num_rows == 0 || $query->fetch_array()[0] == 0)
-			die('<strong>Задача с указанным ID не включена в урок!</strong>');
+			die(header('location: index.php?service=error&err=403'));
 		
 	}
 	
