@@ -34,7 +34,7 @@
 				return 'python';
 				break;
 			default:
-				die('<strong>Язык программирования, на котором написано приложение, не выбран!</strong>');
+				die(header('location: index.php?service=error&err=input'));
 				break;
 		}
 	}

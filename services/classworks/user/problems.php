@@ -8,7 +8,17 @@
 	
 	/////////////////////////////////////
 	
-	if (!$db_result = $db->query("SELECT count(id) FROM `spm_classworks_problems` WHERE `classworkId` = '" . $_SESSION["classwork"] . "';"))
+	$query_str = "
+		SELECT
+			count(`id`)
+		FROM
+			`spm_classworks_problems`
+		WHERE
+			`classworkId` = '" . $_SESSION["classwork"] . "'
+		;
+	";
+	
+	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	/////////////////////////////////////
@@ -111,12 +121,12 @@
 		$query->free();
 		unset($query);
 		
-		return $result;
+		return (int)$result;
 	}
 	
 	/////////////////////////////////////
 	
-	SPM_header("Урок #" . $_SESSION["classwork"], "Список доступных задач");
+	SPM_header("Урок #" . $_SESSION["classwork"], "Список завдань");
 ?>
 
 <div class="info-box bg-orange">
@@ -125,28 +135,28 @@
 	<div class="info-box-content" style="word-wrap: break-word;">
 		<h4 style="margin-bottom: 0;"><?=$classwork['name']?></h4>
 		<p style="margin: 0;"><?=$classwork['description']?></p>
-		<p>Начало: <i><?=$classwork['startTime']?></i> Конец: <i><?=$classwork['endTime']?></i></p>
+		<p>Початок: <i><?=$classwork['startTime']?></i> Кінець: <i><?=$classwork['endTime']?></i></p>
 	</div>
 </div>
 
 <div class="box box-primary box-solid" style="border-radius: 0;">
 	<div class="box-header with-border" style="border-radius: 0;">
-		<h3 class="box-title">Задачи</h3>
+		<h3 class="box-title">Завдання</h3>
 	</div>
 	<div class="box-body" style="padding: 0;">
 		
 		<?php if ($total_articles_number == 0 || $query->num_rows === 0): ?>
 		<div align="center">
 			<h1>Упс!</h1>
-			<p class="lead">Задач нет - но вы держитесь! :)</p>
+			<p class="lead">Завдань немає, але ви тримайтесь :)</p>
 		</div>
 		<?php else: ?>
 		<div class="table-responsive" style="background-color: white;">
 			<table class="table table-bordered table-hover" style="margin: 0;">
 				<thead>
 					<th width="10%">ID</th>
-					<th width="80%">Название</th>
-					<th width="10%">Заработано</th>
+					<th width="80%">Назва задачі</th>
+					<th width="10%">Зароблено</th>
 				</thead>
 				<tbody>
 					<?php while ($clw_problem = $query->fetch_assoc()): ?>

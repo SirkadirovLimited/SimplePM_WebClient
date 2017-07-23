@@ -207,7 +207,7 @@
 		class="panel-heading"
 		align="center"
 		style="padding-top: 5px; padding-bottom: 5px; border-radius: 0;">
-		<strong>Задача <?=$problem_info['id']?>. Сложность <?=$problem_info['difficulty']?>%</strong>
+		<strong>Задача <?=$problem_info['id']?>. Складність <?=$problem_info['difficulty']?>%</strong>
 	</div>
 	<div class="panel-body" style="padding: 0; border-radius: 0;">
 		
@@ -219,11 +219,11 @@
 			
 			<textarea name="code" class="hidden" id="code"></textarea>
 			<textarea class="form-control" rows="4" name="args" id="args"
-			style="margin: 0;" placeholder="Введите собственный тест для совершения отладки приложения"><?=$submissionArgs?></textarea>
+			style="margin: 0;" placeholder="Введіть свій тест для перевірки правильності рішення (для Debug)"><?=$submissionArgs?></textarea>
 			
 			<!-- CODE LANGUAGE SELECT -->
 			<select class="form-control" name="codeLang" id="codeLang" onchange="changeHighlight()" required>
-				<option value <?=($submissionLang == "unset" ? "selected" : "")?>>Выберите компилятор</option>
+				<option value <?=($submissionLang == "unset" ? "selected" : "")?>>Виберіть компілятор</option>
 				
 				<?php if ($_SPM_CONF["PROG_LANGS"]["pascal"]): ?>
 				<option value="1" <?=($submissionLang == "freepascal" ? "selected" : "")?>>Pascal (Free Pascal / Object Pascal / Delphi)</option>
@@ -260,21 +260,21 @@
 			<div class="row-fluid">
 				<!-- Syntax -->
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
-					<input class="btn btn-info btn-block btn-flat" type="submit" name="syntax" value="Синтаксис" style="margin: 0;" onclick="getcode();" />
+					<button class="btn btn-info btn-block btn-flat" type="submit" name="syntax" style="margin: 0;" onclick="getcode();">Перевірка синтаксису</button>
 				</div>
 				<!-- Debug -->
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
-					<input class="btn btn-primary btn-block btn-flat" type="submit" name="debug" value="Отладка" style="margin: 0;" onclick="getcode();" />
+					<button class="btn btn-primary btn-block btn-flat" type="submit" name="debug" style="margin: 0;" onclick="getcode();">Debug-режим</button>
 				</div>
 				<!-- Release -->
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
-					<input class="btn btn-success btn-block btn-flat" type="submit" name="release" value="Отправка" style="margin: 0;" onclick="getcode();" />
+					<button class="btn btn-success btn-block btn-flat" type="submit" name="release" style="margin: 0;" onclick="getcode();">Відправка</button>
 				</div>
 				
 				<?php if (isset($submission['problemCode'])): ?>
 				<!-- Last submission info -->
 				<div class="col-xs-12 col-md-12" style="padding: 0;">
-					<a href="index.php?service=problem_result&sid=<?=$submission['submissionId']?>" class="btn btn-default btn-block btn-flat">Информация о последней попытке</a>
+					<a href="index.php?service=problem_result&sid=<?=$submission['submissionId']?>" class="btn btn-default btn-block btn-flat">Інформація про останню відправку</a>
 				</div>
 				<?php endif; ?>
 				
@@ -282,7 +282,7 @@
 				
 				<!-- Get author's solution -->
 				<div class="col-xs-12 col-md-12" style="padding: 0;">
-					<a href="index.php?service=problem&id=<?=$problem_info['id']?>&authorSolution" class="btn btn-warning btn-block btn-flat">Получить авторское решение</a>
+					<a href="index.php?service=problem&id=<?=$problem_info['id']?>&authorSolution" class="btn btn-warning btn-block btn-flat">Отримати авторське рішення</a>
 				</div>
 				
 					<?php if (permission_check($_SESSION["permissions"], PERMISSION::administrator)): ?>
@@ -292,7 +292,7 @@
 							name="setAsAuthorSolution"
 							class="btn btn-danger btn-flat btn-block"
 							value="Установить авторское решение"
-							onclick="getcode(); return confirm('ВНИМАНИЕ! Это действие может привести к необратимым последствиям и уничтожению предыдущего авторского решения! Вы действительно хотите его перезаписать?');"
+							onclick="getcode(); return confirm('Це діяння незворотнє! Ви впевнені?');"
 						>
 					</div>
 					<?php endif; ?>
@@ -318,23 +318,23 @@
 		<!-- I/O information -->
 		<div class="row">
 			<div class="col-md-6">
-				<h4>INPUT</h4>
-				<p><?=empty($problem_info['input']) ? "Входной поток пуст." : $problem_info['input']?></p>
+				<h4>Вхідний потік</h4>
+				<p><?=empty($problem_info['input']) ? "Вхідний потік пустий." : $problem_info['input']?></p>
 			</div>
 			<div class="col-md-6">
-				<h4>OUTPUT</h4>
-				<p><?=empty($problem_info['output'])  ? "Выходной поток пуст." : $problem_info['output']?></p>
+				<h4>Вихідний потік</h4>
+				<p><?=empty($problem_info['output'])  ? "Вихідний потік пустий." : $problem_info['output']?></p>
 			</div>
 		</div>
 		<!--I/O examples-->
 		<div class="row">
 			<div class="col-md-6">
-				<h4>EXAMPLE INPUT</h4>
-				<p><?=empty($problem_info['input_ex']) ? "Входной поток пуст." : $problem_info['input_ex']?></p>
+				<h4>Приклад входного потоку</h4>
+				<p><?=empty($problem_info['input_ex']) ? "Вхідний потік пустий." : $problem_info['input_ex']?></p>
 			</div>
 			<div class="col-md-6">
-				<h4>EXAMPLE OUTPUT</h4>
-				<p><p><?=empty($problem_info['output_ex']) ? "Выходной поток пуст." : $problem_info['output_ex']?></p></p>
+				<h4>Приклад виходного потоку</h4>
+				<p><p><?=empty($problem_info['output_ex']) ? "Вихідний потік пустий." : $problem_info['output_ex']?></p></p>
 			</div>
 		</div>
 		<!-- /I/O information -->
