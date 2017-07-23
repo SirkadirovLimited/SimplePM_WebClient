@@ -7,8 +7,8 @@
 	global $_SPM_CONF;
 	
 	if (!$db->query("DELETE FROM `spm_pages` WHERE id='" . htmlspecialchars(trim($_GET['del'])) . "'")){
-		_spm_view_msg("Произошла непредвиденная ошибка при удалении страницы с базы данных. Накажите вашего сисадмина за это!", "danger");
+		_spm_view_msg("Видалення не проведено через помилку.", "danger");
 	}else{
-		_spm_view_msg("Страница успешно удалена.", "success");
+		_spm_view_msg("Сторінка успішно видалена.", "success");
 	}
 ?>

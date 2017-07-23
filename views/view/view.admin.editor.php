@@ -3,15 +3,13 @@
 	defined("__view.admin__") or die('403 ACCESS DENIED');
 	deniedOrAllowed(PERMISSION::administrator);
 	
-	require(_S_SERV_INC_ . "view.admin.editor.sender.php");
+	include(_S_SERV_INC_ . "view.admin.editor.sender.php");
 	
 	function generate_page($id, $name, $content){
 		global $_SPM_CONF;
 		
-		if ($id > 0)
-			$action = "index.php?service=view.admin&edit=" . $id;
-		else
-			$action = "index.php?service=view.admin&create";
+		$action = ($id > 0 ? "index.php?service=view.admin&edit=" . $id : "index.php?service=view.admin&create");
+		
 ?>
 <script src="<?php print(_S_TPL_); ?>js/tinymce/tinymce.min.js"></script>
 <style>
@@ -35,40 +33,43 @@ tinymce.init({
   image_advtab: true,
  });
 </script>
-<form action="<?php print($action); ?>" method="post">
+<form action="<?=$action?>" method="post">
 	<div class="form-group">
-		<label for="pageId">ID страницы</label>
-		<input type="text" class="form-control" id="pageId" value="<?php print($id); ?>" readonly>
+		<label for="pageId">ID сторінки</label>
+		<input type="text" class="form-control" id="pageId" name="id" value="<?=$id?>" readonly>
 	</div>
 	<div class="form-group">
-		<label for="name">Название страницы</label>
-		<input type="text" class="form-control" name="pname" id="name" minlength="1" maxlength="255" value="<?php print($name); ?>" >
+		<label for="name">Найменування сторінки</label>
+		<input type="text" class="form-control" name="pname" id="name" minlength="1" maxlength="255" value="<?=$name?>" >
 	</div>
 	<div class="form-group">
-		<label for="content">Контент страницы</label>
-		<textarea class="form-control" name="pcontent" id="content" rows="10" style="z-index: 50;"><?php print($content); ?></textarea>
+		<label for="content">Контент сорінки</label>
+		<textarea class="form-control" name="pcontent" id="content" rows="10" style="z-index: 50;"><?=$content?></textarea>
 	</div>
-	<input type="submit" class="btn btn-primary btn-block" value="Сохранить" />
-	<a class="btn btn-danger btn-block" href="<?php print($_SPM_CONF["BASE"]["SITE_URL"]); ?>index.php?service=view.admin">Отменить</a>
+	<button type="submit" class="btn btn-primary btn-block">Зберегти</button>
+	<a class="btn btn-danger btn-block" href="index.php?service=view.admin">Відмінити</a>
 </form>
 <?php
 		
 	}
 	
-	if (isset($_GET['edit']) && strlen(trim($_GET['edit'])) > 0){
+	if (isset($_GET['edit']) && strlen(trim($_GET['edit'])) > 0)
+	{
 		
-		if (!$db_result = $db->query("SELECT * FROM `spm_pages` WHERE id = '" . htmlspecialchars(trim($_GET['edit'])) . "'"))
+		if (!$db_result = $db->query("SELECT * FROM `spm_pages` WHERE id = '" . mysqli_real_escape_string($db, trim($_GET['edit'])) . "'"))
 			die(header('location: index.php?service=error&err=db_error'));
 		
-		if ($db_result->num_rows === 0){
+		if ($db_result->num_rows == 0)
 			include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["404"]);
-		}else{
+		else
+		{
 			$page_info = $db_result->fetch_assoc();
 			generate_page($page_info['id'], $page_info['name'], htmlspecialchars_decode($page_info['content']));
 		}
 		
 		
-	}elseif (isset($_GET['create'])){
-		generate_page(-1, "", "");
 	}
+	elseif (isset($_GET['create']))
+		generate_page(0, "", "");
+	
 ?>

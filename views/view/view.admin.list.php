@@ -3,23 +3,32 @@
 	defined("__view.admin__") or die('403 ACCESS DENIED');
 	deniedOrAllowed(PERMISSION::administrator);
 	
-	if (!$db_result = $db->query("SELECT * FROM `spm_pages`"))
+	$query_str = "
+		SELECT
+			`id`,
+			`name`
+		FROM
+			`spm_pages`
+		;
+	";
+	
+	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 ?>
 <div align="right" style="margin-bottom: 10px;">
-	<a class="btn btn-primary" href="index.php?service=view.admin&create">Создать страницу</a>
+	<a class="btn btn-primary" href="index.php?service=view.admin&create">Створити сторінку</a>
 </div>
 <div class="table-responsive">
 	<table class="table table-bordered table-hover" style="background-color: white;">
-		<tr class="active">
+		<thead>
 			<th width="10%">ID</th>
-			<th width="80%">Название страницы</th>
-			<th width="10%">Действия</th>
-		</tr>
+			<th width="80%">Назва сторінки</th>
+			<th width="10%">Дії</th>
+		</thead>
 <?php if ($db_result->num_rows === 0): ?>
 		<tr>
 			<td></td>
-			<td><b>Тут пусто :( Создай пожалуйста новую страницу, чтобы раб твой рад был, мой господин! Смилуйся надо мной!</b></td>
+			<td><b>На сайті ще немає ні одної сторінки!</b></td>
 			<td></td>
 		</tr>
 <?php else: ?>
@@ -38,7 +47,7 @@
 					<a
 						class="btn btn-danger btn-sm"
 						href="index.php?service=view.admin&del=<?=$pages['id']?>"
-						onclick ="return confirm('Вы действительно хотите удалить эту страницу? Это действие не обратимо!');"
+						onclick = "return confirm('Ви дійсно хочете видалити цю сторінку?');"
 					><span class="fa fa-trash"></span></a>
 				</div>
 			</td>

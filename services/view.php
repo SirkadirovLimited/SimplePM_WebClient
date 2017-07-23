@@ -21,7 +21,15 @@
 			unset($db_result);
 			
 			SPM_header($page_info['name'], "Сторінка");
+?>
+			<div style="font-size: 13pt;">
+<?php
+			
 			print(htmlspecialchars_decode($page_info['content']));
+			
+?>
+			</div>
+<?php
 			
 			if (permission_check($_SESSION['permissions'], PERMISSION::administrator))
 				print("<div align='right'><a href='index.php?service=view.admin&edit=" . $page_info['id'] . "' class='btn btn-default btn-xs'>Редагувати</a></div>");

@@ -30,27 +30,25 @@
 		break;
 	}
 	
-	SPM_header($LANG["page_title"] . $errId, $LANG["page_desc"]);
+	SPM_header("Помилка " . $errId, "Сторінка інформації");
 ?>
 <div class="error-page">
 	<h2 class="headline text-red"><?=$errId?></h2>
 	<div class="error-content">
-		<h3><i class="fa fa-warning text-red"></i> <?=$LANG["h3_title"]?></h3>
+		<h3><i class="fa fa-warning text-red"></i> Упс... щось зламалося!</h3>
 		<p>
-			<?=$LANG["text_1"]?>
-			<?=$LANG["text_2"]?>
-			<?=$LANG["text_3"]?>
+			Виникла помилка при обробці вашого запиту, тож всі введені вами дані було втрачено. Спробуйте зробити все заново, ознайомтесь з інформацією про помилку, або зв'яжіться з нами!
 		</p>
 		
 		<a
 			href="https://spm.sirkadirov.com/wiki/doku.php?id=services:error-pages"
 			target="_blank"
 			class="btn btn-warning btn-flat btn-block"
-		><?=$LANG["err_info"]?></a>
+		>Інформація про помилку</a>
 		<a
 			href="mailto:<?=$_SPM_CONF["BASE"]["ADMIN_MAIL"]?>?subject=SimplePM error <?=$errId?>, uid <?=$SESSION['uid']?>"
 			class="btn btn-danger btn-flat btn-block"
-		><?=$LANG["send_email"]?></a>
+		>Зв'язатися з адміністратором</a>
 	</div>
 </div>
 <?php SPM_footer(); ?>

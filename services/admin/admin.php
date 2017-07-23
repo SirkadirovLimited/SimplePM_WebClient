@@ -21,14 +21,6 @@
 		</a>
 	</div>
 	<div class="col-md-4" style="padding: 0;">
-		<a href="index.php?service=news.admin" style="margin: 0;" class="btn btn-primary btn-xlarge btn-block btn-flat">
-			<p class="admin-btn">
-				<h3><span class="glyphicon glyphicon-align-justify"></span></h3>
-				Розділ новин<br/>(Управління)
-			</p>
-		</a>
-	</div>
-	<div class="col-md-4" style="padding: 0;">
 		<a href="index.php?service=view.admin" style="margin: 0;" class="btn btn-primary btn-xlarge btn-block btn-flat">
 			<p class="admin-btn">
 				<h3><span class="glyphicon glyphicon-book"></span></h3>

@@ -41,7 +41,7 @@
 	$_SPM_CONF["SERVICE"]["logout"] = "login/logout.php"; //require session(uid)
 	
 	//                             BASE SERVICES
-	$_SPM_CONF["SERVICE"]["news"] = "news.php"; //require session(uid)
+	$_SPM_CONF["SERVICE"]["home"] = "home.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["view"] = "view.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["rating"] = "rating.php"; //require session(uid)
 	$_SPM_CONF["SERVICE"]["error"] = "error.php"; //require session(uid)
@@ -79,7 +79,6 @@
 	$_SPM_CONF["SERVICE"]["admin"] = "admin/admin.php"; //require permission 256
 	
 	$_SPM_CONF["SERVICE"]["view.admin"] = "admin/view.admin.php"; //require permission 256
-	$_SPM_CONF["SERVICE"]["news.admin"] = "admin/news.admin.php"; //require permission 256
 	
 	$_SPM_CONF["SERVICE"]["teacherID"] = "admin/teacherID.php"; //require teacher/admin
 	$_SPM_CONF["SERVICE"]["users.admin"] = "admin/users.admin.php"; //require teacher/admin
@@ -93,7 +92,7 @@
 	/*SERVICES_NOLOGIN-END*/
 	
 	/*SERVICES_SETTINGS-START*/
-	$_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"] = "news";
+	$_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"] = "home";
 	$_SPM_CONF["SERVICES"]["news"]["articles_per_page"] = 5;
 	$_SPM_CONF["SERVICES"]["rating"]["articles_per_page"] = 30;
 	$_SPM_CONF["SERVICES"]["problems"]["articles_per_page"] = 30;

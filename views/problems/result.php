@@ -4,7 +4,19 @@
 	
 	global $submission;
 	
-	if (!$db_problem_result = $db->query("SELECT `difficulty` FROM `spm_problems` WHERE `id` = '" . $submission['problemId'] . "' LIMIT 1;"))
+	$query_str = "
+		SELECT
+			`difficulty`
+		FROM
+			`spm_problems`
+		WHERE
+			`id` = '" . $submission['problemId'] . "'
+		LIMIT
+			1
+		;
+	";
+	
+	if (!$db_problem_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	$problemDifficulty = $db_problem_result->fetch_array()[0];
@@ -30,7 +42,7 @@
 <?php endif; ?>
 
 <div class="panel panel-default" style="border-radius: 0;">
-	<div class="panel-heading">Результаты тестирования</div>
+	<div class="panel-heading">Результати тестування</div>
 	<div class="panel-body" style="padding: 20px 5px 20px 5px;">
 		
 		<div class="row">
@@ -50,7 +62,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>Компиляция программы</td>
+								<td>Компіляція програми</td>
 								<td>N/A</td>
 								<td><?=$result?></td>
 							</tr>
@@ -60,7 +72,7 @@
 								case "syntax":
 							?>
 							<tr>
-								<td>Тесты отсутствуют</td>
+								<td>Тестів немає</td>
 								<td>N/A</td>
 								<td>N/A</td>
 							</tr>
@@ -69,7 +81,7 @@
 								case "debug":
 							?>
 							<tr>
-								<td>Пользовательский тест</td>
+								<td>Користувацький тест</td>
 								<td><?=$submission['exitcodes']?></td>
 								<td><?=$submission['result']?></td>
 							</tr>
@@ -96,7 +108,7 @@
 						</tbody>
 					</table>
 					<?php if ($submission['testType'] == "release"): ?>
-					<strong>Начислено баллов: <?=$submission['b']?> из <?=$problemDifficulty?> возможных.</strong>
+					<strong>Отримано балів: <?=$submission['b']?> з <?=$problemDifficulty?>.</strong>
 					<?php elseif ($submission['testType'] == "debug" && $submission['output'] != null): ?>
 					<textarea class="form-control" style="width: 100%; resize: none;" rows="5" readonly><?=$submission['output']?></textarea>
 					<?php endif;?>
@@ -111,7 +123,7 @@
 <script>
 	Push.close('unseenResult');
 	Push.create('<?=$_SPM_CONF["BASE"]["SITE_NAME"]?>', {
-		body: 'Получен результат проверки вашего решения для задачи <?=$submission['problemId']?>! Просмотрите его сейчас!',
+		body: 'Отриман результат тестування для задачі <?=$submission['problemId']?>! Подивіться на нього прямо зараз!',
 		icon: {
 			x16: '<?=_S_MEDIA_IMG_?>smiles/<?=$smile_name?>',
 			x32: '<?=_S_MEDIA_IMG_?>smiles/<?=$smile_name?>'
@@ -121,7 +133,19 @@
 	});
 </script>
 <?php
-	if (!$db->query("UPDATE `spm_submissions` SET `seen` = true WHERE `submissionId` = '" . $submission['submissionId'] . "' LIMIT 1;"))
-		die('<strong>Произошла ошибка при попытке подключения к базе данных! Пожалуйста, обновите страницу!</strong>');
+	$query_str = "
+		UPDATE
+			`spm_submissions`
+		SET
+			`seen` = true
+		WHERE
+			`submissionId` = '" . $submission['submissionId'] . "'
+		LIMIT
+			1
+		;
+	";
+	
+	if (!$db->query($query_str))
+		die(header('location: index.php?service=error&err=db_error'));
 endif;
 ?>
