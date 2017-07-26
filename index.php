@@ -62,8 +62,6 @@
 	
 	DEFINE("_S_TPL_", "./tpl/" . $_SPM_CONF["BASE"]["TPL_NAME"] . "/");
 	DEFINE("_S_TPL_ERR_", _S_TPL_ . "error_pages/");
-	DEFINE("_S_LANG_", "./lang/");
-	DEFINE("LOCALE", _S_LANG_ . $_SPM_CONF["BASE"]["DEFAULT_LOCALE"] . "/");
 	
 	/////////////////////////////////////
 	//    REQUIRED AUTORUN FUNCTIONS   //
@@ -83,7 +81,7 @@
 	/////////////////////////////////////
 	
 	if (isset($_GET['service']) && strlen($_GET['service']) > 0)
-		$_spm_run_service = preg_replace("/[^a-zA-Z0-9.-_\s]/", "", $_GET['service']);
+		$_spm_run_service = preg_replace("/[^a-zA-Z0-9.\-_\s]/", "", $_GET['service']);
 	else
 		$_spm_run_service = $_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"];
 
@@ -91,8 +89,7 @@
 		$_spm_run_service = "login";
 
 	if (!isset($_SPM_CONF["SERVICE"][$_spm_run_service]) && !isset($_SESSION['uid'])):
-		include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["404"]);
-		die();
+		die(header('location: index.php'));
 	elseif ( ( !isset($_SPM_CONF["SERVICE"][$_spm_run_service]) && isset($_SESSION['uid']) ) || !file_exists(_S_SERV_ . $_SPM_CONF["SERVICE"][$_spm_run_service])):
 		die(header('location: index.php?service=error&err=404'));
 	endif;

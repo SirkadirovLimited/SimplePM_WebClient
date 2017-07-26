@@ -1,6 +1,5 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	include(LOCALE . "error.php");
 	
 	isset($_GET["err"]) or $_GET["err"] = "404";
 	

@@ -35,54 +35,56 @@
 	
 	/*SERVICES-START*/
 	
-	$_SPM_CONF["SERVICE"]["register"] = "login/register.php"; //nologin
-	$_SPM_CONF["SERVICE"]["login"] = "login/login.php"; //nologin
-	$_SPM_CONF["SERVICE"]["forgot"] = "login/forgot.php"; //nologin
-	$_SPM_CONF["SERVICE"]["logout"] = "login/logout.php"; //require session(uid)
+	$_SPM_CONF["SERVICE"]["register"] = "login/register.php";
+	$_SPM_CONF["SERVICE"]["login"] = "login/login.php";
+	$_SPM_CONF["SERVICE"]["forgot"] = "login/forgot.php";
+	$_SPM_CONF["SERVICE"]["logout"] = "login/logout.php";
 	
 	//                             BASE SERVICES
-	$_SPM_CONF["SERVICE"]["home"] = "home.php"; //require session(uid)
-	$_SPM_CONF["SERVICE"]["view"] = "view.php"; //require session(uid)
-	$_SPM_CONF["SERVICE"]["rating"] = "rating.php"; //require session(uid)
-	$_SPM_CONF["SERVICE"]["error"] = "error.php"; //require session(uid)
+	$_SPM_CONF["SERVICE"]["home"] = "home.php";
+	$_SPM_CONF["SERVICE"]["view"] = "view.php";
+	$_SPM_CONF["SERVICE"]["rating"] = "rating.php";
+	$_SPM_CONF["SERVICE"]["error"] = "error.php";
 	
 	//                             PROBLEMS SERVICES
-	$_SPM_CONF["SERVICE"]["problems"] = "problems/problems.php"; //require >=student
-	$_SPM_CONF["SERVICE"]["bad_problems"] = "problems/bad_problems.php"; //require student
-	$_SPM_CONF["SERVICE"]["problem"] = "problems/problem.php"; //require student
+	$_SPM_CONF["SERVICE"]["problems"] = "problems/problems.php";
+	$_SPM_CONF["SERVICE"]["bad_problems"] = "problems/bad_problems.php";
+	$_SPM_CONF["SERVICE"]["problem"] = "problems/problem.php";
 	
-	$_SPM_CONF["SERVICE"]["problem.edit"] = "admin/problems/problem.edit.php"; //require administrator
-	$_SPM_CONF["SERVICE"]["problem.edit.tests"] = "admin/problems/problem.edit.tests.php"; //require administrator
+	$_SPM_CONF["SERVICE"]["problem.edit"] = "admin/problems/problem.edit.php";
+	$_SPM_CONF["SERVICE"]["problem.edit.tests"] = "admin/problems/problem.edit.tests.php";
 	
-	$_SPM_CONF["SERVICE"]["problem_send"] = "problems/problem_send.php"; //require student
-	$_SPM_CONF["SERVICE"]["problem_result"] = "problems/problem_result.php"; //require student
+	$_SPM_CONF["SERVICE"]["problem-categories"] = "admin/problems/problem-categories.php";
+	
+	$_SPM_CONF["SERVICE"]["problem_send"] = "problems/problem_send.php";
+	$_SPM_CONF["SERVICE"]["problem_result"] = "problems/problem_result.php";
 	
 	//                             CLASSWORKS SERVICES
-	$_SPM_CONF["SERVICE"]["classworks"] = "classworks/classworks.php"; //require teacher
-	$_SPM_CONF["SERVICE"]["classworks.edit"] = "classworks/classworks.edit.php"; //require teacher
-	$_SPM_CONF["SERVICE"]["classworks.result"] = "classworks/classworks.result.php"; //require session(uid)
+	$_SPM_CONF["SERVICE"]["classworks"] = "classworks/classworks.php";
+	$_SPM_CONF["SERVICE"]["classworks.edit"] = "classworks/classworks.edit.php";
+	$_SPM_CONF["SERVICE"]["classworks.result"] = "classworks/classworks.result.php";
 	
 	//                             OLYMPIADS SERVICES
-	$_SPM_CONF["SERVICE"]["olympiads"] = "olymp/olympiads.php"; //require session(uid)
+	$_SPM_CONF["SERVICE"]["olympiads"] = "olymp/olympiads.php";
 	
 	//                             USER SERVICES
-	$_SPM_CONF["SERVICE"]["user"] = "user/user.php"; //require session(uid)
-	$_SPM_CONF["SERVICE"]["user.edit"] = "user/user.edit.php"; //require session(uid)
+	$_SPM_CONF["SERVICE"]["user"] = "user/user.php";
+	$_SPM_CONF["SERVICE"]["user.edit"] = "user/user.edit.php";
 	
 	//                             FILES HOSTING SERVICES
-	$_SPM_CONF["SERVICE"]["image"] = "image.php"; //require session(uid)
+	$_SPM_CONF["SERVICE"]["image"] = "image.php";
 	
 	//                             MESSAGING SERVICE
-	$_SPM_CONF["SERVICE"]["messages"] = "messages/messages.php"; //require session(uid)
+	$_SPM_CONF["SERVICE"]["messages"] = "messages/messages.php";
 	
 	//                             ADMIN SERVICES
-	$_SPM_CONF["SERVICE"]["admin"] = "admin/admin.php"; //require permission 256
+	$_SPM_CONF["SERVICE"]["admin"] = "admin/admin.php";
 	
-	$_SPM_CONF["SERVICE"]["view.admin"] = "admin/view.admin.php"; //require permission 256
+	$_SPM_CONF["SERVICE"]["view.admin"] = "admin/view.admin.php";
 	
-	$_SPM_CONF["SERVICE"]["teacherID"] = "admin/teacherID.php"; //require teacher/admin
-	$_SPM_CONF["SERVICE"]["users.admin"] = "admin/users.admin.php"; //require teacher/admin
-	$_SPM_CONF["SERVICE"]["groups.admin"] = "admin/groups.admin.php"; //require teacher/admin
+	$_SPM_CONF["SERVICE"]["teacherID"] = "admin/teacherID.php";
+	$_SPM_CONF["SERVICE"]["users.admin"] = "admin/users.admin.php";
+	$_SPM_CONF["SERVICE"]["groups.admin"] = "admin/groups.admin.php";
 	/*SERVICES-END*/
 	
 	/*SERVICES_NOLOGIN-START*/
@@ -124,6 +126,7 @@
 	$_SPM_CONF["PROG_LANGS"]["java"] = false;
 	/*PROGRAMMING_LANGUAGES-END*/
 	
+	/*FUNCTIONS-START*/
 	function spm_prepare_classwork(){
 		
 		global $_SPM_CONF;
@@ -147,4 +150,5 @@
 		$_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"] = "classworks.problems";
 		
 	}
+	/*FUNCTIONS-END*/
 ?>
