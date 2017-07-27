@@ -1,6 +1,6 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	deniedOrAllowed(PERMISSION::teacher);
+	deniedOrAllowed(PERMISSION::administrator | PERMISSION::olymp);
 	
 	if (isset($_POST['del']))
 		include(_S_SERV_INC_ . "classworks/classworks.del.php");
@@ -13,7 +13,7 @@
 		SELECT
 			count(id)
 		FROM
-			`spm_classworks`
+			`spm_olympiads`
 		WHERE
 			`teacherId` = '" . $_SESSION["uid"] . "'
 		;
@@ -41,11 +41,11 @@
 		SELECT
 			`id`,
 			`name`,
-			`studentsGroup`,
 			`startTime`,
-			`endTime`
+			`endTime`,
+			`type`
 		FROM
-			`spm_classworks`
+			`spm_olympiads`
 		WHERE
 			`teacherId` = '" . $_SESSION["uid"] . "'
 		ORDER BY
@@ -58,22 +58,22 @@
 	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
-	SPM_header("Підсистема уроків", "Список уроків");
+	SPM_header("Підсистема змагань", "Список олімпіад");
 ?>
 
 <div align="right" style="margin-bottom: 10px;">
-	<a href="index.php?service=classworks.edit" class="btn btn-success btn-flat">Створити урок</a>
+	<a href="index.php?service=olympiads.edit" class="btn btn-success btn-flat">Створити олімпіаду</a>
 </div>
 
 <div class="panel panel-primary" style="border-radius: 0;">
 	<div class="panel-heading" style="border-radius: 0;">
-		<h3 class="panel-title">Уроки</h3>
+		<h3 class="panel-title">Олімпіади</h3>
 	</div>
 	<div class="panel-body" style="padding: 0;">
 		<?php if ($total_articles_number == 0 || $db_result->num_rows === 0): ?>
 		<div align="center">
 			<h1>Упс!</h1>
-			<p class="lead">Ні одного уроку не знайдено!</p>
+			<p class="lead">Ні одної олімпіади не знайдено!</p>
 		</div>
 		<?php else: ?>
 		<div class="table-responsive" style="background-color: white;">
@@ -81,32 +81,32 @@
 				<thead>
 					<th width="10%">ID</th>
 					<th width="29%">Назва</th>
-					<th width="10%">Група</th>
+					<th width="10%">Тип</th>
 					<th width="15%">Час початку</th>
 					<th width="15%">Час кінця</th>
 					<th width="11%">Дії</th>
 				</thead>
 				<tbody>
-					<?php while ($classwork = $db_result->fetch_assoc()): ?>
+					<?php while ($olymp = $db_result->fetch_assoc()): ?>
 					<?php
-						if ($classwork['endTime'] < date("Y-m-d H:i:s"))
+						if ($olymp['endTime'] < date("Y-m-d H:i:s"))
 							$tr_add_class = "active";
-						elseif ($classwork['startTime'] > date("Y-m-d H:i:s"))
+						elseif ($olymp['startTime'] > date("Y-m-d H:i:s"))
 							$tr_add_class = "";
 						else
 							$tr_add_class = "success";
 					?>
 					<tr class="<?=$tr_add_class?>">
-						<td><?=$classwork['id']?></td>
-						<td><?=$classwork['name']?></td>
-						<td><?=spm_getUserGroupByID($classwork['studentsGroup'])?></td>
-						<td><?=$classwork['startTime']?></td>
-						<td><?=$classwork['endTime']?></td>
+						<td><?=$olymp['id']?></td>
+						<td><?=$olymp['name']?></td>
+						<td><?=$olymp['type']?></td>
+						<td><?=$olymp['startTime']?></td>
+						<td><?=$olymp['endTime']?></td>
 						<td>
 							<form method="post" style="margin: 0;">
-								<input type="hidden" name="id" value="<?=$classwork['id']?>">
-								<a href="index.php?service=classworks.result&id=<?=$classwork['id']?>" class="btn btn-primary btn-xs">STAT</a>
-								<a href="index.php?service=classworks.edit&id=<?=$classwork['id']?>" class="btn btn-warning btn-xs">EDIT</a>
+								<input type="hidden" name="id" value="<?=$olymp['id']?>">
+								<a href="index.php?service=olympiads.result&id=<?=$olymp['id']?>" class="btn btn-primary btn-xs">STAT</a>
+								<a href="index.php?service=olympiads.edit&id=<?=$olymp['id']?>" class="btn btn-warning btn-xs">EDIT</a>
 								<button type="submit" name="del" class="btn btn-danger btn-xs">DEL</button>
 							</form>
 						</td>
