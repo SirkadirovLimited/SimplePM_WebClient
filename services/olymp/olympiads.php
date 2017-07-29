@@ -1,6 +1,40 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
+	$query_str = "
+		SELECT
+			`id`,
+			`name`
+		FROM
+			`spm_olympiads`
+		WHERE
+			`type` = 'Private'
+		AND
+			`teacherId` = '" . $_SESSION["teacherId"] . "'
+		AND
+			`endTime` > now()
+		;
+	";
+	
+	if (!$query_private = $db->query($query_str))
+		die(header('location: index.php?service=error&err=db_error'));
+	
+	$query_str = "
+		SELECT
+			`id`,
+			`name`
+		FROM
+			`spm_olympiads`
+		WHERE
+			`type` = 'Public'
+		AND
+			`endTime` > now()
+		;
+	";
+	
+	if (!$query_public = $db->query($query_str))
+		die(header('location: index.php?service=error&err=db_error'));
+	
 	SPM_header("Олімпіадний режим", "Головна сторінка");
 ?>
 <img
@@ -22,6 +56,13 @@
 				<div class="input-group">
 					<select class="form-control" required>
 						<option>Оберіть змагання</option>
+						<?php if ($query_private->num_rows > 0): ?>
+							
+							<?php while ($olymp = $query_private->fetch_assoc()): ?>
+							<option value="<?=$olymp['id']?>"><?=$olymp['name']?></option>
+							<?php endwhile; ?>
+							
+						<?php endif; ?>
 					</select>
 					<div class="input-group-btn">
 						<button type="submit" class="btn btn-default btn-flat">
@@ -43,6 +84,13 @@
 				<div class="input-group">
 					<select class="form-control" required>
 						<option>Оберіть змагання</option>
+						<?php if ($query_public->num_rows > 0): ?>
+							
+							<?php while ($olymp = $query_public->fetch_assoc()): ?>
+							<option value="<?=$olymp['id']?>"><?=$olymp['name']?></option>
+							<?php endwhile; ?>
+							
+						<?php endif; ?>
 					</select>
 					<div class="input-group-btn">
 						<button type="submit" class="btn btn-default btn-flat">
@@ -74,26 +122,4 @@
 	
 </div>
 
-
-<div class="row" style="margin-top: 20px;">
-	
-	<div class="col-md-4">
-		
-		
-		
-	</div>
-	
-	<div class="col-md-4">
-		
-		
-		
-	</div>
-	
-	<div class="col-md-4">
-		
-		
-		
-	</div>
-	
-</div>
 <?php SPM_footer(); ?>

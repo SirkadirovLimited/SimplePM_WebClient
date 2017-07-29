@@ -75,13 +75,13 @@
 						<tr>
 							<td>Дата та час початку</td>
 							<td>
-								<input type="text" class="form-control" name="startTime" placeholder="ГГГГ-ММ-ДД ЧЧ:ММ:СС" value="<?=@$cwork_info['startTime']?>" reqired>
+								<input type="text" class="form-control" name="startTime" placeholder="РРРР-ММ-ДД ГГ:ХХ:СС" value="<?=@$cwork_info['startTime']?>" reqired>
 							</td>
 						</tr>
 						<tr>
 							<td>Дата та час кінця</td>
 							<td>
-								<input type="text" class="form-control" name="endTime" placeholder="ГГГГ-ММ-ДД ЧЧ:ММ:СС" value="<?=@$cwork_info['endTime']?>" reqired>
+								<input type="text" class="form-control" name="endTime" placeholder="РРРР-ММ-ДД ГГ:ХХ:СС" value="<?=@$cwork_info['endTime']?>" reqired>
 							</td>
 						</tr>
 						

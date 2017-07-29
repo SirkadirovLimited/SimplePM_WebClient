@@ -1,7 +1,6 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
-	//Do things only if user authenticated
 	if ( isset( $_SESSION["uid"] ) && (int)$_SESSION["uid"] > 0){
 		
 		//Query string
@@ -24,10 +23,12 @@
 		
 		//If user not found
 		if ($db_result->num_rows == 0):
+			
 			unset($_SESSION);
 			session_destroy();
 			header('location: index.php');
 			die;
+			
 		endif;
 		
 		//Fetch associative array
@@ -39,9 +40,11 @@
 		
 		//Check if user banned
 		if ($userInfo['banned'] == 1):
+			
 			unset($_SESSION);
 			session_destroy();
 			die(header('location: index.php'));
+			
 		endif;
 		
 		//Check if another user logged in in the same account

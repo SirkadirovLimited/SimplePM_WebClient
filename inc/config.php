@@ -154,5 +154,29 @@
 		$_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"] = "classworks.problems";
 		
 	}
+	
+	function spm_prepare_olympiad(){
+		
+		global $_SPM_CONF;
+		unset($_SPM_CONF["SERVICE"]);
+		
+		//Available services
+		$_SPM_CONF["SERVICE"]["logout"] = "login/logout.php";
+		
+		$_SPM_CONF["SERVICE"]["olympiads.problems"] = "olympiads/user/problems.php";
+		$_SPM_CONF["SERVICE"]["olympiads.result"] = "olympiads/olympiads.result.php";
+		
+		$_SPM_CONF["SERVICE"]["image"] = "image.php";
+		
+		$_SPM_CONF["SERVICE"]["problem"] = "problems/problem.php";
+		$_SPM_CONF["SERVICE"]["problem_send"] = "problems/problem_send.php";
+		$_SPM_CONF["SERVICE"]["problem_result"] = "problems/problem_result.php";
+		
+		$_SPM_CONF["SERVICE"]["error"] = "error.php";
+		
+		//Autostart service (main service)
+		$_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"] = "olympiads.problems";
+		
+	}
 	/*FUNCTIONS-END*/
 ?>

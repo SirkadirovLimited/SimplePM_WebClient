@@ -1,36 +1,32 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
-	/*
-	 * Запрещаем доступ уже авторизированным пользователям
-	 */
-	if (isset($_SESSION['uid'])) {
-		SPM_header("Ошибка 403");
-		include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["access_denied"]);
-		SPM_footer();
-		exit;
-	}
+	if (isset($_SESSION['uid']))
+		die(header('location: index.php?service=error&err=403'));
 	
-	function spm_login_error_view(){
-		if(isset($_GET['err'])){
-			switch ($_GET['err']){
+	function spm_login_error_view()
+	{
+		if(isset($_GET['err']))
+		{
+			switch ($_GET['err'])
+			{
 				case "badlogin":
-					_spm_view_msg("Введённый логин не соответствует требованиям!","danger");
+					_spm_view_msg("Логін не відповідає правилам!","danger");
 					break;
 				case "badpass":
-					_spm_view_msg("Введённый пароль не соответствует требованиям!","danger");
+					_spm_view_msg("Пароль не відповідає правилам!","danger");
 					break;
 				case "badcaptcha":
-					_spm_view_msg("CAPTCHA введена не верно!","danger");
+					_spm_view_msg("Тест CAPTCHA не пройдено!","danger");
 					break;
 				case "db":
-					_spm_view_msg("Возникла ошибка при совершении запроса к базе данных! Возможно вы используете недопустимые символы!","danger");
+					_spm_view_msg("Інформація введена в не правильному форматі!","danger");
 					break;
 				case "nouser":
-					_spm_view_msg("Вы ввели неверный логин и/или пароль или же пользователя с таким логином не существует!","danger");
+					_spm_view_msg("За вказаними даними користувача не знайдено! Перевірте правильність логіну та паролю.","danger");
 					break;
 				case "banned":
-					_spm_view_msg("Вы забанены в системе! Обратитесь к своему учителю, куратору или администратору!","danger");
+					_spm_view_msg("Ваш аккаунт заблоковано!","danger");
 					break;
 			}
 		}
@@ -39,7 +35,8 @@
 	/*
 	 * Основной скрипт входа пользователей в систему
 	 */
-	if (isset($_POST['login']) && isset($_POST['password'])){
+	if (isset($_POST['login']) && isset($_POST['password']))
+	{
 		
 		if ($_SPM_CONF["SECURITY"]["require_captcha"])
 			if (!(isset($_POST['captcha']) && isset($_SESSION["captcha_code"]) && $_POST['captcha'] == $_SESSION["captcha_code"]))
@@ -102,10 +99,9 @@
 			exit(header("location: index.php?service=login&err=db"));
 		
 		$_SESSION['uid'] = $user['id'];
-		$_SESSION['username'] = $user['username'];
 		$_SESSION['permissions'] = $user['permissions'];
 		$_SESSION['teacherId'] = $user['teacherId'];
 		
-		exit(header("Location: index.php?service=" . $_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"]));
+		exit(header("location: index.php?service=" . $_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"]));
 	}
 ?>

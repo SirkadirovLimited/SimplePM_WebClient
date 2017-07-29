@@ -14,10 +14,7 @@
 	//    CLASSWORKS SUBSYSTEM CODE    //
 	/////////////////////////////////////
 	
-	if (isset($_SESSION["classwork"]))
-		$classworkId = $_SESSION["classwork"];
-	else
-		$classworkId = 0;
+	$classworkId = isset($_SESSION["classwork"]) ? $_SESSION["classwork"] : 0;
 	
 	if ($classworkId > 0) {
 		
@@ -39,6 +36,36 @@
 			die(header('location: index.php?service=error&err=db_error'));
 		
 		if ($query->num_rows == 0 || $query->fetch_array()[0] == 0)
+			die(header('location: index.php?service=error&err=403'));
+		
+	}
+	
+	/////////////////////////////////////
+	//     OLYMPIADS SUBSYSTEM CODE    //
+	/////////////////////////////////////
+	
+	$olympId = isset($_SESSION["olymp"]) ? $_SESSION["olymp"] : 0;
+	
+	if ($olympId > 0) {
+		
+		$query_str = "
+			SELECT
+				count(`id`)
+			FROM
+				`spm_olympiads_problems`
+			WHERE
+				`problemId` = '" . (int)$_GET['id'] . "'
+			AND
+				`olympId` = '" . $classworkId . "'
+			LIMIT
+				1
+			;
+		";
+		
+		if (!$query = $db->query($query_str))
+			die(header('location: index.php?service=error&err=db_error'));
+		
+		if ((int)($query->fetch_array()[0]) <= 0)
 			die(header('location: index.php?service=error&err=403'));
 		
 	}
@@ -95,20 +122,19 @@
 	if (!$query = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
-	if ($query->num_rows > 0){
-		
+	if ($query->num_rows > 0)
+	{
 		$submission = $query->fetch_assoc();
 		
 		$submissionCode = htmlspecialchars($submission['problemCode']);
 		$submissionArgs = $submission['customTest'];
 		$submissionLang = $submission['codeLang'];
-		
-	} else {
-		
+	}
+	else
+	{
 		$submissionCode = NULL;
 		$submissionArgs = NULL;
 		$submissionLang = "unset";
-		
 	}
 	
 	$query->free();
@@ -139,7 +165,7 @@
 		if ($query->num_rows > 0)
 			$submissionCode = htmlspecialchars($query->fetch_array()[0]);
 		else
-			die('<strong>Указанная задача не имеет авторского решения!</strong>');
+			die('<strong>Вказана задача не має авторського рішення!</strong>');
 		
 		$query->free();
 		
@@ -180,7 +206,7 @@
 	
 	/////////////////////////////////////
 	
-	SPM_header("Задача " . $problem_info['id'], "Редактор");
+	SPM_header("Задача " . $problem_info['id'], "Редактор коду");
 	
 	/////////////////////////////////////
 ?>
@@ -218,11 +244,18 @@
 			<div id="codeEditor" contenteditable="true"><?=$submissionCode?></div>
 			
 			<textarea name="code" class="hidden" id="code"></textarea>
-			<textarea class="form-control" rows="4" name="args" id="args"
-			style="margin: 0;" placeholder="Введіть свій тест для перевірки правильності рішення (для Debug)"><?=$submissionArgs?></textarea>
+			<textarea
+				class="form-control"
+				rows="4"
+				name="args"
+				id="args"
+				style="margin: 0;"
+				placeholder="Введіть свій тест для перевірки правильності рішення (для Debug)"
+			><?=$submissionArgs?></textarea>
 			
 			<!-- CODE LANGUAGE SELECT -->
 			<select class="form-control" name="codeLang" id="codeLang" onchange="changeHighlight()" required>
+				
 				<option value <?=($submissionLang == "unset" ? "selected" : "")?>>Виберіть компілятор</option>
 				
 				<?php if ($_SPM_CONF["PROG_LANGS"]["pascal"]): ?>
@@ -260,15 +293,33 @@
 			<div class="row-fluid">
 				<!-- Syntax -->
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
-					<button class="btn btn-info btn-block btn-flat" type="submit" name="syntax" style="margin: 0;" onclick="getcode();">Перевірка синтаксису</button>
+					<button
+						class="btn btn-info btn-block btn-flat"
+						type="submit"
+						name="syntax"
+						style="margin: 0;"
+						onclick="getcode();"
+					>Перевірка синтаксису</button>
 				</div>
 				<!-- Debug -->
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
-					<button class="btn btn-primary btn-block btn-flat" type="submit" name="debug" style="margin: 0;" onclick="getcode();">Debug-режим</button>
+					<button
+						class="btn btn-primary btn-block btn-flat"
+						type="submit"
+						name="debug"
+						style="margin: 0;"
+						onclick="getcode();"
+					>Debug-режим</button>
 				</div>
 				<!-- Release -->
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
-					<button class="btn btn-success btn-block btn-flat" type="submit" name="release" style="margin: 0;" onclick="getcode();">Відправка</button>
+					<button
+						class="btn btn-success btn-block btn-flat"
+						type="submit"
+						name="release"
+						style="margin: 0;"
+						onclick="getcode();"
+					>Відправка</button>
 				</div>
 				
 				<?php if (isset($submission['problemCode'])): ?>
@@ -287,13 +338,12 @@
 				
 					<?php if (permission_check($_SESSION["permissions"], PERMISSION::administrator)): ?>
 					<div class="col-xs-12 col-md-12" style="padding: 0;">
-						<input
+						<button
 							type="submit"
 							name="setAsAuthorSolution"
 							class="btn btn-danger btn-flat btn-block"
-							value="Установить авторское решение"
 							onclick="getcode(); return confirm('Це діяння незворотнє! Ви впевнені?');"
-						>
+						>Встановити авторське рішення</button>
 					</div>
 					<?php endif; ?>
 				

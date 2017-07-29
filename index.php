@@ -73,8 +73,9 @@
 	//            CHECKERS             //
 	/////////////////////////////////////
 	
-	include_once(_S_INC_FUNC_ . "user_check.php"); //user checker
-	include_once(_S_INC_FUNC_ . "classworks_check.php"); //classworks checker
+	include_once(_S_INC_FUNC_ . "user_check.php"); // user checker
+	include_once(_S_INC_FUNC_ . "olympiads_check.php"); // olympiads checker
+	include_once(_S_INC_FUNC_ . "classworks_check.php"); // classworks checker
 	
 	/////////////////////////////////////
 	//         SERVICE CHANGER         //

@@ -19,9 +19,6 @@
 	$messagesCount = $query->fetch_array()[0];
 	$query->free();
 	
-	if ($messagesCount == null)
-		$messagesCount = 0;
-	
 	$enablelinks = !isset($_SESSION["classwork"]) && !isset($_SESSION["olymp"]);
 ?>
 <li class="dropdown user user-menu">
@@ -34,7 +31,7 @@
 			<img src="index.php?service=image&uid=<?=$_SESSION['uid']?>" class="img-circle" alt="Аватар">
 			<p style="color: white;">
 				<?=spm_getUserFullnameByID($_SESSION['uid'])?>
-				<small>@<?=$_SESSION['username']?></small>
+				<small>@<?=spm_getUsernameByID($_SESSION['uid'])?></small>
 			</p>
 		</li>
 		<?php if ($enablelinks): ?>
@@ -55,7 +52,7 @@
 		</li>
 	</ul>
 </li>
-<?php if ($messagesCount > 0 && $enablelinks): ?>
+<?php if ((int)$messagesCount > 0 && $enablelinks): ?>
 <script>
 	Push.close('unreadMessages');
 	Push.create('<?=$_SPM_CONF["BASE"]["SITE_NAME"]?>', {

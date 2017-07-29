@@ -7,7 +7,7 @@
 	/////////////////////////////////////
 	
 	include_once(_S_SERV_INC_ . "problems/codeLang.php");
-	$meta_refresh = "<meta http-equiv='refresh' content='5; url=index.php?service=problem&id=" . $_POST['problemId'] . "'>";
+	
 	$setAsAuthorSolution = 'false';
 	
 	/////////////////////////////////////
@@ -53,7 +53,9 @@
 	
 	/////////////////////////////////////
 	
-	isset($_POST['args']) or die(header('location: index.php?service=error&err=input'));
+	isset($_POST['args'])
+		or die(header('location: index.php?service=error&err=input'));
+	
 	$_POST['args'] = mysqli_real_escape_string($db, $_POST['args']);
 	
 	/////////////////////////////////////
@@ -75,19 +77,17 @@
 	if (!$query = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
-	if ($query->num_rows == 0 || $query->fetch_array()[0] == 0)
-		die('<strong>Задача с указанным ID не существует!</strong>');
+	if ((int)($query->fetch_array()[0]) <= 0)
+		die(header('location: index.php?service=error&err=404'));
 	
 	/////////////////////////////////////
 	//       CLASSWORK CHECKER         //
 	/////////////////////////////////////
 	
-	if (isset($_SESSION["classwork"]))
-		$classworkId = $_SESSION["classwork"];
-	else
-		$classworkId = 0;
+	$classworkId = isset($_SESSION["classwork"]) ? $_SESSION["classwork"] : 0;
 	
-	if ($classworkId > 0) {
+	if ($classworkId > 0)
+	{
 		
 		$query_str = "
 			SELECT
@@ -106,7 +106,38 @@
 		if (!$query = $db->query($query_str))
 			die(header('location: index.php?service=error&err=db_error'));
 		
-		if ($query->num_rows == 0 || $query->fetch_array()[0] == 0)
+		if ((int)($query->fetch_array()[0]) <= 0)
+			die(header('location: index.php?service=error&err=403'));
+		
+	}
+	
+	/////////////////////////////////////
+	//        OLYMPIAD CHECKER         //
+	/////////////////////////////////////
+	
+	$olympId = isset($_SESSION["olymp"]) ? $_SESSION["olymp"] : 0;
+	
+	if ($olympId > 0)
+	{
+		
+		$query_str = "
+			SELECT
+				count(`id`)
+			FROM
+				`spm_olympiads_problems`
+			WHERE
+				`problemId` = '" . $_POST['problemId'] . "'
+			AND
+				`olympId` = '" . $classworkId . "'
+			LIMIT
+				1
+			;
+		";
+		
+		if (!$query = $db->query($query_str))
+			die(header('location: index.php?service=error&err=db_error'));
+		
+		if ((int)($query->fetch_array()[0]) <= 0)
 			die(header('location: index.php?service=error&err=403'));
 		
 	}
@@ -124,6 +155,8 @@
 			`problemId` = '" . $_POST['problemId'] . "'
 		AND
 			`classworkId` = '" . $classworkId . "'
+		AND
+			`olympId` = '" . $olympId . "'
 		;
 	";
 	
@@ -140,7 +173,7 @@
 		SET
 			`setAsAuthorSolution` = " . $setAsAuthorSolution . ",
 			`classworkId` = '" . $classworkId . "',
-			`olympId` = '0',
+			`olympId` = '" . $olympId . "',
 			`problemCode`='" . $_POST['code'] . "',
 			`userId` = '" . $_SESSION['uid'] ."',
 			`problemId` = '" . $_POST['problemId'] . "',

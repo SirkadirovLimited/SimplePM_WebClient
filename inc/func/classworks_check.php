@@ -1,7 +1,8 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
-	if (isset($_SESSION["uid"]) && permission_check($_SESSION["permissions"], PERMISSION::student)){
+	if (isset($_SESSION["uid"]) && permission_check($_SESSION["permissions"], PERMISSION::student) && !isset($_SESSION["olymp"])){
+		
 		$query_str = "
 			SELECT
 				`teacherId`,
@@ -52,5 +53,6 @@
 		
 		$query->free();
 		unset($query);
+		
 	}
 ?>

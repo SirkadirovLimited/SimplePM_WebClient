@@ -1,5 +1,5 @@
 <?php DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED'); ?>
-<?php if (isset($_SESSION["classwork"])): ?>
+<?php if (isset($_SESSION["olymp"])): ?>
 
 <?php
 	
@@ -9,9 +9,9 @@
 		SELECT
 			`endTime`
 		FROM
-			`spm_classworks`
+			`spm_olympiads`
 		WHERE
-			`id` = '" . $_SESSION["classwork"] . "'
+			`id` = '" . $_SESSION["olymp"] . "'
 		LIMIT
 			1
 		;
@@ -23,19 +23,20 @@
 	if ($query->num_rows == 0)
 		die(header('location: index.php'));
 	
-	$classwork = $query->fetch_assoc();
+	$olymp = $query->fetch_assoc();
 	$query->free();
 	
 	$clw_now = new DateTime(date("Y-m-d H:i:s"));
-	$clw_end = new DateTime($classwork["endTime"]);
+	$clw_end = new DateTime($olymp["endTime"]);
 	
 	$clw_diff = $clw_now->diff($clw_end);
 	$clw_diff = $clw_diff->format("%H:%i:%s");
 	
 ?>
 <script type="text/javascript">
-	function startTimer() {
-		var my_timer = document.getElementById("classwork_timer");
+	function startTimer()
+	{
+		var my_timer = document.getElementById("olympiad_timer");
 		var time = my_timer.innerHTML;
 		var arr = time.split(":");
 		var h = arr[0];
@@ -45,7 +46,7 @@
 			if (m == 0) {
 				if (h == 0) {
 					alert("Упс! Часу більше немає... Ви будете переадресовані на сторінку результатів змагання.");
-					window.location.href = "index.php?service=classworks.result&id=<?=$_SESSION["classwork"]?>";
+					window.location.href = "index.php?service=classworks.result&id=<?=$_SESSION["olymp"]?>";
 					return;
 				}
 				h--;
@@ -64,14 +65,14 @@
 		if (s < 10)
 			s = "0" + s;
 		
-		document.getElementById("classwork_timer").innerHTML = h+":"+m+":"+s;
+		document.getElementById("olympiad_timer").innerHTML = h+":"+m+":"+s;
 		setTimeout(startTimer, 1000);
 	}
 </script>
 <li class="dropdown messages-menu">
 	<a class="dropdown-toggle" title="Час до закінчення змагання">
 		&nbsp;<i class="fa fa-hourglass-half"></i>&nbsp;
-		<strong id="classwork_timer"><?=$clw_diff?></strong>
+		<strong id="olympiad_timer"><?=$clw_diff?></strong>
 	</a>
 </li>
 <?php endif; ?>

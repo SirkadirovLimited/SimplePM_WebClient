@@ -40,7 +40,7 @@
 	/////////////////////////////////////
 	
 	if (isset($_POST["sender"]))
-		include(_S_SERV_INC_ . "classworks/classworks.edit.php");
+		include(_S_SERV_INC_ . "olympiads/olympiads.edit.php");
 	
 	SPM_header("Підсистема змагань", "Редагування олімпіади");
 ?>
@@ -75,13 +75,13 @@
 						<tr>
 							<td>Дата та час початку</td>
 							<td>
-								<input type="text" class="form-control" name="startTime" placeholder="ГГГГ-ММ-ДД ЧЧ:ММ:СС" value="<?=@$cwork_info['startTime']?>" reqired>
+								<input type="text" class="form-control" name="startTime" placeholder="РРРР-ММ-ДД ГГ:ХХ:СС" value="<?=@$cwork_info['startTime']?>" reqired>
 							</td>
 						</tr>
 						<tr>
 							<td>Дата та час кінця</td>
 							<td>
-								<input type="text" class="form-control" name="endTime" placeholder="ГГГГ-ММ-ДД ЧЧ:ММ:СС" value="<?=@$cwork_info['endTime']?>" reqired>
+								<input type="text" class="form-control" name="endTime" placeholder="РРРР-ММ-ДД ГГ:ХХ:СС" value="<?=@$cwork_info['endTime']?>" reqired>
 							</td>
 						</tr>
 					</tbody>
@@ -114,7 +114,8 @@
 			</div>
 			
 			<div class="callout callout-warning" style="border-radius: 0;  margin: 0;">
-				<p>Після збереження змагання внести зміни у список задач буде не можливо!</p>
+				<p><strong>Зауваження:</strong> Після збереження змагання внести зміни у список задач буде не можливо!</p>
+				<p><strong>Увага:</strong> У олімпіадному режимі всі заборонені для рішення задачі, що входять до списку, стають доступними для учасників олімпіади!</p>
 			</div>
 			
 		</div>
@@ -122,7 +123,7 @@
 <?php endif; ?>
 
 	<div align="right">
-		<a class="btn btn-danger btn-flat" href="index.php?service=classworks">Відмінити</a>
+		<a class="btn btn-danger btn-flat" href="index.php?service=olympiads.list">Відмінити</a>
 		<button type="reset" class="btn btn-warning btn-flat">Скинути</button>
 		<button type="submit" class="btn btn-success btn-flat" name="sender">Зберегти</button>
 	</div>

@@ -90,11 +90,40 @@
 		
 		if ($query->num_rows == 0)
 			$result = "Тёмная сторона Силы";
-		else {
+		else
+		{
 			$user_info = $query->fetch_assoc();
 			
 			$result = $user_info['secondname'] . " " . $user_info['firstname'];
 		}
+		
+		return $result;
+		
+	}
+	
+	function spm_getUsernameByID($userId){
+		
+		global $db;
+		
+		$query_str = "
+			SELECT
+				`username`
+			FROM
+				`spm_users`
+			WHERE
+				`id` = '" . (int)$userId . "'
+			LIMIT
+				1
+			;
+		";
+		
+		if (!$query = $db->query($query_str))
+			die(header('location: index.php?service=error&err=db_error'));
+		
+		if ($query->num_rows == 0)
+			$result = "Unknown";
+		else
+			$result = $query->fetch_array()[0];
 		
 		return $result;
 		

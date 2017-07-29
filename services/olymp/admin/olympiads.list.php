@@ -3,7 +3,7 @@
 	deniedOrAllowed(PERMISSION::administrator | PERMISSION::olymp);
 	
 	if (isset($_POST['del']))
-		include(_S_SERV_INC_ . "classworks/classworks.del.php");
+		include(_S_SERV_INC_ . "olympiads/olympiads.del.php");
 	
 	isset($_GET['page']) or $_GET['page'] = 1;
 	
@@ -81,7 +81,6 @@
 				<thead>
 					<th width="10%">ID</th>
 					<th width="29%">Назва</th>
-					<th width="10%">Тип</th>
 					<th width="15%">Час початку</th>
 					<th width="15%">Час кінця</th>
 					<th width="11%">Дії</th>
@@ -99,7 +98,6 @@
 					<tr class="<?=$tr_add_class?>">
 						<td><?=$olymp['id']?></td>
 						<td><?=$olymp['name']?></td>
-						<td><?=$olymp['type']?></td>
 						<td><?=$olymp['startTime']?></td>
 						<td><?=$olymp['endTime']?></td>
 						<td>
