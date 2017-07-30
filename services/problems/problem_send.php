@@ -128,7 +128,7 @@
 			WHERE
 				`problemId` = '" . $_POST['problemId'] . "'
 			AND
-				`olympId` = '" . $classworkId . "'
+				`olympId` = '" . $olympId . "'
 			LIMIT
 				1
 			;

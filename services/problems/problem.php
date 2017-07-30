@@ -56,7 +56,7 @@
 			WHERE
 				`problemId` = '" . (int)$_GET['id'] . "'
 			AND
-				`olympId` = '" . $classworkId . "'
+				`olympId` = '" . $olympId . "'
 			LIMIT
 				1
 			;
@@ -111,6 +111,8 @@
 				`problemId` = '" . $problem_info['id'] . "'
 			AND
 				`classworkId` = '" . $classworkId . "'
+			AND
+				`olympId` = '" . $olympId . "'
 			)
 		ORDER BY
 			`submissionId` DESC

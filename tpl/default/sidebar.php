@@ -7,14 +7,17 @@
 			<?php if (isset($_SESSION["classwork"])): ?>
 			
 			<li class="header">РЕЖИМ УРОКУ</li>
-			<li><a href="index.php?service=classworks.problems"><i class="fa fa-users"></i> <span>Урок</span></a></li>
-			<li><a href="index.php?service=classworks.result"><i class="fa fa-users"></i> <span>Рейтинг</span></a></li>
+			<li><a href="index.php?service=classworks.problems"><i class="fa fa-th-list"></i> <span>Урок</span></a></li>
+			<li><a href="index.php?service=classworks.result"><i class="fa fa-star"></i> <span>Рейтинг</span></a></li>
 			
 			<?php elseif (isset($_SESSION["olymp"])): ?>
 			
 			<li class="header">РЕЖИМ ЗМАГАННЯ</li>
-			<li><a href="index.php?service=olympiads.problems"><i class="fa fa-users"></i> <span>Змагання</span></a></li>
-			<li><a href="index.php?service=olympiads.result"><i class="fa fa-users"></i> <span>Рейтинг</span></a></li>
+			<li><a href="index.php?service=olympiads.problems"><i class="fa fa-th-list"></i> <span>Змагання</span></a></li>
+			<li><a href="index.php?service=olympiads.result"><i class="fa fa-star"></i> <span>Рейтинг</span></a></li>
+			
+			<li class="header">Дії</li>
+			<li><a href="index.php?service=olympiads.problems"><i class="fa fa-sign-out"></i> <span>Покинути змагання</span></a></li>
 			
 			<?php else: ?>
 			

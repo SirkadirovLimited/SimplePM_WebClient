@@ -63,7 +63,7 @@
 			die(header('location: index.php?service=error&err=db_error'));
 		
 		// Redirect user to the main service
-		//exit(header('location: index.php'));
+		exit(header('location: index.php'));
 		
 	}
 	
