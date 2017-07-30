@@ -92,7 +92,7 @@
 		SELECT
 			sum(`difficulty`)
 		FROM
-			`spm_olympiads`
+			`spm_problems`
 		WHERE
 			`id` IN (
 				SELECT
@@ -112,7 +112,7 @@
 	
 	/////////////////////////////////////
 	
-	SPM_header("Олімпіада #" . $_GET["id"], "Статистика змагання");
+	SPM_header("Змагання #" . $_GET["id"], "Статистика змагання");
 ?>
 
 <div class="box box-default box-solid" style="border-radius: 0; margin-bottom: 20px; overflow: hidden;">
@@ -132,7 +132,7 @@
 					<dd><?=$olymp['description']?></dd>
 					
 					<dt>Тип змагання</dt>
-					<dd><?=$olymp['type'])?></dd>
+					<dd><?=$olymp['type']?></dd>
 				</dl>
 				
 			</div>

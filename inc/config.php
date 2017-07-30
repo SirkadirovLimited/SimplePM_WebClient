@@ -163,8 +163,8 @@
 		//Available services
 		$_SPM_CONF["SERVICE"]["logout"] = "login/logout.php";
 		
-		$_SPM_CONF["SERVICE"]["olympiads.problems"] = "olympiads/user/problems.php";
-		$_SPM_CONF["SERVICE"]["olympiads.result"] = "olympiads/olympiads.result.php";
+		$_SPM_CONF["SERVICE"]["olympiads.problems"] = "olymp/user/problems.php";
+		$_SPM_CONF["SERVICE"]["olympiads.result"] = "olymp/olympiads.result.php";
 		
 		$_SPM_CONF["SERVICE"]["image"] = "image.php";
 		

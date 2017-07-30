@@ -30,7 +30,7 @@
 				FROM
 					`spm_olympiads`
 				WHERE
-					`id` = '" . $user["teacherId"] . "'
+					`id` = '" . $associatedOlympId . "'
 				AND
 					`endTime` >= now()
 				LIMIT
@@ -63,7 +63,7 @@
 			else
 			{
 				// Set associated session variables
-				$_SESSION["olymp"] = $associatedOlymp;
+				$_SESSION["olymp"] = $associatedOlympId;
 				
 				// Unset unused session variables
 				unset($_SESSION["classwork"]);

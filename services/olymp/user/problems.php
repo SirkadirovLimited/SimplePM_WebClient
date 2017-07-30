@@ -12,9 +12,9 @@
 		SELECT
 			count(`id`)
 		FROM
-			`spm_classworks_problems`
+			`spm_olympiads_problems`
 		WHERE
-			`classworkId` = '" . $_SESSION["classwork"] . "'
+			`olympId` = '" . $_SESSION["olymp"] . "'
 		;
 	";
 	
@@ -49,9 +49,9 @@
 		SELECT
 			*
 		FROM
-			`spm_classworks`
+			`spm_olympiads`
 		WHERE
-			`id` = '" . $_SESSION["classwork"] . "'
+			`id` = '" . $_SESSION["olymp"] . "'
 		LIMIT
 			1
 		;
@@ -63,21 +63,20 @@
 	if ($query->num_rows == 0)
 		die(header('location: index.php'));
 	
-	$classwork = $query->fetch_assoc();
+	$olymp = $query->fetch_assoc();
 	$query->free();
 	
 	/////////////////////////////////////
 	
 	$query_str = "
 		SELECT
-			*
+			`problemId`
 		FROM
-			`spm_classworks_problems`
+			`spm_olympiads_problems`
 		WHERE
-			`classworkId` = '" . $_SESSION["classwork"] . "'
+			`olympId` = '" . $_SESSION["olymp"] . "'
 		ORDER BY
-			`id`
-		ASC
+			`id` ASC
 		LIMIT
 			" . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . "
 		;
@@ -102,7 +101,7 @@
 			AND
 				`problemId` = '" . $problemId . "'
 			AND
-				`classworkId` = '" . $_SESSION["classwork"] . "'
+				`olympId` = '" . $_SESSION["olymp"] . "'
 			ORDER BY
 				`submissionId` DESC
 			LIMIT
@@ -126,16 +125,16 @@
 	
 	/////////////////////////////////////
 	
-	SPM_header("Урок #" . $_SESSION["classwork"], "Список завдань");
+	SPM_header("Змагання #" . $_SESSION["olymp"], "Список завдань");
 ?>
 
 <div class="info-box bg-orange">
 	<span class="info-box-icon">&nbsp;<i class="fa fa-thumb-tack">&nbsp;</i></span>
 	
 	<div class="info-box-content" style="word-wrap: break-word;">
-		<h4 style="margin-bottom: 0;"><?=$classwork['name']?></h4>
-		<p style="margin: 0;"><?=$classwork['description']?></p>
-		<p>Початок: <i><?=$classwork['startTime']?></i> Кінець: <i><?=$classwork['endTime']?></i></p>
+		<h4 style="margin-bottom: 0;"><?=$olymp['name']?></h4>
+		<p style="margin: 0;"><?=$olymp['description']?></p>
+		<p>Початок: <i><?=$olymp['startTime']?></i> Кінець: <i><?=$olymp['endTime']?></i></p>
 	</div>
 </div>
 
@@ -145,7 +144,7 @@
 	</div>
 	<div class="box-body" style="padding: 0;">
 		
-		<?php if ($total_articles_number == 0 || $query->num_rows === 0): ?>
+		<?php if ($total_articles_number == 0 || $query->num_rows == 0): ?>
 		<div align="center">
 			<h1>Упс!</h1>
 			<p class="lead">Завдань немає, але ви тримайтесь :)</p>

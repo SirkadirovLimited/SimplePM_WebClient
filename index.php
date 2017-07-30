@@ -85,7 +85,7 @@
 		$_spm_run_service = preg_replace("/[^a-zA-Z0-9.\-_\s]/", "", $_GET['service']);
 	else
 		$_spm_run_service = $_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"];
-
+	
 	if(!isset($_SESSION['uid']) && !isset($_SPM_CONF["SERVICE_NOLOGIN"][$_spm_run_service]))
 		$_spm_run_service = "login";
 

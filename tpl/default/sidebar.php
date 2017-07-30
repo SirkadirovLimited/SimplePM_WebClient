@@ -13,6 +13,8 @@
 			<?php elseif (isset($_SESSION["olymp"])): ?>
 			
 			<li class="header">РЕЖИМ ЗМАГАННЯ</li>
+			<li><a href="index.php?service=olympiads.problems"><i class="fa fa-users"></i> <span>Змагання</span></a></li>
+			<li><a href="index.php?service=olympiads.result"><i class="fa fa-users"></i> <span>Рейтинг</span></a></li>
 			
 			<?php else: ?>
 			

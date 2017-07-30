@@ -9,13 +9,23 @@
 		<a href="#" class="sidebar-toggle" data-toggle="offcanvas" title="Меню"></a>
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
+				
+				<!-- Translator widget  ->
 				<?php $_SPM_CONF["BASE"]["ENABLE_TRANSLATOR"] && include(_S_MOD_ . "translator.php"); ?>
+				
+				<!-- Competitions -->
 				<?php include(_S_MOD_ . "classwork.php"); ?>
-				<?php if (!isset($_SESSION["classwork"])): ?>
+				<?php include(_S_MOD_ . "olympiad.php"); ?>
+				
+				<!-- Menus  -->
+				<?php if (!isset($_SESSION["classwork"]) && !isset($_SESSION["olymp"])): ?>
 					<?php include(_S_MOD_ . "onlinemenu.php"); ?>
 					<?php include(_S_MOD_ . "birthdaysmenu.php"); ?>
 				<?php endif; ?>
+				
+				<!-- User menu -->
 				<?php include(_S_MOD_ . "usermenu.php"); ?>
+				
 			</ul>
 		</div>
 	</nav>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Июл 23 2017 г., 17:48
+-- Время создания: Июл 30 2017 г., 14:33
 -- Версия сервера: 5.7.18-log
 -- Версия PHP: 7.1.1
 
@@ -21,32 +21,6 @@ SET time_zone = "+00:00";
 --
 -- База данных: `simplepm`
 --
-
-DELIMITER $$
---
--- Процедуры
---
-CREATE DEFINER=`*`@`localhost` PROCEDURE `updateBCount` (IN `uId` BIGINT UNSIGNED)  SQL SECURITY INVOKER
-begin
-DECLARE sumVal FLOAT DEFAULT 0;
-SELECT SUM(`b`) INTO sumVal FROM `spm_submissions` WHERE (`userId` = uId AND `b` > 0 AND `classworkId` = 0 AND `olympId` = 0);
-UPDATE `spm_users` SET `bcount` = sumVal WHERE `id` = uId LIMIT 1;
-end$$
-
-CREATE DEFINER=`*`@`localhost` PROCEDURE `updateRating` (IN `urId` BIGINT UNSIGNED)  SQL SECURITY INVOKER
-begin
-
-DECLARE sumVal FLOAT DEFAULT 0;
-DECLARE rProblemsCount TINYINT DEFAULT 0;
-
-SELECT SUM(`b`) INTO `sumVal` FROM `spm_submissions` WHERE (`userId` = urId AND `b` >= 0 AND `classworkId` = 0 AND `olympId` = 0) ORDER BY `b` DESC LIMIT 30;
-
-SELECT COUNT(`submissionId`) INTO `rProblemsCount` FROM `spm_submissions` WHERE (`userId` = urId AND `b` >= 0 AND `classworkId` = 0 AND `olympId` = 0) ORDER BY `b` DESC LIMIT 30;
-
-UPDATE `spm_users` SET `rating` = (sumVal / rProblemsCount) WHERE `id` = urId LIMIT 1;
-end$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -93,6 +67,36 @@ CREATE TABLE IF NOT EXISTS `spm_messages` (
   `message` blob NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='Messages table';
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `spm_olympiads`
+--
+
+CREATE TABLE IF NOT EXISTS `spm_olympiads` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` tinytext NOT NULL,
+  `description` text,
+  `startTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `endTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `teacherId` bigint(20) UNSIGNED NOT NULL,
+  `type` enum('Private','Public') NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `spm_olympiads_problems`
+--
+
+CREATE TABLE IF NOT EXISTS `spm_olympiads_problems` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `olympId` bigint(20) UNSIGNED NOT NULL,
+  `problemId` bigint(20) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -167,38 +171,36 @@ INSERT INTO `spm_problems` (`id`, `enabled`, `difficulty`, `catId`, `name`, `des
 
 CREATE TABLE IF NOT EXISTS `spm_problems_categories` (
   `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` tinytext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `sort` smallint(5) UNSIGNED DEFAULT NULL,
+  `name` tinytext CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `spm_problems_categories`
 --
 
-INSERT INTO `spm_problems_categories` (`id`, `name`) VALUES
-(1, 'Линейные'),
-(3, 'Ветвление'),
-(4, 'Циклы с параметром'),
-(5, 'Циклы с условием'),
-(6, 'Одномерные массивы'),
-(7, 'Многомерные массивы'),
-(8, 'Строки'),
-(9, 'Работа с файловой системой'),
-(10, 'Арифметика'),
-(11, 'Динамика'),
-(12, 'Рекурсия'),
-(13, 'Моделирование'),
-(14, 'Теория графов'),
-(15, 'Множества'),
-(16, 'Комбинаторика'),
-(17, 'Списки'),
-(18, 'Процедуры и функции'),
-(19, 'Занимательная информатика'),
-(20, 'Занимательная физика'),
-(21, 'Обязательный минимум'),
-(22, 'Олимпиады, турниры'),
-(23, 'SDL / OpenGL'),
-(24, 'UI Design');
+INSERT INTO `spm_problems_categories` (`id`, `sort`, `name`) VALUES
+(1, 1, 'Лінійні'),
+(3, 2, 'Розгалуження'),
+(4, 3, 'Цикли з параметром'),
+(5, 4, 'Цикли з умовою'),
+(6, 6, 'Одномірні массиви'),
+(7, 7, 'Багатомірні массиви'),
+(8, 8, 'Рядки'),
+(10, 9, 'Арифметика'),
+(11, 10, 'Динаміка'),
+(12, 11, 'Рекурсія'),
+(13, 12, 'Моделювання'),
+(14, 13, 'Теорія графів'),
+(15, 14, 'Множини'),
+(16, 15, 'Комбінаторика'),
+(17, 16, 'Списки'),
+(18, 17, 'Процедури та функції'),
+(19, 18, 'Цікава інформатика'),
+(20, 19, 'Занимательная физика'),
+(21, 20, 'Обов\'язковий мінімум'),
+(22, 21, 'Олімпіади, турніри');
 
 -- --------------------------------------------------------
 
@@ -339,7 +341,7 @@ CREATE TABLE IF NOT EXISTS `spm_submissions` (
   `result` tinytext,
   `b` float UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`submissionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=8022 DEFAULT CHARSET=utf8 COMMENT='Problem submissions';
+) ENGINE=InnoDB AUTO_INCREMENT=8048 DEFAULT CHARSET=utf8 COMMENT='Problem submissions';
 
 -- --------------------------------------------------------
 
@@ -384,9 +386,10 @@ CREATE TABLE IF NOT EXISTS `spm_users` (
   `phone` tinytext,
   `group` tinytext NOT NULL,
   `banned` tinyint(4) NOT NULL DEFAULT '0',
+  `associatedOlymp` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
