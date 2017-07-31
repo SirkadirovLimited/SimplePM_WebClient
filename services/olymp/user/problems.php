@@ -120,7 +120,7 @@
 		$query->free();
 		unset($query);
 		
-		return (int)$result;
+		return (float)$result;
 	}
 	
 	/////////////////////////////////////

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Июл 30 2017 г., 14:33
+-- Время создания: Июл 31 2017 г., 23:46
 -- Версия сервера: 5.7.18-log
 -- Версия PHP: 7.1.1
 
@@ -22,6 +22,32 @@ SET time_zone = "+00:00";
 -- База данных: `simplepm`
 --
 
+DELIMITER $$
+--
+-- Процедуры
+--
+CREATE DEFINER=`*`@`localhost` PROCEDURE `updateBCount` (IN `uId` BIGINT UNSIGNED)  SQL SECURITY INVOKER
+begin
+DECLARE sumVal FLOAT DEFAULT 0;
+SELECT SUM(`b`) INTO sumVal FROM `spm_submissions` WHERE (`userId` = uId AND `b` > 0 AND `classworkId` = 0 AND `olympId` = 0);
+UPDATE `spm_users` SET `bcount` = sumVal WHERE `id` = uId LIMIT 1;
+end$$
+
+CREATE DEFINER=`*`@`localhost` PROCEDURE `updateRating` (IN `urId` BIGINT UNSIGNED)  SQL SECURITY INVOKER
+begin
+
+DECLARE sumVal FLOAT DEFAULT 0;
+DECLARE rProblemsCount TINYINT DEFAULT 0;
+
+SELECT SUM(`b`) INTO `sumVal` FROM `spm_submissions` WHERE (`userId` = urId AND `b` >= 0 AND `classworkId` = 0 AND `olympId` = 0) ORDER BY `b` DESC LIMIT 30;
+
+SELECT COUNT(`submissionId`) INTO `rProblemsCount` FROM `spm_submissions` WHERE (`userId` = urId AND `b` >= 0 AND `classworkId` = 0 AND `olympId` = 0) ORDER BY `b` DESC LIMIT 30;
+
+UPDATE `spm_users` SET `rating` = (sumVal / rProblemsCount) WHERE `id` = urId LIMIT 1;
+end$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -37,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `spm_classworks` (
   `teacherId` bigint(20) UNSIGNED NOT NULL,
   `studentsGroup` bigint(20) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Olympiads';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Olympiads';
 
 -- --------------------------------------------------------
 
@@ -50,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `spm_classworks_problems` (
   `classworkId` bigint(20) UNSIGNED NOT NULL,
   `problemId` mediumint(8) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='Problems list for olympiads';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Problems list for olympiads';
 
 -- --------------------------------------------------------
 
@@ -66,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `spm_messages` (
   `to` int(10) UNSIGNED NOT NULL,
   `message` blob NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='Messages table';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Messages table';
 
 -- --------------------------------------------------------
 
@@ -83,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `spm_olympiads` (
   `teacherId` bigint(20) UNSIGNED NOT NULL,
   `type` enum('Private','Public') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -96,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `spm_olympiads_problems` (
   `olympId` bigint(20) UNSIGNED NOT NULL,
   `problemId` bigint(20) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -109,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `spm_pages` (
   `name` text NOT NULL,
   `content` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='SimplePM pages table';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='SimplePM pages table';
 
 --
 -- Дамп данных таблицы `spm_pages`
@@ -141,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `spm_problems` (
   `input` text,
   `output` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1015 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `spm_problems`
@@ -174,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `spm_problems_categories` (
   `sort` smallint(5) UNSIGNED DEFAULT NULL,
   `name` tinytext CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `spm_problems_categories`
@@ -256,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `spm_problems_tests` (
   `timeLimit` smallint(5) UNSIGNED NOT NULL DEFAULT '200',
   `description` tinytext,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `spm_problems_tests`
@@ -339,9 +365,9 @@ CREATE TABLE IF NOT EXISTS `spm_submissions` (
   `exitcodes` mediumtext,
   `compiler_text` text,
   `result` tinytext,
-  `b` float UNSIGNED NOT NULL DEFAULT '0',
+  `b` double UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`submissionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=8048 DEFAULT CHARSET=utf8 COMMENT='Problem submissions';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Problem submissions';
 
 -- --------------------------------------------------------
 
@@ -389,7 +415,7 @@ CREATE TABLE IF NOT EXISTS `spm_users` (
   `associatedOlymp` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -402,7 +428,7 @@ CREATE TABLE IF NOT EXISTS `spm_users_groups` (
   `name` tinytext NOT NULL,
   `teacherId` bigint(20) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='User groups';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User groups';
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
