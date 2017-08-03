@@ -69,7 +69,7 @@
 	
 	$_SPM_CONF["SERVICE"]["olympiads.list"] = "olymp/admin/olympiads.list.php";
 	$_SPM_CONF["SERVICE"]["olympiads.edit"] = "olymp/admin/olympiads.edit.php";
-	$_SPM_CONF["SERVICE"]["olympiads.result"] = "olymp/admin/olympiads.edit.php";
+	$_SPM_CONF["SERVICE"]["olympiads.result"] = "olymp/olympiads.result.php";
 	
 	//                             USER SERVICES
 	$_SPM_CONF["SERVICE"]["user"] = "user/user.php";

@@ -1,6 +1,6 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	deniedOrAllowed(PERMISSION::student);
+	deniedOrAllowed(PERMISSION::student | PERMISSION::teacher | PERMISSION::administrator);
 	
 	//SORT BY TYPES
 	$_SORT_BY["id"] = "id";

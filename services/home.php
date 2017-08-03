@@ -1,7 +1,6 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	
-	SPM_header("SimplePM", "Головна сторінка");
+	SPM_header("Головна сторінка");
 	
 	function getUsersCount($permission){
 		
@@ -59,6 +58,12 @@
 	}
 	.bg-blue {
 		background-color: #3c8dbc !important;
+	}
+	
+	.small-box:hover {
+		-ms-transform: scale(1.01, 1.01);
+		-webkit-transform: scale(1.01, 1.01);
+		transform: scale(1.01, 1.01);
 	}
 </style>
 <header>

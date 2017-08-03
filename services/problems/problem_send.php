@@ -183,7 +183,6 @@
 		;
 	";
 	
-	//for ($i = 1; $i <= 80; $i++)
 	if (!$db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	

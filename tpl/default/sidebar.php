@@ -26,13 +26,13 @@
 				// user
 				include_once(_S_TPL_ . "sidebar/user.inc.php");
 				// student
-				if (permission_check($_SESSION['permissions'], PERMISSION::student))
+				if (permission_check($_SESSION['permissions'], PERMISSION::student | PERMISSION::teacher | PERMISSION::administrator))
 					include_once(_S_TPL_ . "sidebar/student.inc.php");
 				// teacher
 				if (permission_check($_SESSION['permissions'], PERMISSION::teacher))
 					include_once(_S_TPL_ . "sidebar/teacher.inc.php");
 				// olympiads
-				if (permission_check($_SESSION['permissions'], PERMISSION::olymp | PERMISSION::administrator))
+				if (permission_check($_SESSION['permissions'], PERMISSION::administrator | PERMISSION::olymp))
 					include_once(_S_TPL_ . "sidebar/olymp.inc.php");
 				// admin
 				if (permission_check($_SESSION['permissions'], PERMISSION::administrator))

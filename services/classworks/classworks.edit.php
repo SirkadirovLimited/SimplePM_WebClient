@@ -66,22 +66,22 @@
 						</tr>
 						<tr>
 							<td>Назва уроку</td>
-							<td><input type="text" class="form-control" name="name" value="<?=@$cwork_info['name']?>" reqired></td>
+							<td><input type="text" class="form-control" name="name" value="<?=@$cwork_info['name']?>" required></td>
 						</tr>
 						<tr>
 							<td>Опис уроку</td>
-							<td><textarea class="form-control" style="resize: none;" name="description" rows="5" reqired><?=@$cwork_info['description']?></textarea></td>
+							<td><textarea class="form-control" style="resize: none;" name="description" rows="5" required><?=@$cwork_info['description']?></textarea></td>
 						</tr>
 						<tr>
 							<td>Дата та час початку</td>
 							<td>
-								<input type="text" class="form-control" name="startTime" placeholder="РРРР-ММ-ДД ГГ:ХХ:СС" value="<?=@$cwork_info['startTime']?>" reqired>
+								<input type="text" class="form-control" name="startTime" placeholder="РРРР-ММ-ДД ГГ:ХХ:СС" value="<?=@$cwork_info['startTime']?>" required>
 							</td>
 						</tr>
 						<tr>
 							<td>Дата та час кінця</td>
 							<td>
-								<input type="text" class="form-control" name="endTime" placeholder="РРРР-ММ-ДД ГГ:ХХ:СС" value="<?=@$cwork_info['endTime']?>" reqired>
+								<input type="text" class="form-control" name="endTime" placeholder="РРРР-ММ-ДД ГГ:ХХ:СС" value="<?=@$cwork_info['endTime']?>" required>
 							</td>
 						</tr>
 						
@@ -90,7 +90,7 @@
 								Учнівська група
 							</td>
 							<td>
-								<select name="studentsGroup" class="form-control">
+								<select name="studentsGroup" class="form-control" required>
 									<?php if ($_GET['id'] > 0): ?>
 									<option value="<?=$cwork_info['studentsGroup']?>" selected><?=spm_getUserGroupByID($cwork_info['studentsGroup'])?> (вибрана)</option>
 									<?php endif; ?>

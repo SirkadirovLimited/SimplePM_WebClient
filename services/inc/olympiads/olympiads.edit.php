@@ -69,7 +69,8 @@
 	//Получаем идентификатор урока
 	$_classworkId = $db->insert_id;
 	
-	if (isset($_POST['problems-by-id'])){
+	if (isset($_POST['problems-by-id']))
+	{
 	
 		$problems = explode("\n", $_POST['problems-by-id']);
 		
@@ -77,12 +78,12 @@
 			$problemId = (int)mysqli_real_escape_string($db, strip_tags(trim($problem)));
 			
 			$query_str = "
-						INSERT INTO
-							`spm_olympiads_problems`
-						SET
-							`classworkId` = '" . $_classworkId . "',
-							`problemId` = '" . $problemId . "'
-						;
+				INSERT INTO
+					`spm_olympiads_problems`
+				SET
+					`olympId` = '" . $_classworkId . "',
+					`problemId` = '" . $problemId . "'
+				;
 			";
 			
 			@$db->query($query_str);

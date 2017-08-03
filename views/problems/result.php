@@ -1,6 +1,5 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	deniedOrAllowed(PERMISSION::student);
 	
 	global $submission;
 	

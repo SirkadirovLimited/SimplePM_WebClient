@@ -3,7 +3,7 @@
 	
 	abstract class PERMISSION
 	{
-		const user = 1;
+		//const user = 1;
 		const student = 2;
 		const teacher = 4;
 		const olymp = 8;

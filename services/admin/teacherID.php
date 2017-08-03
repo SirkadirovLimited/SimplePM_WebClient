@@ -43,9 +43,9 @@
 		
 		//New user permission set
 		if (permission_check($userPermissions, PERMISSION::administrator))
-			$newUserPermission = 6;
+			$newUserPermission = PERMISSION::teacher;
 		else
-			$newUserPermission = 2;
+			$newUserPermission = PERMISSION::student;
 		
 		$query_str = "
 			INSERT INTO
