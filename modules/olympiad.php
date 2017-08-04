@@ -46,7 +46,7 @@
 			if (m == 0) {
 				if (h == 0) {
 					alert("Упс! Часу більше немає... Ви будете переадресовані на сторінку результатів змагання.");
-					window.location.href = "index.php?service=classworks.result&id=<?=$_SESSION["olymp"]?>";
+					window.location.href = "index.php?service=olympiads.result&id=<?=$_SESSION["olymp"]?>";
 					return;
 				}
 				h--;
