@@ -1,12 +1,8 @@
 <?php
 	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
-	if (isset($_SESSION['uid'])) {
-		SPM_header("Ошибка 403");
-		include_once(_S_TPL_ERR_ . $_SPM_CONF["ERR_PAGE"]["access_denied"]);
-		SPM_footer();
-		exit();
-	}
+	if (isset($_SESSION['uid']))
+		die(header('location: index.php?service=error&err=403'));
 	
 	if (isset($_POST['submit'])){
 		

@@ -223,7 +223,7 @@
 						";
 						
 						if (!$query = $db->query($query_str))
-							header('location: index.php?service=error&err=db_error');
+							die(header('location: index.php?service=error&err=db_error'));
 						
 						$right_problems_count = @($query->fetch_array()[0]);
 						

@@ -47,7 +47,7 @@
 
 <form method="post">
 	
-	<div class="box box-primary box-solid" style="border-radius: 0;">
+	<div class="box box-primary" style="border-radius: 0;">
 		<div class="box-header with-border" style="border-radius: 0;">
 			<h3 class="box-title">Базова конфігурація</h3>
 		</div>
@@ -79,7 +79,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>Дата та час кінця</td>
+							<td>Дата та час завершення</td>
 							<td>
 								<input type="text" class="form-control" name="endTime" placeholder="РРРР-ММ-ДД ГГ:ХХ:СС" value="<?=@$cwork_info['endTime']?>" required>
 							</td>
@@ -91,8 +91,44 @@
 		</div>
 	</div>
 	
+	<div class="box box-warning" style="border-radius: 0;">
+		<div class="box-header with-border" style="border-radius: 0;">
+			<h3 class="box-title">Додаткові опції</h3>
+		</div>
+		<div class="box-body" style="padding: 0; margin: 0;">
+			
+			<div class="table-responsive" style="border-radius: 0; margin: 0;">
+				<table class="table table-bordered" style="margin: 0;">
+					<thead>
+						<th width="30%">Параметр</th>
+						<th width="70%">Значення</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Параметри виходу учасників зі змагання</td>
+							<td>
+								<label>
+									<input type="checkbox" name="name" value="1" id="cbx1">
+									<span style="font-weight: 400;">Дозволити вихід зі змагання</span>
+									</input>
+								</label>
+								<br>
+								<label>
+									<input type="checkbox" name="name" value="1" id="cbx1">
+									<span style="font-weight: 400;">При виході зі змагання видалити результати користувача</span>
+									</input>
+								</label>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+	</div>
+	
 <?php if ($_GET['id'] == 0): ?>
-	<div class="box box-danger box-solid" style="border-radius: 0;">
+	<div class="box box-danger" style="border-radius: 0;">
 		<div class="box-header with-border" style="border-radius: 0;">
 			<h3 class="box-title">Список задач</h3>
 		</div>
@@ -107,15 +143,10 @@
 					<tbody>
 						<tr>
 							<td>Задачі за номерами<br/>(1 рядок - 1 номер)</td>
-							<td><textarea class="form-control" style="resize: none;" rows="5" name="problems-by-id"></textarea></td>
+							<td><textarea class="form-control" style="resize: vertical;" rows="5" name="problems-by-id"></textarea></td>
 						</tr>
 					</tbody>
 				</table>
-			</div>
-			
-			<div class="callout callout-warning" style="border-radius: 0;  margin: 0;">
-				<p><strong>Зауваження:</strong> Після збереження змагання внести зміни у список задач буде не можливо!</p>
-				<p><strong>Увага:</strong> У олімпіадному режимі всі заборонені для рішення задачі, що входять до списку, стають доступними для учасників олімпіади!</p>
 			</div>
 			
 		</div>

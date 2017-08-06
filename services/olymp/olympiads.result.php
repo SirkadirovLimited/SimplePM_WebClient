@@ -223,16 +223,17 @@
 						";
 						
 						if (!$query = $db->query($query_str))
-							header('location: index.php?service=error&err=db_error');
+							die(header('location: index.php?service=error&err=db_error'));
 						
 						$right_problems_count = @($query->fetch_array()[0]);
 						
 						@$query->free();
 					?>
 					<?=@(int)$right_problems_count?> / <?=@(int)$problems_count?>
+					&nbsp;(<?=@round($right_problems_count / $problems_count * 100, 2)?>%)
 				</td>
 				<td>
-					<?=$user['sum(`b`)']?> / <?=$users_max_b?> (<?=@round($user['sum(`b`)'] / $users_max_b, 2)?>%)
+					<?=$user['sum(`b`)']?> / <?=$users_max_b?>
 				</td>
 			</tr>
 			<?php endwhile; ?>
