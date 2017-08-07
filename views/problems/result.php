@@ -53,11 +53,9 @@
 				<div class="table-responsive" style="border-radius: 0;">
 					<table class="table table-bordered">
 						<thead>
-							<tr>
-								<th width="75%">Тест</th>
-								<th width="15%">Exitcode</th>
-								<th width="10%">Результат</th>
-							</tr>
+							<th width="75%">Тест</th>
+							<th width="15%">Exitcode</th>
+							<th width="10%">Результат</th>
 						</thead>
 						<tbody>
 							<tr>
@@ -109,7 +107,7 @@
 					<?php if ($submission['testType'] == "release"): ?>
 					<strong>Отримано балів: <?=$submission['b']?> з <?=$problemDifficulty?>.</strong>
 					<?php elseif ($submission['testType'] == "debug" && $submission['output'] != null): ?>
-					<textarea class="form-control" style="width: 100%; resize: none;" rows="5" readonly><?=$submission['output']?></textarea>
+					<pre style="width: 100%; height: 140px; text-align: left; border-radius: 0;"><?=$submission['output']?></pre>
 					<?php endif;?>
 				</div>
 			</div>
