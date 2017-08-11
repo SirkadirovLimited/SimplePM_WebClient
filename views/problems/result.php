@@ -106,7 +106,7 @@
 					</table>
 					<?php if ($submission['testType'] == "release"): ?>
 					<strong>Отримано балів: <?=$submission['b']?> з <?=$problemDifficulty?>.</strong>
-					<?php elseif ($submission['testType'] == "debug" && $submission['output'] != null): ?>
+					<?php elseif ($submission['testType'] == "debug"): ?>
 					<pre style="width: 100%; height: 140px; text-align: left; border-radius: 0;"><?=$submission['output']?></pre>
 					<?php endif;?>
 				</div>

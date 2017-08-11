@@ -25,8 +25,8 @@
 					<!--AVATAR UPLOAD-->
 					<div class="form-group">
 						<label for="avatarFile">Виберіть файл</label>
-						<input type="file" class="form-control" id="avatarFile" name="avatarFile">
-						<p class="help-block">Зображення у форматі JPG / JPEG / PNG / GIF розміром не менше 480х320 і не більше 1920х1080</p>
+						<input type="file" class="form-control" id="avatarFile" name="avatarFile" required>
+						<p class="help-block">Зображення у форматі JPG / JPEG / PNG / GIF.</p>
 					</div>
 					<button type="submit" class="btn btn-primary btn-block btn-flat" name="editAvatar">Завантажити</button>
 					<!--/AVATAR UPLOAD-->

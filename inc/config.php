@@ -127,7 +127,8 @@
 	$_SPM_CONF["PROG_LANGS"]["c"] = true;
 	$_SPM_CONF["PROG_LANGS"]["lua"] = true;
 	$_SPM_CONF["PROG_LANGS"]["python"] = true;
-	$_SPM_CONF["PROG_LANGS"]["java"] = false;
+	$_SPM_CONF["PROG_LANGS"]["java"] = true;
+	$_SPM_CONF["PROG_LANGS"]["php"] = false;
 	/*PROGRAMMING_LANGUAGES-END*/
 	
 	/*FUNCTIONS-START*/

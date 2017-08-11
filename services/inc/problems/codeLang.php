@@ -33,6 +33,9 @@
 			case CODE_LANG::python:
 				return 'python';
 				break;
+			case CODE_LANG::java:
+				return 'java';
+				break;
 			default:
 				die(header('location: index.php?service=error&err=input'));
 				break;
