@@ -62,6 +62,12 @@
 	//         PROBLEM CHECKER         //
 	/////////////////////////////////////
 	
+	//Show disabled problem or not
+	if (!isset($_SESSION["classwork"]) && !isset($_SESSION["olymp"]) && permission_check($_SESSION["permissions"], PERMISSION::student))
+		$showDisabled = "AND `enabled` = true";
+	else
+		$showDisabled = "";
+	
 	$query_str = "
 		SELECT
 			count(`id`)
@@ -69,6 +75,7 @@
 			`spm_problems`
 		WHERE
 			`id` = '" . $_POST['problemId'] . "'
+			" . $showDisabled . "
 		LIMIT
 			1
 		;

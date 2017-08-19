@@ -74,6 +74,12 @@
 	//   SELECT PROBLEM INFORMATION    //
 	/////////////////////////////////////
 	
+	//Show disabled problem or not
+	if (!isset($_SESSION["classwork"]) && !isset($_SESSION["olymp"]) && permission_check($_SESSION["permissions"], PERMISSION::student))
+		$showDisabled = "AND `enabled` = true";
+	else
+		$showDisabled = "";
+	
 	$query_str = "
 		SELECT
 			*
@@ -81,6 +87,7 @@
 			`spm_problems`
 		WHERE
 			`id` = '" . (int)$_GET['id'] . "'
+		" . $showDisabled . "
 		LIMIT
 			1
 		;

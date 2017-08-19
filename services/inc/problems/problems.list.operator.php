@@ -30,12 +30,39 @@
 	
 	//Query text
 	if (!empty($_GET['query']) && $_GET['query'] = mysqli_real_escape_string($db, $_GET['query']))
-		$queryText = "(`name` LIKE '%" . $_GET['query'] . "%' OR `id` = '" . $_GET['query'] . "')";
+		$queryText = "
+			(
+				`name` LIKE '%" . $_GET['query'] . "%'
+			OR
+				`id` = '" . $_GET['query'] . "'
+			)
+		";
 	else
 		$queryText = "1";
 	
+	//Show disabled problems or not
+	if (permission_check($_SESSION["permissions"], PERMISSION::student))
+		$showDisabled = "AND `enabled` = true";
+	else
+		$showDisabled = "";
+	
+	$query_str = "
+		SELECT
+			count(id)
+		AS
+			problems_count
+		FROM
+			`spm_problems`
+		WHERE
+			" . $selectedCatIdText . "
+		AND
+			" . $queryText . "
+		" . $showDisabled . "
+		;
+	";
+	
 	//Count all problems in the archive
-	if (!$db_result = $db->query("SELECT count(id) AS problems_count FROM `spm_problems` WHERE " . $selectedCatIdText . " AND " . $queryText . ""))
+	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	$total_articles_number = (int)($db_result->fetch_assoc()["problems_count"]);
@@ -57,10 +84,32 @@
 	/*
 	 * SQL SELECT query with params
 	 */
-	if (!$db_result = $db->query("SELECT `id`,`difficulty`,`catId`,`name` FROM `spm_problems` WHERE (" . $selectedCatIdText . " AND " . $queryText . ") ORDER BY `" . $_GET["sortby"] . "` " . $_GET["sort"] . " LIMIT " . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . ";"))
+	$query_str = "
+		SELECT
+			`id`,
+			`difficulty`,
+			`catId`,
+			`name`
+		FROM
+			`spm_problems`
+		WHERE
+			(
+				" . $selectedCatIdText . "
+			AND
+				" . $queryText . "
+			)
+			" . $showDisabled . "
+		ORDER BY
+			`" . $_GET["sortby"] . "` " . $_GET["sort"] . "
+		LIMIT
+			" . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . "
+		;
+	";
+	
+	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
-	SPM_header("Архив задач", "Просмотр всех доступных задач");
+	SPM_header("Архів задач", "Список всіх доступних завдань");
 	
 	/*
 	 * FUNCTIONS

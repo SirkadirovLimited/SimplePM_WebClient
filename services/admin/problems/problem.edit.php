@@ -8,7 +8,8 @@
 	if (isset($_POST['save']))
 		include_once(_S_SERV_INC_ . "admin/problem.edit.sender.php");
 	
-	if ($_GET['id'] != null){
+	if ($_GET['id'] != null)
+	{
 		
 		if (!$query_ptr = $db->query("SELECT * FROM `spm_problems` WHERE `id` = '" . (int)$_GET['id'] . "' LIMIT 1;"))
 			die(header('location: index.php?service=error&err=db_error'));
@@ -18,7 +19,9 @@
 		
 		$problem_info = $query_ptr->fetch_assoc();
 		
-	}else{
+	}
+	else
+	{
 		
 		$problem_info['id'] = null;
 		$problem_info['enabled'] = 1;

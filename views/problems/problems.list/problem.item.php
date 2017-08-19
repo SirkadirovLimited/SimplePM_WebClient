@@ -31,6 +31,10 @@
 			`spm_submissions`
 		WHERE
 			`problemId` = '" . $problem['id'] . "'
+		AND
+			`classworkId` = '0'
+		AND
+			`olympId` = '0'
 		;
 	";
 	
@@ -43,6 +47,10 @@
 			`problemId` = '" . $problem['id'] . "'
 		AND
 			`b` = '" . $problem['difficulty'] . "'
+		AND
+			`classworkId` = '0'
+		AND
+			`olympId` = '0'
 		;
 	";
 	
@@ -63,6 +71,10 @@
 		AND
 			`problemId` = '" . $problem['id'] . "'
 		)
+		AND
+			`classworkId` = '0'
+		AND
+			`olympId` = '0'
 		ORDER BY
 			`submissionId` DESC
 		LIMIT

@@ -26,12 +26,12 @@
 	date_default_timezone_set('Europe/Kiev'); //временная зона, подробнее на http://php.net/manual/ru/timezones.php
 	/*BASE_CONFIGURATION-END*/
 	
-	/*DB-CONFIG-START*/
+	/*DB_CONFIG-START*/
 	$_SPM_CONF["DB"]["user"] = "Sirkadirov"; //имя пользователя
 	$_SPM_CONF["DB"]["pass"] = "Dam900000zaua"; //пароль
 	$_SPM_CONF["DB"]["host"] = "localhost"; //ip или домен сервера
 	$_SPM_CONF["DB"]["name"] = "simplepm"; //имя базы данных
-	/*DB-CONFIG-END*/
+	/*DB_CONFIG-END*/
 	
 	/*SERVICES-START*/
 	
