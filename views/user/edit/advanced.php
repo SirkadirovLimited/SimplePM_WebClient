@@ -33,6 +33,7 @@
 				</div>
 			</div>
 			
+			<button type="reset" class="btn btn-default btn-flat btn-block">Відмінити зміни</button>
 			<button type="submit" class="btn btn-danger btn-flat btn-block">Зберегти зміни</button>
 			
 		</form>

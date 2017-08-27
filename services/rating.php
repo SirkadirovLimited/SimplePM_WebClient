@@ -1,7 +1,9 @@
 <?php
 	deniedOrAllowed(PERMISSION::student | PERMISSION::teacher | PERMISSION::administrator);
 	
-	//SORT BY TYPES
+	///////////////////////////////////////
+	/// SORT BY TYPES
+	///////////////////////////////////////
 	$_SORT_BY["id"] = "id";
 	$_SORT_BY["username"] = "username";
 	$_SORT_BY["secondname"] = "secondname";
@@ -9,14 +11,25 @@
 	$_SORT_BY["bcount"] = "bcount";
 	$_SORT_BY["rating"] = "rating";
 	
-	//SORT TYPES
+	///////////////////////////////////////
+	/// SORT TYPES
+	///////////////////////////////////////
 	$_SORT["asc"] = "asc";
 	$_SORT["desc"] = "desc";
 	
-	//SECURITY
+	///////////////////////////////////////
+	/// SECURITY
+	///////////////////////////////////////
 	isset($_GET['page']) or $_GET['page'] = 1;
-	(int)$_GET['page'] > 0 or $_GET['page']=1;
-	isset($_GET["query"]) or $_GET["query"]="";
+	(int)$_GET['page'] > 0 or $_GET['page'] = 1;
+	isset($_GET["query"]) or $_GET["query"] = "";
+	
+	if (isset($_GET['category']) && (int)$_GET['category'] > 0)
+		$_GET['category'] = " AND `group` = '" . (int)$_GET['category'] . "' ";
+	else
+		$_GET['category'] = "";
+	
+	$_GET["query"] = $db->real_escape_string(htmlspecialchars(strip_tags(trim($_GET["query"]))));
 	
 	isset($_GET["sortby"]) && isset($_SORT_BY[$_GET["sortby"]]) or $_GET["sortby"] = $_SORT_BY["rating"];
 	$_GET["sortby"] = $_SORT_BY[$_GET["sortby"]];
@@ -24,25 +37,12 @@
 	isset($_GET["sort"]) && isset($_SORT[$_GET["sort"]]) or $_GET["sort"] = $_SORT["desc"];
 	$_GET["sort"] = $_SORT[$_GET["sort"]];
 	
-	
-	if (!$db_result = $db->query("SELECT count(id) FROM `spm_users`"))
-		die(header('location: index.php?service=error&err=db_error'));
-	
-	$total_articles_number = (int)($db_result->fetch_array()[0]);
+	///////////////////////////////////////
+	/// SQL queries and formatting
+	///////////////////////////////////////
 	$articles_per_page = $_SPM_CONF["SERVICES"]["rating"]["articles_per_page"];
 	$current_page = (int)$_GET['page'];
 	
-	$db_result->free();
-	
-	if ($total_articles_number > 0 && $articles_per_page > 0)
-		$total_pages = ceil($total_articles_number / $articles_per_page);
-	else
-		$total_pages = 1;
-	
-	if ($current_page > $total_pages)
-		$current_page = 1;
-	
-	//SQL queries and formatting
 	$query_str = "
 		SELECT
 			`id`,
@@ -55,6 +55,25 @@
 			`bcount`
 		FROM
 			`spm_users`
+		WHERE
+			(
+				CONCAT(`secondname`, ' ', `firstname`, ' ', `thirdname`) LIKE '%" . $_GET["query"] . "%'
+			OR
+				CONCAT(`firstname`, ' ', `thirdname`) LIKE '%" . $_GET["query"] . "%'
+			OR
+				CONCAT(`secondname`, ' ', `firstname`) LIKE '%" . $_GET["query"] . "%'
+			OR
+				`secondname` = '" . $_GET["query"] . "'
+			OR
+				`firstname` = '" . $_GET["query"] . "'
+			OR
+				`thirdname` = '" . $_GET["query"] . "'
+			OR
+				`username` LIKE '%" . $_GET["query"] . "%'
+			OR
+				`email` LIKE '%" . $_GET["query"] . "%'
+			)
+			" . $_GET['category'] . "
 		ORDER BY
 			`" . $_GET["sortby"] . "` " . $_GET["sort"] . "
 		LIMIT
@@ -64,7 +83,20 @@
 	
 	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
-
+	
+	$total_articles_number = (int)($db_result->num_rows);
+	
+	if ($total_articles_number > 0 && $articles_per_page > 0)
+		$total_pages = ceil($total_articles_number / $articles_per_page);
+	else
+		$total_pages = 1;
+	
+	if ($current_page > $total_pages)
+		$current_page = 1;
+	
+	///////////////////////////////////////
+	/// Header generation
+	///////////////////////////////////////
 	SPM_header("Учнівський рейтинг");
 	
 	/*
@@ -80,18 +112,26 @@
 <!--SEARCH-->
 		<div class="row">
 			<div class="col-md-12">
-				<form action="" method="get">
-					<select class="form-control" name="category" required>
-						<option value="0" selected>Усі групи</option>
-					</select>
-					<input type="submit" class="btn btn-primary btn-block btn-flat" name="categoryCmd" value="Знайти">
+				<form method="get">
+					<input type="hidden" name="service" value="rating">
+					<div class="row-fluid">
+						<div class="col-md-4" style="margin: 0; padding: 0;">
+							<select class="form-control" name="category" required>
+								<option value="0" selected>Усі групи</option>
+							</select>
+						</div>
+						<div class="col-md-8" style="margin: 0; padding: 0;">
+							<input type="text" class="form-control" name="query" placeholder="Пошук" value="<?=$_GET['query']?>">
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary btn-block btn-flat">Знайти</button>
 				</form>
 			</div>
 			<div class="col-md-9">
 			</div>
 		</div>
 <!--PROBLEMS LIST-->
-<?php if ($total_articles_number == 0 || $db_result->num_rows == 0): ?>
+<?php if ($total_articles_number == 0): ?>
 		<div align="center">
 			<h3>Користувачів не знайдено!</h3>
 			<p class="lead">За вашим запитом користувачів не знайдено. Будь ласка, сформулюйте інший пошуковий запит.</p>
@@ -154,7 +194,19 @@
 				$user["rating"] = 0;
 ?>
 					<?php
-						if (!$query_group = $db->query("SELECT `name` FROM `spm_users_groups` WHERE `id` = '" . $user['group'] . "' LIMIT 1;"))
+						$query_str = "
+							SELECT
+								`name`
+							FROM
+								`spm_users_groups`
+							WHERE
+								`id` = '" . $user['group'] . "'
+							LIMIT
+								1
+							;
+						";
+						
+						if (!$query_group = $db->query($query_str))
 							die(header('location: index.php?service=error&err=db_error'));
 						
 						$user['group_name'] = @$query_group->fetch_assoc()['name'];
@@ -185,5 +237,16 @@
 		</div>
 <?php endif;?>
 
-<?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4, "rating", "&sortby=" . $_GET["sortby"] . "&sort=" . $_GET["sort"]); ?>
-<?php SPM_footer(); ?>
+<?php
+	include(_S_MOD_ . "pagination.php");
+	
+	generatePagination(
+		$total_pages,
+		$current_page,
+		4,
+		"rating",
+		"&query=" . $_GET["query"] . "&sortby=" . $_GET["sortby"] . "&sort=" . $_GET["sort"]
+	);
+	
+	SPM_footer();
+?>
