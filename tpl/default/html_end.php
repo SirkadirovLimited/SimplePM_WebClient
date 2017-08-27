@@ -1,4 +1,3 @@
-<?php DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED'); ?>
 		<script src="<?=_S_TPL_?>plugins/sparkline/jquery.sparkline.min.js"></script>
 		<script src="<?=_S_TPL_?>plugins/slimScroll/jquery.slimscroll.min.js"></script>
 		

@@ -1,4 +1,3 @@
-<?php DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED'); ?>
 <header class="main-header">
 	<a href="index.php" class="logo">
 		<span class="logo-mini"><b>S</b>PM</span>

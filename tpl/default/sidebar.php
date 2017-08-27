@@ -1,6 +1,3 @@
-<?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-?>
 <aside class="main-sidebar">
 	<section class="sidebar">
 		<ul class="sidebar-menu">

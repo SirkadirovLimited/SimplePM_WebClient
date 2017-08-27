@@ -1,6 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	
 	isset($_GET["err"]) or $_GET["err"] = "404";
 	
 	switch ($_GET["err"]){

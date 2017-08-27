@@ -1,10 +1,14 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	defined("__spm.user.edit__") or die('403 Access Denied!');
 ?>
-<div class="box box-solid box-danger" id="editPass">
+<div class="box box-danger" id="editPass">
 	<div class="box-header">
 		<h3 class="box-title">Змінити пароль</h3>
+		<div class="box-tools pull-right">
+			<button type="button" class="btn btn-box-tool" data-widget="collapse">
+				<i class="fa fa-minus"></i>
+			</button>
+		</div>
 	</div>
 	<div class="box-body">
 		<form action="index.php?service=user.edit&id=<?=$_GET['id']?>" method="post">

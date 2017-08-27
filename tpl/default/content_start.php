@@ -1,6 +1,3 @@
-<?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-?>
 <div class="content-wrapper" style="background-color: #efefef; min-height: 0px;">
 	<section class="content-header">
 		<h1>

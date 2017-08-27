@@ -1,7 +1,3 @@
-<?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-?>
-
 <li class="dropdown messages-menu">
 	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Перекладач">
 		&nbsp;<i class="fa fa-globe"></i>&nbsp;

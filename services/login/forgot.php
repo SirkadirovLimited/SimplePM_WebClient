@@ -1,6 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	
 	include_once(_S_TPL_ . "pre-login/header.php");
 ?>
 

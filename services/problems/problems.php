@@ -1,5 +1,5 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
+	
 	deniedOrAllowed(PERMISSION::student | PERMISSION::teacher | PERMISSION::administrator);
 	
 	//Включение скрипта, по запросу удаляющего определённую задачу
@@ -10,7 +10,9 @@
 	//Управляющая панель администратора
 	include(_S_VIEW_ . "problems/problems.list/adminbar.php");
 	//Панель поиска и кастомной выборки списка задач из базы данных
-	include(_S_VIEW_ . "problems/problems.list/problems.searchbar.php"); ?>
+	include(_S_VIEW_ . "problems/problems.list/problems.searchbar.php");
+	
+?>
 <!--PROBLEMS LIST-->
 <?php if ($total_articles_number == 0 || $db_result->num_rows == 0): ?>
 <div align="center">

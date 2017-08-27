@@ -1,5 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	deniedOrAllowed(PERMISSION::administrator);
 	
 	SPM_header("Панель адміністратора", "Головна сторінка");
@@ -17,14 +16,6 @@
 			<p class="admin-btn">
 				<h3><span class="glyphicon glyphicon-user"></span></h3>
 				Користувачі системи<br/>(Управління)
-			</p>
-		</a>
-	</div>
-	<div class="col-md-4" style="padding: 0;">
-		<a href="index.php?service=view.admin" style="margin: 0;" class="btn btn-primary btn-xlarge btn-block btn-flat">
-			<p class="admin-btn">
-				<h3><span class="glyphicon glyphicon-book"></span></h3>
-				Статичні сторінки<br/>(Управління)
 			</p>
 		</a>
 	</div>
@@ -68,7 +59,7 @@
 			<dd>admin@sirkadirov.com</dd>
 			
 			<dt>Телефон тех. підтримки</dt>
-			<dd>+380 (98) 121-16-52</dd>
+			<dd>+380 (98) 121-16-52 (якщо ви дзвоните перший раз - напишіть СМС повідомлення з текстом SIMPLEPM, тарифікація за умовами вашого тарифного плану)</dd>
 		</dl>
 	</div>
 </div>

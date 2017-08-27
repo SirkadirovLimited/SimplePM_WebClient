@@ -1,5 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	SPM_header("Головна сторінка");
 	
 	function getUsersCount($permission){

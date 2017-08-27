@@ -1,5 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	/**
 	 * Copyright (C) 2011, Alexander Schedrov.
 	 * All rights are reserved.

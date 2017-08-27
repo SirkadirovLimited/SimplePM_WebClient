@@ -1,6 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	
 	function SPM_header($_TPL_PAGENAME, $_TPL_PAGEDESC = null, $_TPL_PAGESUBNAME = null){
 		if (isset($_SESSION['uid'])){
 			

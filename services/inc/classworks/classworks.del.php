@@ -1,5 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	deniedOrAllowed(PERMISSION::teacher);
 	
 	(isset($_POST['id']) && (int)$_POST['id'] > 0)

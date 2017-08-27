@@ -1,6 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	
 	abstract class PERMISSION
 	{
 		//const user = 1;
@@ -11,10 +9,7 @@
 	}
 	
 	function permission_check($user_access, $access_level){
-		if ($user_access & $access_level)
-			return true;
-		else
-			return false;
+		return $user_access & $access_level;
 	}
 	
 	function deniedOrAllowed($permission){

@@ -1,4 +1,3 @@
-<?php DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED'); ?>
 		</section>
 	</div>
 	<footer class="main-footer">

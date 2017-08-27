@@ -1,5 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	DEFINED("_SPM_register_") OR DIE('403 ACCESS DENIED');
 	
 	$errors_col=0;

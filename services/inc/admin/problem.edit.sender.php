@@ -1,5 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	defined("__spm_admin_problems_edit__") or die(header('location: index.php?service=error&err=403'));
 	deniedOrAllowed(PERMISSION::administrator);
 	

@@ -1,6 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	
 	if (isset($_GET['uid']) && ((int)$_GET['uid'] >= 0)) {
 		
 		/*
@@ -9,7 +7,19 @@
 		
 		$img_id = (int)$_GET['uid'];
 		
-		if (!$db_result = $db->query("SELECT `avatar` FROM `spm_users` WHERE `id` = '" . $img_id . "' LIMIT 1;"))
+		$query_str = "
+			SELECT
+				`avatar`
+			FROM
+				`spm_users`
+			WHERE
+				`id` = '" . $img_id . "'
+			LIMIT
+				1
+			;
+		";
+		
+		if (!$db_result = $db->query($query_str))
 			die;
 		
 		header("Content-type: image/jpeg");
@@ -27,15 +37,27 @@
 		else
 			print(file_get_contents(_S_MEDIA_IMG_ . "no-avatar.png"));
 		
-	}elseif (isset($_GET['id']) && ((int)$_GET['id'] > 0)) {
+	}
+	/*elseif (isset($_GET['id']) && ((int)$_GET['id'] > 0))
+	{
 		
-		/*
-		 * ФУНКЦИОНАЛ ИЗОБРАЖЕНИЙ
-		 */
 		
 		$img_id = (int)$_GET['id'];
 		
-		if(!$db_result = $db->query("SELECT `mime`, `content` FROM `spm_images` WHERE `id` = '" . $img_id . "' LIMIT 1;"))
+		$query_str = "
+			SELECT
+				`mime`,
+				`content`
+			FROM
+				`spm_images`
+			WHERE
+				`id` = '" . $img_id . "'
+			LIMIT
+				1
+			;
+		";
+		
+		if(!$db_result = $db->query($query_str))
 			die;
 		
 		if ($db_result->num_rows === 1) {
@@ -50,7 +72,7 @@
 			
 		}
 		
-	}
+	}*/
 	else
 	{
 		header("Content-type: image/png");

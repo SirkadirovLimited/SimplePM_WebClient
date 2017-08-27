@@ -1,6 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	
 	if ( isset( $_SESSION["uid"] ) && (int)$_SESSION["uid"] > 0){
 		
 		//Query string

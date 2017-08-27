@@ -1,6 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	
 	function _spm_guard_clearAllGet(){
 		global $_GET;
 		

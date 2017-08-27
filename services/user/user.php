@@ -1,5 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	
 	function spm_getTeacherLinkById($teacherId){
 		
@@ -8,23 +7,54 @@
 		if ($teacherId == 0):
 			return "<a>Учитель/Куратор:<br/><b>Темна сторона сили, admin</b></a>";
 		elseif($teacherId > 0):
-			if (!$db_get = $db->query("SELECT `firstname`,`secondname`,`thirdname`,`group` FROM `spm_users` WHERE `id`='" . $teacherId . "' LIMIT 1;"))
+
+			$query_str = "
+				SELECT
+					`firstname`,
+					`secondname`,
+					`thirdname`,
+					`group`
+				FROM
+					`spm_users`
+				WHERE
+					`id`='" . $teacherId . "'
+				LIMIT
+					1
+				;
+			";
+			
+			if (!$db_get = $db->query($query_str))
 				die(header('location: index.php?service=error&err=db_error'));
 			
 			if ($db_get->num_rows == 0):
 				return "<a>Учитель/Куратор:<br/><b>Інкогніто</b></a>";
 			elseif ($db_get->num_rows === 1):
+				
 				$tUser = $db_get->fetch_assoc();
 				$db_get->free();
 				unset($db_get);
 				
-				if (!$query = $db->query("SELECT `name` FROM `spm_users_groups` WHERE `id` = '" . $teacherId . "' LIMIT 1;"))
+				$query_str = "
+					SELECT
+						`name`
+					FROM
+						`spm_users_groups`
+					WHERE
+						`id` = '" . $teacherId . "'
+					LIMIT
+						1
+					;
+				";
+				
+				if (!$query = $db->query($query_str))
 					die(header('location: index.php?service=error&err=db_error'));
 				
 				$tUser['group_name'] = @$query->fetch_array()[0];
 				
 				return "<a href='index.php?service=user&id=" . $teacherId . "'>Учитель/Куратор:<br/><b>" . $tUser['secondname'] . " " . $tUser['firstname'] . " " . $tUser['thirdname'] . ", " . $tUser['group_name'] . "</b></a>";
+				
 			endif;
+			
 		endif;
 		
 	}

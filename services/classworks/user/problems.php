@@ -1,6 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	
 	/////////////////////////////////////
 	
 	isset($_GET['page']) or $_GET['page'] = 1;

@@ -1,5 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	deniedOrAllowed(PERMISSION::administrator);
 	define("__spm_admin_problems_edit__", 1);
 	

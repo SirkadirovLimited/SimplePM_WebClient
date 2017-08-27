@@ -26,8 +26,6 @@
 	//        REQUIRED DEFINES         //
 	/////////////////////////////////////
 	
-	DEFINE("SPM_GENUINE", 1); //Security define
-	
 	DEFINE("_S_INC_", "./inc/");
 	DEFINE("_S_INC_FUNC_", _S_INC_ . "func/");
 	DEFINE("_S_INC_CLASS_", _S_INC_ . "class/");

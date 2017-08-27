@@ -1,4 +1,3 @@
-<?php DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED'); ?>
 				<?php if($_SPM_CONF["BASE"]["ENABLE_TRANSLATOR"]): ?>
 				<div
 					id='MicrosoftTranslatorWidget'

@@ -1,4 +1,3 @@
-<?php DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED'); ?>
 <!--TEACHER-->
 <li class="header">Вчитель</li>
 <li><a href="index.php?service=users.admin"><i class="fa fa-users"></i> <span>Учні</span></a></li>

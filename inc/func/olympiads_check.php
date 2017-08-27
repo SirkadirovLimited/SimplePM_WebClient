@@ -1,6 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	
 	if (isset($_SESSION["uid"]) && permission_check($_SESSION["permissions"], PERMISSION::student)){
 		
 		$query_str = "

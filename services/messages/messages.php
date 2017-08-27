@@ -1,6 +1,4 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
-	
 	/////////////////////////////////////
 	//         SAFETY CHECKER          //
 	/////////////////////////////////////
@@ -142,7 +140,7 @@
 				class="btn btn-box-tool"
 				data-toggle="tooltip"
 				data-widget="chat-pane-toggle"
-				title="Меню выбора собеседника"
+				title="Меню вибору співрозмовника"
 			>
 				<i class="fa fa-comments"></i> <span class="hidden-xs">Вибір співрозмовника</span>
 			</button>

@@ -1,10 +1,14 @@
 <?php
-	DEFINED("SPM_GENUINE") OR DIE('403 ACCESS DENIED');
 	defined("__spm.user.edit__") or die('403 Access Denied!');
 ?>
-<div class="box box-solid box-default" id="editProfile">
+<div class="box box-primary" id="editProfile">
 	<div class="box-header">
-		<h3 class="box-title">Редагування профіля</h3>
+		<h3 class="box-title">Редагування інформації</h3>
+		<div class="box-tools pull-right">
+			<button type="button" class="btn btn-box-tool" data-widget="collapse">
+				<i class="fa fa-minus"></i>
+			</button>
+		</div>
 	</div>
 	<div class="box-body">
 		<p class="text-danger"><b>Заповніть лише ті поля, що хочете змінити!</b></p>
