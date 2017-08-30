@@ -14,12 +14,14 @@
 		
 		<!-- Edit some params -->
 		
-		<form class="form-horizontal" method="post">
+		<form class="form-horizontal" action="<?=$_SERVER["REQUEST_URI"]?>" method="post">
+			
+			<input type="hidden" name="uid" value="<?=$user_info["id"]?>">
 			
 			<div class="form-group">
 				<label for="accessEdit" class="col-sm-2 control-label">Права користувача</label>
 				<div class="col-sm-10">
-					<input type="number" min="0" max="65535" class="form-control" id="accessEdit" placeholder="<?=$user_info['permissions']?>" value="<?=$user_info['permissions']?>" required>
+					<input type="number" min="0" max="65535" class="form-control" id="accessEdit" placeholder="<?=$user_info['permissions']?>" name="permissions" value="<?=$user_info['permissions']?>" required>
 					<span class="help-block">Вкажіть суму привілеїв, що надаються користувачу.</span>
 					
 				</div>
@@ -28,13 +30,13 @@
 			<div class="form-group">
 				<label for="teacherId" class="col-sm-2 control-label">Ідентифікатор куратора</label>
 				<div class="col-sm-10">
-					<input type="number" min="1" max="1000000000" class="form-control" id="teacherId" placeholder="<?=$user_info['teacherId']?>" value="<?=$user_info['teacherId']?>" required>
+					<input type="number" min="1" max="1000000000" class="form-control" id="teacherId" placeholder="<?=$user_info['teacherId']?>" name="teacherId" value="<?=$user_info['teacherId']?>" required>
 					<span class="help-block">Вкажіть ідентифікатор користувача (вчителя чи адміністратора), якому буде підпорядковуватися користувач.</span>
 				</div>
 			</div>
 			
 			<button type="reset" class="btn btn-default btn-flat btn-block">Відмінити зміни</button>
-			<button type="submit" class="btn btn-danger btn-flat btn-block">Зберегти зміни</button>
+			<button type="submit" class="btn btn-danger btn-flat btn-block" name="advancedEdit">Зберегти зміни</button>
 			
 		</form>
 		
