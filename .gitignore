@@ -1,4 +1,5 @@
 # Exclude unused or user-specific files
 
 *.config
-.htpasswd
+*.htpasswd
+.well-known/

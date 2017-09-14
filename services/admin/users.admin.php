@@ -11,17 +11,28 @@
 		
 		if (!permission_check($_SESSION['permissions'], PERMISSION::administrator)){
 			
-			if (!$user_query = $db->query("SELECT * FROM `spm_users` WHERE `id` = " . (int)$_GET['del'] . ""))
+			$query_str = "
+				SELECT
+					`teacherId`
+				FROM
+					`spm_users`
+				WHERE
+					`id` = " . (int)$_GET['del'] . "
+				LIMIT
+					1
+				;
+			";
+			
+			if (!$user_query = $db->query($query_str))
 				die(header('location: index.php?service=error&err=db_error'));
 			
-			if($user_query->num_rows === 0)
+			if($user_query->num_rows == 0)
 				die(header('location: index.php?service=error&err=404'));
 			
-			$users_admin_user = $user_query->fetch_assoc();
-			$user_query->free();
-			
-			if ($users_admin_user["teacherId"] != $_SESSION["uid"])
+			if ($user_query->fetch_array()[0] != $_SESSION["uid"])
 				die(header('location: index.php?service=error&err=403'));
+			
+			$user_query->free();
 			
 		}
 		
@@ -69,7 +80,17 @@
 	(int)$_GET['page']>0
 		or die(header('location: index.php?service=error&err=403'));
 	
-	if (!$db_result = $db->query("SELECT count(*) FROM `spm_users` WHERE " . $where_selector . ";"))
+	$query_str = "
+		SELECT
+			count(`id`)
+		FROM
+			`spm_users`
+		WHERE
+			" . $where_selector . "
+		;
+	";
+	
+	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	$total_articles_number = (int)($db_result->fetch_array()[0]);
@@ -86,7 +107,14 @@
 	
 	$query_str = "
 		SELECT
-			*
+			`id`,
+			`username`,
+			`group`,
+			`firstname`,
+			`secondname`,
+			`thirdname`,
+			`teacherId`,
+			`permissions`
 		FROM
 			`spm_users`
 		WHERE
