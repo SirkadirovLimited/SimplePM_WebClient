@@ -4,3 +4,7 @@ Disallow: /inc/
 Disallow: /tpl/
 Disallow: /modules/
 Disallow: /services/
+Disallow: /media/
+Disallow: /views/
+Disallow: /captcha.php
+Disallow: /phpinfo.php

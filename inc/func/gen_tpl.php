@@ -12,13 +12,16 @@
 			include(_S_TPL_ . "header.php");
 			include(_S_TPL_ . "sidebar.php");
 			include(_S_TPL_ . "content_start.php");
+			
 		}
 	}
 	
 	function SPM_footer(){
 		if (isset($_SESSION['uid'])){
+			
 			include(_S_TPL_ . "footer.php");
 			include(_S_TPL_ . "html_end.php");
+			
 		}
 	}
 ?>

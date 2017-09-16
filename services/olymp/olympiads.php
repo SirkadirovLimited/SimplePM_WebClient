@@ -79,6 +79,8 @@
 			`teacherId` = '" . $_SESSION["teacherId"] . "'
 		AND
 			`endTime` > now()
+		AND
+			`startTime` <= now()
 		;
 	";
 	
@@ -97,6 +99,8 @@
 			`type` = 'Public'
 		AND
 			`endTime` > now()
+		AND
+			`startTime` <= now()
 		;
 	";
 	

@@ -103,6 +103,37 @@
 		</div>
 	</div>
 </div>
+
+<?php if ($_SPM_CONF["BASE"]["debug"]): ?>
+<section style="padding: 10px;">
+	<span>Submissions count: <b id="allSubmCount"></b></span><br/>
+	<span>Waiting count: <b id="waitingSubmCount"></b></span><br/>
+	<span>Processing count: <b id="processingSubmCount"></b></span><br/>
+	<span>Ready count: <b id="readySubmCount"></b></span><br/>
+</section>
+
+<script>
+	$(document).ready(function () {
+		
+		function submCount(command, container)
+		{
+			$.ajax({
+				url: "index.php?service=api&module=submissionsCount&command=" + command,
+			})
+			.done(function( data ) {
+				$('#' + container).html(data);
+			});
+		}
+		
+		setInterval(submCount, 500, "count", "allSubmCount");
+		setInterval(submCount, 500, "waitingCount", "waitingSubmCount");
+		setInterval(submCount, 500, "processingCount", "processingSubmCount");
+		setInterval(submCount, 500, "readyCount", "readySubmCount");
+		
+	});
+</script>
+<?php endif; ?>
+
 <?php
 	SPM_footer();
 ?>

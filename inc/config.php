@@ -13,6 +13,8 @@
 	$_SPM_CONF["BASE"]["SITE_KEYWORDS"] = "SPM,SimplePM,demo,site,website,php,sirkadirov"; //ключевые слова сайта
 	$_SPM_CONF["BASE"]["SITE_URL"] = $_SERVER['HTTP_HOST']; //адрес сайта (можно использовать $_SERVER['HTTP_HOST'])
 	
+	$_SPM_CONF["BASE"]["debug"] = true; //Некоторые возможности отладки. false чтобы отключить.
+	
 	$_SPM_CONF["BASE"]["TPL_NAME"] = "default"; //имя папки шаблона
 	$_SPM_CONF["BASE"]["TPL_TYPE_BOXED"] = false; //использовать ли шаблон фиксированной ширины
 	
@@ -44,6 +46,9 @@
 	$_SPM_CONF["SERVICE"]["view"] = "view.php";
 	$_SPM_CONF["SERVICE"]["rating"] = "rating.php";
 	$_SPM_CONF["SERVICE"]["error"] = "error.php";
+	
+	//                             API SERVICES
+	$_SPM_CONF["SERVICE"]["api"] = "api.php";
 	
 	//                             PROBLEMS SERVICES
 	$_SPM_CONF["SERVICE"]["problems"] = "problems/problems.php";
@@ -94,6 +99,7 @@
 	$_SPM_CONF["SERVICE_NOLOGIN"]["login"] = $_SPM_CONF["SERVICE"]["login"];
 	$_SPM_CONF["SERVICE_NOLOGIN"]["register"] = $_SPM_CONF["SERVICE"]["register"];
 	$_SPM_CONF["SERVICE_NOLOGIN"]["forgot"] = $_SPM_CONF["SERVICE"]["forgot"];
+	$_SPM_CONF["SERVICE_NOLOGIN"]["api"] = $_SPM_CONF["SERVICE"]["api"];
 	/*SERVICES_NOLOGIN-END*/
 	
 	/*SERVICES_SETTINGS-START*/

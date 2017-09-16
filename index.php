@@ -41,6 +41,8 @@
 	DEFINE("_S_MEDIA_FILES_", _S_MEDIA_ . "files/");
 	DEFINE("_S_MEDIA_IMG_", _S_MEDIA_ . "img/");
 	
+	DEFINE("_S_API_", "./api/");
+	
 	/////////////////////////////////////
 	//        REQUIRED INCLUDES        //
 	/////////////////////////////////////
@@ -103,5 +105,5 @@
 	//     CLOSE CONNECTIONS, ETC.     //
 	/////////////////////////////////////
 	
-	$db->close();
+	$db->close(); // разрываем соединение с базой данных
 ?>
