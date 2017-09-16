@@ -12,6 +12,11 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 		<link rel="stylesheet" href="<?=_S_TPL_?>dist/css/AdminLTE.min.css">
 		<link rel="stylesheet" href="<?=_S_TPL_?>dist/css/skins/skin-blue.min.css">
+		<link rel="stylesheet" href="<?=_S_TPL_?>plugins/pace/pace.min.css">
+		
+		<script src="<?=_S_TPL_?>plugins/jQuery/jquery-2.2.3.min.js"></script>
+		<script src="<?=_S_TPL_?>js/push.min.js"></script>
+		
 		<!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -24,8 +29,6 @@
 				 background-size: 100% 100%;
 			 }
 		</style>
-		<script src="<?=_S_TPL_?>plugins/jQuery/jquery-2.2.3.min.js"></script>
-		<script src="<?=_S_TPL_?>js/push.min.js"></script>
 	</head>
 	<body class="hold-transition skin-blue <?=($_SPM_CONF["BASE"]["TPL_TYPE_BOXED"] ? 'sidebar-collapse layout-boxed' : '')?>" style="height: auto;" onload="startTimer()">
 		<div class="wrapper" style="height: auto;">
