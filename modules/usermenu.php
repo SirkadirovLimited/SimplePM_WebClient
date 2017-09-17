@@ -20,9 +20,15 @@
 	$enablelinks = !isset($_SESSION["classwork"]) && !isset($_SESSION["olymp"]);
 ?>
 <li class="dropdown user user-menu">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Выпадающее меню пользователя">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Меню користувача">
+		
 		&nbsp;<img src="index.php?service=image&uid=<?=$_SESSION['uid']?>" class="user-image" alt="Аватар">
 		<span class="hidden-xs"><?=spm_getUserShortnameByID($_SESSION['uid'])?></span>&nbsp;
+		
+		<?php if ($messagesCount > 0): ?>
+		<span class="label label-danger"><?=$messagesCount?></span>
+		<?php endif; ?>
+		
 	</a>
 	<ul class="dropdown-menu" style="border-color: #3c8dbc; padding: 0; border-radius: 0;">
 		<li class="user-header">

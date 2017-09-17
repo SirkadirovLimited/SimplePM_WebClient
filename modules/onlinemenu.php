@@ -21,9 +21,21 @@
 		FROM
 			`spm_users`
 		WHERE
+		(
+			`teacherId` = '" . $_SESSION['uid'] . "'
+		OR
+			`teacherId` = '" . $_SESSION['teacherId'] . "'
+		OR
+			`id` = '" . $_SESSION['teacherId'] . "'
+		OR
+			`id` = '" . $_SESSION['teacherId'] . "'
+		)
+		AND
 			(now() - `lastOnline`) < " . $_SPM_CONF["BASE"]["ONLINE_TIME"] . "
+		ORDER BY
+			`lastOnline` DESC
 		LIMIT
-			0, 5
+			0, 30
 		;
 	";
 	
@@ -33,10 +45,15 @@
 	$users_online_count = $db_count->fetch_array()[0];
 	$db_count->free();
 ?>
+
+<?php if ($users_online_count): ?>
 <li class="dropdown messages-menu">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Кто онлайн?">
+	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Хто онлайн?">
+		
 		&nbsp;<i class="fa fa-user"></i>&nbsp;
+		
 		<span class="label label-warning"><?=$users_online_count?></span>
+		
 	</a>
 	<ul class="dropdown-menu">
 		<li class="header">Користувачі онлайн (<?=$users_online_count?>)</li>
@@ -59,8 +76,11 @@
 			<?php endif; ?>
 			</ul>
 		</li>
+		<li class="footer"><a>Показані останні 30 користувачів</a></li>
 	</ul>
 </li>
 <?php
+	endif;
+	
 	$db_result->free();
 ?>

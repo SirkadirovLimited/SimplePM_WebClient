@@ -8,9 +8,19 @@
 		FROM
 			`spm_users`
 		WHERE
-			MONTH(bdate) = MONTH(NOW())
+		(
+			`teacherId` = '" . $_SESSION['uid'] . "'
+		OR
+			`teacherId` = '" . $_SESSION['teacherId'] . "'
+		OR
+			`id` = '" . $_SESSION['teacherId'] . "'
+		OR
+			`id` = '" . $_SESSION['teacherId'] . "'
+		)
 		AND
-			`teacherId` IN ('" . $_SESSION["uid"] . "', '0', '')
+			MONTH(bdate) = MONTH(NOW())
+		ORDER BY
+			`lastOnline` DESC
 		LIMIT
 			0, 30
 		;
@@ -19,10 +29,15 @@
 	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 ?>
+
+<?php if ($db_result->num_rows > 0): ?>
 <li class="dropdown messages-menu">
 	<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Дні народження">
+		
 		&nbsp;<i class="fa fa-birthday-cake"></i>&nbsp;
+		
 		<span class="label label-danger"><?=$db_result->num_rows?></span>
+		
 	</a>
 	<ul class="dropdown-menu">
 		<li class="header">Дні народження</li>
@@ -47,5 +62,7 @@
 				<?php endwhile; endif; ?>
 			</ul>
 		</li>
+		<li class="footer"><a>Показані останні 30 користувачів</a></li>
 	</ul>
 </li>
+<?php endif; ?>

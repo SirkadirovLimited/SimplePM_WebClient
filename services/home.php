@@ -125,10 +125,10 @@
 			});
 		}
 		
-		setInterval(submCount, 500, "count", "allSubmCount");
-		setInterval(submCount, 500, "waitingCount", "waitingSubmCount");
-		setInterval(submCount, 500, "processingCount", "processingSubmCount");
-		setInterval(submCount, 500, "readyCount", "readySubmCount");
+		setInterval(submCount, 1000, "count", "allSubmCount");
+		setInterval(submCount, 1000, "waitingCount", "waitingSubmCount");
+		setInterval(submCount, 1000, "processingCount", "processingSubmCount");
+		setInterval(submCount, 1000, "readyCount", "readySubmCount");
 		
 	});
 </script>

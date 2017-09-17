@@ -189,6 +189,7 @@
 		;
 	";
 	
+	//for ($i = 0; $i < 5000; $i++)
 	if (!$db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
