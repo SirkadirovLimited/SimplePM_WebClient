@@ -202,7 +202,15 @@
 					<a href="index.php?service=user&id=<?=$user['id']?>"><?=$user['username']?></a>
 				</td>
 				<td>
-					<a href="index.php?service=user&id=<?=$user['id']?>"><?=$user['secondname']?> <?=$user['firstname']?> <?=$user['thirdname']?></a>
+					<a href="index.php?service=user&id=<?=$user['id']?>">
+						<?=$user['secondname']?> <?=$user['firstname']?> <?=$user['thirdname']?>
+					</a>
+					<?php if ($_SESSION['uid'] == $classwork['teacherId']): ?>
+					(<a
+						href="index.php?service=submissions&uid=<?=$user['id']?>&cwId=<?=$_GET["id"]?>"
+						target="_blank"
+					>спроби</a>)
+					<?php endif; ?>
 				</td>
 				<td>
 					<?php

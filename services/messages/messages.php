@@ -3,6 +3,8 @@
 	//         SAFETY CHECKER          //
 	/////////////////////////////////////
 	
+	$_SPM_CONF["SERVICES"]["messagess"]["enabled"] or die(header('location: index.php?service=error&err=403'));
+	
 	isset($_GET["uid"]) or $_GET["uid"] = 0;
 	$_GET["uid"] = (int)$_GET["uid"];
 	
@@ -95,8 +97,9 @@
 	/////////////////////////////////////
 	
 	$query_str = "
-		SELECT DISTINCT LEAST(`from`, `to`),
-		GREATEST(`from`, `to`)
+		SELECT
+			DISTINCT LEAST(`from`, `to`),
+			GREATEST(`from`, `to`)
 		FROM
 			`spm_messages`
 		WHERE
@@ -111,7 +114,7 @@
 	
 	/////////////////////////////////////
 	
-	SPM_header("Діалоги", "");
+	SPM_header("Діалоги", "Універсальний спосіб спілкування");
 ?>
 <div class="box box-primary box-solid direct-chat" style="margin-bottom: 0;">
 	<div class="box-header with-border">

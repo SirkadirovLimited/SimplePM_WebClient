@@ -50,7 +50,7 @@
 			die(header('location: index.php?service=error&err=db_error'));
 		
 		if ($query->num_rows == 0)
-			$result = "Тёмная сторона Силы";
+			$result = "Темна сторона Сили";
 		else {
 			$user_info = $query->fetch_assoc();
 			
@@ -87,7 +87,7 @@
 			die(header('location: index.php?service=error&err=db_error'));
 		
 		if ($query->num_rows == 0)
-			$result = "Тёмная сторона Силы";
+			$result = "Темна сторона Сили";
 		else
 		{
 			$user_info = $query->fetch_assoc();
@@ -138,6 +138,52 @@
 				`spm_users_groups`
 			WHERE
 				`id` = '" . (int)$groupId . "'
+			LIMIT
+				1
+			;
+		";
+		
+		if (!$query = $db->query($query_str))
+			die(header('location: index.php?service=error&err=db_error'));
+		
+		return @$query->fetch_array()[0];
+		
+	}
+	
+	function spm_getGroupNameByUserId($userId){
+		
+		global $db;
+		
+		$query_str = "
+			SELECT
+				`group`
+			FROM
+				`spm_users`
+			WHERE
+				`id` = '" . (int)$userId . "'
+			LIMIT
+				1
+			;
+		";
+		
+		if (!$query = $db->query($query_str))
+			die(header('location: index.php?service=error&err=db_error'));
+		
+		return @spm_getUserGroupByID($query->fetch_array()[0]);
+		
+	}
+	
+	function spm_getUserTeacherId($userId){
+		
+		global $db;
+		
+		$query_str = "
+			SELECT
+				`teacherId`
+			FROM
+				`spm_users`
+			WHERE
+				`id` = '" . (int)$userId . "'
 			LIMIT
 				1
 			;

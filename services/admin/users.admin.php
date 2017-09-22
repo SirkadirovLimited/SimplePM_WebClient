@@ -56,10 +56,18 @@
 			;
 		";
 		
-		if (!$db->query($query_str) || !$db->query($query_str_2))
+		$query_str_3 = "
+			DELETE FROM
+				`spm_submissions`
+			WHERE
+				`userId` = '" . (int)$_GET['del'] . "'
+			;
+		";
+		
+		if (!$db->query($query_str) || !$db->query($query_str_2) || !$db->query($query_str_3))
 			die(header('location: index.php?service=error&err=404'));
-		else
-			exit(header('location: index.php?service=users.admin'));
+		
+		exit(header('location: index.php?service=users.admin'));
 		
 	}
 	

@@ -117,7 +117,44 @@
 					<div class="row-fluid">
 						<div class="col-md-4" style="margin: 0; padding: 0;">
 							<select class="form-control" name="category" required>
+								
 								<option value="0" selected>Усі групи</option>
+								
+								<?php
+									
+									if (permission_check($_SESSION['uid'], PERMISSION::administrator))
+										$_query_mod_1 = '0';
+									elseif (permission_check($_SESSION['uid'], PERMISSION::teacher))
+										$_query_mod_1 = $_SESSION['uid'];
+									else
+										$_query_mod_1 = $_SESSION['teacherId'];
+									
+									$query_str = "
+										SELECT
+											`id`,
+											`name`
+										FROM
+											`spm_users_groups`
+										WHERE
+											`teacherId` = '" . $_query_mod_1 . "'
+										;
+									";
+									
+									if (!$sub_query = $db->query($query_str))
+										die('Database connection error!');
+									
+									while ($group = $sub_query->fetch_assoc()):
+									
+								?>
+								<option value="<?=$group['id']?>"><?=$group['name']?></option>
+								<?php
+									
+									endwhile;
+									
+									$sub_query->free();
+									
+								?>
+								
 							</select>
 						</div>
 						<div class="col-md-8" style="margin: 0; padding: 0;">
