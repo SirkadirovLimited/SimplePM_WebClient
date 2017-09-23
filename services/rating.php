@@ -122,9 +122,9 @@
 								
 								<?php
 									
-									if (permission_check($_SESSION['uid'], PERMISSION::administrator))
+									if (permission_check($_SESSION['permissions'], PERMISSION::administrator))
 										$_query_mod_1 = '0';
-									elseif (permission_check($_SESSION['uid'], PERMISSION::teacher))
+									elseif (permission_check($_SESSION['permissions'], PERMISSION::teacher))
 										$_query_mod_1 = $_SESSION['uid'];
 									else
 										$_query_mod_1 = $_SESSION['teacherId'];
