@@ -4,7 +4,19 @@
 	(isset($_GET['id']) && (int)$_GET['id'] > 0)
 		or die(header('location: index.php?service=error&err=403'));
 	
-	if (!$is_set = $db->query("SELECT count(`id`) FROM `spm_problems` WHERE `id` = '" . (int)$_GET['id'] . "' LIMIT 1;"))
+	$query_str = "
+		SELECT
+			count(`id`)
+		FROM
+			`spm_problems`
+		WHERE
+			`id` = '" . (int)$_GET['id'] . "'
+		LIMIT
+			1
+		;
+	";
+	
+	if (!$is_set = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	if ($is_set->fetch_array()[0] <= 0)
@@ -18,7 +30,17 @@
 	/*
 	 * ВЫБОРКА ТЕСТОВ УКАЗАННОЙ ЗАДАЧИ ИЗ БАЗЫ ДАННЫХ
 	 */
-	if (!$tests_query = $db->query("SELECT * FROM `spm_problems_tests` WHERE `problemID` = '" . (int)$_GET['id'] . "';"))
+	$query_str = "
+		SELECT
+			*
+		FROM
+			`spm_problems_tests`
+		WHERE
+			`problemID` = '" . (int)$_GET['id'] . "'
+		;
+	";
+	
+	if (!$tests_query = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	SPM_header("Задача " . (int)$_GET['id'], "Управління тестами");
@@ -29,6 +51,17 @@
 		<span class="glyphicon glyphicon-chevron-left"></span>
 		&nbsp;Редагування задачі
 	</a>
+	<a href="index.php?service=problem.edit.tests&id=<?=(int)$_GET['id']?>" class="btn btn-default btn-flat">
+		<span class="glyphicon glyphicon-upload"></span>
+		&nbsp;Імпортувати тести
+	</a>
+</div>
+
+<div class="alert alert-info alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<h4><i class="icon fa fa-info"></i> Зверніть увагу</h4>
+	Редагування тестів за допомогою цього інтерфейсу вважається застарілим методом. Рекомендуємо вам використати 
+	для цього SimplePM_TestsGenerator, що можна звантажити на <a href="https://spm.sirkadirov.com/" target="_blank">офіційному сайті SimplePM</a>.
 </div>
 
 <div class="table-responsive" style="margin: 0;">

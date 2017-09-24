@@ -18,8 +18,14 @@
 				
 				<!-- Menus  -->
 				<?php if (!isset($_SESSION["classwork"]) && !isset($_SESSION["olymp"])): ?>
+					
 					<?php include(_S_MOD_ . "onlinemenu.php"); ?>
-					<?php include(_S_MOD_ . "birthdaysmenu.php"); ?>
+					
+					<?php if ($_SPM_CONF["BASE"]["enable_additional_func"]): ?>
+						<?php include(_S_MOD_ . "notifications.php"); ?>
+						<?php include(_S_MOD_ . "birthdaysmenu.php"); ?>
+					<?php endif; ?>
+					
 				<?php endif; ?>
 				
 				<!-- User menu -->

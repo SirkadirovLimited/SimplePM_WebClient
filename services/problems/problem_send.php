@@ -57,6 +57,31 @@
 	
 	$_POST['args'] = mysqli_real_escape_string($db, $_POST['args']);
 	
+	if (empty($_POST['args']) || $_POST['args'] == null || strlen($_POST['args']) <= 0)
+	{
+		
+		$query_str = "
+			SELECT
+				`input`
+			FROM
+				`spm_problems_tests`
+			WHERE
+				`problemId` = '" . $_POST['problemId'] . "'
+			LIMIT
+				1
+			;
+		";
+		
+		if (!$query = $db->query($query_str))
+			die(header('location: index.php?service=error&err=db_error'));
+		
+		if ($query->num_rows > 0)
+			$_POST['args'] = $query->fetch_array()[0];
+		
+		$query->free();
+		
+	}
+	
 	/////////////////////////////////////
 	//         PROBLEM CHECKER         //
 	/////////////////////////////////////

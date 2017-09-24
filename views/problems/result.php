@@ -115,33 +115,21 @@
 	</div>
 </div>
 
-<?php if (!$submission['seen']): ?>
-<script>
-	Push.close('unseenResult');
-	Push.create('<?=$_SPM_CONF["BASE"]["SITE_NAME"]?>', {
-		body: 'Отриман результат тестування для задачі <?=$submission['problemId']?>! Подивіться на нього прямо зараз!',
-		icon: {
-			x16: '<?=_S_MEDIA_IMG_?>smiles/<?=$smile_name?>',
-			x32: '<?=_S_MEDIA_IMG_?>smiles/<?=$smile_name?>'
-		},
-		tag: 'unseenResult',
-		timeout: 4000
-	});
-</script>
 <?php
-	$query_str = "
-		UPDATE
-			`spm_submissions`
-		SET
-			`seen` = true
-		WHERE
-			`submissionId` = '" . $submission['submissionId'] . "'
-		LIMIT
-			1
-		;
-	";
-	
-	if (!$db->query($query_str))
-		die(header('location: index.php?service=error&err=db_error'));
-endif;
+	if (!$submission['seen']):
+		$query_str = "
+			UPDATE
+				`spm_submissions`
+			SET
+				`seen` = true
+			WHERE
+				`submissionId` = '" . $submission['submissionId'] . "'
+			LIMIT
+				1
+			;
+		";
+		
+		if (!$db->query($query_str))
+			die(header('location: index.php?service=error&err=db_error'));
+	endif;
 ?>
