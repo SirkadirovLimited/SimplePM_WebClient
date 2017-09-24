@@ -5,7 +5,7 @@
 		global $db;
 		
 		if ($teacherId == 0):
-			return "<a>Учитель/Куратор:<br/><b>Темна сторона сили, admin</b></a>";
+			return "<a>Викладач / куратор:<br/><b>Темна сторона сили, admin</b></a>";
 		elseif($teacherId > 0):
 
 			$query_str = "
@@ -27,7 +27,7 @@
 				die(header('location: index.php?service=error&err=db_error'));
 			
 			if ($db_get->num_rows == 0):
-				return "<a>Учитель/Куратор:<br/><b>Інкогніто</b></a>";
+				return "<a>Викладач / Куратор:<br/><b>Інкогніто</b></a>";
 			elseif ($db_get->num_rows === 1):
 				
 				$tUser = $db_get->fetch_assoc();
@@ -51,7 +51,7 @@
 				
 				$tUser['group_name'] = @$query->fetch_array()[0];
 				
-				return "<a href='index.php?service=user&id=" . $teacherId . "'>Учитель/Куратор:<br/><b>" . $tUser['secondname'] . " " . $tUser['firstname'] . " " . $tUser['thirdname'] . ", " . $tUser['group_name'] . "</b></a>";
+				return "<a href='index.php?service=user&id=" . $teacherId . "'>Викладач / Куратор:<br/><b>" . $tUser['secondname'] . " " . $tUser['firstname'] . " " . $tUser['thirdname'] . ", " . $tUser['group_name'] . "</b></a>";
 				
 			endif;
 			
@@ -114,7 +114,7 @@
 		</div>
 		<div class="small-box bg-yellow">
 			<div class="inner">
-				<h3><?=(int)$user_info["rating"]?></h3>
+				<h3><?=round($user_info["rating"], 2)?></h3>
 				<p>РЕЙТИНГ КОРИСТУВАЧА</p>
 			</div>
 			<a href="index.php?service=rating" class="small-box-footer">
@@ -133,10 +133,33 @@
 		<h3>Дії</h3>
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="index.php?service=messages&uid=<?=$id?>">Відкрити діалог</a></li>
+			<?php if ($_SESSION['uid'] == $user_info['teacherId'] || permission_check($_SESSION['permissions'], PERMISSION::administrator)): ?>
+			<li><a href="index.php?service=user.edit&id=<?=$id?>">Редагувати користувача</a></li>
+			<?php endif; ?>
 		</ul>
+		
 		<?php endif; ?>
 	</div>
-	<div class="col-md-8">
+	<div class="col-md-8" style="padding-top: 10px;">
+		
+		<?php if ($user_info['banned']): ?>
+		<div class="callout callout-danger">
+			<h4>Користувача заблоковано!</h4>
+			<p>
+				Причиною цьому може слугувати:
+			</p>
+			<ul>
+				<li>Невихованість</li>
+				<li>Порушення правил користування сайтом чи EULA</li>
+				<li>Підступні спроби зламу системи</li>
+				<li>Тощо</li>
+			</ul>
+			<p>
+				За розблокуванням зверніться до одного з адміністраторів системи.
+			</p>
+		</div>
+		<?php endif; ?>
+		
 		<h3 style="margin-top: 0;">Базова інформація</h3>
 		<ul class="nav nav-pills nav-stacked">
 			<li><a>Повне ім'я:<br/><b><?=$user_info['secondname'] . " " . $user_info['firstname'] . " " . $user_info['thirdname']?></b></a></li>
