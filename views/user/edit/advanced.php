@@ -1,6 +1,3 @@
-<?php
-	
-?>
 <div class="box box-danger collapsed-box">
 	<div class="box-header with-border">
 		<h3 class="box-title">Управління користувачем</h3>
@@ -32,6 +29,15 @@
 				<div class="col-sm-10">
 					<input type="number" min="1" max="1000000000" class="form-control" id="teacherId" placeholder="<?=$user_info['teacherId']?>" name="teacherId" value="<?=$user_info['teacherId']?>" required>
 					<span class="help-block">Вкажіть ідентифікатор користувача (вчителя чи адміністратора), якому буде підпорядковуватися користувач.</span>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="banCB" class="col-sm-2 control-label">Заблокувати користувача</label>
+				<div class="col-sm-10">
+					<input type="checkbox" id="banCB" name="banned" <?=$user_info["banned"] ? 'checked' : ''?>>&nbsp;<label for="banCB">Заблокувати користувача</label>
+					<span class="help-block">За допомогою цього параметру ви можете заблокувати доступ користувача до його аккаунту.</span>
+					
 				</div>
 			</div>
 			

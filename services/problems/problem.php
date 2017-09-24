@@ -387,11 +387,11 @@
 		<!--I/O examples-->
 		<div class="row">
 			<div class="col-md-6">
-				<h4>Приклад входного потоку</h4>
+				<h4>Приклад вхідного потоку</h4>
 				<p><?=empty($problem_info['input_ex']) ? "Вхідний потік пустий." : $problem_info['input_ex']?></p>
 			</div>
 			<div class="col-md-6">
-				<h4>Приклад виходного потоку</h4>
+				<h4>Приклад вихідного потоку</h4>
 				<p><p><?=empty($problem_info['output_ex']) ? "Вихідний потік пустий." : $problem_info['output_ex']?></p></p>
 			</div>
 		</div>

@@ -115,7 +115,7 @@
 		<div class="small-box bg-yellow">
 			<div class="inner">
 				<h3><?=(int)$user_info["rating"]?></h3>
-				<p>БОЙОВИЙ РЕЙТИНГ</p>
+				<p>РЕЙТИНГ КОРИСТУВАЧА</p>
 			</div>
 			<a href="index.php?service=rating" class="small-box-footer">
 				Глобальный рейтинг <i class="fa fa-arrow-circle-right"></i>
@@ -150,10 +150,11 @@
 		<h3>Контактна інформація</h3>
 		<ul class="nav nav-pills nav-stacked">
 			<li><a>Номер телефону:<br/><b><?=$user_info['phone']?></b></a></li>
-			<li><a>Email:<br/><b><?=$user_info['email']?></b></a></li>
+			<li><a>Email адреса:<br/><b><?=$user_info['email']?></b></a></li>
 		</ul>
 		<h3>Системна інформація</h3>
 		<ul class="nav nav-pills nav-stacked">
+			<li><a>Ідентифікатор користувача:<br/><b><?=$user_info['id']?></b></a></li>
 			<li><a>Права доступу:<br/><b><?=$user_info['permissions']?></b></a></li>
 			<li><a>Група:<br/><b><?=$user_info['group_name']?> (gid<?=$user_info['group']?>)</b></a></li>
 			<li><?=spm_getTeacherLinkById($user_info['teacherId'])?></li>

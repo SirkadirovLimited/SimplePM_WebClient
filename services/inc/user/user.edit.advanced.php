@@ -23,7 +23,8 @@
 			`spm_users`
 		SET
 			`permissions` = " . $_POST['permissions'] . ",
-			`teacherId` = " . $_POST['teacherId'] . "
+			`teacherId` = " . $_POST['teacherId'] . ",
+			`banned` = " . (int)isset($_POST['banned']) . "
 		WHERE
 			`id` = " . $_POST['uid'] . "
 		LIMIT

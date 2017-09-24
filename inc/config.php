@@ -58,6 +58,7 @@
 	
 	$_SPM_CONF["SERVICE"]["problem.edit"] = "admin/problems/problem.edit.php";
 	$_SPM_CONF["SERVICE"]["problem.edit.tests"] = "admin/problems/problem.edit.tests.php";
+	$_SPM_CONF["SERVICE"]["problem.edit.tests.import"] = "admin/problems/problem.edit.tests.import.php";
 	
 	$_SPM_CONF["SERVICE"]["problem-categories"] = "admin/problems/problem-categories.php";
 	
