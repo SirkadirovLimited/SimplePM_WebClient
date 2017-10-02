@@ -81,25 +81,35 @@
 	//         SERVICE CHANGER         //
 	/////////////////////////////////////
 	
+	// Проверки на передачу названия сервиса в GET параметрах
 	if (isset($_GET['service']) && strlen($_GET['service']) > 0)
-		$_spm_run_service = preg_replace("/[^a-zA-Z0-9.\-_\s]/", "", $_GET['service']);
+		$_GET['service'] = preg_replace("/[^a-zA-Z0-9.\-_\s]/", "", $_GET['service']);
 	else
-		$_spm_run_service = $_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"];
+		$_GET['service'] = $_SPM_CONF["SERVICES"]["_AUTOSTART_SERVICE_"];
 	
-	if(!isset($_SESSION['uid']) && !isset($_SPM_CONF["SERVICE_NOLOGIN"][$_spm_run_service]))
-		$_spm_run_service = "login";
-
-	if (!isset($_SPM_CONF["SERVICE"][$_spm_run_service]) && !isset($_SESSION['uid'])):
+	// Если пользователь не вошёл в систему...
+	if(!isset($_SESSION['uid']) && !isset($_SPM_CONF["SERVICE_NOLOGIN"][$_GET['service']]))
+		$_GET['service'] = "login";
+	
+	// Унижаем сервис
+	$_GET['service'] = strtolower($_GET['service']);
+	
+	// В случае возникновения каких-либо ошибок скрипт завершает свою работу
+	if (!isset($_SPM_CONF["SERVICE"][$_GET['service']]) && !isset($_SESSION['uid'])):
+		
 		die(header('location: index.php'));
-	elseif ( ( !isset($_SPM_CONF["SERVICE"][$_spm_run_service]) && isset($_SESSION['uid']) ) || !file_exists(_S_SERV_ . $_SPM_CONF["SERVICE"][$_spm_run_service])):
+		
+	elseif ( ( !isset($_SPM_CONF["SERVICE"][$_GET['service']]) && isset($_SESSION['uid']) ) || !file_exists(_S_SERV_ . $_SPM_CONF["SERVICE"][$_GET['service']])):
+		
 		die(header('location: index.php?service=error&err=404'));
+		
 	endif;
 	
 	/////////////////////////////////////
 	//   INCLUDING CONTENT GENERATOR   //
 	/////////////////////////////////////
 	
-	include_once(_S_SERV_ . $_SPM_CONF["SERVICE"][$_spm_run_service]);
+	include_once(_S_SERV_ . $_SPM_CONF["SERVICE"][$_GET['service']]);
 	
 	/////////////////////////////////////
 	//     CLOSE CONNECTIONS, ETC.     //

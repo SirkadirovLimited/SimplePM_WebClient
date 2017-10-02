@@ -115,6 +115,44 @@
 	</div>
 </div>
 
+<style type="text/css">
+    #codeEditor {
+		position: relative;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+		height: 400px;
+		margin: 0;
+		font-size: 15px;
+    }
+</style>
+
+<?php if (isset($_GET['showcode'])): ?>
+<div class="panel panel-default" style="border-radius: 0;">
+	<div class="panel-heading">Вихідний код кристувацького рішення задачі</div>
+	<div class="panel-body" style="padding: 0;">
+		
+		<div id="codeEditor" contenteditable="false"><?=$submission['problemCode']?></div>
+		
+	</div>
+</div>
+
+<script src="<?=_S_TPL_?>plugins/ace/ace.js" charset="utf-8"></script>
+<script>
+	
+	var editor = ace.edit("codeEditor");
+	
+	editor.setTheme("ace/theme/github");
+	
+	editor.setOptions({
+		readOnly: true,
+		highlightActiveLine: false
+	});
+	
+</script>
+<?php endif; ?>
+
 <?php
 	if (!$submission['seen']):
 		$query_str = "

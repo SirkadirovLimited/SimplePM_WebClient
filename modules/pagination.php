@@ -33,7 +33,7 @@
 					$links_array[$current_page+ $i] = $current_page + $i; //Записываем в массив
 			}
 ?>
-<nav align="right" style="margin: 0;">
+<nav align="right" style="margin: 0; margin-top: 20px;">
 	<ul class="pagination" style="margin: 0; border-radius: 0;">
 		<li><a href="index.php?service=<?=$service?>&page=1<?=$addition?>" style="border-radius: 0;">«</a></li>
 <?php

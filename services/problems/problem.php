@@ -219,6 +219,8 @@
 	/////////////////////////////////////
 ?>
 <script src="<?=_S_TPL_?>plugins/ace/ace.js" charset="utf-8"></script>
+<script src="<?=_S_TPL_?>plugins/ace/ext-language_tools.js" charset="utf-8"></script>
+
 <style type="text/css">
     #codeEditor {
 		position: relative;
@@ -400,6 +402,7 @@
 </div>
 <script type="text/javascript">
 	function changeHighlight(){
+		
 		var editor = ace.edit("codeEditor");
 		var selectedLangId = document.getElementById("codeLang").value;
 		
@@ -426,8 +429,32 @@
 				editor.getSession().setMode("ace/mode/python");
 				break;
 		}
+		
+		ace.require("ace/ext/language_tools");
+		
+		editor.setOptions({
+			enableBasicAutocompletion: true,
+			enableSnippets: true,
+			enableLiveAutocompletion: true,
+			
+			hScrollBarAlwaysVisible: false,
+			vScrollBarAlwaysVisible: false,
+			
+			highlightGutterLine: true,
+			animatedScroll: true,
+			
+			showInvisibles: false,
+			showPrintMargin: true,
+			
+			fadeFoldWidgets: true,
+			showFoldWidgets: true,
+			showLineNumbers: true,
+			showGutter: true,
+			displayIndentGuides: true,
+			autoScrollEditorIntoView: true
+		});
+		
 	}
-	
 	$(document).ready(function () {
 		changeHighlight();
 	});
@@ -435,7 +462,7 @@
 	var editor = ace.edit("codeEditor");
 	
     //editor.setTheme("ace/theme/default");
-    
+	
 	editor.getSession().on("change", function () { $('textarea[name="code"]').val(editor.getSession().getValue()); });
 	
 	function getcode() { document.getElementById("code").innerHTML = editor.getValue(); }

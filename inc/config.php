@@ -93,7 +93,7 @@
 	
 	$_SPM_CONF["SERVICE"]["view.admin"] = "admin/view.admin.php";
 	
-	$_SPM_CONF["SERVICE"]["teacherID"] = "admin/teacherID.php";
+	$_SPM_CONF["SERVICE"]["teacherid"] = "admin/teacherID.php";
 	$_SPM_CONF["SERVICE"]["users.admin"] = "admin/users.admin.php";
 	$_SPM_CONF["SERVICE"]["groups.admin"] = "admin/groups.admin.php";
 	/*SERVICES-END*/

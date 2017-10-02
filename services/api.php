@@ -16,6 +16,9 @@
 	//Проверяем на наличие API функции
 	function_exists($functionName) or die('404: Command not found!');
 	
+	//Указываем, что будем передавать текстовые данные
+	header('Content-Type: text/plain');
+	
 	//Вызываем запрашиваемую функцию API и выводим
 	//результат её выполнения на экран
 	print(call_user_func($functionName));

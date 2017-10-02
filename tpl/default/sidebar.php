@@ -1,3 +1,16 @@
+<?php
+	
+	function spm_isPageCurrent($service) {
+		
+		if (spm_onService($service))
+			return "class='active'";
+		else
+			return "";
+		
+	}
+	
+?>
+
 <aside class="main-sidebar">
 	<section class="sidebar">
 		<ul class="sidebar-menu">
@@ -12,9 +25,6 @@
 			<li class="header">РЕЖИМ ЗМАГАННЯ</li>
 			<li><a href="index.php?service=olympiads.problems"><i class="fa fa-th-list"></i> <span>Змагання</span></a></li>
 			<li><a href="index.php?service=olympiads.result"><i class="fa fa-star"></i> <span>Рейтинг</span></a></li>
-			
-			<li class="header">Дії</li>
-			<li><a href="index.php?service=olympiads.problems"><i class="fa fa-sign-out"></i> <span>Покинути змагання</span></a></li>
 			
 			<?php else: ?>
 			

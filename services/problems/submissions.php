@@ -84,13 +84,15 @@
 	
 </style>
 
-<div class="panel panel-default" style="border-radius: 0; padding: 0;">
-	<div class="panel-body" style="padding-top: 0; padding-bottom: 0;">
-		
-		<h3 style="margin-top: 5px; margin-bottom: 5px;"><?=spm_getUserFullnameByID($_GET['uid'])?>, <?=spm_getGroupNameByUserId($_GET['uid'])?></h3>
-		
+<a href="index.php?service=user&id=<?=$_GET['uid']?>" title="Перейти на сторінку користувача">
+	<div class="panel panel-default" style="border-radius: 0; padding: 0;">
+		<div class="panel-body" style="padding: 0;">
+			
+			<h3 style="margin: 5px;"><?=spm_getUserFullnameByID($_GET['uid'])?>, <?=spm_getGroupNameByUserId($_GET['uid'])?></h3>
+			
+		</div>
 	</div>
-</div>
+</a>
 
 <?php if ($query->num_rows > 0): ?>
 
@@ -132,7 +134,7 @@
 	<div class="col-md-3">
 		
 		<a
-			href=""
+			href="index.php?service=problem_result&sid=<?=$submission['submissionId']?>&showcode"
 			class="btn <?=$view_mode?> btn-flat btn-block"
 		><?=$submission['problemId']?> (<?=$submission['b']?>/<?=$problem_diff?>)</a>
 		

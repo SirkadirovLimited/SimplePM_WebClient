@@ -1,5 +1,5 @@
 <?php
-	function spm_checkIfUserExists($userId){
+	function spm_checkIfUserExists($userId) {
 		
 		global $db;
 		
@@ -28,7 +28,7 @@
 		
 	}
 	
-	function spm_getUserFullnameByID($userId){
+	function spm_getUserFullnameByID($userId) {
 		
 		global $db;
 		
@@ -66,7 +66,7 @@
 		
 	}
 	
-	function spm_getUserShortnameByID($userId){
+	function spm_getUserShortnameByID($userId) {
 		
 		global $db;
 		
@@ -99,7 +99,7 @@
 		
 	}
 	
-	function spm_getUsernameByID($userId){
+	function spm_getUsernameByID($userId) {
 		
 		global $db;
 		
@@ -127,7 +127,7 @@
 		
 	}
 	
-	function spm_getUserGroupByID($groupId){
+	function spm_getUserGroupByID($groupId) {
 		
 		global $db;
 		
@@ -150,7 +150,7 @@
 		
 	}
 	
-	function spm_getGroupNameByUserId($userId){
+	function spm_getGroupNameByUserId($userId) {
 		
 		global $db;
 		
@@ -173,7 +173,7 @@
 		
 	}
 	
-	function spm_getUserTeacherId($userId){
+	function spm_getUserTeacherId($userId) {
 		
 		global $db;
 		
@@ -196,7 +196,7 @@
 		
 	}
 	
-	function spm_getUserOnline($user_id){
+	function spm_getUserOnline($user_id) {
 		
 		global $db;
 		global $_SPM_CONF;
@@ -231,7 +231,7 @@
 		
 	}
 	
-	function spm_setUserOnline($userId, $status = true){
+	function spm_setUserOnline($userId, $status = true) {
 		
 		global $db;
 		
@@ -254,6 +254,12 @@
 		
 		if (!$db_result = $db->query($query_str))
 				die(header('location: index.php?service=error&err=db_error'));
+		
+	}
+	
+	function spm_onService($serviceName) {
+		
+		return ($_GET['service'] == strtolower($serviceName));
 		
 	}
 ?>
