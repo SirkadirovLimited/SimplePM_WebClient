@@ -109,7 +109,7 @@
 				<p>ОТРИМАНІ БАЛИ</p>
 			</div>
 			<a href="index.php?service=bad_problems&uid=<?=$user_info['id']?>" class="small-box-footer">
-				Відкладені задачи <i class="fa fa-arrow-circle-right"></i>
+				Відкладені задачі <i class="fa fa-arrow-circle-right"></i>
             </a>
 		</div>
 		<div class="small-box bg-yellow">
@@ -129,12 +129,17 @@
 			<li><a href="index.php?service=user.edit&id=<?=$id?>#editAvatar">Змінити аватар</a></li>
 			<li><a href="index.php?service=user.edit&id=<?=$id?>#editPass">Змінити пароль</a></li>
 		</ul>
+		<h3>Інформація</h3>
+		<ul class="nav nav-pills nav-stacked">
+			<li><a href="index.php?service=submissions&uid=<?=$id?>">Список відправок</a></li>
+		</ul>
 		<?php else: ?>
 		<h3>Дії</h3>
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="index.php?service=messages&uid=<?=$id?>">Відкрити діалог</a></li>
 			<?php if ($_SESSION['uid'] == $user_info['teacherId'] || permission_check($_SESSION['permissions'], PERMISSION::administrator)): ?>
 			<li><a href="index.php?service=user.edit&id=<?=$id?>">Редагувати користувача</a></li>
+			<li><a href="index.php?service=submissions&uid=<?=$id?>">Список відправок</a></li>
 			<?php endif; ?>
 		</ul>
 		

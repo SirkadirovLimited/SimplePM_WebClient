@@ -44,6 +44,15 @@
 			</p>
 		</a>
 	</div>
+	<div class="col-md-4" style="padding: 0;">
+		<a href="https://simplepm.atlassian.net/" class="btn btn-success btn-xlarge btn-block btn-flat">
+			<p class="admin-btn">
+				<h3><span class="glyphicon glyphicon-list-alt"></span></h3>
+				Настанови з адміністрування<br/>
+				та використання SimplePM
+			</p>
+		</a>
+	</div>
 </div>
 
 <div class="panel panel-default" style="border-radius: 0; margin-top: 10px;">
@@ -59,7 +68,7 @@
 			<dd>admin@sirkadirov.com</dd>
 			
 			<dt>Телефон тех. підтримки</dt>
-			<dd>+380 (98) 121-16-52 (якщо ви дзвоните перший раз - напишіть СМС повідомлення з текстом SIMPLEPM, тарифікація за умовами вашого тарифного плану)</dd>
+			<dd>+380 (98) 121-16-52</dd>
 		</dl>
 	</div>
 </div>

@@ -90,7 +90,7 @@
 		</div>
 	</div>
 	
-	<div class="box box-warning" style="border-radius: 0;">
+	<!--div class="box box-warning" style="border-radius: 0;">
 		<div class="box-header with-border" style="border-radius: 0;">
 			<h3 class="box-title">Додаткові опції</h3>
 		</div>
@@ -107,13 +107,13 @@
 							<td>Параметри виходу учасників зі змагання</td>
 							<td>
 								<label>
-									<input type="checkbox" name="name" value="1" id="cbx1">
+									<input type="checkbox" name="allowExit" value="1" id="cbx1">
 									<span style="font-weight: 400;">Дозволити вихід зі змагання</span>
 									</input>
 								</label>
 								<br>
 								<label>
-									<input type="checkbox" name="name" value="1" id="cbx1">
+									<input type="checkbox" name="onExitDeleteData" value="1" id="cbx1">
 									<span style="font-weight: 400;">При виході зі змагання видалити результати користувача</span>
 									</input>
 								</label>
@@ -124,7 +124,7 @@
 			</div>
 			
 		</div>
-	</div>
+	</div-->
 	
 <?php if ($_GET['id'] == 0): ?>
 	<div class="box box-danger" style="border-radius: 0;">
