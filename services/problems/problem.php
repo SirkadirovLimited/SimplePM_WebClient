@@ -379,22 +379,22 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h4>Вхідний потік</h4>
-				<p><?=empty($problem_info['input']) ? "Вхідний потік пустий." : $problem_info['input']?></p>
+				<p><?=strlen($problem_info['input']) <= 0 ? "Вхідний потік пустий." : $problem_info['input']?></p>
 			</div>
 			<div class="col-md-6">
 				<h4>Вихідний потік</h4>
-				<p><?=empty($problem_info['output'])  ? "Вихідний потік пустий." : $problem_info['output']?></p>
+				<p><?=strlen($problem_info['output']) <= 0  ? "Вихідний потік пустий." : $problem_info['output']?></p>
 			</div>
 		</div>
 		<!--I/O examples-->
 		<div class="row">
 			<div class="col-md-6">
 				<h4>Приклад вхідного потоку</h4>
-				<p><?=empty($problem_info['input_ex']) ? "Вхідний потік пустий." : $problem_info['input_ex']?></p>
+				<p><?=strlen($problem_info['input_ex']) <= 0 ? "Вхідний потік пустий." : $problem_info['input_ex']?></p>
 			</div>
 			<div class="col-md-6">
 				<h4>Приклад вихідного потоку</h4>
-				<p><p><?=empty($problem_info['output_ex']) ? "Вихідний потік пустий." : $problem_info['output_ex']?></p></p>
+				<p><p><?=strlen($problem_info['output_ex']) <= 0 ? "Вихідний потік пустий." : $problem_info['output_ex']?></p></p>
 			</div>
 		</div>
 		<!-- /I/O information -->
