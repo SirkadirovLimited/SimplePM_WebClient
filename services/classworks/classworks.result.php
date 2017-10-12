@@ -140,11 +140,14 @@
 					<dt>Час початку</dt>
 					<dd><?=$classwork['startTime']?></dd>
 					
-					<dt>Час кінця</dt>
+					<dt>Час закінчення</dt>
 					<dd><?=$classwork['endTime']?></dd>
 					
-					<dt title="Максимальна кількість балів">Максимальна кількість балів</dt>
+					<dt title="Максимальна кількість балів">Всього балів</dt>
 					<dd><?=$users_max_b?></dd>
+					
+					<dt title="Система оцінювання">Система оцінювання</dt>
+					<dd><?=$classwork['ratingSystem']?></dd>
 					
 					<dt>Вчитель</dt>
 					<dd><a href="index.php?service=user&id=<?=$classwork['teacherId']?>"><span class="fa fa-user"></span> <?=spm_getUserFullnameByID($classwork['teacherId'])?></a></dd>
@@ -191,6 +194,7 @@
 				<th>Повне ім'я</th>
 				<th>Задач</th>
 				<th>B</th>
+				<th>Оцінка</th>
 			</thead>
 			<tbody>
 				<?php while ($user = $users_query->fetch_assoc()): ?>
@@ -235,10 +239,13 @@
 						
 						@$query->free();
 					?>
-					<?=@(int)$right_problems_count?> / <?=@(int)$problems_count?>
+					<?=@(int)$right_problems_count?> / <?=@(int)$problems_count?> (<?=@round((double)$problems_count / 100 * (double)$right_problems_count)?>%)
 				</td>
 				<td>
-					<?=$user['sum(`b`)']?> / <?=$users_max_b?> (<?=@round($user['sum(`b`)'] / $users_max_b, 2)?>%)
+					<?=$user['sum(`b`)']?> / <?=$users_max_b?>
+				</td>
+				<td>
+					<?=@round(((double)$user['sum(`b`)'] / (double)$users_max_b) * (double)$classwork['ratingSystem'])?>
 				</td>
 			</tr>
 			<?php endwhile; ?>

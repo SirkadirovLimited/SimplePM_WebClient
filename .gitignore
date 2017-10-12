@@ -3,3 +3,4 @@
 *.config
 *.htpasswd
 .well-known/
+.idea/

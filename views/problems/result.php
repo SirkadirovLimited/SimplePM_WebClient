@@ -128,6 +128,34 @@
     }
 </style>
 
+<?php if ($submission['classworkId'] > 0 || $submission['olympId'] > 0): ?>
+<div class="panel panel-default" style="border-radius: 0;">
+	<div class="panel-heading">Додаткова інформація</div>
+	<div class="panel-body" style="padding: 0;">
+		
+		<div class="table-responsive" style="border-radius: 0;">
+			<table class="table" style="margin: 0;">
+				<thead>
+					<th>Параметр</th>
+					<th>Значення</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Дата та час відправки</td>
+						<td><?=$submission['time']?></td>
+					</tr>
+					<tr>
+						<td>Штрафний час <a title="Час, що сплинув від початку уроку / змагання до моменту відправки рішення.">(?)</a></td>
+						<td>N/A</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+	</div>
+</div>
+<?php endif; ?>
+
 <?php if (isset($_GET['showcode'])): ?>
 <div class="panel panel-default" style="border-radius: 0;">
 	<div class="panel-heading">Вихідний код кристувацького рішення задачі</div>
