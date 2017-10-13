@@ -5,3 +5,7 @@ SimplePM_WebClient является веб-приложением, написа�
 
 ## Документация
 Просмотреть документацию по работе с системой вы можете на официальном сайте SimplePM: https://spm.sirkadirov.com/wiki/
+
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/kHdv5HoG2jscCQ7bmH7Qo5nZ/SirkadirovTeam/SimplePM_WebClient'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/kHdv5HoG2jscCQ7bmH7Qo5nZ/SirkadirovTeam/SimplePM_WebClient.svg' />
+</a>
