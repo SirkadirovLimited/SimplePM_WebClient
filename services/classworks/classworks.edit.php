@@ -8,7 +8,8 @@
 	
 	/////////////////////////////////////
 	
-	if ($_GET['id'] > 0){
+	if ($_GET['id'] > 0)
+	{
 		
 		$query_str = "
 			SELECT
@@ -32,7 +33,9 @@
 		
 		$cwork_info = $query->fetch_assoc();
 		
-	} else {
+	}
+	else
+    {
 		$cwork_info['id'] = "AUTO INCREMENT";
 	}
 	
@@ -53,70 +56,82 @@
 		<div class="box-body" style="padding: 0; margin: 0;">
 			
 			<div class="table-responsive" style="border-radius: 0; margin: 0;">
-				<table class="table table-bordered" style="margin: 0;">
-					<thead>
-						<th width="30%">Параметр</th>
-						<th width="70%">Значення</th>
-					</thead>
-					<tbody>
-						<tr>
-							<td>ID</td>
-							<td><input type="text" class="form-control" value="<?=$cwork_info['id']?>" disabled></td>
-						</tr>
-						<tr>
-							<td>Назва уроку</td>
-							<td><input type="text" class="form-control" name="name" value="<?=@$cwork_info['name']?>" required></td>
-						</tr>
-						<tr>
-							<td>Опис уроку</td>
-							<td><textarea class="form-control" style="resize: none;" name="description" rows="5" required><?=@$cwork_info['description']?></textarea></td>
-						</tr>
-						<tr>
-							<td>Дата та час початку</td>
-							<td>
-								<input type="text" class="form-control" name="startTime" placeholder="РРРР-ММ-ДД ГГ:ХХ:СС" value="<?=@$cwork_info['startTime']?>" required>
-							</td>
-						</tr>
-						<tr>
-							<td>Дата та час кінця</td>
-							<td>
-								<input type="text" class="form-control" name="endTime" placeholder="РРРР-ММ-ДД ГГ:ХХ:СС" value="<?=@$cwork_info['endTime']?>" required>
-							</td>
-						</tr>
-						
-						<tr>
-							<td>
-								Учнівська група
-							</td>
-							<td>
-								<select name="studentsGroup" class="form-control" required>
-									<?php if ($_GET['id'] > 0): ?>
-									<option value="<?=$cwork_info['studentsGroup']?>" selected><?=spm_getUserGroupByID($cwork_info['studentsGroup'])?> (вибрана)</option>
-									<?php endif; ?>
+				
+                <table class="table table-bordered" style="margin: 0;">
+					
+                    <th width="30%">Параметр</th>
+                    <th width="70%">Значення</th>
+					
+                    <tr>
+                        <td>ID</td>
+                        <td><input type="text" class="form-control" value="<?=$cwork_info['id']?>" disabled></td>
+                    </tr>
+					
+                    <tr>
+                        <td>Назва уроку</td>
+                        <td><input type="text" class="form-control" name="name" value="<?=@$cwork_info['name']?>" required></td>
+                    </tr>
+					
+                    <tr>
+                        <td>Опис уроку</td>
+                        <td><textarea class="form-control" style="resize: none;" name="description" rows="5" required><?=@$cwork_info['description']?></textarea></td>
+                    </tr>
+					
+                    <tr>
+                        <td>Дата та час початку</td>
+                        <td>
+                            <input type="text" class="form-control" name="startTime" placeholder="РРРР-ММ-ДД ГГ:ХХ:СС" value="<?=@$cwork_info['startTime']?>" required>
+                        </td>
+                    </tr>
+					
+                    <tr>
+                        <td>Дата та час закінчення</td>
+                        <td>
+                            <input type="text" class="form-control" name="endTime" placeholder="РРРР-ММ-ДД ГГ:ХХ:СС" value="<?=@$cwork_info['endTime']?>" required>
+                        </td>
+                    </tr>
+					
+                    <tr>
+                        <td>
+                            Учнівська група
+                        </td>
+                        <td>
+                            <select name="studentsGroup" class="form-control" required>
+								<?php if ($_GET['id'] > 0): ?>
+								<option value="<?=$cwork_info['studentsGroup']?>" selected><?=spm_getUserGroupByID($cwork_info['studentsGroup'])?> (вибрана)</option>
+								<?php endif; ?>
+								
+								<?php
+									$query_str = "
+										SELECT
+											`id`,
+											`name`
+										FROM
+											`spm_users_groups`
+										WHERE
+											`teacherId` = '" . $_SESSION["uid"] . "'
+										;
+									";
 									
-									<?php
-										$query_str = "
-											SELECT
-												`id`,
-												`name`
-											FROM
-												`spm_users_groups`
-											WHERE
-												`teacherId` = '" . $_SESSION["uid"] . "'
-											;
-										";
-										
-										if (!$query = $db->query($query_str))
-											die(header('location: index.php?service=error&err=db_error'));
-									?>
-									
-									<?php while ($group = $query->fetch_assoc()): ?>
-									<option value="<?=$group['id']?>"><?=$group['name']?></option>
-									<?php endwhile; ?>
-								</select>
-							</td>
-						</tr>
-					</tbody>
+									if (!$query = $db->query($query_str))
+										die(header('location: index.php?service=error&err=db_error'));
+								?>
+								
+								<?php while ($group = $query->fetch_assoc()): ?>
+								<option value="<?=$group['id']?>"><?=$group['name']?></option>
+								<?php endwhile; ?>
+							
+							</select>
+						</td>
+					</tr>
+					
+					<tr>
+                        <td>Система оцінювання</td>
+                        <td>
+                            <input type="number" class="form-control" name="ratingSystem" min="0" max="255" value="<?=@$cwork_info['ratingSystem']?>" required>
+                        </td>
+                    </tr>
+					
 				</table>
 			</div>
 			
@@ -154,9 +169,11 @@
 <?php endif; ?>
 
 	<div align="right">
+		
 		<a class="btn btn-danger btn-flat" href="index.php?service=classworks">Відмінити</a>
 		<button type="reset" class="btn btn-warning btn-flat">Скинути</button>
 		<button type="submit" class="btn btn-success btn-flat" name="sender">Зберегти</button>
+		
 	</div>
 </form>
 

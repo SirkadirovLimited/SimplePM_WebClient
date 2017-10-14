@@ -14,6 +14,7 @@
 	isset($_POST["endTime"]) or die(header('location: index.php?service=error&err=input'));
 	
 	isset($_POST["studentsGroup"]) or die(header('location: index.php?service=error&err=input'));
+	isset($_POST["ratingSystem"]) or die(header('location: index.php?service=error&err=input'));
 	
 	////////
 	
@@ -24,6 +25,7 @@
 	$_POST["endTime"] = mysqli_real_escape_string($db, strip_tags(trim($_POST["endTime"])));
 	
 	$_POST["studentsGroup"] = (int)$_POST["studentsGroup"];
+	$_POST["ratingSystem"] = (int)$_POST["ratingSystem"];
 	
 	////////
 	
@@ -33,7 +35,8 @@
 	(strlen($_POST["startTime"]) == 19) or die(header('location: index.php?service=error&err=input'));
 	(strlen($_POST["endTime"]) == 19) or die(header('location: index.php?service=error&err=input'));
 	
-	$_POST["studentsGroup"] > 0 or die(header('location: index.php?service=error&err=input'));
+	($_POST["studentsGroup"] > 0) or die(header('location: index.php?service=error&err=input'));
+	($_POST["ratingSystem"] >= 0 && $_POST["ratingSystem"] <= 225) or die(header('location: index.php?service=error&err=input'));
 	
 	////////
 	
@@ -46,7 +49,9 @@
 			
 			`studentsGroup` = '" . $_POST["studentsGroup"] . "',
 			
-			`teacherId` = '" . $_SESSION["uid"] . "'
+			`teacherId` = '" . $_SESSION["uid"] . "',
+			
+			`ratingSystem` = '" . $_POST["ratingSystem"] . "'
 	";
 	
 	$query_str = "
