@@ -3,7 +3,7 @@
 
 Детальніше про систему ви можете дізнатися на її офіційному сайті: https://spm.sirkadirov.com/
 
-[![GitHub (pre-)release version](https://img.shields.io/github/release/SirkadirovTeam/SimplePM_WebClient/all.svg)](https://github.com/SirkadirovTeam/SimplePM_Server/releases)
+[![GitHub (pre-)release version](https://img.shields.io/github/release/SirkadirovTeam/SimplePM_WebClient/all.svg)](https://github.com/SirkadirovTeam/SimplePM_WebClient/releases)
 [![Github All Releases downloads](https://img.shields.io/github/downloads/SirkadirovTeam/SimplePM_WebClient/total.svg)]()
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1230/badge)](https://bestpractices.coreinfrastructure.org/projects/1230)
 
