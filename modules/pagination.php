@@ -16,10 +16,12 @@
 			
 			//Заносим в массив $links_array элементы, не более $view_links_count штук
 			//Элементы находятся до текущей страницы
-			for ($i=$view_links_count; $i>=1; $i--){
+			for ($i = $view_links_count; $i >= 1; $i--) {
+				
 				//Проверяем, может ли страница под номером ($current_page - $i) существовать
 				if ($current_page - $i > 0)
 					$links_array[$i] = $current_page - $i; //Записываем в массив
+
 			}
 			
 			//Заносим текущую страницу в массив
@@ -27,15 +29,17 @@
 			
 			//Заносим в массив $links_array элементы, не более $view_links_count штук
 			//Элементы находятся после текущей страницы
-			for ($i=1; $i<=$view_links_count; $i++){
+			for ($i = 1; $i <= $view_links_count; $i++) {
+
 				//Проверяем, может ли страница под номером ($current_page + $i) существовать
 				if ($current_page + $i <= $pages_count)
-					$links_array[$current_page+ $i] = $current_page + $i; //Записываем в массив
+					$links_array[$current_page + $i] = $current_page + $i; //Записываем в массив
+
 			}
 ?>
 <nav align="right" style="margin: 0; margin-top: 20px;">
-	<ul class="pagination" style="margin: 0; border-radius: 0;">
-		<li><a href="index.php?service=<?=$service?>&page=1<?=$addition?>" style="border-radius: 0;">«</a></li>
+	<ul class="pagination" style="margin: 0;">
+		<li><a href="index.php?service=<?=$service?>&page=1<?=$addition?>">«</a></li>
 <?php
 			//Выводим ссылки на страницы в виде списка
 			foreach ($links_array as $link){
@@ -47,7 +51,7 @@
 					print("<li><a href='index.php?service=" . $service . "&page=" . $link . $addition . "'>" . $link . "</a></li>");
 			}
 ?>
-		<li><a href="index.php?service=<?=$service?>&page=<?=$pages_count . $addition?>" style="border-radius: 0;">»</a></li>
+		<li><a href="index.php?service=<?=$service?>&page=<?=$pages_count . $addition?>">»</a></li>
 	</ul>
 </nav>
 <?php

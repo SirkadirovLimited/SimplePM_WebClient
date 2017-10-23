@@ -184,7 +184,7 @@
 		<ul class="nav nav-pills nav-stacked">
 			<li><a>Ідентифікатор користувача:<br/><b><?=$user_info['id']?></b></a></li>
 			<li><a>Права доступу:<br/><b><?=$user_info['permissions']?></b></a></li>
-			<li><a>Група:<br/><b><?=$user_info['group_name']?> (gid<?=$user_info['group']?>)</b></a></li>
+			<li><a href="index.php?service=rating&category=<?=$user_info['group']?>">Група:<br/><b><?=$user_info['group_name']?></b></a></li>
 			<li><?=spm_getTeacherLinkById($user_info['teacherId'])?></li>
 		</ul>
 	</div>

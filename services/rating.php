@@ -25,9 +25,9 @@
 	isset($_GET["query"]) or $_GET["query"] = "";
 	
 	if (isset($_GET['category']) && (int)$_GET['category'] > 0)
-		$_GET['category'] = " AND `group` = '" . (int)$_GET['category'] . "' ";
+		$category = " AND `group` = '" . (int)$_GET['category'] . "' ";
 	else
-		$_GET['category'] = "";
+		$category = "";
 	
 	$_GET["query"] = $db->real_escape_string(htmlspecialchars(strip_tags(trim($_GET["query"]))));
 	
@@ -73,7 +73,7 @@
 			OR
 				`email` LIKE '%" . $_GET["query"] . "%'
 			)
-			" . $_GET['category'] . "
+			" . $category . "
 		ORDER BY
 			`" . $_GET["sortby"] . "` " . $_GET["sort"] . "
 		LIMIT
@@ -282,7 +282,7 @@
 		$current_page,
 		4,
 		"rating",
-		"&query=" . $_GET["query"] . "&sortby=" . $_GET["sortby"] . "&sort=" . $_GET["sort"]
+		"&query=" . $_GET["query"] . "&sortby=" . $_GET["sortby"] . "&sort=" . $_GET["sort"] . "&category=" . (int)$_GET['category']
 	);
 	
 	SPM_footer();

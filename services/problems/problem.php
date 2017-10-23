@@ -242,18 +242,30 @@
 	<div
 		class="panel-heading"
 		align="center"
-		style="padding-top: 5px; padding-bottom: 5px; border-radius: 0;">
+		style="padding-top: 5px; padding-bottom: 5px; border-radius: 0;"
+	>
+		
 		<strong>Задача <?=$problem_info['id']?>. Складність <?=$problem_info['difficulty']?>%</strong>
+		
 	</div>
 	<div class="panel-body" style="padding: 0; border-radius: 0;">
 		
 		<form action="index.php?service=problem_send" method="post">
 			
-			<input type="hidden" name="problemId" value="<?=$problem_info['id']?>" />
+			<input
+				type="hidden"
+				name="problemId"
+				value="<?=$problem_info['id']?>"
+			>
 			
 			<div id="codeEditor" contenteditable="true"><?=$submissionCode?></div>
 			
-			<textarea name="code" class="hidden" id="code"></textarea>
+			<textarea
+				name="code"
+				class="hidden"
+				id="code"
+			></textarea>
+			
 			<textarea
 				class="form-control"
 				rows="4"
@@ -303,6 +315,7 @@
 			<div class="row-fluid">
 				<!-- Syntax -->
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
+					
 					<button
 						class="btn btn-info btn-block btn-flat"
 						type="submit"
@@ -310,9 +323,11 @@
 						style="margin: 0;"
 						onclick="getcode();"
 					>Перевірка синтаксису</button>
+					
 				</div>
 				<!-- Debug -->
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
+					
 					<button
 						class="btn btn-primary btn-block btn-flat"
 						type="submit"
@@ -320,9 +335,11 @@
 						style="margin: 0;"
 						onclick="getcode();"
 					>Debug-режим</button>
+					
 				</div>
 				<!-- Release -->
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
+					
 					<button
 						class="btn btn-success btn-block btn-flat"
 						type="submit"
@@ -330,12 +347,18 @@
 						style="margin: 0;"
 						onclick="getcode();"
 					>Відправка</button>
+					
 				</div>
 				
 				<?php if (isset($submission['problemCode'])): ?>
 				<!-- Last submission info -->
 				<div class="col-xs-12 col-md-12" style="padding: 0;">
-					<a href="index.php?service=problem_result&sid=<?=$submission['submissionId']?>" class="btn btn-default btn-block btn-flat">Інформація про останню відправку</a>
+					
+					<a
+						href="index.php?service=problem_result&sid=<?=$submission['submissionId']?>"
+						class="btn btn-default btn-block btn-flat"
+					>Інформація про останню відправку</a>
+					
 				</div>
 				<?php endif; ?>
 				
@@ -343,7 +366,12 @@
 				
 				<!-- Get author's solution -->
 				<div class="col-xs-12 col-md-12" style="padding: 0;">
-					<a href="index.php?service=problem&id=<?=$problem_info['id']?>&authorSolution" class="btn btn-warning btn-block btn-flat">Отримати авторське рішення</a>
+					
+					<a
+						href="index.php?service=problem&id=<?=$problem_info['id']?>&authorSolution"
+						class="btn btn-warning btn-block btn-flat"
+					>Отримати авторське рішення</a>
+					
 				</div>
 				
 					<?php if (permission_check($_SESSION["permissions"], PERMISSION::administrator)): ?>
@@ -364,7 +392,7 @@
 		
 	</div>
 </div>
-<div class="panel panel-default" style="margin: 0; border-radius: 0;">
+<div class="panel panel-default" style="margin: 0; border-radius: 0; text-align: justify;">
 	<div
 		class="panel-heading"
 		align="center"
@@ -372,11 +400,11 @@
 		<?=$problem_info['name']?>
 	</div>
 	<div class="panel-body">
-		<div id="problem_info">
+		<div id="problem_info" style="font-size: 12pt;">
 			<p><?=htmlspecialchars_decode($problem_info['description'])?></p>
 		</div>
 		<!-- I/O information -->
-		<div class="row">
+		<div class="row" style="font-size: 12pt;">
 			<div class="col-md-6">
 				<h4>Вхідний потік</h4>
 				<p><?=strlen($problem_info['input']) <= 0 ? "Вхідний потік пустий." : $problem_info['input']?></p>
@@ -387,7 +415,7 @@
 			</div>
 		</div>
 		<!--I/O examples-->
-		<div class="row">
+		<div class="row" style="text-align: left;">
 			<div class="col-md-6">
 				<h4>Приклад вхідного потоку</h4>
 				<p><?=strlen($problem_info['input_ex']) <= 0 ? "Вхідний потік пустий." : $problem_info['input_ex']?></p>

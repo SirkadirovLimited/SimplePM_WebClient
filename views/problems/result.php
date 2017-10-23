@@ -103,11 +103,17 @@
 							?>
 						</tbody>
 					</table>
+
 					<?php if ($submission['testType'] == "release"): ?>
+
 					<strong>Отримано балів: <?=$submission['b']?> з <?=$problemDifficulty?>.</strong>
+
 					<?php elseif ($submission['testType'] == "debug"): ?>
+
 					<pre style="width: 100%; height: 140px; text-align: left; border-radius: 0;"><?=$submission['output']?></pre>
+					
 					<?php endif;?>
+
 				</div>
 			</div>
 		</div>
@@ -144,10 +150,12 @@
 						<td>Дата та час відправки</td>
 						<td><?=$submission['time']?></td>
 					</tr>
+					<?php if ($submission['olympId'] > 0): ?>
 					<tr>
-						<td>Штрафний час <a title="Час, що сплинув від початку уроку / змагання до моменту відправки рішення.">(?)</a></td>
-						<td>N/A</td>
+						<td>Штрафний час <a title="Час, що сплинув від початку змагання до моменту відправки рішення.">(?)</a></td>
+						<td></td>
 					</tr>
+				<?php endif; ?>
 				</tbody>
 			</table>
 		</div>

@@ -13,7 +13,14 @@
 	
 	$query_str = "
 		SELECT
-			*
+			`id`,
+			`name`,
+			`description`,
+			`startTime`,
+			`endTime`,
+			`teacherId`,
+			`type`,
+			`testingType`
 		FROM
 			`spm_olympiads`
 		WHERE
@@ -39,6 +46,7 @@
 	
 	$query_str = "
 		SELECT
+			SEC_TO_TIME(sum(TIME_TO_SEC(TIMEDIFF(`time`, '" . $olymp['startTime'] . "')))) AS penalty,
 			`id`,
 			`username`,
 			`firstname`,
@@ -112,6 +120,9 @@
 	/////////////////////////////////////
 	
 	SPM_header("Змагання #" . $_GET["id"], "Статистика змагання");
+
+	/////////////////////////////////////
+	
 ?>
 
 <div class="box box-default box-solid" style="border-radius: 0; margin-bottom: 20px; overflow: hidden;">
@@ -120,7 +131,7 @@
 	</div>
 	<div class="box-body" style="padding: 0; overflow-x: auto; padding-right: 15px;">
 		
-		<div class="row-fluid">
+		<div class="row-fluid" style="text-align: justify;">
 			<div class="col-md-6 col-xs-6">
 				
 				<dl class="dl-horizontal" style="margin: 20px 20px 20px 0px;">
@@ -132,6 +143,9 @@
 					
 					<dt>Тип змагання</dt>
 					<dd><?=$olymp['type']?></dd>
+
+					<dt>Тип оцінювання</dt>
+					<dd><?=$olymp['testingType']?></dd>
 				</dl>
 				
 			</div>
@@ -162,8 +176,11 @@
 <script src="<?=_S_TPL_?>plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 <script type="text/javascript">
+	
 	$(document).ready(function() {
-		$('#studentsRatingTable').DataTable({
+
+		//Инициализируем плагин JQuery Data Tables
+		var dataTable = $('#studentsRatingTable').DataTable({
 			"responsive": true,
 			"lengthChange": false,
 			"language": {
@@ -173,83 +190,98 @@
 				"infoFiltered": "(знайдено з _MAX_ записів)"
 			}
 		});
-	} );
+
+		//Указываем метод и колонку сортировки по-умолчанию
+		dataTable.columns( '#b-heading' ).order( 'desc' ).draw();
+
+	});
+
 </script>
+
 <style>
+
 	@media all and (max-width: 480px) {
 		#scroller {
 			overflow-x: scroll;
 		}
 	}
+
 </style>
 
 <div id="scroller">
 	
 	<table id="studentsRatingTable" class="table table-bordered table-hover datatable responsive no-wrap" style="background-color: white; padding: 0;">
+		
 		<thead>
-				<th>ID</th>
-				<th>Ім'я користувача</th>
-				<th>Повне ім'я</th>
-				<th>Задач</th>
-				<th>B</th>
-			</thead>
-			<tbody>
-				<?php while ($user = $users_query->fetch_assoc()): ?>
-				<tr>
+			<th>ID</th>
+			<th>Ім'я користувача</th>
+			<th>Повне ім'я</th>
+
+			<?php if ($_SESSION['uid'] == $olymp['teacherId']): ?>
+			<th>Інформація про спроби</th>
+			<?php endif; ?>
+
+			<th>Час пенальті</th>
+			<th id="b-heading">B</th>
+		</thead>
+
+		<tbody>
+
+			<?php while ($user = $users_query->fetch_assoc()): ?>
+			<tr>
+				
 				<td>
+
 					<?=$user['id']?>
+
 				</td>
+
 				<td>
+
 					<a href="index.php?service=user&id=<?=$user['id']?>"><?=$user['username']?></a>
+
 				</td>
+
 				<td>
 					
 					<a href="index.php?service=user&id=<?=$user['id']?>">
 						<?=$user['secondname']?> <?=$user['firstname']?> <?=$user['thirdname']?>
 					</a>
 					
-					<?php if ($_SESSION['uid'] == $olymp['teacherId']): ?>
-					(<a
-						href="index.php?service=submissions&uid=<?=$user['id']?>&olympId=<?=$_GET["id"]?>"
+				</td>
+
+				<?php if ($_SESSION['uid'] == $olymp['teacherId']): ?>
+				<td>
+
+					<a
+						href="index.php?service=submissions&uid=<?=$user['id']?>&olympId=<?=$_GET['id']?>"
 						target="_blank"
-					>спроби</a>)
-					<?php endif; ?>
-					
+					>Подивитись</a>
+
 				</td>
+				<?php endif; ?>
+
 				<td>
-					<?php
-						$query_str = "
-							SELECT
-								count(`submissionId`)
-							FROM
-								`spm_submissions`
-							WHERE
-								`userId` = '" . $user['id'] . "'
-							AND
-								`olympId` = '" . $_GET["id"] . "'
-							AND
-								`b` > 0
-							;
-						";
-						
-						if (!$query = $db->query($query_str))
-							die(header('location: index.php?service=error&err=db_error'));
-						
-						$right_problems_count = @($query->fetch_array()[0]);
-						
-						@$query->free();
-					?>
-					<?=@(int)$right_problems_count?> / <?=@(int)$problems_count?>
-					&nbsp;(<?=@round($right_problems_count / $problems_count * 100, 2)?>%)
+
+					<?=$user['penalty']?>
+
 				</td>
+
 				<td>
+
 					<?=$user['sum(`b`)']?> / <?=$users_max_b?>
+
 				</td>
+
 			</tr>
 			<?php endwhile; ?>
+
 			<?php $users_query->free(); ?>
+
 		</tbody>
+
 	</table>
 	
 </div>
+
 <?php SPM_footer(); ?>

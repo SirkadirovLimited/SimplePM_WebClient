@@ -33,6 +33,9 @@
 		SELECT
 			`submissionId`,
 			`problemId`,
+			`classworkId`,
+			`olympId`,
+			`time`,
 			`b`
 		FROM
 			`spm_submissions`
@@ -55,31 +58,29 @@
 	
 ?>
 
+<script>
+	$(function () {
+  		$('[data-toggle="popover"]').popover({
+  			"placement": "auto",
+  			"html": true,
+  			"trigger": "focus",
+  			"container": 'body'
+  		});
+	});
+</script>
+
 <style>
-	
-	.col-md-3
-	{
-		margin: 0;
-		padding: 2px;
-	}
-	
-	.col-md-6
-	{
-		margin: 0;
-		padding: 0px;
-	}
-	
-	.col-md-12
-	{
-		margin: 0;
-		margin-top: 5px;
-		padding: 0;
-	}
 	
 	label
 	{
 		padding-left: 5px;
 		margin-bottom: 1px;
+	}
+
+	.submissionInfoBox
+	{
+		display: inline-block;
+		margin: 2px;
 	}
 	
 </style>
@@ -96,53 +97,73 @@
 
 <?php if ($query->num_rows > 0): ?>
 
-<div class="row" style="margin-left: 0px; margin-right: 0px;">
 
-	<?php while ($submission = $query->fetch_assoc()): ?>
+<?php while ($submission = $query->fetch_assoc()): ?>
 
-	<?php
-		
-		$query_str = "
-			SELECT
-				`difficulty`
-			FROM
-				`spm_problems`
-			WHERE
-				`id` = '" . $submission['problemId'] . "'
-			LIMIT
-				1
-			;
-		";
-		
-		if (!$query_sub = $db->query($query_str))
-			$problem_diff = -1;
-		else
-			$problem_diff = $query_sub->fetch_array()[0];
-		
-		if ($submission['b'] <= 0)
-			$view_mode = "btn-danger";
-		elseif ($submission['b'] > 0 && $submission['b'] < $problem_diff)
-			$view_mode = "btn-warning";
-		elseif ($submission['b'] == $problem_diff)
-			$view_mode = "btn-success";
-		else
-			$view_mode = "btn-default";
-		
-		@$query_sub->free();
-	?>
+<?php
 	
-	<div class="col-md-3">
+	$query_str = "
+		SELECT
+			`difficulty`
+		FROM
+			`spm_problems`
+		WHERE
+			`id` = '" . $submission['problemId'] . "'
+		LIMIT
+			1
+		;
+	";
+	
+	if (!$query_sub = $db->query($query_str))
+		$problem_diff = -1;
+	else
+		$problem_diff = $query_sub->fetch_array()[0];
+	
+	if ($submission['b'] <= 0)
+		$view_mode = "btn-danger";
+	elseif ($submission['b'] > 0 && $submission['b'] < $problem_diff)
+		$view_mode = "btn-warning";
+	elseif ($submission['b'] == $problem_diff)
+		$view_mode = "btn-success";
+	else
+		$view_mode = "btn-default";
+	
+	@$query_sub->free();
+?>
+
+<div class="submissionInfoBox">
+	
+	<div class="btn-group" role="group">
 		
 		<a
 			href="index.php?service=problem_result&sid=<?=$submission['submissionId']?>&showcode"
-			class="btn <?=$view_mode?> btn-flat btn-block"
+			class="btn <?=$view_mode?> btn-flat"
 		><?=$submission['problemId']?> (<?=$submission['b']?>/<?=$problem_diff?>)</a>
 		
+		<a
+			tabindex="0"
+			role="button"
+			data-trigger="focus"
+			class="btn <?=$view_mode?> btn-flat"
+			data-toggle="popover"
+			title="Інформація про спробу"
+			data-content="
+				<b>Номер запиту:</b> <?=$submission['submissionId']?><br>
+				<b>Дата та час відправки:</b> <?=$submission['time']?><br>
+				<?php if ($submission['classworkId'] > 0): ?>
+				<b>Урок:</b> <a href='index.php?service=classworks.result&id=<?=$submission['classworkId']?>'>Перейти на сторінку статистики</a><br>
+				<?php endif; ?>
+				<?php if ($submission['olympId'] > 0): ?>
+				<b>Змагання:</b> <a href='index.php?service=olympiads.result&id=<?=$submission['olympId']?>'>Перейти на сторінку статистики</a><br>
+				<?php endif; ?>
+			"
+		>&nbsp;<i class="fa fa-info-circle"></i>&nbsp;</a>
+
 	</div>
-	
-	<?php endwhile; $query->free(); ?>
 
 </div>
+	
+<?php endwhile; $query->free(); ?>
 
 <?php else: ?>
 
