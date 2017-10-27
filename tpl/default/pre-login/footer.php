@@ -26,6 +26,19 @@
 				</script>
 				<?php endif; ?>
 			</div>
+			<style>
+				a.copyright-line
+				{
+					display: block;
+					text-align: justify !important;
+					color: #2E2E2E !important;
+				}
+				a.copyright-line:hover
+				{
+					color: #BDBDBD !important;
+				}
+			</style>
+			<a href="https://sirkadirov.com/" class="copyright-line">Copyright &copy; 2017, Kadirov Yurij. All rights are reserved.</a>
 		</div>
 		<script src="<?=_S_TPL_?>plugins/jQuery/jquery-2.2.3.min.js"></script>
 		<script src="<?=_S_TPL_?>bootstrap/js/bootstrap.min.js"></script>

@@ -9,7 +9,7 @@
 		<div class="navbar-custom-menu">
 			<ul class="nav navbar-nav">
 				
-				<!-- Translator widget  ->
+				<!-- Translator widget  -->
 				<?php $_SPM_CONF["BASE"]["ENABLE_TRANSLATOR"] && include(_S_MOD_ . "translator.php"); ?>
 				
 				<!-- Competitions -->

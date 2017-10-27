@@ -1,9 +1,13 @@
 <?php
+	
+	//Перевірка на дозвіл візиту
 	deniedOrAllowed(PERMISSION::student | PERMISSION::teacher | PERMISSION::administrator);
 	
 	///////////////////////////////////////
-	/// SORT BY TYPES
+	/// SORT BY типи сортування
 	///////////////////////////////////////
+	
+	//Стовпчики які можуть бути відсортовані
 	$_SORT_BY["id"] = "id";
 	$_SORT_BY["username"] = "username";
 	$_SORT_BY["secondname"] = "secondname";
@@ -12,37 +16,57 @@
 	$_SORT_BY["rating"] = "rating";
 	
 	///////////////////////////////////////
-	/// SORT TYPES
+	/// SORT типи сортування
 	///////////////////////////////////////
 	$_SORT["asc"] = "asc";
 	$_SORT["desc"] = "desc";
 	
 	///////////////////////////////////////
-	/// SECURITY
+	/// ПЕРЕВІРКИ БЕЗПЕКИ
 	///////////////////////////////////////
+	
+	//Перевірка на вказання сторінки
 	isset($_GET['page']) or $_GET['page'] = 1;
 	(int)$_GET['page'] > 0 or $_GET['page'] = 1;
+
+	//Перевірка на вказання запиту
 	isset($_GET["query"]) or $_GET["query"] = "";
 	
+	//Категорія
 	if (isset($_GET['category']) && (int)$_GET['category'] > 0)
 		$category = " AND `group` = '" . (int)$_GET['category'] . "' ";
 	else
+	{
+
+		//Для формування запиту до БД
 		$category = "";
+
+		//Для пагінації
+		$_GET['category'] = "";
+
+	}
 	
+	//Query
 	$_GET["query"] = $db->real_escape_string(htmlspecialchars(strip_tags(trim($_GET["query"]))));
 	
+	//Стовпчик сортування
 	isset($_GET["sortby"]) && isset($_SORT_BY[$_GET["sortby"]]) or $_GET["sortby"] = $_SORT_BY["rating"];
 	$_GET["sortby"] = $_SORT_BY[$_GET["sortby"]];
 	
+	//Метод сортування
 	isset($_GET["sort"]) && isset($_SORT[$_GET["sort"]]) or $_GET["sort"] = $_SORT["desc"];
 	$_GET["sort"] = $_SORT[$_GET["sort"]];
 	
 	///////////////////////////////////////
 	/// SQL queries and formatting
 	///////////////////////////////////////
+	
+	//Записів на сторінку
 	$articles_per_page = $_SPM_CONF["SERVICES"]["rating"]["articles_per_page"];
+	//Номер цієї сторінки
 	$current_page = (int)$_GET['page'];
 	
+	//Формуємо запит на вибірку даних з БД
 	$query_str = "
 		SELECT
 			`id`,
@@ -81,26 +105,28 @@
 		;
 	";
 	
+	//Виконання запиту до бази даних
 	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
+	//Усього записів
 	$total_articles_number = (int)($db_result->num_rows);
 	
-	if ($total_articles_number > 0 && $articles_per_page > 0)
-		$total_pages = ceil($total_articles_number / $articles_per_page);
-	else
-		$total_pages = 1;
+	//Усього сторінок
+	$total_pages = ($total_articles_number > 0 && $articles_per_page > 0) ? ceil($total_articles_number / $articles_per_page) : 1;
 	
+	//Перевірка безпеки
 	if ($current_page > $total_pages)
 		$current_page = 1;
 	
 	///////////////////////////////////////
-	/// Header generation
+	/// Генерація заголовку
 	///////////////////////////////////////
+	
 	SPM_header("Учнівський рейтинг");
 	
 	/*
-	 * FUNCTIONS
+	 * Функції, що потрібні для роботи функціоналу сервісу
 	 */
 	function generate_sort_url($page = 1, $sortby = "", $sort = ""){
 		($sortby != "") or $sortby = $_GET["sortby"];
@@ -108,65 +134,74 @@
 		
 		return "index.php?service=rating&page=" . $page . "&query=" . $_GET["query"] . "&sortby=" . $sortby . "&sort=" . $sort;
 	}
+
+	///////////////////////////////////////
+
 ?>
 <!--SEARCH-->
-		<div class="row">
-			<div class="col-md-12">
-				<form method="get">
-					<input type="hidden" name="service" value="rating">
-					<div class="row-fluid">
-						<div class="col-md-4" style="margin: 0; padding: 0;">
-							<select class="form-control" name="category" required>
-								
-								<option value="0" selected>Усі групи</option>
-								
-								<?php
-									
-									if (permission_check($_SESSION['permissions'], PERMISSION::administrator))
-										$_query_mod_1 = '0';
-									elseif (permission_check($_SESSION['permissions'], PERMISSION::teacher))
-										$_query_mod_1 = $_SESSION['uid'];
-									else
-										$_query_mod_1 = $_SESSION['teacherId'];
-									
-									$query_str = "
-										SELECT
-											`id`,
-											`name`
-										FROM
-											`spm_users_groups`
-										WHERE
-											`teacherId` = '" . $_query_mod_1 . "'
-										;
-									";
-									
-									if (!$sub_query = $db->query($query_str))
-										die('Database connection error!');
-									
-									while ($group = $sub_query->fetch_assoc()):
-									
-								?>
-								<option value="<?=$group['id']?>"><?=$group['name']?></option>
-								<?php
-									
-									endwhile;
-									
-									$sub_query->free();
-									
-								?>
-								
-							</select>
-						</div>
-						<div class="col-md-8" style="margin: 0; padding: 0;">
-							<input type="text" class="form-control" name="query" placeholder="Пошук" value="<?=$_GET['query']?>">
-						</div>
-					</div>
-					<button type="submit" class="btn btn-primary btn-block btn-flat">Знайти</button>
-				</form>
+<div class="row">
+
+	<div class="col-md-12">
+
+		<form method="get">
+
+			<input type="hidden" name="service" value="rating">
+			
+			<div class="row-fluid">
+
+				<div class="col-md-4" style="margin: 0; padding: 0;">
+					
+					<select class="form-control" name="category" required>
+						
+						<option value="0" selected>Усі групи</option>
+						
+						<?php
+							
+							if (permission_check($_SESSION['permissions'], PERMISSION::administrator))
+								$_query_mod_1 = '0';
+							elseif (permission_check($_SESSION['permissions'], PERMISSION::teacher))
+								$_query_mod_1 = $_SESSION['uid'];
+							else
+								$_query_mod_1 = $_SESSION['teacherId'];
+							
+							$query_str = "
+								SELECT
+									`id`,
+									`name`
+								FROM
+									`spm_users_groups`
+								WHERE
+									`teacherId` = '" . $_query_mod_1 . "'
+								;
+							";
+							
+							if (!$sub_query = $db->query($query_str))
+								die('Database connection error!');
+							
+							while ($group = $sub_query->fetch_assoc()):
+							
+						?>
+
+						<option value="<?=$group['id']?>"><?=$group['name']?></option>
+						
+						<?php endwhile; $sub_query->free(); ?>
+						
+					</select>
+
+				</div>
+				<div class="col-md-8" style="margin: 0; padding: 0;">
+					<input type="text" class="form-control" name="query" placeholder="Пошук" value="<?=$_GET['query']?>">
+				</div>
+
 			</div>
-			<div class="col-md-9">
-			</div>
-		</div>
+
+			<button type="submit" class="btn btn-primary btn-block btn-flat">Знайти</button>
+
+		</form>
+
+	</div>
+
+</div>
 <!--PROBLEMS LIST-->
 <?php if ($total_articles_number == 0): ?>
 		<div align="center">
@@ -275,8 +310,11 @@
 <?php endif;?>
 
 <?php
+	
+	//Інклудимо модуль пагінації
 	include(_S_MOD_ . "pagination.php");
 	
+	//Генеруємо пагінацію
 	generatePagination(
 		$total_pages,
 		$current_page,
@@ -285,5 +323,7 @@
 		"&query=" . $_GET["query"] . "&sortby=" . $_GET["sortby"] . "&sort=" . $_GET["sort"] . "&category=" . (int)$_GET['category']
 	);
 	
+	//Генеруємо футер
 	SPM_footer();
+	
 ?>

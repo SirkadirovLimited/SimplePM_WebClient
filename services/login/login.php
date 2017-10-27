@@ -43,7 +43,9 @@
 <?php if ($_SPM_CONF["SECURITY"]["require_captcha"]):
 ?>
 	<div class="row" style="margin-bottom: 15px;">
+
 		<div class="col-md-2"></div>
+
 		<div class="col-md-8">
 			
 			<img src="captcha.php" width="100%" height="auto" />
@@ -61,16 +63,29 @@
 			>
 			
 		</div>
+
 		<div class="col-md-2"></div>
+
 	</div>
 <?php endif; ?>
 	
 	<button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-sign-in"></i> Увійти до системи</button>
 	
-	<div style="margin-top: 10px;">
-		<a href="index.php?service=forgot">Відновлення доступу</a><br/>
-		<a href="index.php?service=register">Реєстрація</a>
+	<div class="row">
+
+		<div class="col-md-12">
+
+			<div class="row-fluid" style="margin-top: 4px;">
+
+				<div class="col-md-6" style="margin: 0; padding: 0;"><a class="btn btn-flat btn-block btn-info" href="index.php?service=forgot">Відновлення доступу</a></div>
+				<div class="col-md-6" style="margin: 0; padding: 0;"><a class="btn btn-flat btn-block btn-info" href="index.php?service=register">Реєстрація</a></div>
+
+			</div>
+
+		</div>
+
 	</div>
+
 </form>
 
 <?php include_once(_S_TPL_ . "pre-login/footer.php"); ?>

@@ -5,8 +5,6 @@
 	// REQUIRED INCLUDES AND VARIABLES //
 	/////////////////////////////////////
 	
-	include_once(_S_SERV_INC_ . "problems/codeLang.php");
-	
 	$setAsAuthorSolution = 'false';
 	
 	/////////////////////////////////////
@@ -31,12 +29,17 @@
 	}
 	
 	/////////////////////////////////////
-	//       CODE LANG SWITCHER        //
-	/////////////////////////////////////
-	
-	@$codeLang = switchCodeLang($_POST['codeLang']);
-	
-	/////////////////////////////////////
+
+	isset($_POST['codeLang']) or die(header('location: index.php?service=error&err=input'));
+	$_POST['codeLang'] = mysqli_real_escape_string($db, strip_tags(trim($_POST['codeLang'])));
+
+	foreach ($_SPM_CONF["PROG_LANGS"] as $tmp_lang) {
+		if ($tmp_lang['name'] == $_POST['codeLang']) {
+			unset($tmp_lang);
+			break;
+		}
+	}
+	!isset($tmp_lang) or die(header('location: index.php?service=error&err=input'));
 	
 	isset($testType) or die(header('location: index.php?service=error&err=input'));
 	
@@ -209,7 +212,7 @@
 			`userId` = '" . $_SESSION['uid'] ."',
 			`problemId` = '" . $_POST['problemId'] . "',
 			`testType` = '" . $testType . "',
-			`codeLang` = '" . $codeLang . "',
+			`codeLang` = '" . $_POST['codeLang'] . "',
 			`customTest` = '" . $_POST['args'] . "'
 		;
 	";

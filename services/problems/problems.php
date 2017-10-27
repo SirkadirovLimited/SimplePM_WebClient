@@ -16,8 +16,8 @@
 <!--PROBLEMS LIST-->
 <?php if ($total_articles_number == 0 || $db_result->num_rows == 0): ?>
 <div align="center">
-	<h3>Задач не найдено</h3>
-	<p class="lead">По вашему запросу задач не найдено! Попробуйте ввести другой поисковый запрос.</p>
+	<h3>Задач не знайдено!/h3>
+	<p class="lead">За вашим запитом задач не знайдено. Перефразуйте ваш запит.</p>
 </div>
 <?php else: ?>
 <div class="table-responsive" style="margin: 0;">

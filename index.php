@@ -51,6 +51,7 @@
 	include_once(_S_INC_FUNC_ . "gen_tpl.php");
 	include_once(_S_INC_FUNC_ . "guard.php");
 	include_once(_S_INC_ . "config.php");
+	include_once(_S_INC_ . "languages.php");
 	include_once(_S_INC_ . "db.php");
 	include_once(_S_INC_FUNC_ . "info_msg.php");
 	include_once(_S_INC_FUNC_ . "user_info.php");

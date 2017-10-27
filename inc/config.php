@@ -10,7 +10,6 @@
 	/*BASE_CONFIGURATION-START*/
 	$_SPM_CONF["BASE"]["SITE_NAME"] = "SimplePM"; // назва сайту
 	$_SPM_CONF["BASE"]["SITE_DESCRIPTION"] = "Тестовий сайт SimplePM"; // головна теза сайту
-	$_SPM_CONF["BASE"]["SITE_KEYWORDS"] = "SPM,SimplePM,demo,site,website,php,sirkadirov"; // ключові слова сайту
 	$_SPM_CONF["BASE"]["SITE_URL"] = $_SERVER['HTTP_HOST']; //аадреса сайту (використовувати значення $_SERVER['HTTP_HOST'] дозволено)
 	
 	$_SPM_CONF["BASE"]["debug"] = false; // функціонал режиму тестування системи. false для відключення.
@@ -35,7 +34,7 @@
 	/*DB_CONFIG-END*/
 	
 	/*SERVICES-START*/
-	
+	//                             LOGIN SERVICES
 	$_SPM_CONF["SERVICE"]["register"] = "login/register.php";
 	$_SPM_CONF["SERVICE"]["login"] = "login/login.php";
 	$_SPM_CONF["SERVICE"]["forgot"] = "login/forgot.php";
@@ -110,7 +109,7 @@
 	$_SPM_CONF["SERVICES"]["messagess"]["enabled"] = true; // включити чи відключити функціонал повідомлень для всіх користувачів системи
 	$_SPM_CONF["SERVICES"]["news"]["articles_per_page"] = 5; // кількість записів на одну сторінку
 	$_SPM_CONF["SERVICES"]["rating"]["articles_per_page"] = 30; // кількість записів на одну сторінку
-	$_SPM_CONF["SERVICES"]["problems"]["articles_per_page"] = 30; // кількість записів на одну сторінку
+	$_SPM_CONF["SERVICES"]["problems"]["articles_per_page"] = 50; // кількість записів на одну сторінку
 	$_SPM_CONF["SERVICES"]["messages"]["max_messages_to_show"] = 1000; // максимальна кількість повідомлень, що відображати в діалозі між користувачами
 	/*SERVICES_SETTINGS-END*/
 	
@@ -127,18 +126,6 @@
 	$_SPM_CONF["SECURITY"]["require_captcha"] = false; // заборонити вхід користувачам без введення CAPTCHA
 	$_SPM_CONF["SECURITY"]["alpha_version_warning"] = true; // чи відображати застереження щодо нестабільної версії системи
 	/*SECURITY-END*/
-	
-	/*PROGRAMMING_LANGUAGES-START*/
-	// список мов програмування, що доступні користувачам системи
-	$_SPM_CONF["PROG_LANGS"]["pascal"] = true;
-	$_SPM_CONF["PROG_LANGS"]["csharp"] = true;
-	$_SPM_CONF["PROG_LANGS"]["cpp"] = true;
-	$_SPM_CONF["PROG_LANGS"]["c"] = true;
-	$_SPM_CONF["PROG_LANGS"]["lua"] = true;
-	$_SPM_CONF["PROG_LANGS"]["python"] = true;
-	$_SPM_CONF["PROG_LANGS"]["java"] = true;
-	$_SPM_CONF["PROG_LANGS"]["php"] = false; // на цей час підтримка php ще не імплементована
-	/*PROGRAMMING_LANGUAGES-END*/
 	
 	/*FUNCTIONS-START*/
 	function spm_prepare_classwork(){

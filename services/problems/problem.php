@@ -74,11 +74,11 @@
 	/////////////////////////////////////
 	
 	//Show disabled problem or not
-	if (!isset($_SESSION["classwork"]) && !isset($_SESSION["olymp"]) && permission_check($_SESSION["permissions"], PERMISSION::student))
-		$showDisabled = "AND `enabled` = true";
-	else
-		$showDisabled = "";
-	
+	$checkTrueEnabled = !isset($_SESSION["classwork"]) && !isset($_SESSION["olymp"]);
+	$checkTrueEnabled = $checkTrueEnabled && permission_check($_SESSION["permissions"], PERMISSION::student);
+	$showDisabled = $checkTrueEnabled ? "AND `enabled` = true" : "";
+	unset($checkTrueEnabled);
+
 	$query_str = "
 		SELECT
 			*
@@ -280,39 +280,19 @@
 				
 				<option value <?=($submissionLang == "unset" ? "selected" : "")?>>Виберіть компілятор</option>
 				
-				<?php if ($_SPM_CONF["PROG_LANGS"]["pascal"]): ?>
-				<option value="1" <?=($submissionLang == "freepascal" ? "selected" : "")?>>Pascal (Free Pascal / Object Pascal / Delphi)</option>
-				<?php endif; ?>
-				
-				<?php if ($_SPM_CONF["PROG_LANGS"]["csharp"]): ?>
-				<option value="2" <?=($submissionLang == "csharp" ? "selected" : "")?>>Mono / C#</option>
-				<?php endif; ?>
-				
-				<?php if ($_SPM_CONF["PROG_LANGS"]["cpp"]): ?>
-				<option value="3" <?=($submissionLang == "cpp" ? "selected" : "")?>>C++ (GNU Compiler Collection, g++)</option>
-				<?php endif; ?>
-				
-				<?php if ($_SPM_CONF["PROG_LANGS"]["c"]): ?>
-				<option value="4" <?=($submissionLang == "c" ? "selected" : "")?>>C (GNU Compiler Collection, gcc)</option>
-				<?php endif; ?>
-				
-				<?php if ($_SPM_CONF["PROG_LANGS"]["lua"]): ?>
-				<option value="5" <?=($submissionLang == "lua" ? "selected" : "")?>>Lua</option>
-				<?php endif; ?>
-				
-				<?php if ($_SPM_CONF["PROG_LANGS"]["python"]): ?>
-				<option value="7" <?=($submissionLang == "python" ? "selected" : "")?>>Python</option>
-				<?php endif; ?>
-				
-				<?php if ($_SPM_CONF["PROG_LANGS"]["java"]): ?>
-				<option value="6" <?=($submissionLang == "java" ? "selected" : "")?>>Java</option>
-				<?php endif; ?>
-				
+				<?php foreach ($_SPM_CONF["PROG_LANGS"] as $language): ?>
+				<option
+					value="<?=$language['name']?>"
+					<?=($submissionLang == $language['name'] ? "selected" : "")?>
+				><?=$language['displayName']?></option>
+				<?php endforeach; ?>
+
 			</select>
 			<!-- /CODE LANGUAGE SELECT -->
 			
 			<!-- CONTROL PANEL -->
 			<div class="row-fluid">
+				
 				<!-- Syntax -->
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
 					
@@ -325,6 +305,7 @@
 					>Перевірка синтаксису</button>
 					
 				</div>
+
 				<!-- Debug -->
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
 					
@@ -337,6 +318,7 @@
 					>Debug-режим</button>
 					
 				</div>
+
 				<!-- Release -->
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
 					
@@ -386,6 +368,7 @@
 					<?php endif; ?>
 				
 				<?php endif;?>
+
 			</div>
 			<!-- CONTROL PANEL -->
 		</form>
@@ -396,71 +379,116 @@
 	<div
 		class="panel-heading"
 		align="center"
-		style="padding-top: 5px; padding-bottom: 5px; border-radius: 0;">
+		style="padding-top: 5px; padding-bottom: 5px; border-radius: 0;"
+	>
+		
 		<?=$problem_info['name']?>
+
 	</div>
 	<div class="panel-body">
+
 		<div id="problem_info" style="font-size: 12pt;">
+			
 			<p><?=htmlspecialchars_decode($problem_info['description'])?></p>
+
 		</div>
+
 		<!-- I/O information -->
 		<div class="row" style="font-size: 12pt;">
+			
 			<div class="col-md-6">
 				<h4>Вхідний потік</h4>
 				<p><?=strlen($problem_info['input']) <= 0 ? "Вхідний потік пустий." : $problem_info['input']?></p>
 			</div>
+
 			<div class="col-md-6">
 				<h4>Вихідний потік</h4>
 				<p><?=strlen($problem_info['output']) <= 0  ? "Вихідний потік пустий." : $problem_info['output']?></p>
 			</div>
+
 		</div>
+
 		<!--I/O examples-->
 		<div class="row" style="text-align: left;">
+
 			<div class="col-md-6">
 				<h4>Приклад вхідного потоку</h4>
-				<p><?=strlen($problem_info['input_ex']) <= 0 ? "Вхідний потік пустий." : $problem_info['input_ex']?></p>
+				<p><?=@strlen($problem_info['input_ex']) <= 0 ? "Вхідний потік пустий." : $problem_info['input_ex']?></p>
 			</div>
+
 			<div class="col-md-6">
 				<h4>Приклад вихідного потоку</h4>
-				<p><p><?=strlen($problem_info['output_ex']) <= 0 ? "Вихідний потік пустий." : $problem_info['output_ex']?></p></p>
+				<p><p><?=@strlen($problem_info['output_ex']) <= 0 ? "Вихідний потік пустий." : $problem_info['output_ex']?></p></p>
 			</div>
+
 		</div>
 		<!-- /I/O information -->
+
+		<div align="right">
+			
+			
+			<form action="index.php?service=problems" method="post">
+				
+				<input type="hidden" name="id" value="<?=(int)$_GET["id"]?>">
+				
+				<a
+					class="btn btn-flat btn-xs btn-warning"
+					href="index.php?service=problem.edit&id=<?=(int)$_GET['id']?>"
+				>EDIT</a>
+
+				<button
+					type="submit"
+					name="del"
+					class="btn btn-danger btn-flat btn-xs"
+					onclick="return confirm('Ви дійсно хочете видалити цю задачу?');"
+				>DEL</button>
+
+			</form>
+
+		</div>
+
 	</div>
 </div>
 <script type="text/javascript">
+
 	function changeHighlight(){
 		
 		var editor = ace.edit("codeEditor");
 		var selectedLangId = document.getElementById("codeLang").value;
 		
 		switch (selectedLangId) {
-			case "1":
+
+			case "freepascal":
 				editor.getSession().setMode("ace/mode/pascal");
 				break;
-			case "2":
+			case "csharp":
 				editor.getSession().setMode("ace/mode/csharp");
 				break;
-			case "3":
+			case "cpp":
 				editor.getSession().setMode("ace/mode/c_cpp");
 				break;
-			case "4":
+			case "c":
 				editor.getSession().setMode("ace/mode/c_cpp");
 				break;
-			case "5":
+			case "lua":
 				editor.getSession().setMode("ace/mode/lua");
 				break;
-			case "6":
+			case "java":
 				editor.getSession().setMode("ace/mode/java");
 				break;
-			case "7":
+			case "python":
 				editor.getSession().setMode("ace/mode/python");
 				break;
+			case "php":
+				editor.getSession().setMode("ace/mode/php");
+				break;
+
 		}
 		
 		ace.require("ace/ext/language_tools");
 		
 		editor.setOptions({
+			
 			enableBasicAutocompletion: true,
 			enableSnippets: true,
 			enableLiveAutocompletion: true,
@@ -480,9 +508,11 @@
 			showGutter: true,
 			displayIndentGuides: true,
 			autoScrollEditorIntoView: true
+
 		});
 		
 	}
+
 	$(document).ready(function () {
 		changeHighlight();
 	});
@@ -494,5 +524,6 @@
 	editor.getSession().on("change", function () { $('textarea[name="code"]').val(editor.getSession().getValue()); });
 	
 	function getcode() { document.getElementById("code").innerHTML = editor.getValue(); }
+
 </script>
 <?php unset($submission); SPM_footer(); ?>
