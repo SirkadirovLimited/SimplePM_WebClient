@@ -32,14 +32,14 @@
 					</small>
 				</th>
 				<th width="40%">
-					Название задачи&nbsp;
+					Назва задачі&nbsp;
 					<small>
 						<a href="<?=generate_sort_url(1, $_SORT_BY['name'], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
 						<a href="<?=generate_sort_url(1, $_SORT_BY['name'], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
 					</small>
 				</th>
-				<th width="30%">Категория</th>
-				<th width="10%">Решаемость</th>
+				<th width="30%">Категорія</th>
+				<th width="10%">Вирішуваність</th>
 				<th width="10%">
 					B&nbsp;
 					<small>
