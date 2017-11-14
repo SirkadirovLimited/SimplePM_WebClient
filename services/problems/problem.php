@@ -423,9 +423,9 @@
 
 		</div>
 		<!-- /I/O information -->
-
+		
+		<?php if (permission_check($_SESSION['permissions'], PERMISSION::administrator)): ?>
 		<div align="right">
-			
 			
 			<form action="index.php?service=problems" method="post">
 				
@@ -435,18 +435,19 @@
 					class="btn btn-flat btn-xs btn-warning"
 					href="index.php?service=problem.edit&id=<?=(int)$_GET['id']?>"
 				>EDIT</a>
-
+				
 				<button
 					type="submit"
 					name="del"
 					class="btn btn-danger btn-flat btn-xs"
 					onclick="return confirm('Ви дійсно хочете видалити цю задачу?');"
 				>DEL</button>
-
+				
 			</form>
-
+			
 		</div>
-
+		<?php endif; ?>
+		
 	</div>
 </div>
 <script type="text/javascript">
