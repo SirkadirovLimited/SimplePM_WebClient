@@ -281,10 +281,12 @@
 				<option value <?=($submissionLang == "unset" ? "selected" : "")?>>Виберіть компілятор</option>
 				
 				<?php foreach ($_SPM_CONF["PROG_LANGS"] as $language): ?>
+				<?php if ($language['enabled']): ?>
 				<option
 					value="<?=$language['name']?>"
 					<?=($submissionLang == $language['name'] ? "selected" : "")?>
 				><?=$language['displayName']?></option>
+				<?php endif; ?>
 				<?php endforeach; ?>
 
 			</select>

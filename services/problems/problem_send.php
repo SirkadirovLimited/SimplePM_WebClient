@@ -34,7 +34,7 @@
 	$_POST['codeLang'] = mysqli_real_escape_string($db, strip_tags(trim($_POST['codeLang'])));
 
 	foreach ($_SPM_CONF["PROG_LANGS"] as $tmp_lang) {
-		if ($tmp_lang['name'] == $_POST['codeLang']) {
+		if ($tmp_lang['enabled'] && $tmp_lang['name'] == $_POST['codeLang']) {
 			unset($tmp_lang);
 			break;
 		}
@@ -220,7 +220,7 @@
 		;
 	";
 	
-	//for ($i = 0; $i < 500; $i++)
+	//for ($i = 0; $i < 100; $i++)
 	if (!$db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
