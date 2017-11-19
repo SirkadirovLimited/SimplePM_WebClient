@@ -32,6 +32,7 @@
 		$smile_name = "cool.png";
 	
 	$result = ($submission['hasError'] ? '-' : '+');
+	
 ?>
 <pre style="border-radius: 0;"><?=$submission['compiler_text']?></pre>
 

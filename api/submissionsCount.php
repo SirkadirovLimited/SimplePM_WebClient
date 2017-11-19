@@ -19,7 +19,7 @@
 		";
 		
 		if (!$counter = $db->query($query_str))
-			die(header('location: index.php?service=error&err=db_error'));
+			die('db_error');
 		
 		$result = $counter->fetch_array()[0];
 		$counter->free();
@@ -45,7 +45,7 @@
 		";
 		
 		if (!$counter = $db->query($query_str))
-			die(header('location: index.php?service=error&err=db_error'));
+			die('db_error');
 		
 		$result = $counter->fetch_array()[0];
 		$counter->free();
@@ -71,7 +71,7 @@
 		";
 		
 		if (!$counter = $db->query($query_str))
-			die(header('location: index.php?service=error&err=db_error'));
+			die('db_error');
 		
 		$result = $counter->fetch_array()[0];
 		$counter->free();
@@ -97,7 +97,7 @@
 		";
 		
 		if (!$counter = $db->query($query_str))
-			die(header('location: index.php?service=error&err=db_error'));
+			die('db_error');
 		
 		$result = $counter->fetch_array()[0];
 		$counter->free();

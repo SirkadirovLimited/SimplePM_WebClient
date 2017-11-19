@@ -51,7 +51,7 @@
 		<span class="glyphicon glyphicon-chevron-left"></span>
 		&nbsp;Редагування задачі
 	</a>
-	<a href="index.php?service=problem.edit.tests&id=<?=(int)$_GET['id']?>" class="btn btn-default btn-flat">
+	<a href="index.php?service=problem.edit.tests.import&id=<?=(int)$_GET['id']?>" class="btn btn-default btn-flat">
 		<span class="glyphicon glyphicon-upload"></span>
 		&nbsp;Імпортувати тести
 	</a>

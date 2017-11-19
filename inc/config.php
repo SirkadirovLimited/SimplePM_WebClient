@@ -12,7 +12,7 @@
 	$_SPM_CONF["BASE"]["SITE_DESCRIPTION"] = "Тестовий сайт SimplePM"; // головна теза сайту
 	$_SPM_CONF["BASE"]["SITE_URL"] = $_SERVER['HTTP_HOST']; //аадреса сайту (використовувати значення $_SERVER['HTTP_HOST'] дозволено)
 	
-	$_SPM_CONF["BASE"]["debug"] = false; // функціонал режиму тестування системи. false для відключення.
+	$_SPM_CONF["BASE"]["debug"] = !false; // функціонал режиму тестування системи. false для відключення.
 	$_SPM_CONF["BASE"]["enable_additional_func"] = true; // деякий користувацький функціонал може бути корисним, але його використання в деяких випадках не рекомендоване.
 	
 	$_SPM_CONF["BASE"]["TPL_NAME"] = "default"; // ім'я папки шаблону сайта

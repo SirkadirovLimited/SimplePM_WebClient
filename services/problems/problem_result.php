@@ -5,6 +5,7 @@
 	/////////////////////////////////////////////
 	
 	deniedOrAllowed(PERMISSION::student | PERMISSION::teacher | PERMISSION::administrator);
+	
 	(isset($_GET['sid']) && (int)$_GET['sid'] > 0)
 		or die(header('location: index.php?service=error&err=input'));
     
@@ -63,7 +64,7 @@
 
 <div class="panel panel-default" style="border-radius: 0;">
 	<div class="panel-body">
-		<a href="index.php?service=problem&id=<?php print($submission['problemId']); ?>" class="btn btn-primary btn-flat">
+		<a href="index.php?service=problem&id=<?=$submission['problemId']?>" class="btn btn-primary btn-flat">
 			<span class="glyphicon glyphicon-chevron-left"></span>&nbsp;Повернутися до задачі
 		</a>
 		<?php if (!isset($_SESSION["classwork"], $_SESSION["olymp"])): ?>

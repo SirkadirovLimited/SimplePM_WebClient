@@ -1,4 +1,5 @@
 <?php
+	
 	SPM_header("Головна сторінка");
 	
 	function getUsersCount($permission){
@@ -44,6 +45,7 @@
 		return (int)$result;
 		
 	}
+	
 ?>
 <style>
 	#content {
