@@ -108,6 +108,7 @@
 
 <?php if ($_SPM_CONF["BASE"]["debug"]): ?>
 <section style="padding: 10px;">
+	<h3 style="color: red;">PRE-ALPHA ВЕРСІЯ. НЕ ДЛЯ ПУБЛІЧНОГО ВИКОРИСТАННЯ!</h3>
 	<span>Submissions count: <b id="allSubmCount"></b></span><br/>
 	<span>Waiting count: <b id="waitingSubmCount"></b></span><br/>
 	<span>Processing count: <b id="processingSubmCount"></b></span><br/>
