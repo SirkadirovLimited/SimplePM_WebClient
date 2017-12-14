@@ -9,31 +9,17 @@
 	);
 	
 	/////////////////////////////////////
-	// REQUIRED INCLUDES AND VARIABLES //
-	/////////////////////////////////////
-	
-	$setAsAuthorSolution = 'false';
-	
-	/////////////////////////////////////
 	//            SEND TYPE            //
 	/////////////////////////////////////
 	
-	if (isset($_POST['syntax']))
+	isset($_POST['sendType']) or die(header('location: index.php?service=error&err=input'));
+	
+	if ($_POST['sendType'] == "syntax")
 		$testType = 'syntax';
-	if (isset($_POST['debug']))
+	if ($_POST['sendType'] == "debug")
 		$testType = 'debug';
-	if (isset($_POST['release']))
+	if ($_POST['sendType'] == "release")
 		$testType = 'release';
-	
-	/////////////////////////////////////
-	//  AUTHOR SOLUTION SEND CHECKER   //
-	/////////////////////////////////////
-	
-	if (isset($_POST['setAsAuthorSolution'])){
-		deniedOrAllowed(PERMISSION::administrator);
-		$testType = 'release';
-		$setAsAuthorSolution = 'true';
-	}
 	
 	/////////////////////////////////////
 
@@ -218,7 +204,6 @@
 		INSERT INTO
 			`spm_submissions`
 		SET
-			`setAsAuthorSolution` = " . $setAsAuthorSolution . ",
 			`classworkId` = '" . $classworkId . "',
 			`olympId` = '" . $olympId . "',
 			`problemCode`='" . $_POST['code'] . "',
@@ -230,7 +215,7 @@
 		;
 	";
 	
-	//for ($i = 0; $i < 100; $i++)
+	//for ($i = 0; $i < 50; $i++)
 	if (!$db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	

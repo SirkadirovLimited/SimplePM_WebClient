@@ -4,7 +4,11 @@
 	//         SECURITY CHECKS         //
 	/////////////////////////////////////
 	
-	deniedOrAllowed(PERMISSION::student | PERMISSION::teacher | PERMISSION::administrator);
+	deniedOrAllowed(
+		PERMISSION::student |
+		PERMISSION::teacher |
+		PERMISSION::administrator
+	);
 	
 	(isset($_GET['id']) && (int)$_GET['id'] > 0)
 		or die(header('location: index.php?service=error&err=input'));
@@ -258,7 +262,7 @@
 				value="<?=$problem_info['id']?>"
 			>
 			
-			<div id="codeEditor" contenteditable="true"><?=$submissionCode?></div>
+			<div id="codeEditor"><?=$submissionCode?></div>
 			
 			<textarea
 				name="code"
@@ -275,64 +279,58 @@
 				placeholder="Введіть свій тест для перевірки правильності рішення (для Debug)"
 			><?=$submissionArgs?></textarea>
 			
-			<!-- CODE LANGUAGE SELECT -->
-			<select class="form-control" name="codeLang" id="codeLang" onchange="changeHighlight()" required>
-				
-				<option value <?=($submissionLang == "unset" ? "selected" : "")?>>Виберіть компілятор</option>
-				
-				<?php foreach ($_SPM_CONF["PROG_LANGS"] as $language): ?>
-				<?php if ($language['enabled']): ?>
-				<option
-					value="<?=$language['name']?>"
-					<?=($submissionLang == $language['name'] ? "selected" : "")?>
-				><?=$language['displayName']?></option>
-				<?php endif; ?>
-				<?php endforeach; ?>
-
-			</select>
-			<!-- /CODE LANGUAGE SELECT -->
-			
-			<!-- CONTROL PANEL -->
 			<div class="row-fluid">
 				
-				<!-- Syntax -->
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
 					
-					<button
-						class="btn btn-info btn-block btn-flat"
-						type="submit"
-						name="syntax"
-						style="margin: 0;"
-						onclick="getcode();"
-					>Перевірка синтаксису</button>
+					<!-- CODE LANGUAGE SELECT -->
+					<select class="form-control" name="codeLang" id="codeLang" onchange="changeHighlight()" required>
+						
+						<option value <?=($submissionLang == "unset" ? "selected" : "")?>>Виберіть компілятор</option>
+						
+						<?php foreach ($_SPM_CONF["PROG_LANGS"] as $language): ?>
+						<?php if ($language['enabled']): ?>
+						<option
+							value="<?=$language['name']?>"
+							<?=($submissionLang == $language['name'] ? "selected" : "")?>
+						><?=$language['displayName']?></option>
+						<?php endif; ?>
+						<?php endforeach; ?>
+
+					</select>
+					<!-- /CODE LANGUAGE SELECT -->
 					
 				</div>
+				
+				<div class="col-xs-4 col-md-4" style="padding: 0;">
+					
+					<select class="form-control" name="sendType" required>
+						
+						<option value selected>Виберіть тип відправки</option>
+						<option value="syntax">Перевірка синтаксису</option>
+						<option value="debug">Debug-режим</option>
+						<option value="release">Release-режим</option>
 
-				<!-- Debug -->
+					</select>
+					
+				</div>
+				
 				<div class="col-xs-4 col-md-4" style="padding: 0;">
 					
 					<button
 						class="btn btn-primary btn-block btn-flat"
 						type="submit"
-						name="debug"
+						name="submit"
 						style="margin: 0;"
 						onclick="getcode();"
-					>Debug-режим</button>
+					>Відправити</button>
 					
 				</div>
-
-				<!-- Release -->
-				<div class="col-xs-4 col-md-4" style="padding: 0;">
-					
-					<button
-						class="btn btn-success btn-block btn-flat"
-						type="submit"
-						name="release"
-						style="margin: 0;"
-						onclick="getcode();"
-					>Відправка</button>
-					
-				</div>
+				
+			</div>
+			
+			<!-- CONTROL PANEL -->
+			<div class="row-fluid">
 				
 				<?php if (isset($submission['problemCode'])): ?>
 				<!-- Last submission info -->
@@ -345,32 +343,6 @@
 					
 				</div>
 				<?php endif; ?>
-				
-				<?php if (permission_check($_SESSION["permissions"], PERMISSION::teacher | PERMISSION::administrator)): ?>
-				
-				<!-- Get author's solution -->
-				<div class="col-xs-12 col-md-12" style="padding: 0;">
-					
-					<a
-						href="index.php?service=problem&id=<?=$problem_info['id']?>&authorSolution"
-						class="btn btn-warning btn-block btn-flat"
-					>Отримати авторське рішення</a>
-					
-				</div>
-				
-					<?php if (permission_check($_SESSION["permissions"], PERMISSION::administrator)): ?>
-					<div class="col-xs-12 col-md-12" style="padding: 0;">
-						<button
-							type="submit"
-							name="setAsAuthorSolution"
-							class="btn btn-danger btn-flat btn-block"
-							onclick="getcode(); return confirm('Це діяння незворотнє! Ви впевнені?');"
-						>Встановити авторське рішення</button>
-					</div>
-					<?php endif; ?>
-				
-				<?php endif;?>
-
 			</div>
 			<!-- CONTROL PANEL -->
 		</form>
@@ -452,6 +424,91 @@
 		
 	</div>
 </div>
+
+<?php if (permission_check($_SESSION['permissions'], PERMISSION::teacher | PERMISSION::administrator)): ?>
+<div class="panel-group" id="authorSolutionPanel" role="tablist">
+	
+	<div class="panel panel-default" style="border-radius: 0;">
+		
+		<div class="panel-heading" role="tab">
+			
+			<h4 class="panel-title">
+				
+				<a role="button" data-toggle="collapse" data-parent="#authorSolutionPanel" href="#authorSolutionSubPanel">
+					Авторське рішення задачі
+				</a>
+				
+			</h4>
+			
+		</div>
+		
+		<div id="authorSolutionSubPanel" class="panel-collapse collapse" role="tabpanel" style="border-radius: 0;">
+			
+			<div class="panel-body" style="padding: 0;">
+				
+				<style type="text/css">
+					#authorSolutionCodeEditor {
+						position: relative;
+						top: 0;
+						right: 0;
+						bottom: 0;
+						left: 0;
+						height: 400px;
+						margin: 0;
+						font-size: 15px;
+					}
+				</style>
+
+				
+				<div id="authorSolutionCodeEditor"><?=$submissionCode?></div>
+				
+				<script>
+					
+					var AuthorEditor = ace.edit("authorSolutionCodeEditor");
+					
+					AuthorEditor.setOptions({
+						highlightActiveLine: false
+					});
+					
+				</script>
+				
+				<?php if (permission_check($_SESSION["permissions"], PERMISSION::administrator)): ?>
+				<!-- CODE LANGUAGE SELECT -->
+				<select class="form-control" name="codeLang" id="codeLang" onchange="changeHighlight()" required>
+					
+					<option value <?=($submissionLang == "unset" ? "selected" : "")?>>Виберіть компілятор</option>
+					
+					<?php foreach ($_SPM_CONF["PROG_LANGS"] as $language): ?>
+					<?php if ($language['enabled']): ?>
+					<option
+						value="<?=$language['name']?>"
+						<?=($submissionLang == $language['name'] ? "selected" : "")?>
+					><?=$language['displayName']?></option>
+					<?php endif; ?>
+					<?php endforeach; ?>
+					
+				</select>
+				<!-- /CODE LANGUAGE SELECT -->
+				
+				<div class="col-xs-12 col-md-12" style="padding: 0;">
+					<button
+						type="submit"
+						name="setAsAuthorSolution"
+						class="btn btn-warning btn-flat btn-block"
+						onclick="getcode(); return confirm('Це діяння незворотнє! Ви впевнені?');"
+					>Встановити авторське рішення</button>
+				</div>
+				<?php endif; ?>
+				
+			</div>
+			
+		</div>
+		
+	</div>
+	
+</div>
+<?php endif; ?>
+
 <script type="text/javascript">
 
 	function changeHighlight(){
