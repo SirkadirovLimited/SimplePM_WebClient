@@ -372,12 +372,12 @@
 			
 			<div class="col-md-6">
 				<h4>Вхідний потік</h4>
-				<p><?=strlen($problem_info['input']) <= 0 ? "Вхідний потік пустий." : $problem_info['input']?></p>
+				<p><?=strlen($problem_info['input']) <= 0 ? "Вхідний потік пустий." : str_replace("\n", "<br>", $problem_info['input'])?></p>
 			</div>
 
 			<div class="col-md-6">
 				<h4>Вихідний потік</h4>
-				<p><?=strlen($problem_info['output']) <= 0  ? "Вихідний потік пустий." : $problem_info['output']?></p>
+				<p><?=strlen($problem_info['output']) <= 0  ? "Вихідний потік пустий." : str_replace("\n", "<br>", $problem_info['output'])?></p>
 			</div>
 
 		</div>
@@ -387,12 +387,12 @@
 
 			<div class="col-md-6">
 				<h4>Приклад вхідного потоку</h4>
-				<p><?=@strlen($problem_info['input_ex']) <= 0 ? "Вхідний потік пустий." : $problem_info['input_ex']?></p>
+				<p><?=@strlen($problem_info['input_ex']) <= 0 ? "Вхідний потік пустий." : str_replace("\n", "<br>", $problem_info['input_ex'])?></p>
 			</div>
 
 			<div class="col-md-6">
 				<h4>Приклад вихідного потоку</h4>
-				<p><p><?=@strlen($problem_info['output_ex']) <= 0 ? "Вихідний потік пустий." : $problem_info['output_ex']?></p></p>
+				<p><p><?=@strlen($problem_info['output_ex']) <= 0 ? "Вихідний потік пустий." : str_replace("\n", "<br>", $problem_info['output_ex'])?></p></p>
 			</div>
 
 		</div>
