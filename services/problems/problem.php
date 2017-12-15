@@ -446,59 +446,112 @@
 			
 			<div class="panel-body" style="padding: 0;">
 				
-				<style type="text/css">
-					#authorSolutionCodeEditor {
-						position: relative;
-						top: 0;
-						right: 0;
-						bottom: 0;
-						left: 0;
-						height: 400px;
-						margin: 0;
-						font-size: 15px;
+				<?php
+					
+					if (isset($_POST['setAsAuthorSolution'])) {
+						
+						$query_str = "
+							INSERT INTO 
+                                `spm_problems_ready` 
+                            SET 
+                                `problemId` = '" . $problem_info['id'] . "', 
+                                `codeLang` = '" . mysqli_real_escape_string($db, strip_tags(trim($_POST['codeLang']))) . "', 
+                                `code` = '" . mysqli_real_escape_string($db, $_POST['code']) . "'
+                            ON DUPLICATE KEY UPDATE 
+                                `codeLang` = '" . mysqli_real_escape_string($db, strip_tags(trim($_POST['codeLang']))) . "', 
+                                `code` = '" . mysqli_real_escape_string($db, $_POST['code']) . "'
+                            ;
+						";
+						
+						if (!$db->query($query_str))
+							print("<strong>При зміні авторського рішення задачі виникла помилка.</strong>");
+						else
+							print("<strong>Авторське рішення до задачі успішно змінено!</strong>");
+						
 					}
-				</style>
-
+					
+				?>
 				
-				<div id="authorSolutionCodeEditor"><?=$submissionCode?></div>
-				
-				<script>
+				<form method="post" action="<?=$_SERVER['REQUEST_URI']?>">
 					
-					var AuthorEditor = ace.edit("authorSolutionCodeEditor");
+					<style type="text/css">
+						#authorSolutionCodeEditor {
+							position: relative;
+							top: 0;
+							right: 0;
+							bottom: 0;
+							left: 0;
+							height: 400px;
+							margin: 0;
+							font-size: 15px;
+						}
+					</style>
 					
-					AuthorEditor.setOptions({
-						highlightActiveLine: false
-					});
+					<textarea class="hidden" name="code" id="authorCode"></textarea>
 					
-				</script>
-				
-				<?php if (permission_check($_SESSION["permissions"], PERMISSION::administrator)): ?>
-				<!-- CODE LANGUAGE SELECT -->
-				<select class="form-control" name="codeLang" id="codeLang" onchange="changeHighlight()" required>
+					<div id="authorSolutionCodeEditor"><?php
+							
+							$query_str = "
+								SELECT
+									`code`
+								FROM
+									`spm_problems_ready`
+								WHERE
+									`problemId` = '" . $problem_info['id'] . "'
+								LIMIT
+									1
+								;
+							";
+							
+							$query = @$db->query($query_str);
+							
+							if ($query->num_rows > 0)
+								print(htmlspecialchars(@$query->fetch_array()[0]));
+							
+						?></div>
 					
-					<option value <?=($submissionLang == "unset" ? "selected" : "")?>>Виберіть компілятор</option>
+					<script>
+						
+						var AuthorEditor = ace.edit("authorSolutionCodeEditor");
+						
+						AuthorEditor.setOptions({
+							highlightActiveLine: false
+						});
+						
+						AuthorEditor.getSession().on("change", function () { $('textarea[id="authorCode"]').val(AuthorEditor.getSession().getValue()); });
+						
+						function getauthorcode() { document.getElementById("authorCode").innerHTML = AuthorEditor.getValue(); }
+						
+					</script>
 					
-					<?php foreach ($_SPM_CONF["PROG_LANGS"] as $language): ?>
-					<?php if ($language['enabled']): ?>
-					<option
-						value="<?=$language['name']?>"
-						<?=($submissionLang == $language['name'] ? "selected" : "")?>
-					><?=$language['displayName']?></option>
+					<?php if (permission_check($_SESSION["permissions"], PERMISSION::administrator)): ?>
+					<!-- CODE LANGUAGE SELECT -->
+					<select class="form-control" name="codeLang" required>
+						
+						<option value selected>Виберіть компілятор</option>
+						
+						<?php foreach ($_SPM_CONF["PROG_LANGS"] as $language): ?>
+						<?php if ($language['enabled']): ?>
+						<option
+							value="<?=$language['name']?>"
+						><?=$language['displayName']?></option>
+						<?php endif; ?>
+						<?php endforeach; ?>
+						
+					</select>
+					<!-- /CODE LANGUAGE SELECT -->
+					
+					<div class="col-xs-12 col-md-12" style="padding: 0;">
+						<button
+							type="submit"
+							name="setAsAuthorSolution"
+							class="btn btn-warning btn-flat btn-block"
+							onclick="getauthorcode(); return confirm('Це діяння незворотнє! Ви впевнені?');"
+						>Встановити авторське рішення</button>
+					</div>
 					<?php endif; ?>
-					<?php endforeach; ?>
 					
-				</select>
-				<!-- /CODE LANGUAGE SELECT -->
-				
-				<div class="col-xs-12 col-md-12" style="padding: 0;">
-					<button
-						type="submit"
-						name="setAsAuthorSolution"
-						class="btn btn-warning btn-flat btn-block"
-						onclick="getcode(); return confirm('Це діяння незворотнє! Ви впевнені?');"
-					>Встановити авторське рішення</button>
-				</div>
-				<?php endif; ?>
+				</form>
 				
 			</div>
 			
