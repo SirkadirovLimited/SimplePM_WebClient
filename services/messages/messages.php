@@ -348,7 +348,7 @@
 					placeholder="Введіть своє повідомлення..."
 					rows="1"
 					class="form-control"
-					style="resize: none;"
+					style="resize: none; height: 34px;"
 					autocomplete="off"
 					<?=($_GET["uid"] == 0 ? "disabled" : "")?>
 					required
@@ -358,7 +358,7 @@
 						data-toggle="modal"
 						data-target="#modal-emoticons"
 						class="<?=($_GET["uid"] == 0 ? "disabled " : "")?>btn btn-default btn-flat"
-					>🙂</a>
+					><strong>🙂</strong></a>
 					<button
 						type="submit"
 						class="btn btn-primary btn-flat"
@@ -396,7 +396,7 @@
 					);
 				?>
 				<?php foreach ($emoticons_arr as $emoticon): ?>
-				<a href="#"><span style="font-size: 20px;" onclick="insertAtCaret('message', '<?=$emoticon?>'); return false;"><?=$emoticon?></span></a>&nbsp;
+				<a href="#"><span style="font-size: 20px; color: white;" onclick="insertAtCaret('message', '<?=$emoticon?>'); return false;"><?=$emoticon?></span></a>&nbsp;
 				<?php endforeach; ?>
 			</div>
 		</div>

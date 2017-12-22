@@ -13,6 +13,10 @@
 		WHERE
 			`userId` = '" . (int)$_GET['uid'] . "'
 		AND
+			`classworkId` = '0'
+		AND
+			`olympId` = '0'
+		AND
 			(
 				`hasError` = true
 			OR
