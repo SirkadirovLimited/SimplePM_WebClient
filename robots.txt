@@ -2,6 +2,7 @@ User-agent: *
 Disallow: /
 Disallow: /inc/
 Disallow: /tpl/
+Disallow: /api/
 Disallow: /modules/
 Disallow: /services/
 Disallow: /media/
