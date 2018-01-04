@@ -292,7 +292,11 @@
 						<?php if ($language['enabled']): ?>
 						<option
 							value="<?=$language['name']?>"
-							<?=($submissionLang == $language['name'] ? "selected" : "")?>
+							<?=(
+								($submissionLang == $language['name'] || ($submissionLang == "unset" && @$_SESSION["mainLanguage"] == $language['name']))
+									? " selected"
+									: ""
+							)?>
 						><?=$language['displayName']?></option>
 						<?php endif; ?>
 						<?php endforeach; ?>
@@ -306,9 +310,9 @@
 					
 					<select class="form-control" name="sendType" required>
 						
-						<option value selected>Виберіть тип відправки</option>
+						<option value>Виберіть тип відправки</option>
 						<option value="syntax">Перевірка синтаксису</option>
-						<option value="debug">Debug-режим</option>
+						<option value="debug" selected>Debug-режим</option>
 						<option value="release">Release-режим</option>
 
 					</select>
@@ -602,12 +606,12 @@
 		
 		editor.setOptions({
 			
-			enableBasicAutocompletion: true,
-			enableSnippets: true,
-			enableLiveAutocompletion: true,
+			enableBasicAutocompletion: false,
+			enableSnippets: false,
+			enableLiveAutocompletion: false,
 			
 			hScrollBarAlwaysVisible: false,
-			vScrollBarAlwaysVisible: false,
+			vScrollBarAlwaysVisible: true,
 			
 			highlightGutterLine: true,
 			animatedScroll: true,

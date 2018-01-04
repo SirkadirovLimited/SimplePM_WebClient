@@ -1,14 +1,21 @@
 <?php
 	
-	deniedOrAllowed(PERMISSION::student | PERMISSION::teacher | PERMISSION::administrator);
+	deniedOrAllowed(
+		PERMISSION::student |
+		PERMISSION::teacher |
+		PERMISSION::administrator
+	);
 	
 	//Включение скрипта, по запросу удаляющего определённую задачу
 	include(_S_SERV_INC_ . "admin/problem.del.php");
+	
 	//Включение скрипта, отвечающего за выборку из БД
 	//и форматирование результатов выполнения запроса к ней
 	include(_S_SERV_INC_ . "problems/problems.list.operator.php");
+	
 	//Управляющая панель администратора
 	include(_S_VIEW_ . "problems/problems.list/adminbar.php");
+	
 	//Панель поиска и кастомной выборки списка задач из базы данных
 	include(_S_VIEW_ . "problems/problems.list/problems.searchbar.php");
 	
@@ -58,7 +65,7 @@
 			<tr>
 				<th width="10%"></th>
 				<th width="40%">
-					Страница <?=$_GET["page"]?> из <?=$total_pages?>
+					Сторінка <?=$_GET["page"]?> з <?=$total_pages?>
 				</th>
 				<th width="30%"></th>
 				<th width="10%"></th>
@@ -69,5 +76,16 @@
 </div>
 <?php endif;?>
 
-<?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4, "problems", "&catId=&query=" . $_GET["query"] . "&sortby=" . $_GET["sortby"] . "&sort=" . $_GET["sort"]); ?>
+<?php
+	include(_S_MOD_ . "pagination.php");
+	
+	generatePagination(
+		$total_pages,
+		$current_page,
+		4,
+		"problems",
+		"&catId=&query=" . $_GET["query"] . "&sortby=" . $_GET["sortby"] . "&sort=" . $_GET["sort"]
+	);
+?>
+
 <?php SPM_footer(); ?>

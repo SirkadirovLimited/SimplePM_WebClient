@@ -37,6 +37,12 @@
 	
 	!isset($tmp_lang) or die(header('location: index.php?service=error&err=input'));
 	
+	/////////////////////////////////////
+	
+	$_SESSION["mainLanguage"] = $_POST['codeLang'];
+	
+	/////////////////////////////////////
+	
 	isset($testType) or die(header('location: index.php?service=error&err=input'));
 	
 	/////////////////////////////////////
