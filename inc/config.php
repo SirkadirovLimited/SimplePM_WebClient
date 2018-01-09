@@ -66,7 +66,8 @@
 	$_SPM_CONF["SERVICE"]["problem_result"] = "problems/problem_result.php";
 	
 	//                             HOMEWORKS SERVICES
-	$_SPM_CONF["SERVICE"]["homeworks"] = "homeworks/homeworks.php";
+	//$_SPM_CONF["SERVICE"]["homeworks"] = "homeworks/homeworks.php";
+	//$_SPM_CONF["SERVICE"]["homework.edit"] = "homeworks/homework.edit.php";
 	
 	//                             CLASSWORKS SERVICES
 	$_SPM_CONF["SERVICE"]["classworks"] = "classworks/classworks.php";

@@ -1,8 +1,11 @@
 <?php
 	
-	deniedOrAllowed(PERMISSION::student | PERMISSION::teacher);
+	deniedOrAllowed(
+		PERMISSION::student |
+		PERMISSION::teacher
+	);
 	
-	SPM_header("Домашні завдання");
+	SPM_header("Домашні завдання", "Список домашніх завдань");
 	
 	if (permission_check($_SESSION['permissions'], PERMISSION::teacher)):
 	
@@ -24,6 +27,8 @@
 	
 	while ($tmp = $query->fetch_assoc())
 		$groups_arr[] = $tmp;
+	
+	unset($tmp);
 	
 ?>
 
@@ -51,14 +56,14 @@
 	
 </style>
 
-
 <div id="groupsTabControl">	
 	<ul class="nav nav-pills">
 		
 		<?php foreach ($groups_arr as $group): ?>
 		<li><a href="#group<?=$group['id']?>" data-toggle="tab"><?=$group['name']?></a></li>
 		<?php endforeach; ?>
-		<li><a href="#edit" data-toggle="tab">Редактор Д/З</a></li>
+		
+		<li><a href="index.php?service=homework.edit&id=0">Створити завдання</a></li>
 		
 	</ul>
 	
@@ -154,59 +159,6 @@
 				
 		</div>
 		<?php endforeach; ?>
-		
-		<div class="tab-pane scroller table-responsive" id="edit">
-			
-			<table class="table table-hover table-bordered" style="background-color: #fff; margin: 0;">
-				
-				<thead>
-					<th width="20%">Параметр</th>
-					<th width="80%">Значення</th>
-				</thead>
-				
-				<tbody>
-					
-					<tr>
-						
-						<td>
-							ID
-						</td>
-						
-						<td>
-							<input type="number" name="id" min="0" value="0" required class="form-control">
-						</td>
-						
-					</tr>
-					
-					<tr>
-						
-						<td>
-							Назва завдання
-						</td>
-						
-						<td>
-							<input type="text" name="name" value="" minlength="1" maxlength="255" required class="form-control">
-						</td>
-						
-					</tr>
-					
-					<tr>
-						
-						<td>
-							Тема завдання
-						</td>
-						
-						<td>
-							<input type="text" name="subject" value="" minlength="1" maxlength="255" required class="form-control">
-						</td>
-						
-					</tr>
-					
-				</tbody>
-				
-			</table>
-			
-		</div>
 		
 	</div>
 	
