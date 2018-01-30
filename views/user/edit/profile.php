@@ -79,7 +79,7 @@
 				<div class="panel panel-default" style="border-radius: 0;">
 					<div class="panel-heading" style="border-radius: 0;">
 						<h4 class="panel-title">
-							<a class="collapsed" data-toggle="collapse" data-parent="#accon" href="#geoParams">Геолокация</a>
+							<a class="collapsed" data-toggle="collapse" data-parent="#accon" href="#geoParams">Геолокація</a>
 						</h4>
 					</div>
 					<div id="geoParams" class="panel-collapse collapse" style="border-radius: 0;">
