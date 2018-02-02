@@ -20,7 +20,8 @@
 		AND
 			MONTH(bdate) = MONTH(NOW())
 		ORDER BY
-			`lastOnline` DESC
+			DAY(bdate) DESC,
+			lastOnline DESC
 		LIMIT
 			0, 30
 		;
