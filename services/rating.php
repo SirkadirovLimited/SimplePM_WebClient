@@ -1,7 +1,11 @@
 <?php
 	
 	//Перевірка на дозвіл візиту
-	deniedOrAllowed(PERMISSION::student | PERMISSION::teacher | PERMISSION::administrator);
+	deniedOrAllowed(
+		PERMISSION::student | 
+		PERMISSION::teacher | 
+		PERMISSION::administrator
+	);
 	
 	///////////////////////////////////////
 	/// SORT BY типи сортування
