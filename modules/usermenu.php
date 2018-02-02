@@ -24,6 +24,7 @@
 	}
 	
 	$enablelinks = !isset($_SESSION["classwork"]) && !isset($_SESSION["olymp"]);
+	
 ?>
 <li class="dropdown user user-menu">
 	
@@ -50,12 +51,12 @@
 		
 		<?php if ($enablelinks): ?>
 		<li class="user-body" style="padding: 0;">
-			<ul class="nav nav-pills nav-stacked">
+			<ul class="nav nav-pills nav-stacked" style="padding: 0;">
 				
-				<li><a href="index.php?service=user&id=<?=$_SESSION['uid']?>"><i class="fa fa-user"></i> Мій профіль</a></li>
+				<li><a href="index.php?service=user&id=<?=$_SESSION['uid']?>"><i class="fa fa-user"></i>Мій профіль</a></li>
 				
 				<?php if ($_SPM_CONF["SERVICES"]["messagess"]["enabled"]): ?>
-				<li><a href="index.php?service=messages"><i class="fa fa-comments"></i> Мої повідомлення <i class="fa pull-right"><span class="badge"><?=$messagesCount?></span></i></a></li>
+				<li><a href="index.php?service=messages"><i class="fa fa-comments"></i>Мої повідомлення<i class="fa pull-right"><span class="badge"><?=$messagesCount?></span></i></a></li>
 				<?php endif; ?>
 				
 				<?php if (permission_check($_SESSION["permissions"], PERMISSION::student)): ?>
