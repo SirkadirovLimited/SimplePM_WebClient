@@ -8,10 +8,8 @@
 	///////////////////////////////////////
 	
 	//Стовпчики які можуть бути відсортовані
-	$_SORT_BY["id"] = "id";
 	$_SORT_BY["username"] = "username";
 	$_SORT_BY["secondname"] = "secondname";
-	$_SORT_BY["group"] = "group";
 	$_SORT_BY["bcount"] = "bcount";
 	$_SORT_BY["rating"] = "rating";
 	
@@ -214,11 +212,7 @@
 				<thead>
 					<tr>
 						<th width="10%">
-							ID&nbsp;
-							<small>
-								<a href="<?=generate_sort_url(1, $_SORT_BY['id'], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
-								<a href="<?=generate_sort_url(1, $_SORT_BY['id'], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
-							</small>
+							ID
 						</th>
 						<th width="20%">
 							Ім'я користувача&nbsp;
@@ -235,11 +229,7 @@
 							</small>
 						</th>
 						<th width="15%">
-							Група&nbsp;
-							<small>
-								<a href="<?=generate_sort_url(1, $_SORT_BY["group"], $_SORT['asc'])?>"><i class="fa fa-caret-square-o-down"></i></a>
-								<a href="<?=generate_sort_url(1, $_SORT_BY["group"], $_SORT['desc'])?>"><i class="fa fa-caret-square-o-up"></i></a>
-							</small>
+							Група
 						</th>
 						<th width="10%">
 							B&nbsp;
