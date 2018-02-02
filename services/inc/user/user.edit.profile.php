@@ -138,7 +138,7 @@
 	//school
 	changeProfileParam("school", "school", 5, 100);
 	//group
-	changeProfileParam("group", "group", 1, 10);
+	changeProfileParam("group", "groupid", 1, 10);
 	
 	/*
 	 * ТРЕТИЙ ШАГ ОТСЕИВАНИЯ ДУШ

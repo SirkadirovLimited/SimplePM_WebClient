@@ -5,7 +5,7 @@
 		$query_str = "
 			SELECT
 				`teacherId`,
-				`group`
+				`groupid`
 			FROM
 				`spm_users`
 			WHERE
@@ -29,7 +29,7 @@
 			WHERE
 				`teacherId` = '" . $user["teacherId"] . "'
 			AND
-				`studentsGroup` = '" . $user["group"] . "'
+				`studentsGroup` = '" . $user["groupid"] . "'
 			AND
 				`startTime` <= now()
 			AND

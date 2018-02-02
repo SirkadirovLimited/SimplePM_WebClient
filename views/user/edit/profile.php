@@ -146,7 +146,7 @@
 											die(header('location: index.php?service=error&err=db_error'));
 										
 										while ($group = $query->fetch_assoc()):
-											$selectedGroup = ($user_info['group'] == $group['id'] ? " selected" : "");
+											$selectedGroup = ($user_info['groupid'] == $group['id'] ? " selected" : "");
 									?>
 									
 									<option value="<?=$group['id']?>"<?=$selectedGroup?>><?=$group['name']?></option>

@@ -36,7 +36,7 @@
 	
 	//Категорія
 	if (isset($_GET['category']) && (int)$_GET['category'] > 0)
-		$category = " AND `group` = '" . (int)$_GET['category'] . "' ";
+		$category = " AND `groupid` = '" . (int)$_GET['category'] . "' ";
 	else
 	{
 
@@ -76,7 +76,7 @@
 			`secondname`,
 			`thirdname`,
 			`username`,
-			`group`,
+			`groupid`,
 			`rating`,
 			`bcount`
 		FROM
@@ -266,7 +266,7 @@
 							FROM
 								`spm_users_groups`
 							WHERE
-								`id` = '" . $user['group'] . "'
+								`id` = '" . $user['groupid'] . "'
 							LIMIT
 								1
 							;

@@ -91,7 +91,7 @@
 	$where_selector = "
 		`teacherId` LIKE '" . $_GET['tId'] . "'
 	AND
-		`group` LIKE '" . $_GET['group'] . "'
+		`groupid` LIKE '" . $_GET['group'] . "'
 	AND
 		`permissions` LIKE '" . $_GET['access'] . "'
 	
@@ -161,7 +161,7 @@
 		SELECT
 			`id`,
 			`username`,
-			`group`,
+			`groupid`,
 			`firstname`,
 			`secondname`,
 			`thirdname`,
@@ -404,7 +404,7 @@
 					</a>
 				</td>
 				<td><?=$user['username']?></td>
-				<td><?=spm_getUserGroupByID($user['group'])?></td>
+				<td><?=spm_getUserGroupByID($user['groupid'])?></td>
 				<td><a href="index.php?service=user&id=<?=$user['teacherId']?>"><?=spm_getUserFullnameByID($user['teacherId'])?></a></td>
 				<td><?=$user['permissions']?></td>
 				<td>

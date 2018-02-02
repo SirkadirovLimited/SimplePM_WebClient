@@ -13,7 +13,7 @@
 					`firstname`,
 					`secondname`,
 					`thirdname`,
-					`group`
+					`groupid`
 				FROM
 					`spm_users`
 				WHERE
@@ -82,7 +82,7 @@
 	
 	$user_fullname = $user_info['secondname'] . " " . $user_info['firstname'] . " " . $user_info['thirdname'];
 	
-	$user_info['group_name'] = spm_getUserGroupByID($user_info['group']);
+	$user_info['group_name'] = spm_getUserGroupByID($user_info['groupid']);
 	
 	SPM_header($user_fullname, "Профіль користувача", "Профіль користувача");
 ?>
@@ -184,7 +184,7 @@
 		<ul class="nav nav-pills nav-stacked">
 			<li><a>Ідентифікатор користувача:<br/><b><?=$user_info['id']?></b></a></li>
 			<li><a>Права доступу:<br/><b><?=$user_info['permissions']?></b></a></li>
-			<li><a href="index.php?service=rating&category=<?=$user_info['group']?>">Група:<br/><b><?=$user_info['group_name']?></b></a></li>
+			<li><a href="index.php?service=rating&category=<?=$user_info['groupid']?>">Група:<br/><b><?=$user_info['group_name']?></b></a></li>
 			<li><?=spm_getTeacherLinkById($user_info['teacherId'])?></li>
 		</ul>
 	</div>

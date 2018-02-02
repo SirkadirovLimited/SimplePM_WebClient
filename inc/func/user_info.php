@@ -156,7 +156,7 @@
 		
 		$query_str = "
 			SELECT
-				`group`
+				`groupid`
 			FROM
 				`spm_users`
 			WHERE
