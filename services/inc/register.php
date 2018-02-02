@@ -1,4 +1,5 @@
 <?php
+	
 	DEFINED("_SPM_register_") OR DIE('403 ACCESS DENIED');
 	
 	$errors_col=0;
@@ -32,7 +33,7 @@
 		$errors_col++;
 	
 	if ($errors_col > 0){
-		print("<strong>Пожалуйста, заполните форму регистрации корректно!</strong>");
+		print("<strong>Будь ласка, перевірте правильність заповнення форми реєстрації!</strong>");
 		print("<meta http-equiv='refresh' content='3;URL=index.php?service=register' />");
 		exit;
 	}
@@ -40,14 +41,14 @@
 	/*
 	 * ВТОРОЙ ШАГ ОТСЕИВАНИЯ ДУШ
 	*/
-	$_POST['email'] = trim(strip_tags($_POST['email']));
-	$_POST['login'] = htmlspecialchars(trim(strip_tags($_POST['login'])));
-	$_POST['password'] = htmlspecialchars(trim(strip_tags($_POST['password'])));
-	$_POST['1name'] = htmlspecialchars(trim(strip_tags($_POST['1name'])));
-	$_POST['2name'] = htmlspecialchars(trim(strip_tags($_POST['2name'])));
-	$_POST['3name'] = htmlspecialchars(trim(strip_tags($_POST['3name'])));
-	$_POST['bday'] = htmlspecialchars(trim(strip_tags($_POST['bday'])));
-	$_POST['teacherId'] = htmlspecialchars(trim(strip_tags($_POST['teacherId'])));
+	$_POST['email'] = mysqli_real_escape_string($db, trim(strip_tags($_POST['email'])));
+	$_POST['login'] = mysqli_real_escape_string($db, trim(strip_tags($_POST['login'])));
+	$_POST['password'] = mysqli_real_escape_string($db, trim(strip_tags($_POST['password'])));
+	$_POST['1name'] = mysqli_real_escape_string($db, trim(strip_tags($_POST['1name'])));
+	$_POST['2name'] = mysqli_real_escape_string($db, trim(strip_tags($_POST['2name'])));
+	$_POST['3name'] = mysqli_real_escape_string($db, trim(strip_tags($_POST['3name'])));
+	$_POST['bday'] = mysqli_real_escape_string($db, trim(strip_tags($_POST['bday'])));
+	$_POST['teacherId'] = mysqli_real_escape_string($db, trim(strip_tags($_POST['teacherId'])));
 	
 	/*
 	 * ТРЕТИЙ ШАГ ОТСЕИВАНИЯ ДУШ
@@ -55,23 +56,26 @@
 	if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
 		$errors_col++;
 	
-	if (!strlen($_POST['login']) >= 3 && !strlen($_POST['login'])<=100)
-		$errors_col++;
-	if (!strlen($_POST['password']) >= 6 && !strlen($_POST['password'])<=25)
+	if (!strlen($_POST['login']) >= 3 && !strlen($_POST['login']) <= 100)
 		$errors_col++;
 	
-	if (!strlen($_POST['1name']) >= 3 && !strlen($_POST['1name'])<=255)
+	if (!strlen($_POST['password']) >= $_SPM_CONF["PASSWD"]["minlength"] && !strlen($_POST['password']) <= $_SPM_CONF["PASSWD"]["maxlength"])
 		$errors_col++;
-	if (!strlen($_POST['2name']) >= 3 && !strlen($_POST['2name'])<=255)
+	
+	if (!strlen($_POST['1name']) >= 3 && !strlen($_POST['1name']) <= 255)
 		$errors_col++;
-	if (!strlen($_POST['3name']) >= 3 && !strlen($_POST['3name'])<=255)
+	
+	if (!strlen($_POST['2name']) >= 3 && !strlen($_POST['2name']) <= 255)
+		$errors_col++;
+	
+	if (!strlen($_POST['3name']) >= 3 && !strlen($_POST['3name']) <= 255)
 		$errors_col++;
 	
 	if (strlen($_POST['teacherId']) != $_SPM_CONF["TEACHERID"]["length"])
 		$errors_col++;
 	
 	if ($errors_col > 0){
-		print("<strong>Пожалуйста, заполните форму регистрации корректно!</strong>");
+		print("<strong>Будь ласка, правильно заповніть форму реєстрації!</strong>");
 		print("<meta http-equiv='refresh' content='3;URL=index.php?service=register' />");
 		exit;
 	}
@@ -80,13 +84,28 @@
 	 * ЧЕТВЁРТЫЙ ШАГ ОТСЕИВАНИЯ ДУШ, ФИНАЛЬНЫЙ
 	 * TeacherID
 	*/
-	if (!$db_result = $db->query("SELECT * FROM `spm_teacherId` WHERE teacherId = '" . $_POST['teacherId'] . "' AND `enabled` = true LIMIT 1;")){
-		print("<strong>Произошла ошибка при попытке подключения к базе данных. Повторите попытку позже!</strong>");
+	
+	$query_str = "
+		SELECT
+			*
+		FROM
+			`spm_teacherId`
+		WHERE
+			`teacherId` = '" . $_POST['teacherId'] . "'
+		AND
+			`enabled` = true
+		LIMIT
+			1
+		;
+	";
+	
+	if (!$db_result = $db->query($query_str)){
+		print("<strong>Виникла помилка бази даних! Будь ласка, зазерніть на сайт пізніше!</strong>");
 		print("<meta http-equiv='refresh' content='3;URL=index.php?service=register' />");
 		exit;
 	}
 	if ($db_result->num_rows == 0){
-		print("<strong>TeacherID введён некорректно или был временно отключён.</strong>");
+		print("<strong>TeacherID деактивований чи не існує.</strong>");
 		print("<meta http-equiv='refresh' content='3;URL=index.php?service=register' />");
 		exit;
 	}
@@ -101,36 +120,29 @@
 	*/
 	unset($teacherId);
 	
-	$email = $_POST['email'];
-	$login = $_POST['login'];
-	$password = md5(md5(md5($_POST['password'])));
-	$name1 = $_POST['1name'];
-	$name2 = $_POST['2name'];
-	$name3 = $_POST['3name'];
-	$bday = $_POST['bday'];
-	$teacherId = $TeacherID['userId'];
-	$permissions = $TeacherID['newUserPermission'];
-	
-	$db_query = "INSERT INTO 
-					`spm_users` 
-				SET 
-					`username` = '$login', 
-					`password` = '$password', 
-					`firstname` = '$name1', 
-					`secondname` = '$name2', 
-					`thirdname` = '$name3', 
-					`bdate` = '$bday', 
-					`email` = '$email', 
-					`teacherId` = '$teacherId', 
-					`permissions` = '$permissions', 
-					`group` = '0'
-				";
+	$db_query = "
+		INSERT INTO 
+			`spm_users` 
+		SET 
+			`username` = '" . $_POST['login'] . "', 
+			`password` = '" . md5(md5(md5($_POST['password']))) . "', 
+			`firstname` = '" . $_POST['1name'] . "', 
+			`secondname` = '" . $_POST['2name'] . "', 
+			`thirdname` = '" . $_POST['3name'] . "', 
+			`bdate` = '" . $_POST['bday'] . "', 
+			`email` = '" . $_POST['email'] . "', 
+			`teacherId` = '" . $TeacherID['userId'] . "', 
+			`permissions` = '" . $TeacherID['newUserPermission'] . "', 
+			`groupid` = '0'
+		;
+	";
 
 	if(!$db->query($db_query)){
-		print("<strong>Форма заполнена не корректно!</strong>");
+		print("<strong>Форму заповнено не за правилами!</strong>");
 		print("<meta http-equiv='refresh' content='3;URL=index.php?service=register' />");
 		exit;
 	}
 	
 	header('location: index.php?service=login');
+	
 ?>
