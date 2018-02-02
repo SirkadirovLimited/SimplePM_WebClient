@@ -4,3 +4,4 @@
 *.htpasswd
 .well-known/
 .idea/
+aspnet_client/
