@@ -33,7 +33,9 @@
 		AND
 			(now() - `lastOnline`) < " . $_SPM_CONF["BASE"]["ONLINE_TIME"] . "
 		ORDER BY
-			`lastOnline` DESC
+			`lastOnline` DESC,
+			`secondname` ASC,
+			`firstname` ASC
 		LIMIT
 			0, 30
 		;
