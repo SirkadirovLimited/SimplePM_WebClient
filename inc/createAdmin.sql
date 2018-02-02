@@ -17,7 +17,7 @@ INSERT INTO
 	`city`,
 	`school`,
 	`phone`,
-	`group`,
+	`groupid`,
 	`banned`,
 	`associatedOlymp`
 )
