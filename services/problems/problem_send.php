@@ -50,6 +50,24 @@
 	(isset($_POST['problemId']) && ((int)$_POST['problemId'] > 0) && ($_POST['problemId'] = (int)$_POST['problemId']))
 		or die(header('location: index.php?service=error&err=input'));
 	
+	$query_str = "
+		SELECT
+			count(`id`)
+		FROM
+			`spm_problems`
+		WHERE
+			`id` = '" . $_POST['problemId'] . "'
+		LIMIT
+			1
+		;
+	";
+	
+	if (!$query = $db->query($query_str))
+		die(header('location: index.php?service=error&err=db_error'));
+	
+	if ((int)$query->fetch_array()[0] <= 0)
+		die(header('location: index.php?service=error&err=input'));
+	
 	/////////////////////////////////////
 	
 	(isset($_POST['code']) && (strlen($_POST['code']) > 0) && ($_POST['code'] = mysqli_real_escape_string($db, $_POST['code'])))
@@ -62,7 +80,7 @@
 	
 	$_POST['args'] = mysqli_real_escape_string($db, $_POST['args']);
 	
-	if (empty($_POST['args']) || $_POST['args'] == null || strlen($_POST['args']) <= 0)
+	if ($testType == 'debug' && (empty($_POST['args']) || $_POST['args'] == null || strlen($_POST['args']) <= 0))
 	{
 		
 		$query_str = "
