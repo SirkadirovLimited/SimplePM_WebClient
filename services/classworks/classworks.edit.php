@@ -128,7 +128,7 @@
 					<tr>
                         <td>Система оцінювання</td>
                         <td>
-                            <input type="number" class="form-control" name="ratingSystem" min="0" max="255" value="<?=@$cwork_info['ratingSystem']?>" required>
+                            <input type="number" class="form-control" name="ratingSystem" min="0" max="255" value="<?=isset($cwork_info['ratingSystem']) ? $cwork_info['ratingSystem'] : 12 ?>" required>
                         </td>
                     </tr>
 					
@@ -138,8 +138,7 @@
 		</div>
 	</div>
 	
-<?php if ($_GET['id'] == 0): ?>
-	<div class="box box-danger box-solid" style="border-radius: 0;">
+	<div class="box box-primary box-solid" style="border-radius: 0;">
 		<div class="box-header with-border" style="border-radius: 0;">
 			<h3 class="box-title">Список задач</h3>
 		</div>
@@ -153,20 +152,15 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Задачі за номерами<br/>(1 рядок - 1 номер)</td>
+							<td>Задачі за номерами<br/>(через кому)</td>
 							<td><textarea class="form-control" style="resize: none;" rows="5" name="problems-by-id"></textarea></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			
-			<div class="callout callout-warning" style="border-radius: 0;  margin: 0;">
-				<p>Після збереження уроку внести зміни у список задач буде не можливо!</p>
-			</div>
-			
 		</div>
 	</div>
-<?php endif; ?>
 
 	<div align="right">
 		

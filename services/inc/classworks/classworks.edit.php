@@ -1,4 +1,5 @@
 <?php
+	
 	deniedOrAllowed(PERMISSION::teacher);
 	
 	////////
@@ -15,6 +16,7 @@
 	
 	isset($_POST["studentsGroup"]) or die(header('location: index.php?service=error&err=input'));
 	isset($_POST["ratingSystem"]) or die(header('location: index.php?service=error&err=input'));
+	isset($_POST["problems-by-id"]) or die(header('location: index.php?service=error&err=input'));
 	
 	////////
 	
@@ -27,31 +29,43 @@
 	$_POST["studentsGroup"] = (int)$_POST["studentsGroup"];
 	$_POST["ratingSystem"] = (int)$_POST["ratingSystem"];
 	
+	$_POST["problems-by-id"] = mysqli_real_escape_string($db, strip_tags(trim($_POST['problems-by-id'])));
+	
 	////////
 	
-	(strlen($_POST["name"]) > 0 && strlen($_POST["name"]) <= 255) or die(header('location: index.php?service=error&err=input'));
-	(strlen($_POST["description"]) > 0 && strlen($_POST["description"]) <= 65535) or die(header('location: index.php?service=error&err=input'));
+	(strlen($_POST["name"]) > 0 && strlen($_POST["name"]) <= 255)
+		or die(header('location: index.php?service=error&err=input'));
 	
-	(strlen($_POST["startTime"]) == 19) or die(header('location: index.php?service=error&err=input'));
-	(strlen($_POST["endTime"]) == 19) or die(header('location: index.php?service=error&err=input'));
+	(strlen($_POST["description"]) > 0 && strlen($_POST["description"]) <= 65535)
+		or die(header('location: index.php?service=error&err=input'));
 	
-	($_POST["studentsGroup"] > 0) or die(header('location: index.php?service=error&err=input'));
-	($_POST["ratingSystem"] >= 0 && $_POST["ratingSystem"] <= 225) or die(header('location: index.php?service=error&err=input'));
+	(strlen($_POST["startTime"]) == 19)
+		or die(header('location: index.php?service=error&err=input'));
+	
+	(strlen($_POST["endTime"]) == 19)
+		or die(header('location: index.php?service=error&err=input'));
+	
+	($_POST["studentsGroup"] > 0)
+		or die(header('location: index.php?service=error&err=input'));
+	
+	($_POST["ratingSystem"] >= 0 && $_POST["ratingSystem"] <= 225)
+		or die(header('location: index.php?service=error&err=input'));
 	
 	////////
 	
 	$query_substr = "
-			`name` = '" . $_POST["name"] . "',
-			`description` = '" . $_POST["description"] . "',
+			`name` = '" . $_POST['name'] . "',
+			`description` = '" . $_POST['description'] . "',
 			
-			`startTime` = '" . $_POST["startTime"] . "',
-			`endTime` = '" . $_POST["endTime"] . "',
+			`startTime` = '" . $_POST['startTime'] . "',
+			`endTime` = '" . $_POST['endTime'] . "',
 			
-			`studentsGroup` = '" . $_POST["studentsGroup"] . "',
+			`studentsGroup` = '" . $_POST['studentsGroup'] . "',
 			
-			`teacherId` = '" . $_SESSION["uid"] . "',
+			`teacherId` = '" . $_SESSION['uid'] . "',
 			
-			`ratingSystem` = '" . $_POST["ratingSystem"] . "'
+			`ratingSystem` = '" . $_POST['ratingSystem'] . "',
+			`problemslist` = '" . $_POST['problems-by-id'] . "'
 	";
 	
 	$query_str = "
@@ -71,31 +85,6 @@
 	
 	////////
 	
-	//Получаем идентификатор урока
-	$_classworkId = $db->insert_id;
-	
-	if (isset($_POST['problems-by-id'])){
-	
-		$problems = explode("\n", $_POST['problems-by-id']);
-		
-		foreach ($problems as $problem){
-			$problemId = (int)mysqli_real_escape_string($db, strip_tags(trim($problem)));
-			
-			$query_str = "
-						INSERT INTO
-							`spm_classworks_problems`
-						SET
-							`classworkId` = '" . $_classworkId . "',
-							`problemId` = '" . $problemId . "'
-						;
-			";
-			
-			@$db->query($query_str);
-		}
-		
-	}
-	
-	////////
-	
 	exit(header('location: index.php?service=classworks'));
+	
 ?>

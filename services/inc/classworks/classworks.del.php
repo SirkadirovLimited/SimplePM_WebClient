@@ -1,4 +1,5 @@
 <?php
+	
 	deniedOrAllowed(PERMISSION::teacher);
 	
 	(isset($_POST['id']) && (int)$_POST['id'] > 0)
@@ -39,9 +40,11 @@
 	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
+	// Delete associated submissions
+	
 	$query_str = "
 		DELETE FROM
-			`spm_classworks_problems`
+			`spm_submissions`
 		WHERE
 			`classworkId` = '" . (int)$_POST['id'] . "'
 		;
@@ -51,4 +54,5 @@
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	exit(header('location: index.php?service=classworks'));
+	
 ?>
