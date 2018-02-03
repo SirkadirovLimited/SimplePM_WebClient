@@ -1,5 +1,9 @@
 <?php
-	deniedOrAllowed(PERMISSION::administrator | PERMISSION::olymp);
+	
+	deniedOrAllowed(
+		PERMISSION::administrator |
+		PERMISSION::olymp
+	);
 	
 	// Sequrity checks
 	
@@ -45,19 +49,6 @@
 	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
-	// Delete associated problems list
-	
-	$query_str = "
-		DELETE FROM
-			`spm_olympiads_problems`
-		WHERE
-			`olympId` = '" . (int)$_POST['id'] . "'
-		;
-	";
-	
-	if (!$db_result = $db->query($query_str))
-		die(header('location: index.php?service=error&err=db_error'));
-	
 	// Delete associated submissions
 	
 	$query_str = "
@@ -72,4 +63,5 @@
 		die(header('location: index.php?service=error&err=db_error'));
 	
 	exit(header('location: index.php?service=olympiads.list'));
+	
 ?>
