@@ -66,21 +66,6 @@
 	
 	/////////////////////////////////////
 	
-	$query_str = "
-		SELECT
-			*
-		FROM
-			`spm_classworks_problems`
-		WHERE
-			`classworkId` = '" . $_SESSION["classwork"] . "'
-		ORDER BY
-			`id`
-		ASC
-		LIMIT
-			" . ($current_page * $articles_per_page - $articles_per_page) . " , " . $articles_per_page . "
-		;
-	";
-	
 	if (!$query = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
@@ -143,7 +128,7 @@
 	</div>
 	<div class="box-body" style="padding: 0;">
 		
-		<?php if ($total_articles_number == 0 || $query->num_rows === 0): ?>
+		<?php if ($classwork['problemslist'] == NULL || strlen($classwork['problemslist']) <= 0): ?>
 		<div align="center">
 			<h1>Упс!</h1>
 			<p class="lead">Завдань немає, але ви тримайтесь :)</p>
@@ -157,8 +142,13 @@
 					<th width="10%">Зароблено</th>
 				</thead>
 				<tbody>
-					<?php while ($clw_problem = $query->fetch_assoc()): ?>
 					<?php
+						
+						$problems_arr = explode(',', $classwork['problemslist']);
+						asort($problems_arr, SORT_NUMERIC);
+						
+						foreach ($problems_arr as $clw_problem):
+						
 						$query_str = "
 							SELECT
 								`id`,
@@ -191,7 +181,7 @@
 						</td>
 					</tr>
 					<?php endif; ?>
-					<?php endwhile; ?>
+					<?php endforeach; ?>
 				</tbody>
 			</table>
 		</div>
@@ -200,5 +190,4 @@
 	</div>
 </div>
 <?php $query->free(); ?>
-<?php include(_S_MOD_ . "pagination.php"); generatePagination($total_pages, $current_page, 4, "classworks.problems"); ?>
 <?php SPM_footer(); ?>
