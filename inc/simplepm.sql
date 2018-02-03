@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Фев 03 2018 г., 00:08
+-- Время создания: Фев 04 2018 г., 01:05
 -- Версия сервера: 5.7.18-log
 -- Версия PHP: 7.1.1
 
@@ -26,6 +26,7 @@ DELIMITER $$
 --
 -- Процедуры
 --
+DROP PROCEDURE IF EXISTS `updateBCount`$$
 CREATE DEFINER=`*`@`localhost` PROCEDURE `updateBCount` (IN `uId` BIGINT UNSIGNED)  SQL SECURITY INVOKER
 begin
 DECLARE sumVal FLOAT DEFAULT 0;
@@ -33,6 +34,7 @@ SELECT SUM(`b`) INTO sumVal FROM `spm_submissions` WHERE (`userId` = uId AND `b`
 UPDATE `spm_users` SET `bcount` = sumVal WHERE `id` = uId LIMIT 1;
 end$$
 
+DROP PROCEDURE IF EXISTS `updateRating`$$
 CREATE DEFINER=`*`@`localhost` PROCEDURE `updateRating` (IN `urId` BIGINT UNSIGNED)  SQL SECURITY INVOKER
 begin
 
@@ -54,6 +56,7 @@ DELIMITER ;
 -- Структура таблицы `spm_classworks`
 --
 
+DROP TABLE IF EXISTS `spm_classworks`;
 CREATE TABLE IF NOT EXISTS `spm_classworks` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` tinytext NOT NULL,
@@ -63,21 +66,9 @@ CREATE TABLE IF NOT EXISTS `spm_classworks` (
   `teacherId` bigint(20) UNSIGNED NOT NULL,
   `studentsGroup` bigint(20) UNSIGNED NOT NULL,
   `ratingSystem` tinyint(3) UNSIGNED NOT NULL,
+  `problemslist` mediumtext,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Classworks';
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `spm_classworks_problems`
---
-
-CREATE TABLE IF NOT EXISTS `spm_classworks_problems` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `classworkId` bigint(20) UNSIGNED NOT NULL,
-  `problemId` mediumint(8) UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Problems list for olympiads';
 
 -- --------------------------------------------------------
 
@@ -85,6 +76,7 @@ CREATE TABLE IF NOT EXISTS `spm_classworks_problems` (
 -- Структура таблицы `spm_homeworks`
 --
 
+DROP TABLE IF EXISTS `spm_homeworks`;
 CREATE TABLE IF NOT EXISTS `spm_homeworks` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` tinytext NOT NULL,
@@ -104,6 +96,7 @@ CREATE TABLE IF NOT EXISTS `spm_homeworks` (
 -- Структура таблицы `spm_messages`
 --
 
+DROP TABLE IF EXISTS `spm_messages`;
 CREATE TABLE IF NOT EXISTS `spm_messages` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -120,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `spm_messages` (
 -- Структура таблицы `spm_olympiads`
 --
 
+DROP TABLE IF EXISTS `spm_olympiads`;
 CREATE TABLE IF NOT EXISTS `spm_olympiads` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` tinytext NOT NULL,
@@ -129,19 +123,7 @@ CREATE TABLE IF NOT EXISTS `spm_olympiads` (
   `teacherId` bigint(20) UNSIGNED NOT NULL,
   `type` enum('Private','Public') NOT NULL,
   `testingType` enum('Full','ByTestsCount') NOT NULL DEFAULT 'Full',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `spm_olympiads_problems`
---
-
-CREATE TABLE IF NOT EXISTS `spm_olympiads_problems` (
-  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `olympId` bigint(20) UNSIGNED NOT NULL,
-  `problemId` bigint(20) UNSIGNED NOT NULL,
+  `problemslist` mediumtext,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -151,6 +133,7 @@ CREATE TABLE IF NOT EXISTS `spm_olympiads_problems` (
 -- Структура таблицы `spm_problems`
 --
 
+DROP TABLE IF EXISTS `spm_problems`;
 CREATE TABLE IF NOT EXISTS `spm_problems` (
   `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
@@ -207,6 +190,7 @@ INSERT INTO `spm_problems` (`id`, `enabled`, `difficulty`, `catId`, `name`, `des
 -- Структура таблицы `spm_problems_categories`
 --
 
+DROP TABLE IF EXISTS `spm_problems_categories`;
 CREATE TABLE IF NOT EXISTS `spm_problems_categories` (
   `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT,
   `sort` smallint(5) UNSIGNED DEFAULT NULL,
@@ -246,6 +230,7 @@ INSERT INTO `spm_problems_categories` (`id`, `sort`, `name`) VALUES
 -- Структура таблицы `spm_problems_ready`
 --
 
+DROP TABLE IF EXISTS `spm_problems_ready`;
 CREATE TABLE IF NOT EXISTS `spm_problems_ready` (
   `problemId` bigint(20) UNSIGNED NOT NULL,
   `codeLang` tinytext NOT NULL,
@@ -287,6 +272,7 @@ INSERT INTO `spm_problems_ready` (`problemId`, `codeLang`, `code`) VALUES
 -- Структура таблицы `spm_problems_tests`
 --
 
+DROP TABLE IF EXISTS `spm_problems_tests`;
 CREATE TABLE IF NOT EXISTS `spm_problems_tests` (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `problemId` bigint(20) UNSIGNED NOT NULL,
@@ -434,6 +420,7 @@ INSERT INTO `spm_problems_tests` (`id`, `problemId`, `input`, `output`, `memoryL
 -- Структура таблицы `spm_submissions`
 --
 
+DROP TABLE IF EXISTS `spm_submissions`;
 CREATE TABLE IF NOT EXISTS `spm_submissions` (
   `submissionId` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `classworkId` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
@@ -463,6 +450,7 @@ CREATE TABLE IF NOT EXISTS `spm_submissions` (
 -- Структура таблицы `spm_teacherid`
 --
 
+DROP TABLE IF EXISTS `spm_teacherid`;
 CREATE TABLE IF NOT EXISTS `spm_teacherid` (
   `userId` int(11) NOT NULL,
   `teacherId` tinytext NOT NULL,
@@ -478,6 +466,7 @@ CREATE TABLE IF NOT EXISTS `spm_teacherid` (
 -- Структура таблицы `spm_users`
 --
 
+DROP TABLE IF EXISTS `spm_users`;
 CREATE TABLE IF NOT EXISTS `spm_users` (
   `id` bigint(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `sessionId` text CHARACTER SET utf8 COLLATE utf8_bin,
@@ -511,6 +500,7 @@ CREATE TABLE IF NOT EXISTS `spm_users` (
 -- Структура таблицы `spm_users_groups`
 --
 
+DROP TABLE IF EXISTS `spm_users_groups`;
 CREATE TABLE IF NOT EXISTS `spm_users_groups` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` tinytext NOT NULL,
