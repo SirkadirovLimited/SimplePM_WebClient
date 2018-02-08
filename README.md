@@ -6,6 +6,7 @@
 [![GitHub (pre-)release version](https://img.shields.io/github/release/SirkadirovTeam/SimplePM_WebClient/all.svg)](https://github.com/SirkadirovTeam/SimplePM_WebClient/releases)
 [![Github All Releases downloads](https://img.shields.io/github/downloads/SirkadirovTeam/SimplePM_WebClient/total.svg)]()
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1230/badge)](https://bestpractices.coreinfrastructure.org/projects/1230)
+[![Maintainability](https://api.codeclimate.com/v1/badges/34d10acb673eaec25f40/maintainability)](https://codeclimate.com/github/SirkadirovTeam/SimplePM_WebClient/maintainability)
 
 ## Документація
 Ознайомитися з офіційною документацією SimplePM ви можете на сайті: https://simplepm.atlassian.net/wiki
