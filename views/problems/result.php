@@ -2,6 +2,11 @@
 	
 	global $submission;
 	
+	/*
+		Дізнаємося, скільки ж балів дається
+		за правильне рішення задачі
+	*/
+	
 	$query_str = "
 		SELECT
 			`difficulty`
@@ -20,37 +25,52 @@
 	$problemDifficulty = $db_problem_result->fetch_array()[0];
 	$db_problem_result->free();
 	
-	if ($submission['hasError'] == true)
-		$smile_name = "philosofy.png";
-	elseif ($submission['testType'] == "debug" && strpos($submission['result'], '-') !== false)
-		$smile_name = "bad_thing.jpeg";
-	elseif ($submission['b'] <= 0 && $submission['testType'] == "release")
-		$smile_name = "lol.png";
-	elseif ($submission['b'] < $problemDifficulty && $submission['testType'] == "release")
-		$smile_name = "bad_thing.jpeg";
-	else
-		$smile_name = "cool.png";
+	/*
+		Різноманітні перевірки на наявність
+		помилок у користувацькому рішенні
+	*/
+	$check_error = $submission['hasError'] == true;
+	$check_error = $check_error && (
+		$submission['testType'] == "debug" &&
+		(
+			strpos($submission['result'], '-') !== false ||
+			strlen($submission['result']) <= 0
+		)
+	);
+	$check_error = $check_error && ($submission['testType'] == "release" && $submission['b'] <= $problemDifficulty);
 	
-	$result = ($submission['hasError'] ? '-' : '+');
+	/*
+		Після отримання результатів обираємо
+		потрібний смайл для відображення
+	*/
+	$smile_name = (!$check_error) ? "success.svg" : "error.svg";
 	
 ?>
+
+<!-- Compiler output string -->
 <pre style="border-radius: 0;"><?=$submission['compiler_text']?></pre>
 
+<!-- Error output section -->
 <?php if ($submission['errorOutput'] != null && $submission['errorOutput'] != ""): ?>
 <pre style="border-radius: 0;"><?=$submission['errorOutput']?></pre>
 <?php endif; ?>
+<!-- /Error output section -->
 
 <div class="panel panel-default" style="border-radius: 0;">
+	
 	<div class="panel-heading">Результати тестування</div>
 	<div class="panel-body" style="padding: 20px 5px 20px 5px;">
 		
 		<div class="row">
+			
 			<div class="col-md-3" align="center" style="margin-bottom: 20px;">
 				<img class="img-responsive" src="<?=_S_MEDIA_IMG_?>smiles/<?=$smile_name?>" alt="[SMILE]" width="70%" />
 			</div>
+			
 			<div class="col-md-9" align="center">
 				
 				<div class="table-responsive" style="border-radius: 0;">
+					
 					<table class="table table-bordered">
 						<thead>
 							<th width="75%">Тест</th>
@@ -61,20 +81,11 @@
 							<tr>
 								<td>Компіляція програми</td>
 								<td>N/A</td>
-								<td><?=$result?></td>
+								<td><?=($submission['hasError'] ? '-' : '+')?></td>
 							</tr>
 														
 							<?php
 							switch ($submission['testType']):
-								case "syntax":
-							?>
-							<tr>
-								<td>Тестів немає</td>
-								<td>N/A</td>
-								<td>N/A</td>
-							</tr>
-							<?php
-									break;
 								case "debug":
 							?>
 							<tr>
@@ -105,6 +116,7 @@
 						</tbody>
 					</table>
 
+					<!-- Additional section -->
 					<?php if ($submission['testType'] == "release"): ?>
 
 					<strong>Отримано балів: <?=$submission['b']?> з <?=$problemDifficulty?>.</strong>
@@ -147,6 +159,10 @@
 					<th>Значення</th>
 				</thead>
 				<tbody>
+					<tr>
+						<td>Відправник</td>
+						<td><?=$submission['userId']?></td>
+					</tr>
 					<tr>
 						<td>Дата та час відправки</td>
 						<td><?=$submission['time']?></td>
@@ -191,7 +207,13 @@
 <?php endif; ?>
 
 <?php
-	if (!$submission['seen']):
+	
+	/*
+		Помічаємо результати тестування як
+		вже прочитані користувачем
+	*/
+	if ($_SESSION['uid'] == $submission['userId'] && !$submission['seen']):
+		
 		$query_str = "
 			UPDATE
 				`spm_submissions`
@@ -206,5 +228,7 @@
 		
 		if (!$db->query($query_str))
 			die(header('location: index.php?service=error&err=db_error'));
+		
 	endif;
+	
 ?>
