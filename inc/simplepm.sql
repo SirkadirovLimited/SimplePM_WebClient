@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Мар 01 2018 г., 22:10
+-- Время создания: Мар 03 2018 г., 00:09
 -- Версия сервера: 5.7.21-log
 -- Версия PHP: 7.1.1
 
@@ -398,8 +398,10 @@ CREATE TABLE IF NOT EXISTS `spm_submissions` (
   `errorOutput` mediumtext,
   `output` blob,
   `exitcodes` mediumtext,
+  `usedProcTime` text,
+  `usedMemory` text,
   `compiler_text` blob,
-  `result` tinytext,
+  `tests_result` text,
   `b` double UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`submissionId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Problem submissions';
