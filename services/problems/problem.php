@@ -493,26 +493,7 @@
 					
 					<textarea class="hidden" name="code" id="authorCode"></textarea>
 					
-					<div id="authorSolutionCodeEditor"><?php
-							
-							$query_str = "
-								SELECT
-									`code`
-								FROM
-									`spm_problems_ready`
-								WHERE
-									`problemId` = '" . $problem_info['id'] . "'
-								LIMIT
-									1
-								;
-							";
-							
-							$query = @$db->query($query_str);
-							
-							if ($query->num_rows > 0)
-								print(htmlspecialchars(@$query->fetch_array()[0]));
-							
-						?></div>
+					<div id="authorSolutionCodeEditor"><?=$problem_info['authorSolution']?></div>
 					
 					<script>
 						
