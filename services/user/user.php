@@ -136,7 +136,6 @@
 		<?php else: ?>
 		<h3>Дії</h3>
 		<ul class="nav nav-pills nav-stacked">
-			<li><a href="index.php?service=messages&uid=<?=$id?>">Відкрити діалог</a></li>
 			<?php if ($_SESSION['uid'] == $user_info['teacherId'] || permission_check($_SESSION['permissions'], PERMISSION::administrator)): ?>
 			<li><a href="index.php?service=user.edit&id=<?=$id?>">Редагувати користувача</a></li>
 			<li><a href="index.php?service=submissions&uid=<?=$id?>">Список відправок</a></li>
