@@ -65,10 +65,6 @@
 	$_SPM_CONF["SERVICE"]["problem_send"] = "problems/problem_send.php";
 	$_SPM_CONF["SERVICE"]["problem_result"] = "problems/problem_result.php";
 	
-	//                             HOMEWORKS SERVICES
-	//$_SPM_CONF["SERVICE"]["homeworks"] = "homeworks/homeworks.php";
-	//$_SPM_CONF["SERVICE"]["homework.edit"] = "homeworks/homework.edit.php";
-	
 	//                             CLASSWORKS SERVICES
 	$_SPM_CONF["SERVICE"]["classworks"] = "classworks/classworks.php";
 	$_SPM_CONF["SERVICE"]["classworks.edit"] = "classworks/classworks.edit.php";
@@ -87,9 +83,6 @@
 	
 	//                             FILES HOSTING SERVICES
 	$_SPM_CONF["SERVICE"]["image"] = "image.php";
-	
-	//                             MESSAGING SERVICE
-	$_SPM_CONF["SERVICE"]["messages"] = "messages/messages.php";
 	
 	//                             ADMIN SERVICES
 	$_SPM_CONF["SERVICE"]["admin"] = "admin/admin.php";
