@@ -74,7 +74,7 @@
 	if (strlen($_POST['teacherId']) != $_SPM_CONF["TEACHERID"]["length"])
 		$errors_col++;
 	
-	if ($errors_col > 0){
+	if ($errors_col > 0) {
 		print("<strong>Будь ласка, правильно заповніть форму реєстрації!</strong>");
 		print("<meta http-equiv='refresh' content='3;URL=index.php?service=register' />");
 		exit;
@@ -99,12 +99,12 @@
 		;
 	";
 	
-	if (!$db_result = $db->query($query_str)){
+	if (!$db_result = $db->query($query_str)) {
 		print("<strong>Виникла помилка бази даних! Будь ласка, зазерніть на сайт пізніше!</strong>");
 		print("<meta http-equiv='refresh' content='3;URL=index.php?service=register' />");
 		exit;
 	}
-	if ($db_result->num_rows == 0){
+	if ($db_result->num_rows == 0) {
 		print("<strong>TeacherID деактивований чи не існує.</strong>");
 		print("<meta http-equiv='refresh' content='3;URL=index.php?service=register' />");
 		exit;
@@ -136,11 +136,13 @@
 			`groupid` = '0'
 		;
 	";
-
-	if(!$db->query($db_query)){
+	
+	if(!$db->query($db_query)) {
+		
 		print("<strong>Форму заповнено не за правилами!</strong>");
 		print("<meta http-equiv='refresh' content='3;URL=index.php?service=register' />");
 		exit;
+		
 	}
 	
 	header('location: index.php?service=login');
