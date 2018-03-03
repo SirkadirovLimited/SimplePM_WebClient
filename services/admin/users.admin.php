@@ -2,15 +2,20 @@
 	deniedOrAllowed(PERMISSION::teacher | PERMISSION::administrator);
 	
 	/* Security checks (Vol. 1) */
-	isset($_GET['country']) or $_GET['country'] = "";
-	isset($_GET['query']) or $_GET['query'] = "";
-	isset($_GET['school']) or $_GET['school'] = "";
-	isset($_GET['city']) or $_GET['city'] = "";
+	isset($_GET['country']) or $_GET['country'] = "%";
+	isset($_GET['query']) or $_GET['query'] = "%";
+	isset($_GET['school']) or $_GET['school'] = "%";
+	isset($_GET['city']) or $_GET['city'] = "%";
 	
 	/* Security checks (Vol. 2) */
 	isset($_GET['group']) && (int)$_GET['group'] >= 0 or $_GET['group'] = "%";
-	isset($_GET['access']) && (int)$_GET['access'] > 0 or $_GET['access'] = "%";
 	isset($_GET['tId']) && (int)$_GET['tId'] > 0 or $_GET['tId'] = "%";
+	
+	/* Security checks (Vol. 3) */
+	$_GET['country'] = mysqli_real_escape_string($db, strip_tags(trim($_GET['country'])));
+	$_GET['query'] = mysqli_real_escape_string($db, strip_tags(trim($_GET['query'])));
+	$_GET['school'] = mysqli_real_escape_string($db, strip_tags(trim($_GET['school'])));
+	$_GET['city'] = mysqli_real_escape_string($db, strip_tags(trim($_GET['city'])));
 	
 	/*
 	 * УДАЛЕНИЕ ПОЛЬЗОВАТЕЛЕЙ
@@ -92,8 +97,6 @@
 		`teacherId` LIKE '" . $_GET['tId'] . "'
 	AND
 		`groupid` LIKE '" . $_GET['group'] . "'
-	AND
-		`permissions` LIKE '" . $_GET['access'] . "'
 	
 	AND
 	
@@ -280,7 +283,7 @@
 			
 			<div class="row" style="margin-top: 10px;">
 				
-				<div class="col-md-3">
+				<div class="col-md-6">
 					
 					<select class="form-control" name="tId" <?=(permission_check($_SESSION['permissions'], PERMISSION::teacher) ? 'disabled' : '')?>>
 						
@@ -324,12 +327,6 @@
 						<?php endif; ?>
 						
 					</select>
-					
-				</div>
-				
-				<div class="col-md-3">
-					
-					<input type="text" class="form-control" name="access" value="<?=str_replace("%", "", $_GET['access'])?>" placeholder="Рівень доступу">
 					
 				</div>
 				
@@ -439,7 +436,6 @@
 			. "&query=" . $_GET['query']
 			. "&country=" . $_GET['country']
 			. "&tId=" . $_GET['tId']
-			. "&access=" . $_GET['access']
 			. "&school=" . $_GET['school']
 			. "&city=" . $_GET['city']
 	);

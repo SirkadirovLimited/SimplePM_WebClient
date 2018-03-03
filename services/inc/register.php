@@ -133,6 +133,9 @@
 			`email` = '" . $_POST['email'] . "', 
 			`teacherId` = '" . $TeacherID['userId'] . "', 
 			`permissions` = '" . $TeacherID['newUserPermission'] . "', 
+			`country` = 'UA', 
+			`city` = 'UNSET', 
+			`school` = 'UNSET', 
 			`groupid` = '0'
 		;
 	";
