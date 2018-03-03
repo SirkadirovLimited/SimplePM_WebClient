@@ -8,7 +8,7 @@
 	isset($_GET['city']) or $_GET['city'] = "";
 	
 	/* Security checks (Vol. 2) */
-	isset($_GET['group']) && (int)$_GET['group'] > 0 or $_GET['group'] = "%";
+	isset($_GET['group']) && (int)$_GET['group'] >= 0 or $_GET['group'] = "%";
 	isset($_GET['access']) && (int)$_GET['access'] > 0 or $_GET['access'] = "%";
 	isset($_GET['tId']) && (int)$_GET['tId'] > 0 or $_GET['tId'] = "%";
 	
@@ -208,7 +208,7 @@
 					
 					<select class="form-control" name="group">
 						
-						<option value="0">Вибрати групу</option>
+						<option value="-1">Вибрати групу</option>
 						
 						<?php
 							if (permission_check($_SESSION['permissions'], PERMISSION::administrator)){
