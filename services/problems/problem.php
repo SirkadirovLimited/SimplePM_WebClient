@@ -493,7 +493,7 @@
 					
 					<textarea class="hidden" name="code" id="authorCode"></textarea>
 					
-					<div id="authorSolutionCodeEditor"><?=$problem_info['authorSolution']?></div>
+					<div id="authorSolutionCodeEditor"><?=htmlspecialchars($problem_info['authorSolution'])?></div>
 					
 					<script>
 						
