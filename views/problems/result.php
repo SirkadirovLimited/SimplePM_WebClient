@@ -73,13 +73,17 @@
 					
 					<table class="table table-bordered">
 						<thead>
-							<th width="75%">Тест</th>
-							<th width="15%">Exitcode</th>
-							<th width="10%">Результат</th>
+							<th>Test</th>
+							<th>Memory (bytes)</th>
+							<th>Processor time (ms)</th>
+							<th>Exit code</th>
+							<th>Result</th>
 						</thead>
 						<tbody>
 							<tr>
 								<td>Компіляція програми</td>
+								<td>N/A</td>
+								<td>N/A</td>
 								<td>N/A</td>
 								<td><?=($submission['hasError'] ? '-' : '+')?></td>
 							</tr>
@@ -90,29 +94,55 @@
 							?>
 							<tr>
 								<td>Користувацький тест</td>
-								<td><?=$submission['exitcodes']?></td>
-								<td><?=$submission['result']?></td>
+								<td><?=$submission['usedMemory'][0]?></td>
+								<td><?=$submission['usedProcTime'][0]?></td>
+								<td><?=$submission['exitcodes'][0]?></td>
+								<td><?=$submission['tests_result'][0]?></td>
 							</tr>
 							<?php
 									break;
 								case "release":
-									$submission["exitcodes"] = mb_substr($submission["exitcodes"], 1, mb_strlen($submission["exitcodes"])-1);
-									$exitcodes = explode("|", $submission["exitcodes"]);
+
+									$exitcodes = explode(
+											"|",
+											$submission["exitcodes"]
+									);
+
+									$usedMemory = explode(
+											"|",
+											$submission["usedMemory"]
+									);
+
+									$usedProcTime = explode(
+											"|",
+											$submission["usedProcTime"]
+									);
+
+									$tests_result = explode(
+											"|",
+											substr_replace(
+													$submission["tests_result"],
+													"|",
+													strrpos(
+															$submission["tests_result"],
+															"|"
+													),
+													1
+											)
+									);
+
 									$i = 1;
-									foreach (str_split($submission['result']) as $res):
+
+									for ($i = 0; $i < (count($tests_result) - 1); $i++):
 							?>
 							<tr>
 								<td>Тест #<?=$i?></td>
-								<td><?=@$exitcodes[$i-1]?></td>
-								<td><?=$res?></td>
+								<td><?=@$usedMemory[$i]?></td>
+								<td><?=@$usedProcTime[$i]?></td>
+								<td><?=@$exitcodes[$i]?></td>
+								<td><?=@$tests_result[$i]?></td>
 							</tr>
-							<?php
-										$i++;
-									endforeach;
-									
-									break;
-							endswitch;
-							?>
+							<?php endfor; break; endswitch; ?>
 						</tbody>
 					</table>
 

@@ -239,7 +239,7 @@
 		;
 	";
 	
-	//for ($i = 0; $i < 40; $i++)
+	//for ($i = 0; $i < 50; $i++)
 	if (!$db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
 	
