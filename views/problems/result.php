@@ -29,15 +29,19 @@
 		Різноманітні перевірки на наявність
 		помилок у користувацькому рішенні
 	*/
-	$check_error = $submission['hasError'] == true;
-	$check_error = $check_error && (
+	$check_error = ($submission['hasError'] == true) || (
+		
 		$submission['testType'] == "debug" &&
 		(
-			strpos($submission['result'], '-') !== false ||
-			strlen($submission['result']) <= 0
+			
+			strpos($submission['tests_result'], '+') == false ||
+			strlen($submission['tests_result']) <= 0
+			
 		)
+		
 	);
-	$check_error = $check_error && ($submission['testType'] == "release" && $submission['b'] <= $problemDifficulty);
+	
+	$check_error = $check_error || ($submission['testType'] == "release" && $submission['b'] <= $problemDifficulty);
 	
 	/*
 		Після отримання результатів обираємо
@@ -94,10 +98,10 @@
 							?>
 							<tr>
 								<td>Користувацький тест</td>
-								<td><?=$submission['usedMemory'][0]?></td>
-								<td><?=$submission['usedProcTime'][0]?></td>
-								<td><?=$submission['exitcodes'][0]?></td>
-								<td><?=$submission['tests_result'][0]?></td>
+								<td><?=str_replace("|", "", $submission['usedMemory'])?></td>
+								<td><?=str_replace("|", "", $submission['usedProcTime'])?></td>
+								<td><?=str_replace("|", "", $submission['exitcodes'])?></td>
+								<td><?=str_replace("|", "", $submission['tests_result'])?></td>
 							</tr>
 							<?php
 									break;
