@@ -18,7 +18,7 @@
 	//         SOME SETTINGS           //
 	/////////////////////////////////////
 	
-	session_set_cookie_params(3600*24*2);
+	session_set_cookie_params(3600 * 24 * 2);
 	session_start();
 	
 	mb_internal_encoding('UTF-8');
