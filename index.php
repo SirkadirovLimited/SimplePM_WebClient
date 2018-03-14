@@ -1,8 +1,9 @@
 <?php
+	
 	/*
-	 * SimpleProblemsManager (Web interface)
-	 * COPYRIGHT (C) 2016 - 2017, KADIROV YURIJ. ALL RIGHTS ARE RESERVED.
-	 * PUBLIC DISTRIBUTION RESTRICTED!
+	 * SimplePM (Web interface)
+	 * COPYRIGHT (C) 2016 - 2018, KADIROV YURIJ. ALL RIGHTS ARE RESERVED.
+	 * LICENSE AT HTTPS://SPM.SIRKADIROV.COM/
 	 */
 	
 	/////////////////////////////////////
@@ -117,4 +118,5 @@
 	/////////////////////////////////////
 	
 	$db->close(); // разрываем соединение с базой данных
+	
 ?>
