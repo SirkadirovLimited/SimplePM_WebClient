@@ -25,148 +25,151 @@
 	$problemDifficulty = $db_problem_result->fetch_array()[0];
 	$db_problem_result->free();
 	
-	/*
-		Різноманітні перевірки на наявність
-		помилок у користувацькому рішенні
-	*/
-	$check_error = ($submission['hasError'] == true) || (
-		
-		$submission['testType'] == "debug" &&
-		(
-			
-			strpos($submission['tests_result'], '+') == false ||
-			strlen($submission['tests_result']) <= 0
-			
-		)
-		
-	);
-	
-	$check_error = $check_error || ($submission['testType'] == "release" && $submission['b'] <= $problemDifficulty);
-	
-	/*
-		Після отримання результатів обираємо
-		потрібний смайл для відображення
-	*/
-	$smile_name = (!$check_error) ? "success.svg" : "error.svg";
 	
 ?>
 
-<!-- Compiler output string -->
-<pre style="border-radius: 0;"><?=$submission['compiler_text']?></pre>
+<div class="panel panel-default" style="border-radius: 0;">
+	
+	<div class="panel-heading">Вихідний потік компілятора</div>
+	
+	<div class="panel-body" style="padding: 0;">
+		
+		<pre style="border-radius: 0; margin: 0;"><?=$submission['compiler_text']?></pre>
+		
+	</div>
+	
+</div>
 
 <!-- Error output section -->
 <?php if ($submission['errorOutput'] != null && $submission['errorOutput'] != ""): ?>
-<pre style="border-radius: 0;"><?=$submission['errorOutput']?></pre>
+<div class="panel panel-default" style="border-radius: 0;">
+	
+	<div class="panel-heading">Стандартний потік помилок</div>
+	
+	<div class="panel-body" style="padding: 0;">
+		
+		<pre style="border-radius: 0; margin: 0;"><?=$submission['errorOutput']?></pre>
+		
+	</div>
+	
+</div>
 <?php endif; ?>
 <!-- /Error output section -->
 
 <div class="panel panel-default" style="border-radius: 0;">
 	
 	<div class="panel-heading">Результати тестування</div>
-	<div class="panel-body" style="padding: 20px 5px 20px 5px;">
+	<div class="panel-body" style="padding: 0;">
 		
-		<div class="row">
+		<div class="table-responsive" style="border-radius: 0;">
 			
-			<div class="col-md-3" align="center" style="margin-bottom: 20px;">
-				<img class="img-responsive" src="<?=_S_MEDIA_IMG_?>smiles/<?=$smile_name?>" alt="[SMILE]" width="70%" />
-			</div>
-			
-			<div class="col-md-9" align="center">
+			<table class="table table-bordered table-hover" style="margin: 0;">
+				<thead>
+					<th>Test</th>
+					<th>Memory (bytes)</th>
+					<th>Processor time (ms)</th>
+					<th>Exit code</th>
+					<th>Result</th>
+				</thead>
 				
-				<div class="table-responsive" style="border-radius: 0;">
+				<tbody>
 					
-					<table class="table table-bordered">
-						<thead>
-							<th>Test</th>
-							<th>Memory (bytes)</th>
-							<th>Processor time (ms)</th>
-							<th>Exit code</th>
-							<th>Result</th>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Компіляція програми</td>
-								<td>N/A</td>
-								<td>N/A</td>
-								<td>N/A</td>
-								<td><?=($submission['hasError'] ? '-' : '+')?></td>
-							</tr>
-														
-							<?php
-							switch ($submission['testType']):
-								case "debug":
-							?>
-							<tr>
-								<td>Користувацький тест</td>
-								<td><?=str_replace("|", "", $submission['usedMemory'])?></td>
-								<td><?=str_replace("|", "", $submission['usedProcTime'])?></td>
-								<td><?=str_replace("|", "", $submission['exitcodes'])?></td>
-								<td><?=str_replace("|", "", $submission['tests_result'])?></td>
-							</tr>
-							<?php
-									break;
-								case "release":
-
-									$exitcodes = explode(
+					<tr class="<?=($submission['hasError'] ? "danger" : "success")?>">
+						<td>Компіляція програми</td>
+						<td>N/A</td>
+						<td>N/A</td>
+						<td>N/A</td>
+						<td><?=($submission['hasError'] ? '-' : '+')?></td>
+					</tr>
+					
+					<?php
+					switch ($submission['testType']):
+						case "debug":
+					?>
+					<tr>
+						<td>Користувацький тест</td>
+						<td><?=str_replace("|", "", $submission['usedMemory'])?></td>
+						<td><?=str_replace("|", "", $submission['usedProcTime'])?></td>
+						<td><?=str_replace("|", "", $submission['exitcodes'])?></td>
+						<td><?=str_replace("|", "", $submission['tests_result'])?></td>
+					</tr>
+					<?php
+							break;
+						
+						case "release":
+						
+							$exitcodes = explode(
+									"|",
+									$submission["exitcodes"]
+							);
+							
+							$usedMemory = explode(
+									"|",
+									$submission["usedMemory"]
+							);
+							
+							$usedProcTime = explode(
+									"|",
+									$submission["usedProcTime"]
+							);
+							
+							$tests_result = explode(
+									"|",
+									substr_replace(
+											$submission["tests_result"],
 											"|",
-											$submission["exitcodes"]
-									);
-
-									$usedMemory = explode(
-											"|",
-											$submission["usedMemory"]
-									);
-
-									$usedProcTime = explode(
-											"|",
-											$submission["usedProcTime"]
-									);
-
-									$tests_result = explode(
-											"|",
-											substr_replace(
+											strrpos(
 													$submission["tests_result"],
-													"|",
-													strrpos(
-															$submission["tests_result"],
-															"|"
-													),
-													1
-											)
-									);
-
-									$i = 1;
-
-									for ($i = 0; $i < (count($tests_result) - 1); $i++):
+													"|"
+											),
+											1
+									)
+							);
+							
+							$i = 1;
+							
+							for ($i = 0; $i < (count($tests_result) - 1); $i++):
 							?>
-							<tr>
-								<td>Тест #<?=$i?></td>
+							<tr class="<?=($tests_result[$i] == '+') ? "success" : (($tests_result[$i] == '-') ? "warning" : "danger")?>">
+								<td>Тест #<?=$i + 1?></td>
 								<td><?=@$usedMemory[$i]?></td>
 								<td><?=@$usedProcTime[$i]?></td>
 								<td><?=@$exitcodes[$i]?></td>
 								<td><?=@$tests_result[$i]?></td>
 							</tr>
+							
 							<?php endfor; break; endswitch; ?>
-						</tbody>
-					</table>
-
-					<!-- Additional section -->
-					<?php if ($submission['testType'] == "release"): ?>
-
-					<strong>Отримано балів: <?=$submission['b']?> з <?=$problemDifficulty?>.</strong>
-
-					<?php elseif ($submission['testType'] == "debug"): ?>
-
-					<pre style="width: 100%; height: 140px; text-align: left; border-radius: 0;"><?=$submission['output']?></pre>
-					
-					<?php endif;?>
-
-				</div>
-			</div>
+							
+				</tbody>
+				
+			</table>
+			
+			<!-- Additional section -->
+			<?php if ($submission['testType'] == "release"): ?>
+			
+			<pre style="border-radius: 0; margin: 0; text-align: center;"><strong>Отримано балів: <?=$submission['b']?> з <?=$problemDifficulty?>.</strong></pre>
+			
+			<?php endif; ?>
+			
 		</div>
-
+		
 	</div>
+	
 </div>
+
+<?php if ($submission['testType'] == "debug"): ?>
+<div class="panel panel-default" style="border-radius: 0;">
+	
+	<div class="panel-heading">Вихідний потік вашого рішення</div>
+	
+	<div class="panel-body" style="padding: 0;">
+		
+		<pre style="width: 100%; height: 140px; text-align: left; border-radius: 0; margin: 0;"><?=$submission['output']?></pre>
+		
+	</div>
+	
+</div>
+<?php endif; ?>
 
 <style type="text/css">
     #codeEditor {
@@ -183,15 +186,20 @@
 
 <?php if ($submission['classworkId'] > 0 || $submission['olympId'] > 0): ?>
 <div class="panel panel-default" style="border-radius: 0;">
+	
 	<div class="panel-heading">Додаткова інформація</div>
+	
 	<div class="panel-body" style="padding: 0;">
 		
 		<div class="table-responsive" style="border-radius: 0;">
+			
 			<table class="table" style="margin: 0;">
+				
 				<thead>
 					<th>Параметр</th>
 					<th>Значення</th>
 				</thead>
+				
 				<tbody>
 					<tr>
 						<td>Відправник</td>
@@ -208,10 +216,13 @@
 					</tr>
 				<?php endif; ?>
 				</tbody>
+				
 			</table>
+			
 		</div>
 		
 	</div>
+	
 </div>
 <?php endif; ?>
 
