@@ -4,12 +4,18 @@
 	
 	$query_str = "
 		SELECT
-			`submissionId`,
-			`problemId`,
-			`time`,
-			`b`
+			`spm_submissions`.`submissionId`,
+			`spm_submissions`.`problemId`,
+			`spm_submissions`.`time`,
+			`spm_submissions`.`b`,
+			`spm_problems`.`name`,
+			`spm_problems`.`difficulty`
 		FROM
 			`spm_submissions`
+		INNER JOIN
+			`spm_problems`
+		ON
+			spm_submissions.problemId = spm_problems.id
 		WHERE
 			`userId` = '" . (int)$_GET['uid'] . "'
 		AND
@@ -20,13 +26,12 @@
 			(
 				`hasError` = true
 			OR
-				`result` like '%-%'
-			OR
 				`b` = 0
 			)
 		ORDER BY
 			`time` ASC
-		;";
+		;
+	";
 	
 	if (!$db_result = $db->query($query_str))
 		die(header('location: index.php?service=error&err=db_error'));
@@ -45,31 +50,12 @@
 		</thead>
 		<tbody>
 			<?php while ($bad_problem = $db_result->fetch_assoc()): ?>
-			<?php
-				$query_str = "
-					SELECT
-						`name`,
-						`difficulty`
-					FROM
-						`spm_problems`
-					WHERE
-						`id` = '" . $bad_problem['problemId'] . "'
-					LIMIT
-						1
-					;
-				";
-				
-				if (!$query_sm = $db->query($query_str))
-					die(header('location: index.php?service=error&err=db_error'));
-				
-				$problem_info = $query_sm->fetch_assoc();
-			?>
 			<tr>
 				<td><?=$bad_problem['problemId']?></td>
-				<td><a href="index.php?service=problem&id=<?=$bad_problem['problemId']?>"><?=@$problem_info['name']?></a></td>
+				<td><a href="index.php?service=problem&id=<?=$bad_problem['problemId']?>"><?=@$bad_problem['name']?></a></td>
 				<td><?=$bad_problem['time']?></td>
 				<td><a href="index.php?service=problem_result&sid=<?=$bad_problem['submissionId']?>" title="Подивитись інформацію про спробу"><?=$bad_problem['submissionId']?></a></td>
-				<td><?=$bad_problem['b'] . "/" . $problem_info['difficulty']?></td>
+				<td><?=$bad_problem['b'] . "/" . $bad_problem['difficulty']?></td>
 			</tr>
 			<?php endwhile; ?>
 		</tbody>
