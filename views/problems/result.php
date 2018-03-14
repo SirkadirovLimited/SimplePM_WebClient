@@ -86,7 +86,7 @@
 					switch ($submission['testType']):
 						case "debug":
 					?>
-					<tr>
+					<tr class="<?=(str_replace("|", "", $submission["tests_result"]) == '+') ? "success" : ((str_replace("|", "", $submission["tests_result"]) == '-') ? "warning" : "danger")?>">
 						<td>Користувацький тест</td>
 						<td><?=str_replace("|", "", $submission['usedMemory'])?></td>
 						<td><?=str_replace("|", "", $submission['usedProcTime'])?></td>
