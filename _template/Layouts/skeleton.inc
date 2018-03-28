@@ -11,4 +11,6 @@
  * @Repo: https://github.com/SirkadirovTeam/SimplePM_Server
  */
 
-?>
+include _SPM_template_ . "Parts/header.inc";
+print "$(content)";
+include _SPM_template_ . "Parts/footer.inc";

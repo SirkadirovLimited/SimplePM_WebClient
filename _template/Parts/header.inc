@@ -11,10 +11,9 @@
     <title>$(title) | SimplePM</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<?=_SPM_?>/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?=_SPM_assets_?>css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="./css/theme.css" rel="stylesheet">
+    <link href="<?=_SPM_assets_?>css/theme.css" rel="stylesheet">
 </head>
-
 <body>
