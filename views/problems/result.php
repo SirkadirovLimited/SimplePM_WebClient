@@ -231,7 +231,7 @@
 	<div class="panel-heading">Вихідний код кристувацького рішення задачі</div>
 	<div class="panel-body" style="padding: 0;">
 		
-		<div id="codeEditor" contenteditable="false"><?=$submission['problemCode']?></div>
+		<div id="codeEditor" contenteditable="false"><?=htmlspecialchars($submission['problemCode'])?></div>
 		
 	</div>
 </div>
