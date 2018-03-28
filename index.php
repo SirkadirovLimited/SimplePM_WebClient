@@ -88,6 +88,29 @@ include _SPM_includes_ . "System/GlobalFunctions.inc";
 // Класс для работы с конфигурациями
 include _SPM_includes_ . "System/Configuration.inc";
 
+/*
+ * Инициализируем хранилище конфигурации
+ * веб-приложения.
+ */
+
+$_CONFIG = new Configuration();
+
+/*
+ * Инициализируем константу, содержащую
+ * полный путь к веб-приложению (HTTP).
+ */
+
+define("_SPM_", @$_CONFIG->getWebappConfig()["site_base_url"]);
+
+/*
+ * Производим включение необходимых
+ * заголовочных файлов и PHP файлов
+ * для последующего их использования.
+ */
+
+// Класс для работы со стилями отображения
+include _SPM_includes_ . "Template/LayoutManager.inc";
+
 // Класс для работы с изображениями
 include _SPM_includes_ . "Additional/SimpleImage.inc";
 
@@ -124,13 +147,6 @@ include _SPM_includes_ . "Waiters/SystemWaiter.inc";
 
 // Класс для работы с сервисами
 include _SPM_includes_ . "Waiters/ClientWaiter.inc";
-
-/*
- * Инициализируем хранилище конфигурации
- * веб-приложения.
- */
-
-$_CONFIG = new Configuration();
 
 /*
  * Производим ключение файла исходного кода,
