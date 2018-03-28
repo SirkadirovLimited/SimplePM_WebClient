@@ -1,0 +1,49 @@
+/* stylelint-disable selector-list-comma-newline-after */
+* {
+    border-radius: 0 !important;
+}
+
+/*
+ * Navbar
+ */
+
+.navbar {
+    background-color: #f7f7f7 !important;
+}
+
+/*
+ * Main block
+ */
+
+main {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/*
+ * Jumbotron
+ */
+
+.jumbotron {
+    padding: 10px;
+    margin: 0;
+}
+
+.jumbotron h4 {
+    display: block;
+    margin: 0;
+}
+
+/*
+ * Footer
+ */
+.footer {
+    padding: 2.5rem 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e5e5e5;
+}
+.footer p:last-child {
+    margin-bottom: 0;
+}
