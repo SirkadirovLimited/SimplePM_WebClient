@@ -8,12 +8,7 @@
 
 
   {
-    "path": "anonymous/login",
-    "enabled": true
-  },
-
-  {
-    "path": "anonymous/registration",
+    "path": "anonymous/authorization",
     "enabled": true
   },
 
