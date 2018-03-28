@@ -1,0 +1,25 @@
+[
+
+  {
+    "path": "index",
+    "enabled": true
+  },
+
+
+
+  {
+    "path": "anonymous/login",
+    "enabled": true
+  },
+
+  {
+    "path": "anonymous/registration",
+    "enabled": true
+  },
+
+  {
+    "path": "anonymous/account-recovery",
+    "enabled": true
+  }
+
+]
