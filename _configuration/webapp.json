@@ -4,7 +4,7 @@
   "site_base_url": "HTTP_HOST",
 
   "site_default_service": "index",
-  "site_default_service_anonymous": "login",
+  "site_default_service_anonymous": "authorization",
 
   "default_layout_name": "default",
 
