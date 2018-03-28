@@ -18,5 +18,4 @@
 
 # Language preferences
 *.js linguist-language=PHP
-*.css linguist-language=PHP
 *.php linguist-language=PHP
