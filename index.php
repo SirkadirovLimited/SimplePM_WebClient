@@ -94,8 +94,13 @@ include _SPM_includes_ . "Security.inc";
 // Класс для работы с изображениями
 include _SPM_includes_ . "SimpleImage.inc";
 
-// Класс для работы с пользовательскими данными
-include _SPM_includes_ . "UserInfo.inc";
+/*
+ * Классы  и  трейты  для  работы
+ * с  пользовательскими  данными.
+ */
+
+include _SPM_includes_ . "UserInformation/UserInfo.inc";
+include _SPM_includes_ . "UserInformation/SessionUser.inc";
 
 /*
  * Производим включение файлов исходного кода,
