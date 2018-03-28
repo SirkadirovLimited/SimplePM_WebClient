@@ -83,16 +83,24 @@ define("_SPM_views_", "./_views/", false); // путь к папке с вида
  */
 
 // Файл исходного кода содержащий глобальные функции
-include _SPM_includes_ . "GlobalFunctions.inc";
+include _SPM_includes_ . "System/GlobalFunctions.inc";
 
 // Класс для работы с конфигурациями
-include _SPM_includes_ . "Configuration.inc";
-
-// Отвечает за безопасность запросов
-include _SPM_includes_ . "Security.inc";
+include _SPM_includes_ . "System/Configuration.inc";
 
 // Класс для работы с изображениями
-include _SPM_includes_ . "SimpleImage.inc";
+include _SPM_includes_ . "Additional/SimpleImage.inc";
+
+/*
+ * Включения, отвечающие за безопасность
+ * при работе веб-приложения.
+ */
+
+// Хранит уровни доступа к сервисам системы
+include _SPM_includes_ . "Security/Permissions.inc";
+
+// Отвечает за безопасность запросов
+include _SPM_includes_ . "Security/Security.inc";
 
 /*
  * Классы  и  трейты  для  работы
@@ -130,7 +138,7 @@ $_CONFIG = new Configuration();
  * к базе данных системы.
  */
 
-include _SPM_includes_ . "Database.inc";
+include _SPM_includes_ . "System/Database.inc";
 
 /*
  * Для  обеспечения  безоасности  производим   очистку
