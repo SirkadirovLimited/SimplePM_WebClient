@@ -102,11 +102,34 @@ class ClientWaiter {
         if ($this->ServiceExists($service_name)) {
 
             /*
+             * Запускаем буферизацию вывода
+             */
+
+            ob_start();
+
+            /*
              * Производим включение файла исходного
              * кода сервиса.
              */
 
             include_once $this->GenerateServicePath($service_name);
+
+            /*
+             * Создаём новый объект типа LayoutManager
+             * для форматирования вывода сервисов.
+             */
+
+            $layout_manager = new LayoutManager(__PAGE_LAYOUT__);
+
+            /*
+             * Производим вывод буферизированных
+             * данных с указанным стилем.
+             */
+
+            $layout_manager->DisplayLayout(
+                ob_get_clean(),
+                __PAGE_TITLE__
+            );
 
             /*
              * Указываем на то, что всё прошло хорошо
