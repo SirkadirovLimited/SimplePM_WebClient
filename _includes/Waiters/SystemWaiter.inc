@@ -108,7 +108,7 @@ class SystemWaiter {
              * действие данного характера.
              */
 
-            header("location: " . $_CONFIG->getWebappConfig()["site_base_url"], true);
+            header("location: " . _SPM_, true);
 
             /*
              * Завершаем работу скрипта для применения
