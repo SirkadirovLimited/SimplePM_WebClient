@@ -1,0 +1,51 @@
+[
+
+  {
+    "language_name": "csharp",
+    "enabled": true,
+    "display_name": "Mono / C#"
+  },
+
+  {
+    "language_name": "java",
+    "enabled": true,
+    "display_name": "Java SE"
+  },
+
+  {
+    "language_name": "c",
+    "enabled": true,
+    "display_name": "GNU C"
+  },
+
+  {
+    "language_name": "cpp",
+    "enabled": true,
+    "display_name": "GNU C++"
+  },
+
+  {
+    "language_name": "freepascal",
+    "enabled": true,
+    "display_name": "Free Pascal з діалектами"
+  },
+
+  {
+    "language_name": "lua",
+    "enabled": true,
+    "display_name": "Lua 5.2"
+  },
+
+  {
+    "language_name": "python",
+    "enabled": true,
+    "display_name": "Python 3.x"
+  },
+
+  {
+    "language_name": "php",
+    "enabled": false,
+    "display_name": "PHP 7.x"
+  }
+
+]
