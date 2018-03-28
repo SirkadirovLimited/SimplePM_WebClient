@@ -68,6 +68,7 @@ define("_SPM_configuration_", "./_configuration/", false); // путь к пап
 define("_SPM_includes_", "./_includes/", false); // путь к папке с include-ами
 
 define("_SPM_media_", "./_media/", false); // путь к папке с медиафайлами
+define("_SPM_assets_", _SPM_media_ . "_assets/", false); // путь к папке с ресурсами
 
 define("_SPM_template_", "./_template/", false); // путь к папке шаблона
 define("_SPM_modules_", "./_modules/", false); // путь к папке модулей
