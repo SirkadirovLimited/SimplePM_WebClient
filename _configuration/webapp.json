@@ -2,8 +2,13 @@
   "site_name": "SimplePM Demo website",
   "site_session_id": "SIMPLEPM2",
   "site_base_url": "HTTP_HOST",
+
   "site_default_service": "index",
   "site_default_service_anonymous": "login",
+
+  "default_layout_name": "default",
+
   "site_admin_email": "admin@sirkadirov.com",
+
   "user_online_time": 600
 }
