@@ -33,29 +33,40 @@ trait Waiter {
     public function GetClearServicePath(string &$requested_service) {
 
         /*
-         * В случае, если псоледний символ
-         * запроса - слеш, удаляем его.
-         * */
-
-        if ($requested_service[strlen($requested_service) - 1] == "/")
-            $requested_service = @str_lreplace("/", "", $requested_service);
-
-        /*
-         * В случае, если первый символ запроса - слеш,
-         * удаляем его.
+         * Если  строка  запроса  не  пустая,
+         * очищаем её от возможных неприятных
+         * моментов, иначе ничего не делаем.
          */
 
-        if ($requested_service[0] == "/")
-            $requested_service = @substr($requested_service, 1);
+        if (strlen($requested_service) > 0)
+        {
 
-        /*
-         * Если пользователь не авторизирован,
-         * предоставляем ему доступ лишь к сервисам
-         * обслуживания не авторизованых пользователей.
-         */
+            /*
+             * В случае, если псоледний символ
+             * запроса - слеш, удаляем его.
+             */
 
-        if (!UserInfo::IsAuthUser())
-            $requested_service = "anonymous/" . $requested_service;
+            if ($requested_service[strlen($requested_service) - 1] == "/")
+                $requested_service = @str_lreplace("/", "", $requested_service);
+
+            /*
+             * В случае, если первый символ запроса - слеш,
+             * удаляем его.
+             */
+
+            if (strlen($requested_service) > 0 && $requested_service[0] == "/")
+                $requested_service = @substr($requested_service, 1);
+
+            /*
+             * Если пользователь не авторизирован,
+             * предоставляем ему доступ лишь к сервисам
+             * обслуживания не авторизованых пользователей.
+             */
+
+            if (!UserInfo::IsAuthUser())
+                $requested_service = "anonymous/" . $requested_service;
+
+        }
 
         /*
          * Возвращаем результат работы функции

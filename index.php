@@ -194,7 +194,7 @@ $_CLIENT_WAITER = new ClientWaiter();
 
 // Запскаем сервис на выполнение
 if (!$_CLIENT_WAITER->RunService($_CLIENT_WAITER->GetRequestedServiceName()))
-    die("<h1>404 Service Not Found!</h1>");
+    Security::ThrowError("404");
 
 /*
  * Для обеспечения стабильностти работы необходимо

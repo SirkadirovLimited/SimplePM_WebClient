@@ -46,6 +46,8 @@ $query_str = "
       `spm_users`
     WHERE
       `username` = '" . $_POST['username'] . "'
+    AND
+      `banned` = '0'
     LIMIT
       1
     ;
@@ -71,7 +73,6 @@ if ($query->num_rows == 0)
  */
 
 $user_obj = $query->fetch_object();
-
 /*
  * Проверяем  введённый  пароль   на
  * соответствие с паролем найденного
