@@ -31,11 +31,10 @@ ini_set('display_startup_errors', 1); // 0 for release, 1 for debug
 
 /*
  * Производим настройки параметов сессий
- * и инициализируем новую сессию.
  */
 
 session_set_cookie_params(3600 * 24 * 2);
-@session_start();
+
 
 /*
  * В находящемся ниже разделе производим
@@ -135,6 +134,12 @@ include _SPM_includes_ . "UserInformation/UserInfo.inc";
 include _SPM_includes_ . "UserInformation/SessionUser.inc";
 
 /*
+ * Инициализируем сессию
+ */
+
+@session_start();
+
+/*
  * Производим включение файлов исходного кода,
  * которые содержат описание классов, трейтов
  * и прочих важных частей группы оффициантов.
@@ -156,6 +161,8 @@ include _SPM_includes_ . "Waiters/ClientWaiter.inc";
  */
 
 include _SPM_includes_ . "System/Database.inc";
+
+global $database;
 
 /*
  * Для  обеспечения  безоасности  производим   очистку

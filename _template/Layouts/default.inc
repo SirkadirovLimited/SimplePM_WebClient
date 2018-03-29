@@ -17,24 +17,24 @@ include _SPM_template_ . "Parts/header.inc";
 
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><strong>Simple</strong>PM</a>
+        <a class="navbar-brand" href="<?=_SPM_?>"><strong>Simple</strong>PM</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Головна</a>
+                    <a class="nav-link" href="<?=_SPM_?>">Головна</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                         Користувачі
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Рейтинг</a>
+                        <a class="dropdown-item" href="<?=_SPM_?>index.php/users/rating/">Рейтинг</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item disabled" href="#">Користувачі онлайн</a>
-                        <a class="dropdown-item disabled" href="#">Дні народження</a>
+                        <a class="dropdown-item disabled" href="">Користувачі онлайн</a>
+                        <a class="dropdown-item disabled" href="">Дні народження</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -42,28 +42,28 @@ include _SPM_template_ . "Parts/header.inc";
                         Архів задач
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Архів задач</a>
-                        <a class="dropdown-item" href="#">Відкладені задачі</a>
+                        <a class="dropdown-item" href="<?=_SPM_?>index.php/problems/archive/">Архів задач</a>
+                        <a class="dropdown-item" href="<?=_SPM_?>index.php/problems/difficult/">Відкладені задачі</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item disabled" href="#">Черга перевірки</a>
+                        <a class="dropdown-item disabled" href="">Черга перевірки</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Змагання</a>
+                    <a class="nav-link disabled" href="">Змагання</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                        Привіт, Sirkadirov
+                        Привіт, <?=Security::getCurrentSession()["user_info"]->getUserInfo()["username"]?>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Моя сторінка</a>
-                        <a class="dropdown-item" href="#">Редагувати сторінку</a>
+                        <a class="dropdown-item" href="<?=_SPM_?>index.php/users/profile/">Моя сторінка</a>
+                        <a class="dropdown-item" href="<?=_SPM_?>index.php/users/edit/">Редагувати сторінку</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item disabled" href="#">Про систему</a>
+                        <a class="dropdown-item disabled" href="">Про систему</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Вийти з системи</a>
+                        <a class="dropdown-item" href="<?=_SPM_?>index.php?cmd=logout">Вийти з системи</a>
                     </div>
                 </li>
             </ul>
