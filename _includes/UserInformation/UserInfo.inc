@@ -27,31 +27,40 @@ class UserInfo {
     }
 
     /**
-     * @param int $userId
-     * @return array
+     * @param int $userId Текущий пользователь
+     * @return array Информация о пользователе
      */
     public static function getUserInfo(int $userId): array
     {
 
+        /*
+         * Запрашиваем  доступ  к
+         * глобальным переменным.
+         */
+
         global $database;
+
+        /*
+         * Формируем запрос на выборку
+         * данных из базы данных.
+         */
 
         $query_str = "
             SELECT
               `id`,
               `sessionId`,
-              `lastOnline`,
+              `last_online`,
               `username`,
               `firstname`,
               `secondname`,
               `thirdname`,
-              `bdate`,
+              `birthday_date`,
               `email`,
               `teacherId`,
               `permissions`,
               `country`,
               `city`,
               `school`,
-              `phone`,
               `groupid`,
               `banned`
             FROM
@@ -62,6 +71,12 @@ class UserInfo {
               1
             ;
         ";
+
+        /*
+         * Возвращаем ассоциативны массив,
+         * содержащий информацию о текущем
+         * пользователе.
+         */
 
         return $database->query($query_str)->fetch_assoc();
 
