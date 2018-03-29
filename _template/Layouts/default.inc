@@ -80,7 +80,7 @@ include _SPM_template_ . "Parts/header.inc";
 $(content)
 </main>
 
-<footer class="footer container">
+<footer class="footer container" style="margin-top: 20px;">
     <p>Powered by <a href="https://spm.sirkadirov.com/">SimplePM</a> - Copyright &copy; 2016-2018, <a href="https://sirkadirov.com/">Sirkadirov Team</a>. Усі права захищено.</p>
 </footer>
 
