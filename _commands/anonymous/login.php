@@ -10,3 +10,10 @@
  * @Email: admin@sirkadirov.com
  * @Repo: https://github.com/SirkadirovTeam/SimplePM_Server
  */
+
+Security::CheckPostDataIssetAndNotNull(
+    array(
+        "username",
+        "password"
+    )
+) or Security::ThrowError("input");
