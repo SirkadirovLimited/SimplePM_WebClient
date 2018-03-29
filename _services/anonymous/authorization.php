@@ -16,9 +16,10 @@ define("__PAGE_LAYOUT__", "skeleton");
 
 ?>
 <link href="<?=_SPM_assets_?>css/auth_page.css" rel="stylesheet">
-<form class="form-signin" method="post">
-    <!--h1 class="h3 mb-3 font-weight-normal text-center"><?=_("Вхід в систему")?></h1-->
+<form class="form-signin" method="post" action="<?=_SPM_?>index.php?cmd=login">
+
     <h1 class="h1 mb-3 font-weight-normal text-center"><strong>Simple</strong>PM</h1>
+
     <input type="text" id="inputEmail" class="form-control" placeholder="<?=_("Ім'я користувача")?>" required autofocus>
     <input type="password" id="inputPassword" class="form-control" placeholder="<?=_("Пароль")?>" required>
 
@@ -42,12 +43,12 @@ define("__PAGE_LAYOUT__", "skeleton");
 
     <div class="modal-dialog modal-lg" role="document">
 
-        <form method="post" action="">
+        <form method="post" action="<?=_SPM_?>index.php?cmd=registration">
 
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h5 class="modal-title">Реєстрація в системі</h5>
+                    <h5 class="modal-title"><?=_("Реєстрація в системі")?></h5>
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
