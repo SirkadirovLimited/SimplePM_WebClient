@@ -35,7 +35,7 @@ ini_set('display_startup_errors', 1); // 0 for release, 1 for debug
  */
 
 session_set_cookie_params(3600 * 24 * 2);
-session_start();
+@session_start();
 
 /*
  * В находящемся ниже разделе производим
