@@ -20,8 +20,8 @@ define("__PAGE_LAYOUT__", "skeleton");
 
     <h1 class="h1 mb-3 font-weight-normal text-center"><strong>Simple</strong>PM</h1>
 
-    <input name="username" type="text" class="form-control" placeholder="<?=_("Ім'я користувача")?>" required autofocus>
-    <input name="password" type="password" class="form-control" placeholder="<?=_("Пароль")?>" required>
+    <input name="username" maxlength="255" type="text" class="form-control" placeholder="<?=_("Ім'я користувача")?>" required autofocus>
+    <input name="password" maxlength="255" type="password" class="form-control" placeholder="<?=_("Пароль")?>" required>
 
     <button type="submit" class="btn btn-lg btn-primary btn-block" style="margin: 0;"><?=_("Увійти")?></button>
 
@@ -159,7 +159,7 @@ define("__PAGE_LAYOUT__", "skeleton");
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"><?=_("Закрити")?></button>
-                    <button type="button" class="btn btn-primary"><?=_("Зареєструватись")?></button>
+                    <button type="submit" class="btn btn-primary"><?=_("Зареєструватись")?></button>
                 </div>
 
             </div>
