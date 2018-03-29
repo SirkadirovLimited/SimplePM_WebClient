@@ -55,24 +55,13 @@ define("__PAGE_LAYOUT__", "skeleton");
 
                 <div class="modal-body">
 
-                    <div class="form-group">
-                        <label for="regEmail"><?=_("Email адреса")?></label>
-                        <input
-                                type="email"
-                                class="form-control"
-                                id="regEmail"
-                                maxlength="255"
-                                required
-                        >
-                        <small class="form-text text-muted"><?=_("На вказану скриньку будуть надходити важливі сповіщення.")?></small>
-                    </div>
+                    <h5 class="h5 text-center" style="margin-bottom: 20px;"><?=_("Дані для авторизації в системі")?></h5>
 
                     <div class="form-group">
-                        <label for="regLogin"><?=_("Лоін")?></label>
+                        <label><?=_("Лоін")?></label>
                         <input
                                 type="text"
                                 class="form-control"
-                                id="regLogin"
                                 maxlength="255"
                                 required
                         >
@@ -83,11 +72,10 @@ define("__PAGE_LAYOUT__", "skeleton");
                     </div>
 
                     <div class="form-group">
-                        <label for="regPassword"><?=_("Пароль")?></label>
+                        <label><?=_("Пароль")?></label>
                         <input
-                                type="text"
+                                type="password"
                                 class="form-control"
-                                id="regPassword"
                                 maxlength="255"
                                 required
                         >
@@ -96,16 +84,74 @@ define("__PAGE_LAYOUT__", "skeleton");
                         </small>
                     </div>
 
+                    <h5 class="h5 text-center" style="margin: 20px;"><?=_("Контактні дані")?></h5>
+
                     <div class="form-group">
-                        <label for="regFirstName"><?=_("Ім'я")?></label>
+                        <label><?=_("Email адреса")?></label>
                         <input
-                                type="text"
+                                type="email"
                                 class="form-control"
-                                id="regLogin"
                                 maxlength="255"
                                 required
                         >
-                        <small class="form-text text-muted"><?=_("Логін буде використовуватись Вами під час авторизації.")?></small>
+                        <small class="form-text text-muted"><?=_("На вказану скриньку будуть надходити важливі сповіщення.")?></small>
+                    </div>
+
+                    <h5 class="h5 text-center" style="margin: 20px;"><?=_("Особиста інформація")?></h5>
+
+                    <div class="row">
+
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label><?=_("Ім'я")?></label>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        maxlength="255"
+                                        required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label><?=_("Прізвище")?></label>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        maxlength="255"
+                                        required
+                                >
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label><?=_("По-батькові")?></label>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        maxlength="255"
+                                        required
+                                >
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <h5 class="h5 text-center" style="margin: 20px;"><?=_("Захист від несанкціонованого доступу")?></h5>
+
+                    <div class="form-group">
+                        <label><?=_("TeacherID")?></label>
+                        <input
+                                type="text"
+                                class="form-control"
+                                maxlength="255"
+                                required
+                        >
+                        <small class="form-text text-muted">
+                            <?=_("Введіть ключ реєстрації, що надав Вам викладач або куратор.")?>
+                        </small>
                     </div>
 
                 </div>
