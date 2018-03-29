@@ -8,11 +8,6 @@
   {
     "path": "anonymous/registration",
     "enabled": true
-  },
-
-  {
-    "path": "anonymous/account-recovery",
-    "enabled": true
   }
 
 ]
