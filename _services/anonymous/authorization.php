@@ -20,8 +20,8 @@ define("__PAGE_LAYOUT__", "skeleton");
 
     <h1 class="h1 mb-3 font-weight-normal text-center"><strong>Simple</strong>PM</h1>
 
-    <input type="text" id="inputEmail" class="form-control" placeholder="<?=_("Ім'я користувача")?>" required autofocus>
-    <input type="password" id="inputPassword" class="form-control" placeholder="<?=_("Пароль")?>" required>
+    <input name="username" type="text" class="form-control" placeholder="<?=_("Ім'я користувача")?>" required autofocus>
+    <input name="password" type="password" class="form-control" placeholder="<?=_("Пароль")?>" required>
 
     <button type="submit" class="btn btn-lg btn-primary btn-block" style="margin: 0;"><?=_("Увійти")?></button>
 
