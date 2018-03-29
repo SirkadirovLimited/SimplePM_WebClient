@@ -1,6 +1,13 @@
 [
 
   {
+    "path": "logout",
+    "enabled": true
+  },
+
+  
+
+  {
     "path": "anonymous/login",
     "enabled": true
   },
