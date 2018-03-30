@@ -20,22 +20,38 @@ define("__PAGE_LAYOUT__", "skeleton");
 
     <h1 class="h1 mb-3 font-weight-normal text-center"><strong>Simple</strong>PM</h1>
 
-    <input name="username" maxlength="255" type="text" class="form-control" placeholder="<?=_("Ім'я користувача")?>" required autofocus>
-    <input name="password" maxlength="255" type="password" class="form-control" placeholder="<?=_("Пароль")?>" required>
+    <input
+            name="username"
+            maxlength="255"
+            type="text"
+            class="form-control"
+            placeholder="<?=_("Ім'я користувача")?>"
+            pattern="[a-zA-Z0-9._]\w+"
+            required
+            autofocus
+    >
+    <input
+            name="password"
+            maxlength="255"
+            type="password"
+            class="form-control"
+            placeholder="<?=_("Пароль")?>"
+            required
+    >
 
-    <button type="submit" class="btn btn-lg btn-primary btn-block" style="margin: 0;"><?=_("Увійти")?></button>
+    <button
+            type="submit"
+            class="btn btn-lg btn-primary btn-block"
+            style="margin: 0;"
+    ><?=_("Увійти")?></button>
 
-    <div class="row">
-        <div class="col">
-            <button
-                    type="button"
-                    class="btn btn-outline-primary btn-sm btn-block"
-                    style="margin: 0;"
-                    data-toggle="modal"
-                    data-target="#registrationModal"
-            ><?=_("Зареєструватись")?></button>
-        </div>
-    </div>
+    <button
+            type="button"
+            class="btn btn-outline-primary btn-sm btn-block"
+            style="margin: 0;"
+            data-toggle="modal"
+            data-target="#registrationModal"
+    ><?=_("Зареєструватись")?></button>
 
 </form>
 
@@ -64,11 +80,12 @@ define("__PAGE_LAYOUT__", "skeleton");
                                 type="text"
                                 class="form-control"
                                 maxlength="255"
+                                pattern="[a-zA-Z0-9._]\w+"
                                 required
                         >
                         <small class="form-text text-muted">
                             <?=_("Логін буде використовуватись Вами під час авторизації.")?>
-                            <?=_("Використовуйте лише латинські букви, цифри та символи '-' і '_'.")?>
+                            <?=_("Використовуйте лише латинські букви, цифри та символ '_'.")?>
                         </small>
                     </div>
 
