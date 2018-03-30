@@ -27,6 +27,44 @@ class UserInfo {
     }
 
     /**
+     * Функция отвечает на самый заветный и сложный вопрос во всём мире.
+     * @param int $userId Идентификатор пользователя
+     * @return bool Существует ли указанный пользователь
+     */
+
+    public static function UserExists(int $userId) : bool {
+
+        /*
+         * Запрашиваем  доступ  к
+         * глобальным переменным.
+         */
+
+        global $database;
+
+        /*
+         * Формируем запрос на выборку
+         * данных из базы данных.
+         */
+
+        $query_str = "
+            SELECT
+              count(`id`)
+            FROM
+              `spm_users`
+            WHERE
+              `id` = '" . abs((int)$userId) . "'
+            ;
+        ";
+
+        /*
+         * Отвечаем на вопрос как 42
+         */
+
+        return (int)($database->query($query_str)->fetch_array()[0]) > 0;
+
+    }
+
+    /**
      * @param int $userId Текущий пользователь
      * @return array Информация о пользователе
      */
