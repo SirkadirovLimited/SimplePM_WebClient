@@ -6,6 +6,11 @@
   },
 
 
+  {
+    "path": "users/profile",
+    "enabled": true
+  },
+
 
   {
     "path": "anonymous/authorization",
