@@ -12,7 +12,7 @@
  */
 
 // Файл, содержащий чекер пользовательской сессии
-include _SPM_includes_ . "Checkers/session.inc";
+include _SPM_includes_ . "Checkers/SessionChecker.inc";
 
 class Checkers {
     use SessionChecker;
