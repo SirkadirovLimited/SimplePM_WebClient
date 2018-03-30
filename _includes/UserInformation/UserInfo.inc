@@ -32,7 +32,8 @@ class UserInfo {
      * @return bool Существует ли указанный пользователь
      */
 
-    public static function UserExists(int $userId) : bool {
+    public static function UserExists(int $userId) : bool
+    {
 
         /*
          * Запрашиваем  доступ  к
@@ -52,7 +53,7 @@ class UserInfo {
             FROM
               `spm_users`
             WHERE
-              `id` = '" . abs((int)$userId) . "'
+              `id` = '" . abs($userId) . "'
             ;
         ";
 
@@ -61,6 +62,55 @@ class UserInfo {
          */
 
         return (int)($database->query($query_str)->fetch_array()[0]) > 0;
+
+    }
+
+    /**
+     * @param int $groupId
+     * @return string
+     */
+
+    public static function GetGroupName(int $groupId) : string
+    {
+
+        /*
+         * Запрашиваем  доступ  к
+         * глобальным переменным.
+         */
+
+        global $database;
+
+        /*
+         * Формируем запрос на выборку
+         * данных из базы данных.
+         */
+
+        $query_str = "
+            SELECT
+              `name`
+            FROM
+              `spm_users_groups`
+            WHERE
+              `id` = '" . abs($groupId) . "'
+            LIMIT
+              1
+            ;
+        ";
+
+        /*
+         * Выполняем SQL запрос на выборку данных
+         */
+
+        $query = $database->query($query_str);
+
+        /*
+         * Возвращаем результат работы функции
+         */
+
+        if ($query->num_rows == 0)
+            return "Deleted group";
+        else
+            return $query->fetch_object()->name;
 
     }
 
@@ -100,7 +150,9 @@ class UserInfo {
               `city`,
               `school`,
               `groupid`,
-              `banned`
+              `banned`,
+              `RatingBase`(`id`) AS rating,
+              `RatingCount`(`id`) AS rating_count
             FROM
               `spm_users`
             WHERE
