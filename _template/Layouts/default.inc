@@ -33,8 +33,8 @@ include _SPM_template_ . "Parts/header.inc";
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="<?=_SPM_?>index.php/users/rating/">Рейтинг</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item disabled" href="">Користувачі онлайн</a>
-                        <a class="dropdown-item disabled" href="">Дні народження</a>
+                        <a class="dropdown-item disabled">Користувачі онлайн</a>
+                        <a class="dropdown-item disabled">Дні народження</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -45,11 +45,11 @@ include _SPM_template_ . "Parts/header.inc";
                         <a class="dropdown-item" href="<?=_SPM_?>index.php/problems/archive/">Архів задач</a>
                         <a class="dropdown-item" href="<?=_SPM_?>index.php/problems/difficult/">Відкладені задачі</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item disabled" href="">Черга перевірки</a>
+                        <a class="dropdown-item disabled">Черга перевірки</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="">Змагання</a>
+                    <a class="nav-link disabled">Змагання</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -61,7 +61,7 @@ include _SPM_template_ . "Parts/header.inc";
                         <a class="dropdown-item" href="<?=_SPM_?>index.php/users/profile/">Моя сторінка</a>
                         <a class="dropdown-item" href="<?=_SPM_?>index.php/users/edit/">Редагувати сторінку</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item disabled" href="">Про систему</a>
+                        <a class="dropdown-item disabled">Про систему</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?=_SPM_?>index.php?cmd=logout">Вийти з системи</a>
                     </div>
