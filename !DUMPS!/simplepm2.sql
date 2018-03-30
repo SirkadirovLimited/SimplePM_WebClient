@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Мар 29 2018 г., 23:22
+-- Время создания: Мар 30 2018 г., 23:23
 -- Версия сервера: 5.7.21-log
 -- Версия PHP: 7.1.1
 
@@ -26,28 +26,90 @@ USE `simplepm2`;
 
 DELIMITER $$
 --
--- Процедуры
+-- Функции
 --
-DROP PROCEDURE IF EXISTS `updateBCount`$$
-CREATE DEFINER=`*`@`localhost` PROCEDURE `updateBCount` (IN `uId` BIGINT UNSIGNED)  SQL SECURITY INVOKER
+DROP FUNCTION IF EXISTS `RatingBase`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `RatingBase` (`urId` BIGINT UNSIGNED) RETURNS FLOAT READS SQL DATA
+    SQL SECURITY INVOKER
 begin
-DECLARE sumVal FLOAT DEFAULT 0;
-SELECT SUM(`b`) INTO sumVal FROM `spm_submissions` WHERE (`userId` = uId AND `b` > 0 AND `classworkId` = 0 AND `olympId` = 0);
-UPDATE `spm_users` SET `bcount` = sumVal WHERE `id` = uId LIMIT 1;
+
+DECLARE sumVal BIGINT DEFAULT 0;
+DECLARE rProblemsCount BIGINT DEFAULT 0;
+
+SELECT
+	SUM(`b`)
+INTO
+	`sumVal`
+FROM
+	`spm_submissions`
+WHERE
+	(
+        `userId` = urId 
+    AND
+        `b` >= 0
+    AND
+        `classworkId` = 0
+    AND
+        `olympId` = 0
+    )
+ORDER BY
+	`b` DESC
+LIMIT
+	30
+;
+
+SELECT
+COUNT(`submissionId`)
+INTO
+`rProblemsCount`
+FROM
+`spm_submissions`
+WHERE
+	(
+        `userId` = urId
+    AND
+        `b` >= 0
+    AND
+        `classworkId` = 0
+    AND
+        `olympId` = 0
+    )
+ORDER BY
+	`b` DESC
+LIMIT
+	30
+;
+
+RETURN (sumVal / rProblemsCount);
+
 end$$
 
-DROP PROCEDURE IF EXISTS `updateRating`$$
-CREATE DEFINER=`*`@`localhost` PROCEDURE `updateRating` (IN `urId` BIGINT UNSIGNED)  SQL SECURITY INVOKER
+DROP FUNCTION IF EXISTS `RatingCount`$$
+CREATE DEFINER=`*`@`localhost` FUNCTION `RatingCount` (`uId` BIGINT UNSIGNED) RETURNS BIGINT(20) READS SQL DATA
+    SQL SECURITY INVOKER
 begin
 
-DECLARE sumVal FLOAT DEFAULT 0;
-DECLARE rProblemsCount TINYINT DEFAULT 0;
+DECLARE sumVal BIGINT DEFAULT 0;
 
-SELECT SUM(`b`) INTO `sumVal` FROM `spm_submissions` WHERE (`userId` = urId AND `b` >= 0 AND `classworkId` = 0 AND `olympId` = 0) ORDER BY `b` DESC LIMIT 30;
+SELECT
+	SUM(`b`)
+INTO
+	sumVal
+FROM
+	`spm_submissions`
+WHERE
+	(
+        `userId` = uId
+    AND
+        `b` > 0
+    AND
+        `classworkId` = 0
+    AND
+        `olympId` = 0
+    );
 
-SELECT COUNT(`submissionId`) INTO `rProblemsCount` FROM `spm_submissions` WHERE (`userId` = urId AND `b` >= 0 AND `classworkId` = 0 AND `olympId` = 0) ORDER BY `b` DESC LIMIT 30;
+RETURN sumVal;
 
-UPDATE `spm_users` SET `rating` = (sumVal / rProblemsCount) WHERE `id` = urId LIMIT 1;
 end$$
 
 DELIMITER ;
