@@ -21,6 +21,11 @@ define("__PAGE_LAYOUT__", "default");
 isset($_GET['id']) or $_GET['id'] = Security::getCurrentSession()["user_info"]->getUserId();
 $_GET['id'] = abs((int)$_GET['id']);
 
+// Если идентификатор 0 и ниже, отображаем страницу текущего пользователя
+if ($_GET['id'] <= 0)
+    $_GET['id'] = Security::getCurrentSession()["user_info"]->getUserId();
+
+// Проверка пользователя с указанным идентификатором на существование
 UserInfo::UserExists(
     $_GET['id']
 ) or Security::ThrowError(_("Користувача з вказаним ідентифікатором не знайдено!"));
@@ -40,10 +45,10 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                 <a class="nav-link active" href=""><?=_("Профіль")?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><?=_("Редагувати профіль")?></a>
+                <a class="nav-link" href="<?=_SPM_?>index.php/users/edit/"><?=_("Редагувати сторінку")?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?=_SPM_?>"><?=_("Спроби")?></a>
+                <a class="nav-link" href="<?=_SPM_?>index.php/problems/submissions/?id=<?=$_GET['id']?>"><?=_("Спроби")?></a>
             </li>
         </ul>
     </div>
@@ -57,6 +62,18 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
         <h3 class="card-title" style="margin: 0;">
             <?=$user_info["secondname"]?> <?=$user_info["firstname"]?> <?=$user_info["thirdname"]?>
         </h3>
+
+        <p style="margin-top: 20px;">
+
+            <button class="btn btn-secondary btn-sm">
+                Сума балів <span class="badge badge-light"><?=(int)$user_info["rating_count"]?></span>
+            </button>
+
+            <button class="btn btn-secondary btn-sm">
+                Рейтинг <span class="badge badge-light"><?=number_format((float)$user_info["rating_count"], 2)?></span>
+            </button>
+
+        </p>
 
         <div class="row" style="margin-top: 30px;">
 
@@ -105,6 +122,55 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
             </div>
 
             <!-- INFORMATION ABOUT USER ENDS -->
+
+            <!-- SYSTEM INFORMATION ABOUT USER STARTS -->
+
+            <div class="col-md-6 col-sm-12 text-left">
+
+                <div class="list-group">
+
+                    <a class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1"><?=_("Системна інформація")?></h6>
+                        </div>
+                    </a>
+
+                    <a class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1"><?=_("Нікнейм")?></h6>
+                        </div>
+                        <p class="mb-1"><?=$user_info["username"]?></p>
+                    </a>
+
+                    <a class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1"><?=_("Група")?></h6>
+                        </div>
+                        <p class="mb-1"><?=UserInfo::GetGroupName((int)$user_info["groupid"])?> (gid<?=(int)$user_info["groupid"]?>)</p>
+                    </a>
+
+                    <a
+                        href="<?=_SPM_?>index.php/users/profile/?id=<?=$user_info["teacherId"]?>"
+                        class="list-group-item list-group-item-action flex-column align-items-start"
+                    >
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1"><?=_("Куратор")?></h6>
+                        </div>
+                        <p class="mb-1"><?=$user_info["teacherId"]?></p>
+                    </a>
+
+                    <a class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1"><?=_("Остання активність на сайті")?></h6>
+                        </div>
+                        <p class="mb-1"><?=$user_info["last_online"]?></p>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- SYSTEM INFORMATION ABOUT USER ENDS -->
 
         </div>
 
