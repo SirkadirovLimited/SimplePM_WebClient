@@ -66,9 +66,6 @@ date_default_timezone_set('Europe/Kiev');
 define("_SPM_configuration_", "./_configuration/", false); // путь к папке с конфигурациями
 define("_SPM_includes_", "./_includes/", false); // путь к папке с include-ами
 
-define("_SPM_media_", "./_media/", false); // путь к папке с медиафайлами
-define("_SPM_assets_", _SPM_media_ . "_assets/", false); // путь к папке с ресурсами
-
 define("_SPM_template_", "./_template/", false); // путь к папке шаблона
 define("_SPM_modules_", "./_modules/", false); // путь к папке модулей
 
@@ -101,6 +98,14 @@ $_CONFIG = new Configuration();
  */
 
 define("_SPM_", @$_CONFIG->getWebappConfig()["site_base_url"]);
+
+/*
+ * Определяем дополнительные константы,
+ * которые зависят от константы _SPM_.
+ */
+
+define("_SPM_media_", _SPM_ . "_media/", false); // путь к папке с медиафайлами
+define("_SPM_assets_", _SPM_media_ . "_assets/", false); // путь к папке с ресурсами
 
 /*
  * Производим включение необходимых
@@ -179,6 +184,19 @@ $_SECURITY->ClearGET();
 
 // Производим очистку POST запросов
 $_SECURITY->ClearPOST();
+
+/*
+ * Секция  вызова   автозагрузочных  функций,
+ * таких как различные проверки безопасности,
+ * переадресации  на  подсистемы  урока  или
+ * соревнования, и так далее.
+ */
+
+// Производим включение требуемого класса
+include _SPM_includes_ . "Checkers/Checkers.inc";
+
+// Проверка пользовательской сессии
+Checkers::CheckUserSession();
 
 /*
  * Обработка запросов на выполнение операций
