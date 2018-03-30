@@ -11,4 +11,5 @@
  * @Repo: https://github.com/SirkadirovTeam/SimplePM_Server
  */
 
-unset(Security::getCurrentSession()["user_info"]);
+// Очищаем все данные сессии
+session_destroy();
