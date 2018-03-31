@@ -23,14 +23,17 @@
 
 trait Waiter {
 
-    /*
+    /**
      * Специально      созданная      функция
      * из трейта Waiter, которая приберает за
      * недобросовестными   пользователями   и
      * предоставляет реальный  путь к сервису
+     * @param string $requested_service
+     * @return string
      */
 
-    public function GetClearServicePath(string &$requested_service) {
+    public function GetClearServicePath(string &$requested_service) : string
+    {
 
         /*
          * Если  строка  запроса  не  пустая,
