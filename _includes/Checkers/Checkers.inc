@@ -11,6 +11,9 @@
  * @Repo: https://github.com/SirkadirovTeam/SimplePM_Server
  */
 
+// Файл, содержащий рецепт по удалению сессии
+include _SPM_includes_ . "Checkers/SessionDestroyer.inc";
+
 // Файл, содержащий пользовательский чекер
 include _SPM_includes_ . "Checkers/UserChecker.inc";
 
@@ -18,6 +21,10 @@ include _SPM_includes_ . "Checkers/UserChecker.inc";
 include _SPM_includes_ . "Checkers/SessionChecker.inc";
 
 class Checkers {
+
+    use SessionDestroyer;
+
     use UserChecker;
     use SessionChecker;
+
 }

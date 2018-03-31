@@ -11,12 +11,7 @@
  * @Repo: https://github.com/SirkadirovTeam/SimplePM_Server
  */
 
-// Производим включение трейта (зависимости)
-include_once _SPM_includes_ . "Checkers/SessionDestroyer.inc";
-
 trait UserChecker {
-
-    use SessionDestroyer;
 
     public static function CheckUserExists() {
 
