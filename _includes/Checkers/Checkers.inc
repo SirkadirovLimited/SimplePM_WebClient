@@ -11,9 +11,13 @@
  * @Repo: https://github.com/SirkadirovTeam/SimplePM_Server
  */
 
+// Файл, содержащий пользовательский чекер
+include _SPM_includes_ . "Checkers/UserChecker.inc";
+
 // Файл, содержащий чекер пользовательской сессии
 include _SPM_includes_ . "Checkers/SessionChecker.inc";
 
 class Checkers {
+    use UserChecker;
     use SessionChecker;
 }
