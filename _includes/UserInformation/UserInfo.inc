@@ -152,7 +152,8 @@ class UserInfo {
               `groupid`,
               `banned`,
               `RatingBase`(`id`) AS rating,
-              `RatingCount`(`id`) AS rating_count
+              `RatingCount`(`id`) AS rating_count,
+              `associated_olymp`
             FROM
               `spm_users`
             WHERE
