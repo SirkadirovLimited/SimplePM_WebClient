@@ -5,6 +5,10 @@
     "enabled": true
   },
 
+  {
+    "path": "problems/archive",
+    "enabled": true
+  },
 
   {
     "path": "users/profile",
