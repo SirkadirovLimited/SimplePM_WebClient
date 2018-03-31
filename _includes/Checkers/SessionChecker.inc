@@ -11,12 +11,7 @@
  * @Repo: https://github.com/SirkadirovTeam/SimplePM_Server
  */
 
-// Производим включение трейта (зависимости)
-include_once _SPM_includes_ . "Checkers/SessionDestroyer.inc";
-
 trait SessionChecker {
-
-    use SessionDestroyer;
 
     public static function CheckUserSession() {
 
@@ -30,7 +25,7 @@ trait SessionChecker {
          */
 
         if (UserInfo::IsAuthUser() && Security::getCurrentSession()["user_info"]->getUserInfo()["sessionId"] != session_id())
-            self::DestroySession("Одночасний вхід в один аккаунт з декількох пристроїв заборонений!");
+            SessionDestroyer::DestroySession("Одночасний вхід в один аккаунт з декількох пристроїв заборонений!");
 
     }
 
