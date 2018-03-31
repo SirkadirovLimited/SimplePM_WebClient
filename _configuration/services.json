@@ -11,6 +11,12 @@
   },
 
   {
+    "path": "problems/problem",
+    "enabled": true
+  },
+
+
+  {
     "path": "users/profile",
     "enabled": true
   },
