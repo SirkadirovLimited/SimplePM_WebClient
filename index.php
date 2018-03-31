@@ -195,6 +195,9 @@ $_SECURITY->ClearPOST();
 // Производим включение требуемого класса
 include _SPM_includes_ . "Checkers/Checkers.inc";
 
+// Проверка пользователя на существование
+Checkers::CheckUserExists();
+
 // Проверка пользовательской сессии
 Checkers::CheckUserSession();
 
