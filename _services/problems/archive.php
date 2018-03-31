@@ -76,7 +76,11 @@ $problems_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
     <?php foreach ($problems_list as $problem): ?>
         <div class="col-md-4 col-sm-12" style="margin-bottom: 2rem;">
 
-            <a class="card" style="text-decoration: none !important;" href="">
+            <a
+                    class="card"
+                    style="text-decoration: none !important;"
+                    href="<?=_SPM_?>index.php/problems/problem/?id=<?=$problem["id"]?>"
+            >
                 <div class="card-body">
                     <strong class="card-title" style="color: #343a40 !important;"><?=$problem["id"]?>. <?=$problem["name"]?></strong>
                     <p class="card-text">
