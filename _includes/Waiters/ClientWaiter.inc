@@ -39,6 +39,12 @@ class ClientWaiter {
     public function GetRequestedServiceName() : string {
 
         /*
+         * Определяем используемые глобальные переменные.
+         */
+
+        global $_CONFIG;
+
+        /*
          * В зависимости от того, указан путь к
          * требуемому сервису или нет, выполняем
          * соответствующие действия.
@@ -53,17 +59,19 @@ class ClientWaiter {
              * предоставит реальный  путь к сервису.
              */
 
-            return $this->GetClearServicePath($_SERVER['PATH_INFO']);
+            $req_service =  $this->GetClearServicePath($_SERVER['PATH_INFO']);
+
+            /*
+             * Возвращаем результат работы функции
+             */
+
+            return strlen($req_service) > 0
+                ? $req_service
+                : $_CONFIG->getWebappConfig()["site_default_service"];
 
         }
         else
         {
-
-            /*
-             * Определяем используемые глобальные переменные.
-             */
-
-            global $_CONFIG;
 
             /*
              * Если пользователь авторизован, указываем
