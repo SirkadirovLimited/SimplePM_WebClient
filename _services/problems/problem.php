@@ -22,6 +22,7 @@ define("__PAGE_TITLE__", _("Задача") . " #" . @$_GET['id']);
 define("__PAGE_LAYOUT__", "default");
 
 global $database;
+global $_CONFIG;
 
 $query_str = "
     SELECT
@@ -81,31 +82,46 @@ $problem_info = $problem_info->fetch_assoc();
 
 <pre id="code_editor"></pre>
 
-<textarea
-        class="form-control"
-        id="custom_test"
-        placeholder="<?=_("Користувацький тест для Debug-режиму тестування")?>"
-></textarea>
+<form action="<?=_SPM_?>index.php?cmd=problems/send_submission" method="post">
 
-<div class="input-group">
+    <textarea
+            class="form-control"
+            id="custom_test"
+            placeholder="<?=_("Користувацький тест для Debug-режиму тестування")?>"
+            minlength="0"
+            maxlength="65000"
+    ></textarea>
 
-    <select class="form-control" required>
-        <option>Виберіть мову програмування</option>
-    </select>
+    <div class="input-group">
 
-    <select class="form-control" required>
-        <option>Виберіть тип перевірки</option>
-        <option value="syntax">Перевірка синтаксису</option>
-        <option value="debug">Debug-режим</option>
-        <option value="release">Release-режим</option>
-    </select>
+        <select class="form-control" required>
+            <option value>Виберіть мову програмування</option>
 
-    <button
-            type="submit"
-            class="btn btn-primary"
-    ><?=_("Відправити")?></button>
+            <?php foreach ($_CONFIG->getCompilersConfig() as $compiler): if ($compiler['enabled']): ?>
 
-</div>
+                <option value="<?=$compiler['language_name']?>"><?=$compiler['display_name']?></option>
+
+            <?php endif; endforeach; ?>
+
+        </select>
+
+        <select class="form-control" required>
+            <option value>Виберіть тип перевірки</option>
+            <option value="syntax">Перевірка синтаксису</option>
+            <option value="debug">Debug-режим</option>
+            <option value="release">Release-режим</option>
+        </select>
+
+        <button
+                type="submit"
+                class="btn btn-primary"
+        ><?=_("Відправити")?></button>
+
+    </div>
+
+</form>
+
+
 
 <div class="card">
     <div class="card-body text-center" style="padding: 5px;">
