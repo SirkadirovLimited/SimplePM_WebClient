@@ -145,14 +145,14 @@ $problem_info = $problem_info->fetch_assoc();
 
         <div class="row">
 
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-sm-12" style="padding: 10px;">
 
                 <h6 class="card-title"><?=_("Опис вхідного потоку")?></h6>
                 <p class="card-text text-justify"><?=$problem_info["input_description"]?></p>
 
             </div>
 
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-sm-12" style="padding: 10px;">
 
                 <h6 class="card-title"><?=_("Опис вихідного потоку")?></h6>
                 <p class="card-text text-justify"><?=$problem_info["output_description"]?></p>
@@ -169,14 +169,14 @@ $problem_info = $problem_info->fetch_assoc();
 
         <div class="row">
 
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-sm-12" style="padding: 10px;">
 
                 <h6 class="card-title"><?=_("Приклад вхідного потоку")?> (input.dat)</h6>
                 <p class="card-text text-justify"><?=$problem_info["input_description"]?></p>
 
             </div>
 
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-sm-12" style="padding: 10px;">
 
                 <h6 class="card-title"><?=_("Приклад вихідного потоку")?> (output.dat)</h6>
                 <p class="card-text text-justify"><?=$problem_info["output_description"]?></p>
