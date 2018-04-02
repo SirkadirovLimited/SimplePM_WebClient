@@ -84,6 +84,13 @@ $problem_info = $problem_info->fetch_assoc();
 
 <form action="<?=_SPM_?>index.php?cmd=problems/send_submission" method="post">
 
+	<textarea
+			id="code_place"
+			name="code"
+			hidden
+			required
+	></textarea>
+
     <textarea
             class="form-control"
             id="custom_test"
@@ -115,6 +122,7 @@ $problem_info = $problem_info->fetch_assoc();
         <button
                 type="submit"
                 class="btn btn-primary"
+				onclick="$('#code_place').innerText = editor.getValue(); return;"
         ><?=_("Відправити")?></button>
 
     </div>

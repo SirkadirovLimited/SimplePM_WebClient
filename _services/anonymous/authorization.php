@@ -59,7 +59,7 @@ define("__PAGE_LAYOUT__", "skeleton");
 
     <div class="modal-dialog modal-lg" role="document">
 
-        <form method="post" action="<?=_SPM_?>index.php?cmd=registration">
+        <form method="post" action="<?=_SPM_?>index.php?cmd=registration" enctype="text/plain">
 
             <div class="modal-content">
 
