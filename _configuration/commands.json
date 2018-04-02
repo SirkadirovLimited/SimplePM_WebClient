@@ -6,6 +6,11 @@
   },
 
 
+  {
+    "path": "problems/send_submission",
+    "enabled": true
+  },
+
 
   {
     "path": "anonymous/login",
