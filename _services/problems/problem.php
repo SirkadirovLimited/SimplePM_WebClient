@@ -84,16 +84,19 @@ $problem_info = $problem_info->fetch_assoc();
 
 <form action="<?=_SPM_?>index.php?cmd=problems/send_submission" method="post">
 
+    <input type="hidden" name="problem_id" value="<?=$problem_info["id"]?>">
+
 	<textarea
 			id="code_place"
 			name="code"
-			hidden
-			required
+            hidden
+            required
 	></textarea>
 
     <textarea
             class="form-control"
             id="custom_test"
+            name="custom_test"
             placeholder="<?=_("Користувацький тест для Debug-режиму тестування")?>"
             minlength="0"
             maxlength="65000"
@@ -101,7 +104,7 @@ $problem_info = $problem_info->fetch_assoc();
 
     <div class="input-group">
 
-        <select class="form-control" required>
+        <select name="submission_language" class="form-control" required>
             <option value>Виберіть мову програмування</option>
 
             <?php foreach ($_CONFIG->getCompilersConfig() as $compiler): if ($compiler['enabled']): ?>
@@ -112,17 +115,21 @@ $problem_info = $problem_info->fetch_assoc();
 
         </select>
 
-        <select class="form-control" required>
+        <select name="submission_type" class="form-control" required>
             <option value>Виберіть тип перевірки</option>
             <option value="syntax">Перевірка синтаксису</option>
-            <option value="debug">Debug-режим</option>
+            <option value="debug" selected>Debug-режим</option>
             <option value="release">Release-режим</option>
         </select>
 
         <button
                 type="submit"
                 class="btn btn-primary"
-				onclick="$('#code_place').innerText = editor.getValue(); return;"
+				onclick="
+				    $('#code_place').text(editor.getValue());
+
+				    return $('#code_place').length > 0;
+                "
         ><?=_("Відправити")?></button>
 
     </div>
@@ -144,7 +151,7 @@ $problem_info = $problem_info->fetch_assoc();
 
 <div class="card">
     <div class="card-body text-justify">
-        <?=htmlspecialchars_decode(trim($problem_info["description"]))?>
+        <?=trim($problem_info["description"])?>
     </div>
 </div>
 
