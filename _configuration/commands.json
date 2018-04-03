@@ -11,6 +11,11 @@
     "enabled": true
   },
 
+  {
+    "path": "problems/get_submission_status",
+    "enabled": true
+  },
+
 
   {
     "path": "anonymous/login",
