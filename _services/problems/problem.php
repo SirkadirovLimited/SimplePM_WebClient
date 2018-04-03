@@ -150,7 +150,7 @@ $problem_info = $problem_info->fetch_assoc();
 </div>
 
 <div class="card">
-    <div class="card-body text-justify" style="padding-bottom: 5px;">
+    <div class="card-body text-justify">
         <?=htmlspecialchars_decode(trim($problem_info["description"]))?>
     </div>
 </div>
@@ -163,14 +163,14 @@ $problem_info = $problem_info->fetch_assoc();
             <div class="col-md-6 col-sm-12" style="padding: 10px;">
 
                 <h6 class="card-title"><?=_("Опис вхідного потоку")?></h6>
-                <p class="card-text text-justify"><?=$problem_info["input_description"]?></p>
+                <p class="card-text text-justify"><?=strlen($problem_info["input_description"]) > 0 ? $problem_info["input_description"] : _("Немає вхідних даних")?></p>
 
             </div>
 
             <div class="col-md-6 col-sm-12" style="padding: 10px;">
 
                 <h6 class="card-title"><?=_("Опис вихідного потоку")?></h6>
-                <p class="card-text text-justify"><?=$problem_info["output_description"]?></p>
+                <p class="card-text text-justify"><?=strlen($problem_info["output_description"]) > 0 ? $problem_info["output_description"] : _("Немає вихідних даних")?></p>
 
             </div>
 
@@ -187,14 +187,14 @@ $problem_info = $problem_info->fetch_assoc();
             <div class="col-md-6 col-sm-12" style="padding: 10px;">
 
                 <h6 class="card-title"><?=_("Приклад вхідного потоку")?> (input.dat)</h6>
-                <p class="card-text text-justify"><?=$problem_info["input_description"]?></p>
+                <p class="card-text text-justify"><?=strlen($problem_info["input_description"]) > 0 ? $problem_info["input_description"] : _("Немає вхідних даних")?></p>
 
             </div>
 
             <div class="col-md-6 col-sm-12" style="padding: 10px;">
 
                 <h6 class="card-title"><?=_("Приклад вихідного потоку")?> (output.dat)</h6>
-                <p class="card-text text-justify"><?=$problem_info["output_description"]?></p>
+                <p class="card-text text-justify"><?=strlen($problem_info["output_description"]) > 0 ? $problem_info["output_description"] : _("Немає вихідних даних")?></p>
 
             </div>
 
