@@ -18,12 +18,34 @@
 isset($_GET['id']) or Security::ThrowError(_("Ідентифікатор задачі не вказано!"));
 $_GET['id'] = abs((int)$_GET['id']);
 
+/*
+ * Устанавливаем название и Layout сервиса
+ */
+
 define("__PAGE_TITLE__", _("Задача") . " #" . @$_GET['id']);
 define("__PAGE_LAYOUT__", "default");
+
+/*
+ * Запрашиваем доступ к глобальным переменным
+ */
 
 global $database;
 global $_CONFIG;
 
+/*
+ * Получаем идентификатор текущего соревнования
+ * для возможного ограничения доступного списка
+ * задач.
+ */
+
+$associated_olymp = (int)(Security::getCurrentSession()["user_info"]->getUserInfo()["associated_olymp"]);
+
+/*
+ * Производим  выборку  информации
+ * о текщей задаче из базы данных.
+ */
+
+// Формируем запрос на выборку
 $query_str = "
     SELECT
       `spm_problems`.`id`,
@@ -53,12 +75,52 @@ $query_str = "
     ;
 ";
 
+// Выполняем запрос
 $problem_info = $database->query($query_str);
 
+// Если задача не найдена, выбрасываем исключение
 if ($problem_info->num_rows == 0)
     Security::ThrowError("404");
 
+// Получаем полную информацию о задаче
 $problem_info = $problem_info->fetch_assoc();
+
+/*
+ * Получаем информацию о последней
+ * попытке пользователя по текущей
+ * задаче.
+ *
+ * Полученная информация будет
+ * представлена пользователю в
+ * виде инъекции в текущий по-
+ * льзовательский интерфейс.
+ */
+
+// Формируем запрос на выборку данных
+$query_str = "
+    SELECT
+      `submissionId`,
+      `problemCode`,
+      `testType`,
+      `codeLang`
+    FROM
+      `spm_submissions`
+    WHERE
+      `userId` = '" . (int)Security::getCurrentSession()["user_info"]->getUserId() . "'
+    AND
+      `problemId` = '" . $_GET['id'] . "'
+    AND
+      `olympId` = '" . $associated_olymp . "'
+    ORDER BY
+      `time` DESC,
+      `submissionId` DESC
+    LIMIT
+      1
+    ;
+";
+
+// Выполняем запрос на выборку и получаем данные
+$last_submission_info = @$database->query($query_str)->fetch_assoc();
 
 ?>
 
@@ -80,7 +142,7 @@ $problem_info = $problem_info->fetch_assoc();
     }
 </style>
 
-<pre id="code_editor"></pre>
+<pre id="code_editor"><?=$last_submission_info['problemCode']?></pre>
 
 <form action="<?=_SPM_?>index.php?cmd=problems/send_submission" method="post">
 
@@ -104,22 +166,62 @@ $problem_info = $problem_info->fetch_assoc();
 
     <div class="input-group">
 
-        <select name="submission_language" class="form-control" required>
+        <select
+                id="language_selector"
+                name="submission_language"
+                class="form-control"
+                onchange="changeLanguage();"
+                required
+        >
             <option value>Виберіть мову програмування</option>
 
             <?php foreach ($_CONFIG->getCompilersConfig() as $compiler): if ($compiler['enabled']): ?>
 
-                <option value="<?=$compiler['language_name']?>"><?=$compiler['display_name']?></option>
+                <option
+                        value="<?=$compiler['language_name']?>"
+                        langmode="<?=$compiler['editor_mode']?>"
+                        <?=(
+                                $compiler['language_name'] == @$last_submission_info['codeLang']
+                                    ? "selected"
+                                    : ""
+                        )?>
+                ><?=$compiler['display_name']?></option>
 
             <?php endif; endforeach; ?>
 
         </select>
 
         <select name="submission_type" class="form-control" required>
+
             <option value>Виберіть тип перевірки</option>
-            <option value="syntax">Перевірка синтаксису</option>
-            <option value="debug" selected>Debug-режим</option>
-            <option value="release">Release-режим</option>
+
+            <option
+                    value="syntax"
+                    <?=(
+                        @$last_submission_info['testType'] == "syntax"
+                            ? "selected"
+                            : ""
+                    )?>
+            >Перевірка синтаксису</option>
+
+            <option
+                    value="debug"
+                    <?=(
+                        @$last_submission_info['testType'] == "debug"
+                            ? "selected"
+                            : ""
+                    )?>
+            >Debug-режим</option>
+
+            <option
+                    value="release"
+                    <?=(
+                        @$last_submission_info['testType'] == "release"
+                            ? "selected"
+                            : ""
+                    )?>
+            >Release-режим</option>
+
         </select>
 
         <button
@@ -135,8 +237,6 @@ $problem_info = $problem_info->fetch_assoc();
     </div>
 
 </form>
-
-
 
 <div class="card">
     <div class="card-body text-center" style="padding: 5px;">
@@ -205,7 +305,24 @@ $problem_info = $problem_info->fetch_assoc();
 
 <script src="<?=_SPM_assets_?>_plugins/ace/ace.js"></script>
 <script>
-    var editor = ace.edit("code_editor");
-    editor.setTheme("ace/theme/dracula");
-    editor.session.setMode("ace/mode/c_cpp");
+
+    function changeLanguage()
+    {
+
+        ace.edit('code_editor').session.setMode(
+            'ace/mode/' + $('#language_selector option:selected').attr('langmode')
+        );
+
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var editor = ace.edit("code_editor");
+        editor.setTheme("ace/theme/dracula");
+
+        changeLanguage();
+
+    });
+
+    //editor.session.setMode("ace/mode/c_cpp");
 </script>

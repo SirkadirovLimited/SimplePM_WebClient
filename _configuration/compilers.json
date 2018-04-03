@@ -2,48 +2,56 @@
 
   {
     "language_name": "csharp",
+    "editor_mode": "csharp",
     "enabled": true,
     "display_name": "Mono / C#"
   },
 
   {
     "language_name": "java",
+    "editor_mode": "java",
     "enabled": true,
     "display_name": "Java SE"
   },
 
   {
     "language_name": "c",
+    "editor_mode": "c_cpp",
     "enabled": true,
     "display_name": "GNU C"
   },
 
   {
     "language_name": "cpp",
+    "editor_mode": "c_cpp",
     "enabled": true,
     "display_name": "GNU C++"
   },
 
   {
     "language_name": "freepascal",
+    "editor_mode": "pascal",
     "enabled": true,
     "display_name": "Free Pascal"
   },
 
   {
     "language_name": "lua",
+    "editor_mode": "lua",
     "enabled": true,
     "display_name": "Lua 5.2"
   },
 
   {
     "language_name": "python",
+    "editor_mode": "python",
     "enabled": true,
     "display_name": "Python 3.x"
   },
 
   {
     "language_name": "php",
+    "editor_mode": "php",
     "enabled": false,
     "display_name": "PHP 7.x"
   }
