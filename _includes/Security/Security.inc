@@ -100,7 +100,7 @@ class Security {
      * @return bool
      */
 
-    public function CheckAccessPermissions(int $user_permissions, int $requested_permission, bool $die_if_access_denied = false) : bool
+    public static function CheckAccessPermissions(int $user_permissions, int $requested_permission, bool $die_if_access_denied = false) : bool
     {
 
         $result = $user_permissions & $requested_permission;
