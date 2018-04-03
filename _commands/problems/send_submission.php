@@ -133,7 +133,20 @@ if ($_olymp_id > 0)
  * если данная задача имеет тесты.
  */
 
-// TODO
+// Формируем запрос на выборку из БД
+$query_str = "
+    SELECT
+      count(`id`)
+    FROM
+      `spm_problems_tests`
+    WHERE
+      `problemId` = '" . $_POST['problem_id'] . "'
+    ;
+";
+
+// Производим запрос и проверку
+(int)($database->query($query_str)->fetch_array()[0]) > 0
+    or Security::ThrowError(_("Вирішена задача не має тестів! Зв'яжіться з адміністратором системи!"));
 
 /*
  * Проверка на наличие пользовательского
@@ -145,7 +158,48 @@ if ($_olymp_id > 0)
 if (!isset($_POST['custom_test']) || (int)strlen($_POST['custom_test']) <= 0)
 {
 
-    // TODO: записывать входной поток первого теста в поле кастомного теста
+    /*
+     * Выборку из базы данных производим
+     * лишь  в  том  случае,  если типом
+     * тестирования выбран  Debug-режим,
+     * в   остальных  случаях  заполняем
+     * поле  так  называемым  "мусором",
+     * дабы  соответствовать требованиям
+     * таблицы  запросов на тестирование
+     * в базе данных.
+     */
+
+    if ($_POST['submission_type'] == "debug")
+    {
+
+        // Формируем запрос на выборку из БД
+        $query_str = "
+            SELECT
+              `input`
+            FROM
+              `spm_problems_tests`
+            WHERE
+              `problemId` = '" . $_POST['problem_id'] . "'
+            ORDER BY
+              `timeLimit` DESC,
+              `memoryLimit` DESC,
+              `id` ASC
+            LIMIT
+              1
+            ;
+        ";
+
+        // Получаем входные данные для теста
+        $_POST['custom_test'] = $database->query($query_str)->fetch_array()[0];
+
+    }
+    else
+    {
+
+        // Делаем всё, чтобы не NULL
+        $_POST['custom_test'] = "CUSTOM_TEST_NONE";
+
+    }
 
 }
 
