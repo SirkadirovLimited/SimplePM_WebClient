@@ -12,6 +12,13 @@
  */
 
 /*
+ * Производим   включение   используемых
+ * и  необходимых файлов исходного кода.
+ */
+
+include_once _SPM_includes_ . "ServiceHelpers/Olymp.inc";
+
+/*
  * Всевозможные проверки безопасности
  */
 
@@ -39,6 +46,15 @@ global $_CONFIG;
  */
 
 $associated_olymp = (int)(Security::getCurrentSession()["user_info"]->getUserInfo()["associated_olymp"]);
+
+/*
+ * Проверяем,  содержится ли текущая
+ * задача  в  списке  доступных  для
+ * решения задач во время проведения
+ * текущего соревнования или урока.
+ */
+
+Olymp::CheckProblemInList($associated_olymp, $_GET['id']);
 
 /*
  * Производим  выборку  информации
