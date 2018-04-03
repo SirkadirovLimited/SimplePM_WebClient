@@ -150,8 +150,8 @@ $problem_info = $problem_info->fetch_assoc();
 </div>
 
 <div class="card">
-    <div class="card-body text-justify">
-        <?=trim($problem_info["description"])?>
+    <div class="card-body text-justify" style="padding-bottom: 5px;">
+        <?=htmlspecialchars_decode(trim($problem_info["description"]))?>
     </div>
 </div>
 
