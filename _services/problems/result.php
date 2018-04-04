@@ -147,3 +147,8 @@ unset($current_user_info);
  * статусе проверки запрошенного за
  * проса на тестирование.
  */
+
+if ($submission_info['status'] == "ready")
+    include_once _SPM_views_ . "problems/result-view.inc";
+else
+    include_once _SPM_views_ . "problems/result-wait.inc";
