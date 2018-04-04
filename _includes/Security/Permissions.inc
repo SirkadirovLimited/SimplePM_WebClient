@@ -8,7 +8,6 @@
  * @Author: Yurij Kadirov
  * @Website: https://sirkadirov.com/
  * @Email: admin@sirkadirov.com
- * @Repo: https://github.com/SirkadirovTeam/SimplePM_Server
  */
 
 abstract class PERMISSION {
