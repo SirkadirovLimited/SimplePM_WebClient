@@ -243,7 +243,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
                 type="submit"
                 class="btn btn-primary"
 				onclick="
-				    $('#code_place').text(editor.getValue());
+				    $('#code_place').text(ace.edit('code_editor').getValue());
 
 				    return $('#code_place').length > 0;
                 "
