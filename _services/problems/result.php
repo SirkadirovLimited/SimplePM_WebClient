@@ -63,7 +63,7 @@ $query_str = "
     FROM
       `spm_submissions`
     WHERE
-      `submissionId` = ''
+      `submissionId` = '" . $_GET['id'] . "'
     LIMIT
       1
     ;
