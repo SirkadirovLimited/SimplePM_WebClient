@@ -15,6 +15,11 @@
     "enabled": true
   },
 
+  {
+    "path": "problems/result",
+    "enabled": true
+  },
+
 
   {
     "path": "users/profile",
