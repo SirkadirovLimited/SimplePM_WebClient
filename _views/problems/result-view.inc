@@ -29,6 +29,17 @@ global $database;
 		color: #fff !important;
 	}
 
+	.card {
+		margin-bottom: 10px;
+	}
+
+	pre {
+
+		background-color: #f8f9fa;
+		padding: 10px;
+
+	}
+
 </style>
 
 <div class="jumbotron jumbotron-fluid jumbotron-header">
@@ -50,3 +61,32 @@ global $database;
 	</div>
 </div>
 
+<?php include(_SPM_views_ . "problems/result-info-view.inc"); ?>
+
+<?php if (strlen($submission_info['compiler_text']) > 0): ?>
+
+	<div class="card">
+
+		<div class="card-header">Вихідний потік компілятора</div>
+
+		<div class="card-body" style="padding: 0;">
+			<pre class="card-text"><?=$submission_info['compiler_text']?></pre>
+		</div>
+
+	</div>
+
+<?php endif; ?>
+
+<?php if (strlen($submission_info['errorOutput']) > 0): ?>
+
+	<div class="card">
+
+		<div class="card-header">Стандартний потік помилок</div>
+
+		<div class="card-body" style="padding: 0;">
+			<pre class="card-text" style="color: red;"><?=$submission_info['errorOutput']?></pre>
+		</div>
+
+	</div>
+
+<?php endif; ?>
