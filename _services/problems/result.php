@@ -23,7 +23,7 @@ $_GET['id'] = abs((int)$_GET['id']);
  * разметку данного сервиса.
  */
 
-define("__PAGE_TITLE__", _("Рішення") . " #" . @$_GET['id']);
+define("__PAGE_TITLE__", _("Рішення") . " №" . @$_GET['id']);
 define("__PAGE_LAYOUT__", "default");
 
 /*
