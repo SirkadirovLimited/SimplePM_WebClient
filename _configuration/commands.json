@@ -12,7 +12,7 @@
   },
 
   {
-    "path": "problems/get_submission_status",
+    "path": "problems/submission_status",
     "enabled": true
   },
 
