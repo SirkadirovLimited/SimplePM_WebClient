@@ -47,15 +47,13 @@ global $database;
 		<h1><?=_("Результат тестування")?> №<?=$submission_info['submissionId']?></h1>
 		<p class="lead">
 
-			<a href="<?=_SPM_?>index.php/problems/problem?id=<?=$submission_info['problemId']?>">
-				<?=_("Задача")?> №<?=$submission_info['problemId']?>
-			</a> /
+			<a href="<?=_SPM_?>index.php/problems/problem?id=<?=$submission_info['problemId']?>"
+			><?=_("Задача")?> №<?=$submission_info['problemId']?></a>&nbsp;/
 
-			<?=_("Тип тестування")?>: <?=$submission_info['testType']?> /
+			<?=_("Тип тестування")?>: <?=$submission_info['testType']?>&nbsp;/
 
-			<a href="<?=_SPM_?>index.php/users/profile?id=<?=$submission_info['userId']?>">
-				Профіль користувача
-			</a>
+			<a href="<?=_SPM_?>index.php/users/profile?id=<?=$submission_info['userId']?>"
+			>Профіль користувача</a>
 
 		</p>
 	</div>
@@ -76,7 +74,7 @@ global $database;
 
 </div>
 
-<?php if (!$submission_info['hasError']): ?>
+<?php if (!$submission_info['hasError'] && $submission_info['testType'] != "syntax"): ?>
 
 	<?php
 
