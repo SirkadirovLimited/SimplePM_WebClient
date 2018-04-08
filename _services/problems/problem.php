@@ -67,6 +67,8 @@ $query_str = "
       `spm_problems`.`difficulty`,
       `spm_problems`.`name`,
       `spm_problems`.`description`,
+      `spm_problems`.`authorSolution`,
+      `spm_problems`.`authorSolutionLanguage`,
       `spm_problems`.`input_description`,
       `spm_problems`.`output_description`,
       `spm_problems`.`adaptProgramOutput`,
@@ -196,7 +198,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
                 onchange="changeLanguage();"
                 required
         >
-            <option value>Виберіть мову програмування</option>
+            <option value><?=_("Виберіть мову програмування")?></option>
 
             <?php foreach ($_CONFIG->getCompilersConfig() as $compiler): if ($compiler['enabled']): ?>
 
@@ -208,7 +210,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
                                     ? "selected"
                                     : ""
                         )?>
-                ><?=$compiler['display_name']?></option>
+                ><?=$compiler['display_name']?> (<?=$compiler['language_name']?>)</option>
 
             <?php endif; endforeach; ?>
 
@@ -220,7 +222,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 				required
 		>
 
-            <option value>Виберіть тип перевірки</option>
+            <option value><?=_("Виберіть тип перевірки")?></option>
 
             <option
                     value="syntax"
@@ -229,7 +231,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
                             ? "selected"
                             : ""
                     )?>
-            >Перевірка синтаксису</option>
+            ><?=_("Перевірка синтаксису")?></option>
 
             <option
                     value="debug"
@@ -238,7 +240,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
                             ? "selected"
                             : ""
                     )?>
-            >Debug-режим</option>
+            ><?=_("Debug-режим")?></option>
 
             <option
                     value="release"
@@ -247,7 +249,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
                             ? "selected"
                             : ""
                     )?>
-            >Release-режим</option>
+            ><?=_("Release-режим")?></option>
 
         </select>
 
@@ -263,12 +265,44 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 
     </div>
 
-	<?php if (@$last_submission_info['submissionId'] > 0): ?>
+	<?php if (@(int)$last_submission_info['submissionId'] > 0): ?>
 
 		<a
 				class="btn btn-outline-dark btn-block"
-				href=""
-		>Результат останньої відправки</a>
+				href="<?=_SPM_?>index.php/problems/result/?id=<?=$last_submission_info['submissionId']?>"
+		><?=_("Результат останньої відправки")?></a>
+
+	<?php endif; ?>
+	<?php if (
+			Security::CheckAccessPermissions(
+				Security::getCurrentSession()["user_info"]->getUserInfo()['permissions'],
+				PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR
+			) &&
+			$problem_info['authorSolution'] != null &&
+			$problem_info['authorSolutionLanguage'] != null
+	): ?>
+		<button
+				type="button"
+				class="btn btn-outline-secondary btn-block"
+				style="margin: 0;"
+				data-toggle="modal"
+				data-target="#author_solution"
+		><?=_("Отримати авторське рішення")?></button>
+
+		<div class="modal fade" id="author_solution" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title"><?=_("Авторське рішення задачі")?> (<?=$problem_info['authorSolutionLanguage']?>)</h5>
+						<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+					</div>
+					<pre class="modal-body"><?=$problem_info['authorSolution']?></pre>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal"><?=_("Закрити вікно")?></button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 	<?php endif; ?>
 
@@ -311,7 +345,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
             <div class="col-md-6 col-sm-12" style="padding: 10px;">
 
                 <h6 class="card-title"><strong><?=_("Опис вихідного потоку")?></strong></h6>
-				
+
                 <p
 						class="card-text text-justify"
 				><?=strlen($problem_info["output_description"]) > 0 ? $problem_info["output_description"] : _("Немає вихідних даних")?></p>
