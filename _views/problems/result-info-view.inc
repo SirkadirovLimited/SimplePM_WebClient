@@ -26,7 +26,7 @@
 			</td>
 
 			<td>
-				<?=$submission_info['submissionId']?>
+				<?=@$submission_info['submissionId']?>
 			</td>
 
 
@@ -41,7 +41,7 @@
 			</td>
 
 			<td>
-				<?=$submission_info['problemId']?>
+				<?=@$submission_info['problemId']?>
 			</td>
 
 
@@ -56,7 +56,7 @@
 			</td>
 
 			<td>
-				<?=$submission_info['time']?>
+				<?=@$submission_info['time']?>
 			</td>
 
 
@@ -71,7 +71,22 @@
 			</td>
 
 			<td>
-				<?=$submission_info['testType']?>
+				<?=@$submission_info['testType']?>
+			</td>
+
+
+		</tr>
+		<!-- /PARAM -->
+
+		<!-- PARAM -->
+		<tr>
+
+			<td>
+				<?=_("Тип оцінювання")?>
+			</td>
+
+			<td>
+				<?=@$submission_info['judge']?>
 			</td>
 
 
@@ -101,7 +116,7 @@
 			</td>
 
 			<td id="testing_status_info">
-				<?=$submission_info['status']?>
+				<?=@$submission_info['status']?>
 			</td>
 
 
@@ -116,7 +131,7 @@
 			</td>
 
 			<td id="testing_status_info">
-				<?=$submission_info['olympId'] > 0 ? "№" . $submission_info['olympId'] : _("зв'язок відсутній")?>
+				<?=@$submission_info['olympId'] > 0 ? "№" . @$submission_info['olympId'] : _("зв'язок відсутній")?>
 			</td>
 
 
