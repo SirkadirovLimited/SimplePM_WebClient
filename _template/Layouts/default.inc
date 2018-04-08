@@ -30,7 +30,7 @@ include _SPM_template_ . "Parts/header.inc";
                         Користувачі
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="<?=_SPM_?>index.php/users/rating/">Рейтинг</a>
+                        <a class="dropdown-item" href="<?=_SPM_?>index.php/problems/rating/">Рейтинг</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item disabled">Користувачі онлайн</a>
                         <a class="dropdown-item disabled">Дні народження</a>
