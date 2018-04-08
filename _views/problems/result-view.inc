@@ -63,14 +63,163 @@ global $database;
 
 <?php include(_SPM_views_ . "problems/result-info-view.inc"); ?>
 
-<?php if (strlen($submission_info['compiler_text']) > 0): ?>
+<div class="card">
 
-	<div class="card text-white bg-dark">
+	<div class="card-header"><?=_("Вихідний потік компілятора")?></div>
 
-		<div class="card-header"><?=_("Вихідний потік компілятора")?></div>
+	<div class="card-body" style="padding: 0;">
+		<pre class="card-text" style="margin: 0;"><?=$submission_info['compiler_text']?></pre>
+		<p class="card-text text-center" style="margin: 0; padding: 5px !important;">
+			<strong><?=(!$submission_info['hasError'] ? _("Компіляція проведена успішно!") : _("Компіляція зазнала невдачі!"))?></strong>
+		</p>
+	</div>
 
-		<div class="card-body" style="padding: 0;">
-			<pre class="card-text"><?=$submission_info['compiler_text']?></pre>
+</div>
+
+<?php if (!$submission_info['hasError']): ?>
+
+	<?php
+
+	$submission_info['usedMemory'] = explode(
+			"|",
+			substr(
+					$submission_info['usedMemory'],
+					0,
+					strlen(
+							$submission_info['usedMemory']
+					) - 1
+			)
+	);
+
+	$submission_info['usedProcTime'] = explode(
+			"|",
+			substr(
+				$submission_info['usedProcTime'],
+				0,
+				strlen(
+					$submission_info['usedProcTime']
+				) - 1
+			)
+	);
+
+	$submission_info['exitcodes'] = explode(
+			"|",
+			substr(
+				$submission_info['exitcodes'],
+				0,
+				strlen(
+					$submission_info['exitcodes']
+				) - 1
+			)
+	);
+
+	$submission_info['tests_result'] = explode(
+			"|",
+			substr(
+				$submission_info['tests_result'],
+				0,
+				strlen(
+					$submission_info['tests_result']
+				) - 1
+			)
+	);
+
+	?>
+
+	<div class="card">
+
+		<div class="card-header"><?=_("Результати тестування")?></div>
+
+		<div class="card-body table-responsive" style="padding: 0;">
+
+			<table class="table" style="margin: 0;">
+
+				<thead>
+
+				<tr>
+
+					<th><?=_("ID тесту")?></th>
+					<th><?=_("Пам'ять, байт")?></th>
+					<th><?=_("Процесорний час, мс")?></th>
+					<th><?=_("Код виходу")?></th>
+					<th><?=_("Результат")?></th>
+
+				</tr>
+
+				</thead>
+
+				<tbody>
+
+				<?php $i = 0; foreach ($submission_info['tests_result'] as $test_result): ?>
+
+					<tr class="<?=($test_result == '+' ? "" : "bg-danger text-white")?>">
+
+						<td><?=($i + 1)?></td>
+						<td><?=@$submission_info['usedMemory'][$i]?></td>
+						<td><?=@$submission_info['usedProcTime'][$i]?></td>
+						<td><?=@$submission_info['exitcodes'][$i]?></td>
+						<td><strong><?=$test_result?></strong></td>
+
+					</tr>
+
+				<?php $i++; endforeach; unset($i); ?>
+
+				</tbody>
+
+			</table>
+
+		</div>
+
+	</div>
+
+<?php endif; ?>
+
+<?php if (@$submission_info['testType'] == "debug"): ?>
+
+	<div class="row">
+
+		<div class="col-md-6 col-sm-12">
+
+			<div class="card">
+
+				<div class="card-header"><?=_("Вхідні дані (input.dat)")?></div>
+
+				<div class="card-body" style="padding: 0;">
+					<pre class="card-text" style="height: 5rem; overflow-y: scroll;"><?=
+						(
+						strlen(
+							$submission_info['customTest']
+						) > 0
+							? $submission_info['customTest']
+							: _("Вхідні дані не надані.")
+						)
+						?></pre>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="col-md-6 col-sm-12">
+
+			<div class="card">
+
+				<div class="card-header"><?=_("Вихідні дані (output.dat)")?></div>
+
+				<div class="card-body" style="padding: 0;">
+					<pre class="card-text" style="height: 5rem; overflow-y: scroll;"><?=
+						(
+						strlen(
+							$submission_info['output']
+						) > 0
+							? $submission_info['output']
+							: _("Вихідні дані не надані.")
+						)
+						?></pre>
+				</div>
+
+			</div>
+
 		</div>
 
 	</div>
@@ -90,3 +239,9 @@ global $database;
 	</div>
 
 <?php endif; ?>
+
+<div class="card">
+	<div class="card-body text-center">
+		<strong><?=sprintf(_("За вирішення цієї задачі отримано %u балів!"), (int)$submission_info['b'])?></strong>
+	</div>
+</div>
