@@ -70,9 +70,15 @@ $query_str = "
       `spm_problems`.`input_description`,
       `spm_problems`.`output_description`,
       `spm_problems`.`adaptProgramOutput`,
-      `spm_problems_categories`.`name` AS category_name
+      `spm_problems_categories`.`name` AS category_name,
+      `spm_problems_tests`.`input` AS first_test_input,
+      `spm_problems_tests`.`output` AS first_test_output
     FROM
       `spm_problems`
+    LEFT JOIN
+      `spm_problems_tests`
+    ON
+      `spm_problems`.`id` = `spm_problems_tests`.`problemId`
     RIGHT JOIN
       `spm_problems_categories`
     ON
@@ -85,6 +91,8 @@ $query_str = "
       `spm_problems`.`authorSolution` IS NOT NULL
     AND
       `spm_problems`.`authorSolutionLanguage` IS NOT NULL
+    ORDER BY
+      `spm_problems_tests`.`id` ASC
     LIMIT
       1
     ;
@@ -171,7 +179,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 	></textarea>
 
     <textarea
-            class="form-control"
+            class="form-control text-white bg-dark"
             id="custom_test"
             name="custom_test"
             placeholder="<?=_("Користувацький тест для Debug-режиму тестування")?>"
@@ -206,7 +214,11 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 
         </select>
 
-        <select name="submission_type" class="form-control" required>
+        <select
+				name="submission_type"
+				class="form-control"
+				required
+		>
 
             <option value>Виберіть тип перевірки</option>
 
@@ -251,16 +263,27 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 
     </div>
 
+	<?php if (@$last_submission_info['submissionId'] > 0): ?>
+
+		<a
+				class="btn btn-outline-dark btn-block"
+				href=""
+		>Результат останньої відправки</a>
+
+	<?php endif; ?>
+
 </form>
 
 <div class="card">
     <div class="card-body text-center" style="padding: 5px;">
-        <strong>
+
+		<strong>
             <?=$problem_info["id"]?>.
             <?=$problem_info["name"]?>
             <span class="badge badge-info"><?=$problem_info["category_name"]?></span>
             <span class="badge badge-success"><?=$problem_info["difficulty"]?> points</span>
         </strong>
+
     </div>
 </div>
 
@@ -277,15 +300,21 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 
             <div class="col-md-6 col-sm-12" style="padding: 10px;">
 
-                <h6 class="card-title"><?=_("Опис вхідного потоку")?></h6>
-                <p class="card-text text-justify"><?=strlen($problem_info["input_description"]) > 0 ? $problem_info["input_description"] : _("Немає вхідних даних")?></p>
+                <h6 class="card-title"><strong><?=_("Опис вхідного потоку")?></strong></h6>
+
+                <p
+						class="card-text text-justify"
+				><?=strlen($problem_info["input_description"]) > 0 ? $problem_info["input_description"] : _("Немає вхідних даних")?></p>
 
             </div>
 
             <div class="col-md-6 col-sm-12" style="padding: 10px;">
 
-                <h6 class="card-title"><?=_("Опис вихідного потоку")?></h6>
-                <p class="card-text text-justify"><?=strlen($problem_info["output_description"]) > 0 ? $problem_info["output_description"] : _("Немає вихідних даних")?></p>
+                <h6 class="card-title"><strong><?=_("Опис вихідного потоку")?></strong></h6>
+				
+                <p
+						class="card-text text-justify"
+				><?=strlen($problem_info["output_description"]) > 0 ? $problem_info["output_description"] : _("Немає вихідних даних")?></p>
 
             </div>
 
@@ -301,15 +330,21 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 
             <div class="col-md-6 col-sm-12" style="padding: 10px;">
 
-                <h6 class="card-title"><?=_("Приклад вхідного потоку")?> (input.dat)</h6>
-                <p class="card-text text-justify"><?=strlen($problem_info["input_description"]) > 0 ? $problem_info["input_description"] : _("Немає вхідних даних")?></p>
+                <h6 class="card-title"><strong><?=_("Приклад вхідного потоку")?> (input.dat)</strong></h6>
+
+                <pre
+						class="card-text text-justify"
+				><?=strlen($problem_info["first_test_input"]) > 0 ? $problem_info["first_test_input"] : _("Немає вхідних даних")?></pre>
 
             </div>
 
             <div class="col-md-6 col-sm-12" style="padding: 10px;">
 
-                <h6 class="card-title"><?=_("Приклад вихідного потоку")?> (output.dat)</h6>
-                <p class="card-text text-justify"><?=strlen($problem_info["output_description"]) > 0 ? $problem_info["output_description"] : _("Немає вихідних даних")?></p>
+                <h6 class="card-title"><strong><?=_("Приклад вихідного потоку")?> (output.dat)</strong></h6>
+
+                <pre
+						class="card-text text-justify"
+				><?=strlen($problem_info["first_test_output"]) > 0 ? $problem_info["first_test_output"] : _("Немає вихідних даних")?></pre>
 
             </div>
 
