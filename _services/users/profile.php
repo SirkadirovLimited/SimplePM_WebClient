@@ -84,7 +84,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
                     <a class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1"><?=_("Інформація про користувача")?></h6>
+                            <h6 class="mb-1"><strong><?=_("Інформація про користувача")?></strong></h6>
                         </div>
                     </a>
 
@@ -130,7 +130,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
                     <a class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1"><?=_("Системна інформація")?></h6>
+                            <h6 class="mb-1"><strong><?=_("Системна інформація")?></strong></h6>
                         </div>
                     </a>
 
