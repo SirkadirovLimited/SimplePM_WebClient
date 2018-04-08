@@ -82,11 +82,41 @@
 		<tr>
 
 			<td>
+				<?=_("Мова програмування")?>
+			</td>
+
+			<td>
+				<?=$submission_info['codeLang']?>
+			</td>
+
+
+		</tr>
+		<!-- /PARAM -->
+
+		<!-- PARAM -->
+		<tr>
+
+			<td>
 				<?=_("Статус")?>
 			</td>
 
 			<td id="testing_status_info">
 				<?=$submission_info['status']?>
+			</td>
+
+
+		</tr>
+		<!-- /PARAM -->
+
+		<!-- PARAM -->
+		<tr>
+
+			<td>
+				<?=_("Пов'язане змагання")?>
+			</td>
+
+			<td id="testing_status_info">
+				<?=$submission_info['olympId'] > 0 ? "№" . $submission_info['olympId'] : _("зв'язок відсутній")?>
 			</td>
 
 
