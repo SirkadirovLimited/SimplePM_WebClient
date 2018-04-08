@@ -32,7 +32,7 @@ define("__PAGE_LAYOUT__", "default");
             <div class="card-body">
                 <h5 class="card-title"><?=_("Архів задач")?></h5>
                 <p class="card-text"><?=_("Розпочніть вирішення завдань з алгоритмічного та спортивного програмування зараз!")?></p>
-                <a href="#" class="btn btn-primary"><?=_("Перейти в розділ")?></a>
+                <a href="<?=_SPM_?>index.php/problems/archive" class="btn btn-primary"><?=_("Перейти в розділ")?></a>
             </div>
         </div>
 
@@ -44,7 +44,7 @@ define("__PAGE_LAYOUT__", "default");
             <div class="card-body">
                 <h5 class="card-title"><?=_("Рейтинг користувачів")?></h5>
                 <p class="card-text"><?=_("Перегляньте рейтингову таблицю користувачів системи та знайдіть у ній себе!")?></p>
-                <a href="#" class="btn btn-primary"><?=_("Перейти в розділ")?></a>
+                <a href="<?=_SPM_?>index.php/problems/rating" class="btn btn-primary"><?=_("Перейти в розділ")?></a>
             </div>
         </div>
 
@@ -56,7 +56,7 @@ define("__PAGE_LAYOUT__", "default");
             <div class="card-body">
                 <h5 class="card-title"><?=_("Змагання")?></h5>
                 <p class="card-text"><?=_("Беріть участь у змаганнях з алгоритмічного та спортивного програмування та отримуйте сертифікати!")?></p>
-                <a href="#" class="btn btn-primary"><?=_("Перейти в розділ")?></a>
+                <a href="<?=_SPM_?>index.php/olympiads/join" class="btn btn-primary"><?=_("Перейти в розділ")?></a>
             </div>
         </div>
 
