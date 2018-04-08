@@ -65,9 +65,9 @@ global $database;
 
 <?php if (strlen($submission_info['compiler_text']) > 0): ?>
 
-	<div class="card">
+	<div class="card text-white bg-dark">
 
-		<div class="card-header">Вихідний потік компілятора</div>
+		<div class="card-header"><?=_("Вихідний потік компілятора")?></div>
 
 		<div class="card-body" style="padding: 0;">
 			<pre class="card-text"><?=$submission_info['compiler_text']?></pre>
@@ -81,7 +81,7 @@ global $database;
 
 	<div class="card text-white bg-danger">
 
-		<div class="card-header">Стандартний потік помилок</div>
+		<div class="card-header"><?=_("Вихідний потік помилок")?></div>
 
 		<div class="card-body" style="padding: 0;">
 			<pre class="card-text" style="color: #fff; background-color: transparent;"><?=$submission_info['errorOutput']?></pre>
