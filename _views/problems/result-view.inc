@@ -53,7 +53,7 @@ global $database;
 
 			<?=_("Тип тестування")?>: <?=$submission_info['testType']?> /
 
-			<a href="">
+			<a href="<?=_SPM_?>index.php/users/profile?id=<?=$submission_info['userId']?>">
 				Профіль користувача
 			</a>
 
