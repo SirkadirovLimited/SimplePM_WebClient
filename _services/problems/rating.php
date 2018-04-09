@@ -14,7 +14,7 @@
  * Устанавливаем название и Layout сервиса
  */
 
-define("__PAGE_TITLE__", _("Рейтинг користувачів"));
+define("__PAGE_TITLE__", _("Користувачі системи"));
 define("__PAGE_LAYOUT__", "default");
 
 /*
