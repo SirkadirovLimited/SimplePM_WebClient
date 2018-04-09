@@ -149,6 +149,31 @@ unset($query);
 	</div>
 </div>
 
+<?php if (Security::CheckAccessPermissions(
+		$user_info['permissions'],
+		PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR
+)): ?>
+
+	<ul class="nav nav-pills justify-content-end" style="margin-top: 0; margin-bottom: 10px;">
+
+		<li class="nav-item">
+			<a
+					class="nav-link"
+					href="<?=_SPM_?>index.php/users/groups/"
+			><?=_("Управління групами")?></a>
+		</li>
+
+		<li class="nav-item">
+			<a
+					class="nav-link"
+					href="<?=_SPM_?>index.php/users/TeacherID/"
+			><?=_("TeacherID")?></a>
+		</li>
+
+	</ul>
+
+<?php endif; ?>
+
 <div class="card">
 
 	<div class="card-body table-responsive" style="padding: 0;">
