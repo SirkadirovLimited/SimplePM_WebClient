@@ -19,9 +19,22 @@ class SystemWaiter {
     public function __construct()
     {
 
+    	/*
+    	 * Запрашиваем доступ к глобальным переменным
+    	 */
+
         global $_CONFIG;
 
+        /*
+         * Получаем полный список коммандных сервисов
+         */
+
         $commands_list = $_CONFIG->getCommandsConfig();
+
+        /*
+         * Формируем список активиров
+         * анных коммандных сервисов.
+         */
 
         foreach ($commands_list as $item)
             if ($item["enabled"])
@@ -57,6 +70,10 @@ class SystemWaiter {
         }
         else
         {
+
+        	/*
+        	 * В противном случае возвращаем пустоту
+        	 */
 
             return "";
 
