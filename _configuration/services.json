@@ -11,6 +11,11 @@
   },
 
   {
+    "path": "problems/rating",
+    "enabled": true
+  },
+
+  {
     "path": "problems/problem",
     "enabled": true
   },
