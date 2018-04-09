@@ -1,38 +1,38 @@
 [
 
   {
-    "path": "index",
+    "path": "authorized/index",
     "enabled": true
   },
 
   {
-    "path": "problems/archive",
+    "path": "authorized/problems/archive",
     "enabled": true
   },
 
   {
-    "path": "problems/rating",
+    "path": "authorized/problems/rating",
     "enabled": true
   },
 
   {
-    "path": "problems/problem",
+    "path": "authorized/problems/problem",
     "enabled": true
   },
 
   {
-    "path": "problems/result",
+    "path": "authorized/problems/result",
     "enabled": true
   },
 
 
   {
-    "path": "users/profile",
+    "path": "authorized/users/profile",
     "enabled": true
   },
 
   {
-    "path": "users/groups",
+    "path": "authorized/users/groups",
     "enabled": true
   },
 

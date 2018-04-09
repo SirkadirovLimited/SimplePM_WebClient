@@ -65,8 +65,11 @@ trait Waiter {
              * обслуживания не авторизованых пользователей.
              */
 
-            if (!UserInfo::IsAuthUser())
+            if (UserInfo::IsAuthUser())
+				$requested_service = "authorized/" . $requested_service;
+            else
                 $requested_service = "anonymous/" . $requested_service;
+
 
         }
 

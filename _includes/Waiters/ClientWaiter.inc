@@ -58,7 +58,7 @@ class ClientWaiter {
              * предоставит реальный  путь к сервису.
              */
 
-            $req_service =  $this->GetClearServicePath($_SERVER['PATH_INFO']);
+            $req_service = $this->GetClearServicePath($_SERVER['PATH_INFO']);
 
             /*
              * Возвращаем результат работы функции
@@ -66,7 +66,7 @@ class ClientWaiter {
 
             return strlen($req_service) > 0
                 ? $req_service
-                : $_CONFIG->getWebappConfig()["site_default_service"];
+                : "authorized/" . $_CONFIG->getWebappConfig()["site_default_service"];
 
         }
         else
@@ -81,7 +81,7 @@ class ClientWaiter {
 
             return (
             UserInfo::IsAuthUser()
-                ? $_CONFIG->getWebappConfig()["site_default_service"]
+                ? "authorized/" . $_CONFIG->getWebappConfig()["site_default_service"]
                 : "anonymous/" . $_CONFIG->getWebappConfig()["site_default_service_anonymous"]
             );
 
