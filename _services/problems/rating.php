@@ -50,7 +50,8 @@ global $database;
 $query_str = "
 	SELECT
 	  `id`,
-	  `name`
+	  `name`,
+	  `teacherId`
 	FROM
 	  `spm_users_groups`
 	WHERE
@@ -125,8 +126,9 @@ unset($query);
 					<?php foreach ($groups_list as $group_info): ?>
 
 						<option
-							value="<?=$group_info['id']?>"
-							<?=($group_info['id'] == $_GET['group'] ? "selected" : "")?>
+								value="<?=$group_info['id']?>"
+								<?=($group_info['id'] == $_GET['group'] ? "selected" : "")?>
+								class="<?=($group_info['teacherId'] == $user_info['id'] ? "bg-success text-white" : "")?>"
 						><?=$group_info['name']?></option>
 
 					<?php endforeach; ?>
