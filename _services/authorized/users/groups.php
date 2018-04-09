@@ -67,7 +67,7 @@ define("__PAGE_LAYOUT__", "default");
 
 <!-- Edit group dialog -->
 
-<form action="<?=_SPM_?>index.php?cmd=users/groups/edit">
+<form action="<?=_SPM_?>index.php?cmd=users/groups/edit" method="post">
 	<div class="modal fade" id="edit_group_modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -159,18 +159,30 @@ define("__PAGE_LAYOUT__", "default");
 
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">10-Б клас</h5>
-						<a href="#" class="card-link"><?=_("Користувачі")?></a>
-						<button
-								class="card-link"
 
-								data-groupid="NULL"
-								data-groupname=""
+						<h5 class="card-title"><?=$group_info['name']?></h5>
+
+						<a
+								href="<?=_SPM_?>index.php/problems/rating/?group=<?=$group_info['id']?>"
+								class="btn btn-link btn-sm"
+						><?=_("Користувачі")?></a>
+
+						<button
+								class="btn btn-link btn-sm"
+
+								data-groupid="<?=$group_info['id']?>"
+								data-groupname="<?=$group_info['name']?>"
 
 								data-toggle="modal"
 								data-target="#edit_group_modal"
 						><?=_("Редагувати")?></button>
-						<a href="#" class="card-link text-danger" onclick="return confirm('<?=_("Ви впевнені?")?>');"><?=_("Видалити")?></a>
+
+						<a
+								href="#"
+								class="btn btn-link btn-sm text-danger"
+								onclick="return confirm('<?=_("Ви впевнені?")?>');"
+						><?=_("Видалити")?></a>
+
 					</div>
 				</div>
 
