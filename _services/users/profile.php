@@ -141,7 +141,10 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                         <p class="mb-1"><?=$user_info["username"]?></p>
                     </a>
 
-                    <a class="list-group-item list-group-item-action flex-column align-items-start">
+                    <a
+						href="<?=_SPM_?>index.php/problems/rating/?group=<?=(int)$user_info["groupid"]?>"
+						class="list-group-item list-group-item-action flex-column align-items-start"
+					>
                         <div class="d-flex w-100 justify-content-between">
                             <h6 class="mb-1"><?=_("Група")?></h6>
                         </div>
