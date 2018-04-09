@@ -18,6 +18,13 @@
 
 
   {
+    "path": "authorized/users/groups/edit",
+    "enabled": true
+  },
+
+
+
+  {
     "path": "anonymous/login",
     "enabled": true
   },
