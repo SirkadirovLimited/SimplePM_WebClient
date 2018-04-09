@@ -60,6 +60,12 @@ trait Waiter {
                 $requested_service = @substr($requested_service, 1);
 
             /*
+             * Стандартизируем всё всё всё
+             */
+
+            $requested_service = strtolower($requested_service);
+
+            /*
              * Если пользователь не авторизирован,
              * предоставляем ему доступ лишь к сервисам
              * обслуживания не авторизованых пользователей.
