@@ -1,18 +1,18 @@
 [
 
   {
-    "path": "logout",
+    "path": "authorized/logout",
     "enabled": true
   },
 
 
   {
-    "path": "problems/send_submission",
+    "path": "authorized/problems/send_submission",
     "enabled": true
   },
 
   {
-    "path": "problems/submission_status",
+    "path": "authorized/problems/submission_status",
     "enabled": true
   },
 
