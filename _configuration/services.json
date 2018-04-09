@@ -31,6 +31,11 @@
     "enabled": true
   },
 
+  {
+    "path": "users/groups",
+    "enabled": true
+  },
+
 
   {
     "path": "anonymous/authorization",
