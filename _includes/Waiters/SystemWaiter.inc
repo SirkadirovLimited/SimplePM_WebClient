@@ -75,12 +75,6 @@ class SystemWaiter {
     public function RunCommand(string $command_name) : void {
 
         /*
-         * Запрашиваем доступ к глобальным переменным
-         */
-
-        global $_CONFIG;
-
-        /*
          * Выполняем необходимые действия
          * лишь  в  случае  существования
          * искомого коммандного сервиса.
