@@ -178,7 +178,7 @@ define("__PAGE_LAYOUT__", "default");
 						><?=_("Редагувати")?></button>
 
 						<a
-								href="#"
+								href="<?=_SPM_?>index.php?cmd=users/groups/delete&group=<?=$group_info['id']?>"
 								class="btn btn-link btn-sm text-danger"
 								onclick="return confirm('<?=_("Ви впевнені?")?>');"
 						><?=_("Видалити")?></a>
@@ -194,6 +194,6 @@ define("__PAGE_LAYOUT__", "default");
 
 <?php else: ?>
 
-	<p class="lead text-center" style="margin-top: 40px !important; margin-bottom: 50px !important;"><?=_("Ні однієї групи користувачів ще не створено. Скористайтесь однойменною кнопкою.")?></p>
+	<p class="lead text-center" style="margin-top: 40px !important; margin-bottom: 50px !important;"><?=_("Ні однієї групи користувачів ще не створено.")?></p>
 
 <?php endif; ?>

@@ -95,10 +95,6 @@ $query_str = "
 // Выполняем сформированный запрос
 $query = $database->query($query_str);
 
-// Проверка на ненахождение пользователей
-if ($query->num_rows == 0)
-	Security::ThrowError("404");
-
 // Получаем предоставленные данные
 $users_list = $query->fetch_all(MYSQLI_ASSOC);
 
