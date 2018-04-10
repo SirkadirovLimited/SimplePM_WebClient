@@ -28,8 +28,8 @@ Security::CheckAccessPermissions(
  * е от возможных инъекций.
  */
 
-isset($_POST['group']) or Security::ThrowError("input");
-$_POST['group'] = abs((int)$_POST['group']);
+isset($_GET['group']) or Security::ThrowError("input");
+$_GET['group'] = abs((int)$_GET['group']);
 
 /*
  * Запрашиваем доступ к глобальным переменным
@@ -51,7 +51,7 @@ $query_str = "
 	WHERE
 	  `teacherId` = '" . Security::getCurrentSession()['user_info']->getUserId() . "'
 	AND
-	  `id` = '" . $_POST['group'] . "'
+	  `id` = '" . $_GET['group'] . "'
 	LIMIT
 	  1
 	;

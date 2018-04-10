@@ -36,6 +36,11 @@
     "enabled": true
   },
 
+  {
+    "path": "authorized/users/teacherid",
+    "enabled": true
+  },
+
 
   {
     "path": "anonymous/authorization",
