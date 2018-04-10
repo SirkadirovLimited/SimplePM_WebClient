@@ -22,6 +22,11 @@
     "enabled": true
   },
 
+  {
+    "path": "authorized/users/groups/delete",
+    "enabled": true
+  },
+
 
 
   {
