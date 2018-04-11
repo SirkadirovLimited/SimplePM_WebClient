@@ -64,9 +64,7 @@ define("__PAGE_LAYOUT__", "skeleton");
 
                 <div class="modal-header">
                     <h5 class="modal-title"><?=_("Реєстрація в системі")?></h5>
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span>&times;</span>
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 </div>
 
                 <div class="modal-body">
@@ -76,6 +74,8 @@ define("__PAGE_LAYOUT__", "skeleton");
                     <div class="form-group">
                         <label><?=_("Лоін")?></label>
                         <input
+								name="username"
+
                                 type="text"
                                 class="form-control"
                                 maxlength="255"
@@ -91,6 +91,8 @@ define("__PAGE_LAYOUT__", "skeleton");
                     <div class="form-group">
                         <label><?=_("Пароль")?></label>
                         <input
+								name="password"
+
                                 type="password"
                                 class="form-control"
                                 maxlength="255"
@@ -106,6 +108,8 @@ define("__PAGE_LAYOUT__", "skeleton");
                     <div class="form-group">
                         <label><?=_("Email адреса")?></label>
                         <input
+								name="email"
+
                                 type="email"
                                 class="form-control"
                                 maxlength="255"
@@ -122,6 +126,8 @@ define("__PAGE_LAYOUT__", "skeleton");
                             <div class="form-group">
                                 <label><?=_("Ім'я")?></label>
                                 <input
+										name="firstname"
+
                                         type="text"
                                         class="form-control"
                                         maxlength="255"
@@ -134,6 +140,8 @@ define("__PAGE_LAYOUT__", "skeleton");
                             <div class="form-group">
                                 <label><?=_("Прізвище")?></label>
                                 <input
+										name="secondname"
+
                                         type="text"
                                         class="form-control"
                                         maxlength="255"
@@ -146,6 +154,8 @@ define("__PAGE_LAYOUT__", "skeleton");
                             <div class="form-group">
                                 <label><?=_("По-батькові")?></label>
                                 <input
+										name="thirdname"
+
                                         type="text"
                                         class="form-control"
                                         maxlength="255"
@@ -161,6 +171,8 @@ define("__PAGE_LAYOUT__", "skeleton");
                     <div class="form-group">
                         <label><?=_("TeacherID")?></label>
                         <input
+								name="teacherid"
+
                                 type="text"
                                 class="form-control"
                                 maxlength="255"
