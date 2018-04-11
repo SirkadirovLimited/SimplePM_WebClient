@@ -35,7 +35,7 @@ Security::CheckPostDataIssetAndNotNull(
 	array(
 		"name"
 	)
-);
+) or Security::ThrowError("input");;
 
 /*
  * Запрашиваем доступ к используемы
