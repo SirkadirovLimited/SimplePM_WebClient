@@ -306,6 +306,27 @@ function teacherId_exists(int $userId) : bool
 
 }
 
+if (isset($_GET['t_action']))
+{
+
+	switch ($_GET['t_action'])
+	{
+
+		case "new":
+			teacherId_regenerate($_current_user_id);
+			break;
+
+		case "enable":
+			teacherId_toggle($_current_user_id, true);
+			break;
+		case "disable":
+			teacherId_toggle($_current_user_id, false);
+			break;
+
+	}
+
+}
+
 /*
  * Если  TeacherID   для   текущего  пользователя
  * ещё не создан, запускаем скрипт его генерации.
@@ -318,22 +339,34 @@ if (!teacherId_exists($_current_user_id))
 
 <div class="card">
 	<div class="card-body" align="center">
-		<h2 class="text-center" style="padding-bottom: 10px;"><?=teacherId_get($_current_user_id)?></h2>
+
+		<h2
+				class="text-center <?=(teacherId_enabled($_current_user_id) ? "text-success" : "text-danger")?>"
+				style="padding-bottom: 10px;"
+		><?=teacherId_get($_current_user_id)?></h2>
 
 		<a
-				href=""
-				class="btn btn-outline-secondary"
+				href="<?=_SPM_?>index.php/users/TeacherID/?t_action=new"
+				class="btn btn-outline-dark"
 		><?=_("Згенерувати новий")?></a>
 
 		<a
-			href=""
-			class="btn btn-outline-secondary"
+			href="<?=_SPM_?>index.php/users/TeacherID/?t_action=enable"
+			class="btn btn-outline-success"
 		><?=_("Ввімкнути")?></a>
 
 		<a
-			href=""
-			class="btn btn-outline-secondary"
+			href="<?=_SPM_?>index.php/users/TeacherID/?t_action=disable"
+			class="btn btn-outline-danger"
 		><?=_("Вимкнути")?></a>
+
+	</div>
+</div>
+
+<div class="card">
+	<div class="card-body text-justify">
+
+		<p class="lead" style="margin: 0;"><strong>TeacherID</strong> - <?=_("це унікальний пароль, що дозволяє іншим реєструватися в системі та автоматично пов'язуватися зі своїм куратором.")?></p>
 
 	</div>
 </div>
