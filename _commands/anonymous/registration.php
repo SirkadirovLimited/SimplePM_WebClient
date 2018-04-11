@@ -10,6 +10,13 @@
  * @Email: admin@sirkadirov.com
  */
 
+/*
+ * Запрашиваем доступ к используемым
+ * глобальным переменным.
+ */
+
+global $database;
+
 /**
  * Функция занимается проверкой длины
  * единого POST параметра с указанным
@@ -23,7 +30,7 @@ function strlen_check_post_param(string $post_param, int $min_length, int $max_l
 {
 
 	(strlen($_POST[$post_param]) >= $min_length && strlen($_POST[$post_param]) <= $max_length)
-		or Security::ThrowError("input");
+		or Security::ThrowError("input1");
 
 }
 
@@ -32,7 +39,7 @@ function strlen_check_post_param(string $post_param, int $min_length, int $max_l
  * и  непустоту  необходимых
  * POST параметров запроса.
  */
-
+//HzEO4zZzmz
 Security::CheckPostDataIssetAndNotNull(
 	array(
 		"username",
@@ -46,7 +53,7 @@ Security::CheckPostDataIssetAndNotNull(
 
 		"teacherid"
 	)
-) or Security::ThrowError("input");
+) or Security::ThrowError("input2");
 
 /*
  * Производим различные проверки
@@ -70,7 +77,7 @@ $_POST['password'] = $database->real_escape_string(
 );
 
 // Проверяем вводимый e-mail по его формату
-filter_var($email_a, FILTER_VALIDATE_EMAIL) or Security::ThrowError("input");
+filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) or Security::ThrowError("input");
 
 // Проверяем длину имени
 strlen_check_post_param("firstname", 1, 255);
@@ -80,13 +87,6 @@ strlen_check_post_param("secondname", 1, 255);
 
 // Проверяем длину отчества
 strlen_check_post_param("thirdname", 1, 255);
-
-/*
- * Запрашиваем доступ к используемым
- * глобальным переменным.
- */
-
-global $database;
 
 /*
  * Запрашиваем  развёрнутую  информацию
@@ -110,7 +110,7 @@ $query_str = "
 ";
 
 // Выполняем запрос на выборку данных
-$query = $database->query($query_str) or Security::ThrowError("input");
+$query = $database->query($query_str) or Security::ThrowError("input3");
 
 // Проверяем запрос на успешность
 if ($query->num_rows <= 0)
@@ -155,7 +155,7 @@ $query_str = "
 
 // Выполняем сформированный запрос
 if (!$database->query($query_str))
-	Security::ThrowError("input");
+	Security::ThrowError("input4");
 
 /*
  * Информируем пользователя об успешности
