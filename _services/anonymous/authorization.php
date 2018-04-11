@@ -58,7 +58,7 @@ define("__PAGE_LAYOUT__", "skeleton");
 
     <div class="modal-dialog modal-lg" role="document">
 
-        <form method="post" action="<?=_SPM_?>index.php?cmd=registration" enctype="text/plain">
+        <form method="post" action="<?=_SPM_?>index.php?cmd=registration">
 
             <div class="modal-content">
 
@@ -72,13 +72,13 @@ define("__PAGE_LAYOUT__", "skeleton");
                     <h5 class="h5 text-center" style="margin-bottom: 20px;"><?=_("Дані для авторизації в системі")?></h5>
 
                     <div class="form-group">
-                        <label><?=_("Лоін")?></label>
+                        <label><?=_("Логін")?></label>
                         <input
 								name="username"
 
                                 type="text"
                                 class="form-control"
-                                maxlength="255"
+                                maxlength="100"
                                 pattern="[a-zA-Z0-9._]\w+"
                                 required
                         >
