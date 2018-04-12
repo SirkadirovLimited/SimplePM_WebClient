@@ -167,9 +167,9 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
     }
 </style>
 
-<pre id="code_editor"><?=$last_submission_info['problemCode']?></pre>
+<pre id="code_editor"><?=htmlspecialchars($last_submission_info['problemCode'])?></pre>
 
-<form action="<?=_SPM_?>index.php?cmd=problems/send_submission" method="post">
+<form action="<?=_SPM_?>index.php?cmd=problems/send_submission" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="problem_id" value="<?=$problem_info["id"]?>">
 
