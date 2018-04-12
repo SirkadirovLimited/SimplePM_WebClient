@@ -370,3 +370,79 @@ if (!teacherId_exists($_current_user_id))
 
 	</div>
 </div>
+
+<?php
+
+/*
+ * Запрашиваем доступ к глобальным переменным
+ */
+
+global $database;
+
+$query_str = "
+	SELECT
+  	  `id`,
+  	  `firstname`,
+  	  `secondname`,
+  	  `thirdname`
+	FROM
+	  `spm_users`
+	WHERE
+	  `teacherId` = '" . Security::getCurrentSession()['user_info']->getUserId() . "'
+	AND
+	  `groupid` = '0'
+	ORDER BY
+	  `last_online` ASC
+	;
+";
+
+$deactivated_users = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
+
+?>
+
+<?php if (sizeof($deactivated_users) > 0): ?>
+	<div class="card">
+		<div class="card-body table-responsive">
+
+			<h3 class="text-center" style="margin-bottom: 20px;"><?=_("Черга активації користувачів")?></h3>
+
+			<p class="lead text-center" style="margin: 0;"></p>
+
+			<table class="table table-bordered" style="margin: 0;">
+
+				<thead>
+
+				<tr>
+
+					<th><?=_("ID")?></th>
+					<th><?=_("Повне ім'я")?></th>
+
+				</tr>
+
+				</thead>
+
+				<?php foreach ($deactivated_users as $deactivated_user): ?>
+
+					<tr>
+
+						<td><?=$deactivated_user['id']?></td>
+
+						<td>
+							<a href="<?=_SPM_?>index.php/users/profile/?id=<?=$deactivated_user['id']?>">
+
+								<?=$deactivated_user['secondname']?>
+								<?=$deactivated_user['firstname']?>
+								<?=$deactivated_user['thirdname']?>
+
+							</a>
+						</td>
+
+					</tr>
+
+				<?php endforeach; ?>
+
+			</table>
+
+		</div>
+	</div>
+<?php endif; ?>
