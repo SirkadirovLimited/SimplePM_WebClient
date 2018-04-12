@@ -204,7 +204,7 @@ unset($query);
 						<?=$listed_user['thirdname']?>
 					</td>
 					<td><?=(int)$listed_user['points']?></td>
-					<td><?=$listed_user['rating']?></td>
+					<td><?=(float)$listed_user['rating']?></td>
 
 				</tr>
 
