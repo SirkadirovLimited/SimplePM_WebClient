@@ -20,12 +20,11 @@ define("__PAGE_LAYOUT__", "skeleton");
     <h1 class="h1 mb-3 font-weight-normal text-center"><strong>Simple</strong>PM</h1>
 
     <input
-            name="username"
+            name="email"
             maxlength="255"
-            type="text"
+            type="email"
             class="form-control"
-            placeholder="<?=_("Ім'я користувача")?>"
-            pattern="[a-zA-Z0-9._]\w+"
+            placeholder="<?=_("E-mail адреса")?>"
             required
             autofocus
     >
@@ -71,22 +70,18 @@ define("__PAGE_LAYOUT__", "skeleton");
 
                     <h5 class="h5 text-center" style="margin-bottom: 20px;"><?=_("Дані для авторизації в системі")?></h5>
 
-                    <div class="form-group">
-                        <label><?=_("Логін")?></label>
-                        <input
-								name="username"
+					<div class="form-group">
+						<label><?=_("Email адреса")?></label>
+						<input
+								name="email"
 
-                                type="text"
-                                class="form-control"
-                                maxlength="100"
-                                pattern="[a-zA-Z0-9._]\w+"
-                                required
-                        >
-                        <small class="form-text text-muted">
-                            <?=_("Логін буде використовуватись Вами під час авторизації.")?>
-                            <?=_("Використовуйте лише латинські букви, цифри та символ '_'.")?>
-                        </small>
-                    </div>
+								type="email"
+								class="form-control"
+								maxlength="255"
+								required
+						>
+						<small class="form-text text-muted"><?=_("Вказаний e-mail буде використовуватися для входу в систему.")?></small>
+					</div>
 
                     <div class="form-group">
                         <label><?=_("Пароль")?></label>
@@ -95,27 +90,13 @@ define("__PAGE_LAYOUT__", "skeleton");
 
                                 type="password"
                                 class="form-control"
+								minlength="8"
                                 maxlength="255"
                                 required
                         >
                         <small class="form-text text-muted">
                             <?=_("Використовуйте лише букви латинського алфавіту, цифри та символи, пробіли використовувати заборонено!")?>
                         </small>
-                    </div>
-
-                    <h5 class="h5 text-center" style="margin: 20px;"><?=_("Контактні дані")?></h5>
-
-                    <div class="form-group">
-                        <label><?=_("Email адреса")?></label>
-                        <input
-								name="email"
-
-                                type="email"
-                                class="form-control"
-                                maxlength="255"
-                                required
-                        >
-                        <small class="form-text text-muted"><?=_("На вказану скриньку будуть надходити важливі сповіщення.")?></small>
                     </div>
 
                     <h5 class="h5 text-center" style="margin: 20px;"><?=_("Особиста інформація")?></h5>

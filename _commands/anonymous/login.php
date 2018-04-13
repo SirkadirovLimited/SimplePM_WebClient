@@ -25,9 +25,14 @@ global $database;
 
 Security::CheckPostDataIssetAndNotNull(
     array(
-        "username",
+        "email",
         "password"
     )
+) or Security::ThrowError("input");
+
+filter_var(
+	$_POST['email'],
+	FILTER_VALIDATE_EMAIL
 ) or Security::ThrowError("input");
 
 /*
@@ -44,7 +49,7 @@ $query_str = "
     FROM
       `spm_users`
     WHERE
-      `username` = '" . $_POST['username'] . "'
+      `email` = '" . $_POST['email'] . "'
     LIMIT
       1
     ;
