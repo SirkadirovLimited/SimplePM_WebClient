@@ -197,11 +197,19 @@ unset($query);
 				<tr>
 
 					<td><?=$listed_user['id']?></td>
-					<td><?=$listed_user['username']?></td>
 					<td>
-						<?=$listed_user['secondname']?>
-						<?=$listed_user['firstname']?>
-						<?=$listed_user['thirdname']?>
+						<a href="<?=_SPM_?>index.php/users/profile/?id=<?=$listed_user['id']?>">
+							<?=$listed_user['username']?>
+						</a>
+					</td>
+					<td>
+						<a href="<?=_SPM_?>index.php/users/profile/?id=<?=$listed_user['id']?>">
+
+							<?=$listed_user['secondname']?>
+							<?=$listed_user['firstname']?>
+							<?=$listed_user['thirdname']?>
+
+						</a>
 					</td>
 					<td><?=(int)$listed_user['points']?></td>
 					<td><?=(float)$listed_user['rating']?></td>
