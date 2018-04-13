@@ -126,9 +126,10 @@ $current_user_info = Security::getCurrentSession()["user_info"]->getUserInfo();
         $current_user_info['permissions'],
         PERMISSION::ADMINISTRATOR,
         false
-    )
+    ) ||
 
-    // Текущий пользователь - преподаватель
+    // Текущий пользователь - преподаватель автора
+	$current_user_info['id'] == UserInfo::getUserInfo($submission_info['userId'])['teacherId']
 ) or Security::ThrowError("403");
 
 /*
