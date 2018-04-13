@@ -32,6 +32,11 @@
   },
 
   {
+    "path": "authorized/users/edit",
+    "enabled": true
+  },
+
+  {
     "path": "authorized/users/groups",
     "enabled": true
   },
