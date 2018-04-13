@@ -41,14 +41,35 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
     <div class="card-header">
         <ul class="nav nav-tabs card-header-tabs">
             <li class="nav-item">
-                <a class="nav-link active" href=""><?=_("Профіль")?></a>
+                <a class="nav-link active" href="<?=_SPM_?>index.php/users/profile/?id=<?=$_GET['id']?>"><?=_("Профіль")?></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?=_SPM_?>index.php/users/edit/"><?=_("Редагувати сторінку")?></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<?=_SPM_?>index.php/problems/submissions/?id=<?=$_GET['id']?>"><?=_("Спроби")?></a>
-            </li>
+
+			<?php
+
+			$f_check = (
+
+					$user_info['id'] == Security::getCurrentSession()["user_info"]->getUserId() ||
+
+					Security::CheckAccessPermissions(
+						Security::getCurrentSession()["user_info"]->getUserInfo()['permissions'],
+						PERMISSION::ADMINISTRATOR,
+						false
+					) ||
+
+					$user_info['teacherId'] == Security::getCurrentSession()["user_info"]->getUserId()
+
+			); if ($f_check): ?>
+
+				<li class="nav-item">
+					<a class="nav-link" href="<?=_SPM_?>index.php/users/edit/?id=<?=$_GET['id']?>"><?=_("Редагувати сторінку")?></a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="<?=_SPM_?>index.php/problems/submissions/?id=<?=$_GET['id']?>"><?=_("Спроби")?></a>
+				</li>
+
+			<?php endif; ?>
+
         </ul>
     </div>
     <div class="card-body">
@@ -69,7 +90,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
             </button>
 
             <button class="btn btn-secondary btn-sm">
-                Рейтинг <span class="badge badge-light"><?=number_format((float)$user_info["rating_count"], 2)?></span>
+                Рейтинг <span class="badge badge-light"><?=number_format((float)$user_info["rating"], 2)?></span>
             </button>
 
         </p>
@@ -134,12 +155,12 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                         </div>
                     </a>
 
-                    <a class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1"><?=_("Нікнейм")?></h6>
-                        </div>
-                        <p class="mb-1"><?=$user_info["username"]?></p>
-                    </a>
+					<a class="list-group-item list-group-item-action flex-column align-items-start">
+						<div class="d-flex w-100 justify-content-between">
+							<h6 class="mb-1"><?=_("E-mail адреса")?></h6>
+						</div>
+						<p class="mb-1"><?=$user_info["email"]?></p>
+					</a>
 
                     <a
 						href="<?=_SPM_?>index.php/problems/rating/?group=<?=(int)$user_info["groupid"]?>"
