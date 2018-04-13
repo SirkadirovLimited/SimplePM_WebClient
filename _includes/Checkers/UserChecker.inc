@@ -14,6 +14,14 @@ trait UserChecker {
 
     public static function CheckUserExists() {
 
+    	/*
+    	 * Запрашиваем доступ к глобальным
+    	 * переменным  для  дальнейшего их
+    	 * использования.
+    	 */
+
+    	global $database;
+
         /*
          * Выполняем  проверки  лишь в том случае,
          * если текущий пользователь авторизирован
@@ -38,8 +46,31 @@ trait UserChecker {
              * данного веб-приложения.
              */
 
-            if ((bool)Security::getCurrentSession()["user_info"]->getUserInfo()["banned"])
-                SessionDestroyer::DestroySession(_("Ваш аккаунт було заблоковано!"));
+            if ((int)(Security::getCurrentSession()["user_info"]->getUserInfo()["groupid"]) <= 0)
+                SessionDestroyer::DestroySession(_("Ваш аккаунт ще не активовано Вашим куратором!"));
+
+            /*
+             * Устанавливаем дату и время последней
+             * активности пользователя на сайте для
+             * дальшейшего использования в собствен
+             * ных нуждах системы SimplePM.
+             */
+
+            // Формируем запрос на обновление данных
+            $query_str = "
+            	UPDATE
+            	  `spm_users`
+            	SET
+            	  `last_online` = CURRENT_TIMESTAMP
+            	WHERE
+            	  `id` = '" . Security::getCurrentSession()["user_info"]->getUserId() . "'
+            	LIMIT
+            	  1
+            	;
+            ";
+
+			// Выполняем запрос к БД
+			@$database->query($query_str);
 
         }
 
