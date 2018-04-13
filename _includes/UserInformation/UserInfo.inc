@@ -137,7 +137,6 @@ class UserInfo {
               `id`,
               `sessionId`,
               `last_online`,
-              `username`,
               `firstname`,
               `secondname`,
               `thirdname`,
