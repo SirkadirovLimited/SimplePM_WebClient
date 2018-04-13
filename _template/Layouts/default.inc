@@ -54,7 +54,7 @@ include _SPM_template_ . "Parts/header.inc";
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                        Привіт, <?=Security::getCurrentSession()["user_info"]->getUserInfo()["username"]?>
+                        Привіт, <?=Security::getCurrentSession()["user_info"]->getUserInfo()["firstname"]?>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="<?=_SPM_?>index.php/users/profile/">Моя сторінка</a>
