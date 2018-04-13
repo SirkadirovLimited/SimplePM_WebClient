@@ -27,17 +27,18 @@ global $database;
 
 $associated_olymp = (int)(Security::getCurrentSession()["user_info"]->getUserInfo()["associated_olymp"]);
 
-/*
- * Воодим ограничение в список доступных
- * для решения задач, если текущий польз
- * ователь принимает участие в соревнова
- * нии,  дабы не реализовывать отдельный
- * сервис для этого.
- */
-
 if ($associated_olymp > 0)
 {
 
+	/*
+	 * Воодим ограничение в список доступных
+	 * для решения задач, если текущий польз
+	 * ователь принимает участие в соревнова
+	 * нии,  дабы не реализовывать отдельный
+	 * сервис для этого.
+	 */
+
+	// Формируем SQL запрос
 	$query_str = "
 		SELECT
 		  `problems_list`
@@ -50,8 +51,10 @@ if ($associated_olymp > 0)
 		;
 	";
 
+	// Выполняем запрос и обрабатываем результат
 	$query_result = $database->query($query_str)->fetch_array()[0];
 
+	// Устанавливаем лимитер списка доступных задач
 	$problem_list_limiter = "
 		AND
 			`spm_problems`.`id` IN (
@@ -59,7 +62,15 @@ if ($associated_olymp > 0)
 			)
 	";
 
+	// Удаляем устаревшие данные
 	unset($query_result);
+
+	/*
+	 * Мелкие очистки для обеспечения безопасности
+	 */
+
+	$_GET['query'] = "";
+	$_GET['category'] = "";
 
 }
 
@@ -119,18 +130,68 @@ if ($associated_olymp <=0)
 
 ?>
 
+<style>
+
+	a.card {
+		color: #343a40;
+	}
+
+</style>
+
 <div class="row" style="margin-top: 2rem;">
 
     <?php foreach ($problems_list as $problem): ?>
+
+		<?php
+
+		$query_str = "
+			SELECT
+			  `b`
+			FROM
+			  `spm_submissions`
+			WHERE
+			  `userId` = '" . (int)Security::getCurrentSession()['user_info']->getUserId() . "'
+			AND
+			  `problemId` = '" . (int)$problem['id'] . "'
+			AND
+			  `olympId` = '" . (int)$associated_olymp . "'
+			ORDER BY
+			  `b` DESC,
+			  `time` DESC
+			LIMIT
+			  1
+			;
+		";
+
+		$query = $database->query($query_str);
+
+		if ($query->num_rows > 0)
+		{
+
+			$submission_points = ($query->fetch_array()[0]);
+
+			if ($submission_points == 0)
+				$class_addition = "bg-danger text-white";
+			elseif ($submission_points < $problem["difficulty"])
+				$class_addition = "bg-warning text-white";
+			elseif ($submission_points >= $problem["difficulty"])
+				$class_addition = "bg-success text-white";
+
+		}
+		else
+			$class_addition = null;
+
+		?>
+
         <div class="col-md-4 col-sm-12" style="margin-bottom: 2rem;">
 
             <a
-                    class="card"
+                    class="card <?=@$class_addition?>"
                     style="text-decoration: none !important;"
                     href="<?=_SPM_?>index.php/problems/problem/?id=<?=$problem["id"]?>"
             >
                 <div class="card-body">
-                    <strong class="card-title" style="color: #343a40 !important;"><?=$problem["id"]?>. <?=$problem["name"]?></strong>
+                    <strong style=""><?=$problem["id"]?>. <?=$problem["name"]?></strong>
                     <p class="card-text">
                         <span class="badge badge-info"><?=$problem["category_name"]?></span>
                         <span class="badge badge-success"><?=$problem["difficulty"]?> points</span>
