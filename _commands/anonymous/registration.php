@@ -30,7 +30,7 @@ function strlen_check_post_param(string $post_param, int $min_length, int $max_l
 {
 
 	(strlen($_POST[$post_param]) >= $min_length && strlen($_POST[$post_param]) <= $max_length)
-		or Security::ThrowError("input1");
+		or Security::ThrowError("input");
 
 }
 
@@ -42,10 +42,8 @@ function strlen_check_post_param(string $post_param, int $min_length, int $max_l
 //HzEO4zZzmz
 Security::CheckPostDataIssetAndNotNull(
 	array(
-		"username",
-		"password",
-
 		"email",
+		"password",
 
 		"firstname",
 		"secondname",
@@ -53,7 +51,7 @@ Security::CheckPostDataIssetAndNotNull(
 
 		"teacherid"
 	)
-) or Security::ThrowError("input2");
+) or Security::ThrowError("input");
 
 /*
  * Производим различные проверки
@@ -63,8 +61,8 @@ Security::CheckPostDataIssetAndNotNull(
  * ователя в системе SimplePM.
  */
 
-// Проверяем длину имени пользователя (ника)
-strlen_check_post_param("username", 3, 100);
+// Проверяем вводимый e-mail по его формату
+filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) or Security::ThrowError("input");
 
 // Проверяем длину пользовательского пароля
 strlen_check_post_param("password", 8, 255);
@@ -75,9 +73,6 @@ $_POST['password'] = $database->real_escape_string(
 		PASSWORD_DEFAULT
 	)
 );
-
-// Проверяем вводимый e-mail по его формату
-filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) or Security::ThrowError("input");
 
 // Проверяем длину имени
 strlen_check_post_param("firstname", 1, 255);
@@ -110,7 +105,7 @@ $query_str = "
 ";
 
 // Выполняем запрос на выборку данных
-$query = $database->query($query_str) or Security::ThrowError("input3");
+$query = $database->query($query_str) or Security::ThrowError("input");
 
 // Проверяем запрос на успешность
 if ($query->num_rows <= 0)
@@ -137,10 +132,8 @@ $query_str = "
 	INSERT INTO
 	  `spm_users`
 	SET
-	  `username` = '" . $_POST['username'] . "',
-	  `password` = '" . $_POST['password'] . "',
-	  
 	  `email` = '" . $_POST['email'] . "',
+	  `password` = '" . $_POST['password'] . "',
 	  
 	  `firstname` = '" . $_POST['firstname'] . "',
 	  `secondname` = '" . $_POST['secondname'] . "',
@@ -155,7 +148,7 @@ $query_str = "
 
 // Выполняем сформированный запрос
 if (!$database->query($query_str))
-	Security::ThrowError("input4");
+	Security::ThrowError("input");
 
 /*
  * Информируем пользователя об успешности
