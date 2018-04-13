@@ -38,6 +38,31 @@ $_GET['group'] = abs((int)$_GET['group']);
 global $database;
 
 /*
+ * Выполняем деактивацию всех
+ * пользователей, которые нах
+ * одятся в удаляемой нами гр
+ * уппе.
+ *
+ * Это деобходимо для упрощен
+ * ия жизни разработчику сист
+ * емы (если кто не понял).
+ */
+
+$query_str = "
+	DELETE FROM
+	  `spm_users`
+	WHERE
+	  `teacherId` = '" . Security::getCurrentSession()['user_info']->getUserId() . "'
+	AND
+	  `groupid` = '" . $_GET['group'] . "'
+	;
+";
+
+// Выполняем запрос на удаление
+if (!$database->query($query_str))
+	Security::ThrowError("input");
+
+/*
  * Удаляем указанную пользовательскую
  * группу  из  базы  данных, учитывая
  * при этом некоторые директивы безоп
