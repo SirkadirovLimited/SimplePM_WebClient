@@ -45,8 +45,6 @@ $query_str = "
       `spm_users`
     WHERE
       `username` = '" . $_POST['username'] . "'
-    AND
-      `banned` = '0'
     LIMIT
       1
     ;

@@ -17,8 +17,7 @@ abstract class PERMISSION {
     const STUDENT = 2;
 
     const TEACHER = 4;
-    const TEACHER_OLYMPIAD = 8;
-    const TEACHER_MANAGE_PROBLEMS = 16;
+    const TEACHER_MANAGE_PROBLEMS = 8;
 
     const ADMINISTRATOR = 256;
 

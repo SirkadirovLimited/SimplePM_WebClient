@@ -149,7 +149,6 @@ class UserInfo {
               `city`,
               `school`,
               `groupid`,
-              `banned`,
               `RatingBase`(`id`) AS rating,
               `RatingCount`(`id`) AS rating_count,
               `associated_olymp`
