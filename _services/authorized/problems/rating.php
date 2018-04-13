@@ -76,7 +76,6 @@ $query_str = "
 	  `firstname`,
 	  `secondname`,
 	  `thirdname`,
-	  `username`,
 	  `permissions`,
 	  `RatingBase`(`id`) AS rating,
 	  `RatingCount`(`id`) AS points
@@ -181,7 +180,6 @@ unset($query);
 			<tr>
 
 				<th><?=_("ID")?></th>
-				<th><?=_("Нікнейм")?></th>
 				<th><?=_("Повне ім'я")?></th>
 				<th><?=_("Points")?></th>
 				<th><?=_("Рейтинг")?></th>
@@ -197,11 +195,6 @@ unset($query);
 				<tr>
 
 					<td><?=$listed_user['id']?></td>
-					<td>
-						<a href="<?=_SPM_?>index.php/users/profile/?id=<?=$listed_user['id']?>">
-							<?=$listed_user['username']?>
-						</a>
-					</td>
 					<td>
 						<a href="<?=_SPM_?>index.php/users/profile/?id=<?=$listed_user['id']?>">
 
