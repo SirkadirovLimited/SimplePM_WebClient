@@ -211,6 +211,34 @@ if (!isset($_POST['custom_test']) || (int)strlen($_POST['custom_test']) <= 0)
 }
 
 /*
+ * Определяем тип судьи, которым
+ * будет оцениваться пользовател
+ * ьское   решение  поставленной
+ * задачи.
+ */
+
+if ($_olymp_id > 0)
+{
+
+	$query_str = "
+		SELECT
+		  `judge`
+		FROM
+		  `spm_olympiads`
+		WHERE
+		  `id` = '" . $_olymp_id . "'
+		LIMIT
+		  1
+		;
+	";
+
+	$_POST['judge'] = $database->query($query_str)->fetch_array()[0];
+
+}
+else
+	$_POST['judge'] = $_CONFIG->getWebappConfig()['default_judge'];
+
+/*
  * Выборочно удаляем  все  предыдущие
  * попытки пользователя решить задачу
  * (кроме release-отправок  во  время
@@ -255,12 +283,16 @@ $query_str = "
       `spm_submissions`
     SET
       `olympId` = '" . $_olymp_id . "',
-      `codeLang` = '" . $_POST['submission_language'] . "',
+      
       `userId` = '" . Security::getCurrentSession()["user_info"]->getUserId() . "',
+      
       `problemId` = '" . $_POST['problem_id'] . "',
-      `testType` = '" . $_POST['submission_type'] . "',
+      `codeLang` = '" . $_POST['submission_language'] . "',
       `problemCode` = '" . $_POST['code'] . "',
-      `customTest` = '" . $_POST[''] . "'
+      
+      `testType` = '" . $_POST['submission_type'] . "',
+      `judge` = '" . $_POST['judge'] . "',
+      `customTest` = '" . $_POST['custom_test'] . "'
     ;
 ";
 
