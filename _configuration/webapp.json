@@ -10,5 +10,7 @@
 
   "site_admin_email": "admin@sirkadirov.com",
 
-  "user_online_time": 600
+  "user_online_time": 600,
+
+  "default_judge": "full"
 }
