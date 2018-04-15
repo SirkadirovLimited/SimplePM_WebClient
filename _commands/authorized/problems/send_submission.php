@@ -255,18 +255,6 @@ $query_str = "
       `problemId` = '" . $_POST['problem_id'] . "'
     AND
       `olympId` = '" . $_olymp_id . "'
-    AND
-      (
-        `testType` = 'syntax'
-      OR
-        `testType` = 'debug'
-      OR
-        (
-          `testType` = 'release'
-        AND
-          `b` = '0'
-        )
-      )
     ;
 ";
 
