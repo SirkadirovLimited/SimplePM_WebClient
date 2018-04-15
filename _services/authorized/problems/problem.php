@@ -296,7 +296,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 						<h5 class="modal-title"><?=_("Авторське рішення задачі")?> (<?=$problem_info['authorSolutionLanguage']?>)</h5>
 						<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
 					</div>
-					<pre class="modal-body"><?=$problem_info['authorSolution']?></pre>
+					<pre class="modal-body"><?=htmlspecialchars($problem_info['authorSolution'])?></pre>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal"><?=_("Закрити вікно")?></button>
 					</div>
