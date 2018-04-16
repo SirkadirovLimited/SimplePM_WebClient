@@ -28,6 +28,11 @@
   },
 
 
+  {
+    "path": "authorized/users/edit/eduinfo",
+    "enabled": true
+  },
+
 
   {
     "path": "anonymous/login",
