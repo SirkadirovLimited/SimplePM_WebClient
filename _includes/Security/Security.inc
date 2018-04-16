@@ -154,7 +154,7 @@ class Security {
             $canSameUserAccess &&
 
             // Если это один и тот же пользователь
-            $user_info['id'] == self::getCurrentSession()["user_info"]->getUserId() ||
+            $user_info['id'] == self::getCurrentSession()["user_info"]->getUserId()
         ) ||
 
             // Если текущий пользователь - администратор
