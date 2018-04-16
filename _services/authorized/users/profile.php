@@ -68,6 +68,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
         <h3 class="card-title" style="margin: 0;">
             <?=$user_info["secondname"]?> <?=$user_info["firstname"]?> <?=$user_info["thirdname"]?>
         </h3>
+        <h5 class="text-secondary"><?=$user_info['institution']?></h5>
 
         <p style="margin-top: 20px;">
 

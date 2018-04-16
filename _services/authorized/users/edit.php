@@ -254,7 +254,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
             <?php
 
-            if (Security::CheckAccessPermissionsForEdit($user_info['id'])): ?>
+            if (Security::CheckAccessPermissionsForEdit($user_info['id'], false)): ?>
 
                 <div class="form-group">
 
@@ -302,7 +302,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
                 </div>
 
-            <?php endif; unset($f_check); ?>
+            <?php endif; ?>
 
             <!--div class="form-group">
 
