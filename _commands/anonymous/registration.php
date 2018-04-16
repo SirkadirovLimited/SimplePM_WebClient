@@ -17,23 +17,6 @@
 
 global $database;
 
-/**
- * Функция занимается проверкой длины
- * единого POST параметра с указанным
- * именем.
- * @param string $post_param Имя POST параметра
- * @param int $min_length Минимальная длина
- * @param int $max_length Максимальная длина
- */
-
-function strlen_check_post_param(string $post_param, int $min_length, int $max_length) : void
-{
-
-	(strlen($_POST[$post_param]) >= $min_length && strlen($_POST[$post_param]) <= $max_length)
-		or Security::ThrowError("input");
-
-}
-
 /*
  * Проверка на существование
  * и  непустоту  необходимых
