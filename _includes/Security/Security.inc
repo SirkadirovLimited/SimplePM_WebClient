@@ -115,6 +115,58 @@ class Security {
     }
 
     /**
+     * Проверяем, имеет ли текущий по
+     * льзователь доступ к предоставл
+     * яемой нами информации или нет,
+     * а также выполняем соответствую
+     * щие полученным фактам действия
+     *
+     * Предотсавляем доступ в случае,
+     * если текущий пользователь:
+     * - Администратор системы
+     * - Преподаватель автора решения
+     * - Автор решения
+     *
+     * @param int $userId Идентификатор редактируемого пользователя
+     * @return bool Разрешение или запрет на внесение изменений или доступ к сервису
+     */
+
+    public static function CheckAccessPermissionsForEdit(int $userId) : bool
+    {
+
+        /*
+         * Получаем информацию об
+         * указанном пользователе
+         */
+
+        $user_info = UserInfo::getUserInfo($userId);
+
+        /*
+         * Производим необходимые проверки
+         * и возвращаем  результат  работы
+         * данной функции.
+         */
+
+        return (
+
+            // Если это один и тот же пользователь
+            $user_info['id'] == Security::getCurrentSession()["user_info"]->getUserId() ||
+
+            // Если текущий пользователь - администратор
+            Security::CheckAccessPermissions(
+                Security::getCurrentSession()["user_info"]->getUserInfo()['permissions'],
+                PERMISSION::ADMINISTRATOR,
+                false
+            ) ||
+
+            // Если текущий пользователь - куратор указанного пользователя
+            $user_info['teacherId'] == Security::getCurrentSession()["user_info"]->getUserId()
+
+        );
+
+    }
+
+    /**
      * @param string $errorId
      * @return void
      */
