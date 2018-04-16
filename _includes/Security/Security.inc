@@ -131,7 +131,7 @@ class Security {
      * @return bool Разрешение или запрет на внесение изменений или доступ к сервису
      */
 
-    public static function CheckAccessPermissionsForEdit(int $userId) : bool
+    public static function CheckAccessPermissionsForEdit(int $userId, bool $canSameUserAccess = true) : bool
     {
 
         /*
@@ -149,18 +149,23 @@ class Security {
 
         return (
 
+        (
+            // Если мы разрешаем, то...
+            $canSameUserAccess &&
+
             // Если это один и тот же пользователь
-            $user_info['id'] == Security::getCurrentSession()["user_info"]->getUserId() ||
+            $user_info['id'] == self::getCurrentSession()["user_info"]->getUserId() ||
+        ) ||
 
             // Если текущий пользователь - администратор
-            Security::CheckAccessPermissions(
-                Security::getCurrentSession()["user_info"]->getUserInfo()['permissions'],
+            self::CheckAccessPermissions(
+                self::getCurrentSession()["user_info"]->getUserInfo()['permissions'],
                 PERMISSION::ADMINISTRATOR,
                 false
             ) ||
 
             // Если текущий пользователь - куратор указанного пользователя
-            $user_info['teacherId'] == Security::getCurrentSession()["user_info"]->getUserId()
+            $user_info['teacherId'] == self::getCurrentSession()["user_info"]->getUserId()
 
         );
 
