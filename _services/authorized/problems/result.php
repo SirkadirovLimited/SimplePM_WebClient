@@ -41,9 +41,13 @@ global $database;
 $query_str = "
     SELECT
       `submissionId`,
+      
       `olympId`,
+      
       `time`,
+      
       `seen`,
+      
       `codeLang`,
       `userId`,
       `problemId`,
@@ -95,15 +99,6 @@ if ($submission_info->num_rows == 0)
 $submission_info = $submission_info->fetch_assoc();
 
 /*
- * Получаем развёрнутую информаци
- * ю о текущем авторизированном п
- * ользователе  для  последующего
- * её использования.
- */
-
-$current_user_info = Security::getCurrentSession()["user_info"]->getUserInfo();
-
-/*
  * Проверяем, имеет ли текущий по
  * льзователь доступ к предоставл
  * яемой нами информации или нет,
@@ -117,27 +112,8 @@ $current_user_info = Security::getCurrentSession()["user_info"]->getUserInfo();
  * - Автор решения
  */
 
-(
-    // Текущий пользователь - автор решения
-    $current_user_info['id'] == $submission_info['userId'] ||
-
-    // Текущий пользователь - администратор
-    Security::CheckAccessPermissions(
-        $current_user_info['permissions'],
-        PERMISSION::ADMINISTRATOR,
-        false
-    ) ||
-
-    // Текущий пользователь - преподаватель автора
-	$current_user_info['id'] == UserInfo::getUserInfo($submission_info['userId'])['teacherId']
-) or Security::ThrowError("403");
-
-/*
- * Удаляем все временные переменные
- * для экономия оперативной памяти.
- */
-
-unset($current_user_info);
+Security::CheckAccessPermissionsForEdit($submission_info['userId'])
+    or Security::ThrowError("403");
 
 /*
  * В зависимости от того, готовы ли

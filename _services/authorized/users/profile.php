@@ -44,21 +44,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                 <a class="nav-link active" href="<?=_SPM_?>index.php/users/profile/?id=<?=$_GET['id']?>"><?=_("Профіль")?></a>
             </li>
 
-			<?php
-
-			$f_check = (
-
-					$user_info['id'] == Security::getCurrentSession()["user_info"]->getUserId() ||
-
-					Security::CheckAccessPermissions(
-						Security::getCurrentSession()["user_info"]->getUserInfo()['permissions'],
-						PERMISSION::ADMINISTRATOR,
-						false
-					) ||
-
-					$user_info['teacherId'] == Security::getCurrentSession()["user_info"]->getUserId()
-
-			); if ($f_check): ?>
+			<?php if (Security::CheckAccessPermissionsForEdit($user_info['id'])): ?>
 
 				<li class="nav-item">
 					<a class="nav-link" href="<?=_SPM_?>index.php/users/edit/?id=<?=$_GET['id']?>"><?=_("Редагувати сторінку")?></a>
