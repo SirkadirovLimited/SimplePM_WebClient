@@ -43,6 +43,16 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
 ?>
 
+<style>
+
+    .card-body form {
+
+        margin-bottom: 20px;
+
+    }
+
+</style>
+
 <div class="card">
 	<div class="card-header">
 		<ul class="nav nav-tabs card-header-tabs">
@@ -90,6 +100,20 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
             </div>
 
+            <div align="right">
+
+                <button
+                        type="reset"
+                        class="btn btn-outline-secondary"
+                ><?=_("Відмінити зміни")?></button>
+
+                <button
+                        type="submit"
+                        class="btn btn-primary"
+                ><?=_("Зберегти зміни")?></button>
+
+            </div>
+
 		</form>
 
 		<h3><?=_("Особиста інформація")?></h3>
@@ -113,6 +137,10 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                         required
                 >
 
+                <small class="form-text text-muted">
+                    <?=_("Ця інформація відображається у профайлі користувача.")?>
+                </small>
+
             </div>
 
             <div class="form-group">
@@ -131,6 +159,10 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
                         required
                 >
+
+                <small class="form-text text-muted">
+                    <?=_("Ця інформація відображається у профайлі користувача.")?>
+                </small>
 
             </div>
 
@@ -151,6 +183,44 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                         required
                 >
 
+                <small class="form-text text-muted">
+                    <?=_("Ця інформація відображається у профайлі користувача.")?>
+                </small>
+
+            </div>
+
+            <div class="form-group">
+
+                <label><?=_("Дата народження")?></label>
+
+                <input
+                        type="date"
+                        class="form-control"
+
+                        name="institution"
+                        value="<?=$user_info['birthday_date']?>"
+
+                        required
+                >
+
+                <small class="form-text text-muted">
+                    <?=_("Використовується для заповнення блоку \"Дні народження у поточному місяці\".")?>
+                </small>
+
+            </div>
+
+            <div align="right">
+
+                <button
+                        type="reset"
+                        class="btn btn-outline-secondary"
+                ><?=_("Відмінити зміни")?></button>
+
+                <button
+                        type="submit"
+                        class="btn btn-primary"
+                ><?=_("Зберегти зміни")?></button>
+
             </div>
 
 		</form>
@@ -161,49 +231,78 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
             <div class="form-group">
 
-                <label><?=_("Клас / Група")?></label>
+                <label><?=_("Навчальний заклад / Організація")?></label>
 
-                <select
+                <input
+                        type="text"
                         class="form-control"
-                        name="groupid"
+
+                        name="institution"
+                        value="<?=$user_info['institution']?>"
+
+                        minlength="1"
+                        maxlength="255"
+
                         required
                 >
 
-                    <?php
-
-                    $query_str = "
-						SELECT
-						  `id`,
-						  `name`
-						FROM
-						  `spm_users_groups`
-						WHERE
-						  `teacherId` = '" . $user_info['teacherId'] . "'
-						ORDER BY
-						  `id` ASC
-						;
-					";
-
-                    $groups_info = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
-
-                    ?>
-
-                    <option><?=_("Виберіть групу чи клас")?></option>
-
-                    <?php foreach ($groups_info as $group_info): ?>
-                        <option
-                                value="<?=$group_info['id']?>"
-                            <?=($user_info['groupid'] == $group_info['id'] ? "selected" : "")?>
-                        ><?=$group_info['name']?> (gid<?=$group_info['id']?>)</option>
-                    <?php endforeach; ?>
-
-                </select>
-
                 <small class="form-text text-muted">
-                    <?=_("Користувача буде активовано лише у тому випадку, якщо він буде асоційований з існуючою групою.")?>
+                    <?=_("Ця інформація відображається у профайлі користувача.")?>
                 </small>
 
             </div>
+
+            <?php
+
+            if (Security::CheckAccessPermissionsForEdit($user_info['id'])): ?>
+
+                <div class="form-group">
+
+                    <label><?=_("Клас / Група")?></label>
+
+                    <select
+                            class="form-control"
+                            name="groupid"
+                            required
+                    >
+
+                        <?php
+
+                        $query_str = "
+                            SELECT
+                              `id`,
+                              `name`
+                            FROM
+                              `spm_users_groups`
+                            WHERE
+                              `teacherId` = '" . $user_info['teacherId'] . "'
+                            ORDER BY
+                              `id` ASC
+                            ;
+                        ";
+
+                        $groups_info = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
+
+                        ?>
+
+                        <option value><?=_("Виберіть групу чи клас")?></option>
+
+                        <?php foreach ($groups_info as $group_info): ?>
+                            <option
+                                    value="<?=$group_info['id']?>"
+                                <?=($user_info['groupid'] == $group_info['id'] ? "selected" : "")?>
+                            ><?=$group_info['name']?> (gid<?=$group_info['id']?>)</option>
+                        <?php endforeach; ?>
+
+                    </select>
+
+                    <small class="form-text text-muted">
+                        <?=_("Користувача буде активовано лише у тому випадку, якщо він буде асоційований з існуючою групою.")?>
+                    </small>
+
+                </div>
+
+            <?php endif; unset($f_check); ?>
 
             <!--div class="form-group">
 
@@ -213,15 +312,19 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
             </div-->
 
-			<button
-				type="reset"
-				class="btn btn-outline-secondary"
-			><?=_("Відмінити зміни")?></button>
+            <div align="right">
 
-			<button
-				type="submit"
-				class="btn btn-primary"
-			><?=_("Зберегти зміни")?></button>
+                <button
+                        type="reset"
+                        class="btn btn-outline-secondary"
+                ><?=_("Відмінити зміни")?></button>
+
+                <button
+                        type="submit"
+                        class="btn btn-primary"
+                ><?=_("Зберегти зміни")?></button>
+
+            </div>
 
 		</form>
 
