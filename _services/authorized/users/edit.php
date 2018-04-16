@@ -13,6 +13,10 @@
 define("__PAGE_TITLE__", _("Редагування профілю"));
 define("__PAGE_LAYOUT__", "default");
 
+/*
+ * Запрашиваем доступ к глобальным переменным
+ */
+
 global $database;
 
 /*
@@ -63,26 +67,28 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
 		<form method="post" action="<?=_SPM_?>index.php?cmd=users/edit/authinfo&id=<?=$_GET['id']?>">
 
-			<div class="input-group">
+            <div class="form-group">
 
-				<div class="input-group-prepend">
-					<span class="input-group-text"><?=_("Email користувача")?></span>
-				</div>
+                <label><?=_("Email адреса")?></label>
 
-				<input
-					type="email"
-					class="form-control"
+                <input
+                        type="email"
+                        class="form-control"
 
-					name=""
-					value=""
+                        name=""
+                        value="<?=$user_info['email']?>"
 
-					minlength="1"
-					maxlength="255"
+                        minlength="1"
+                        maxlength="255"
 
-					required
-				>
+                        required
+                >
 
-			</div>
+                <small class="form-text text-muted">
+                    <?=_("Вказана адреса email буде використовуватись при вході в систему та для зворотнього зв'язку.")?>
+                </small>
+
+            </div>
 
 		</form>
 
@@ -90,68 +96,62 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
 		<form method="post" action="<?=_SPM_?>index.php?cmd=users/edit/personal&id=<?=$_GET['id']?>">
 
-			<div class="input-group">
+            <div class="form-group">
 
-				<div class="input-group-prepend">
-					<span class="input-group-text"><?=_("Ім'я користувача")?></span>
-				</div>
+                <label><?=_("Ім'я")?></label>
 
-				<input
-					type="text"
-					class="form-control"
+                <input
+                        type="text"
+                        class="form-control"
 
-					name=""
-					value=""
+                        name=""
+                        value="<?=$user_info['firstname']?>"
 
-					minlength="1"
-					maxlength="255"
+                        minlength="1"
+                        maxlength="255"
 
-					required
-				>
+                        required
+                >
 
-			</div>
+            </div>
 
-			<div class="input-group">
+            <div class="form-group">
 
-				<div class="input-group-prepend">
-					<span class="input-group-text"><?=_("Фамілія користувача")?></span>
-				</div>
+                <label><?=_("Фамілія")?></label>
 
-				<input
-					type="text"
-					class="form-control"
+                <input
+                        type="text"
+                        class="form-control"
 
-					name=""
-					value=""
+                        name=""
+                        value="<?=$user_info['secondname']?>"
 
-					minlength="1"
-					maxlength="255"
+                        minlength="1"
+                        maxlength="255"
 
-					required
-				>
+                        required
+                >
 
-			</div>
+            </div>
 
-			<div class="input-group">
+            <div class="form-group">
 
-				<div class="input-group-prepend">
-					<span class="input-group-text"><?=_("По-батькові користувача")?></span>
-				</div>
+                <label><?=_("По-батькові")?></label>
 
-				<input
-					type="text"
-					class="form-control"
+                <input
+                        type="text"
+                        class="form-control"
 
-					name=""
-					value=""
+                        name=""
+                        value="<?=$user_info['thirdname']?>"
 
-					minlength="1"
-					maxlength="255"
+                        minlength="1"
+                        maxlength="255"
 
-					required
-				>
+                        required
+                >
 
-			</div>
+            </div>
 
 		</form>
 
@@ -159,21 +159,19 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
 		<form method="post" action="<?=_SPM_?>index.php?cmd=users/edit/eduinfo&id=<?=$_GET['id']?>">
 
-			<div class="input-group">
+            <div class="form-group">
 
-				<div class="input-group-prepend">
-					<span class="input-group-text"><?=_("Клас / Група")?></span>
-				</div>
+                <label><?=_("Клас / Група")?></label>
 
-				<select
-					class="form-control"
-					name="groupid"
-					required
-				>
+                <select
+                        class="form-control"
+                        name="groupid"
+                        required
+                >
 
-					<?php
+                    <?php
 
-					$query_str = "
+                    $query_str = "
 						SELECT
 						  `id`,
 						  `name`
@@ -186,22 +184,34 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 						;
 					";
 
-					$groups_info = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
+                    $groups_info = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 
-					?>
+                    ?>
 
-					<option><?=_("Виберіть групу чи клас")?></option>
+                    <option><?=_("Виберіть групу чи клас")?></option>
 
-					<?php foreach ($groups_info as $group_info): ?>
-						<option
-							value="<?=$group_info['id']?>"
-							<?=($user_info['groupid'] == $group_info['id'] ? "selected" : "")?>
-						><?=$group_info['name']?> (gid<?=$group_info['id']?>)</option>
-					<?php endforeach; ?>
+                    <?php foreach ($groups_info as $group_info): ?>
+                        <option
+                                value="<?=$group_info['id']?>"
+                            <?=($user_info['groupid'] == $group_info['id'] ? "selected" : "")?>
+                        ><?=$group_info['name']?> (gid<?=$group_info['id']?>)</option>
+                    <?php endforeach; ?>
 
-				</select>
+                </select>
 
-			</div>
+                <small class="form-text text-muted">
+                    <?=_("Користувача буде активовано лише у тому випадку, якщо він буде асоційований з існуючою групою.")?>
+                </small>
+
+            </div>
+
+            <!--div class="form-group">
+
+                <label><?=_("")?></label>
+
+                <small class="form-text text-muted"><?=_("")?></small>
+
+            </div-->
 
 			<button
 				type="reset"
