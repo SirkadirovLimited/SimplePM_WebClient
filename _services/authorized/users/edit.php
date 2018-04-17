@@ -76,6 +76,10 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 				<a class="nav-link active" href="<?=_SPM_?>index.php/users/edit/?id=<?=$_GET['id']?>"><?=_("Редагувати сторінку")?></a>
 			</li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="<?=_SPM_?>index.php/problems/difficult/?id=<?=$_GET['id']?>"><?=_("Відкладені задачі")?></a>
+            </li>
+
 			<li class="nav-item">
 				<a class="nav-link" href="<?=_SPM_?>index.php/problems/submissions/?id=<?=$_GET['id']?>"><?=_("Спроби")?></a>
 			</li>
