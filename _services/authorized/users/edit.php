@@ -86,7 +86,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
 		<h3><?=_("Дані для входу")?></h3>
 
-		<form method="post" action="<?=_SPM_?>index.php?cmd=users/edit/authinfo&id=<?=$_GET['id']?>">
+		<form method="post" action="#">
 
             <div class="form-group">
 
@@ -103,6 +103,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                         maxlength="255"
 
                         required
+                        disabled
                 >
 
                 <small class="form-text text-muted">
@@ -116,11 +117,13 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                 <button
                         type="reset"
                         class="btn btn-outline-secondary"
+                        disabled
                 ><?=_("Відмінити зміни")?></button>
 
                 <button
                         type="submit"
                         class="btn btn-primary"
+                        disabled
                 ><?=_("Зберегти зміни")?></button>
 
             </div>
