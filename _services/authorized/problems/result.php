@@ -41,28 +41,34 @@ global $database;
 $query_str = "
     SELECT
       `submissionId`,
+      `status`,
+      `time`,
       
       `olympId`,
-      
-      `time`,
+      `userId`,
+      `problemId`,
       
       `seen`,
       
-      `codeLang`,
-      `userId`,
-      `problemId`,
-      `testType`,
       `problemCode`,
+      `codeLang`,
+      
+      `testType`,
+      `judge`,
       `customTest`,
-      `status`,
+      
       `hasError`,
+      
       `errorOutput`,
       `output`,
+      
       `exitcodes`,
       `usedProcTime`,
       `usedMemory`,
+      
       `compiler_text`,
       `tests_result`,
+      
       `b`
     FROM
       `spm_submissions`
