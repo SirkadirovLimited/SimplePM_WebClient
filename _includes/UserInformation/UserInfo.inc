@@ -107,7 +107,7 @@ class UserInfo {
          */
 
         if ($query->num_rows == 0)
-            return "Deleted group";
+            return _("Невідома група");
         else
             return $query->fetch_object()->name;
 
