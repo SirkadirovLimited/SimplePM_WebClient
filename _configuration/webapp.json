@@ -12,5 +12,8 @@
 
   "user_online_time": 600,
 
-  "default_judge": "full"
+  "default_judge": "full",
+
+  "blockly_enabled": true,
+  "blockly_lua_language_name": "lua"
 }
