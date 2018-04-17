@@ -142,7 +142,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                         type="text"
                         class="form-control"
 
-                        name=""
+                        name="firstname"
                         value="<?=$user_info['firstname']?>"
 
                         minlength="1"
@@ -165,7 +165,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                         type="text"
                         class="form-control"
 
-                        name=""
+                        name="secondname"
                         value="<?=$user_info['secondname']?>"
 
                         minlength="1"
@@ -188,7 +188,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                         type="text"
                         class="form-control"
 
-                        name=""
+                        name="thirdname"
                         value="<?=$user_info['thirdname']?>"
 
                         minlength="1"
@@ -211,7 +211,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                         type="date"
                         class="form-control"
 
-                        name="institution"
+                        name="birthday_date"
                         value="<?=$user_info['birthday_date']?>"
 
                         required
