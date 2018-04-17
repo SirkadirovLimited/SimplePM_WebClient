@@ -92,7 +92,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
                     <a class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1"><strong><?=_("Інформація про користувача")?></strong></h6>
+                            <h6 style="margin: 0;"><strong><?=_("Інформація про користувача")?></strong></h6>
                         </div>
                     </a>
 
@@ -138,7 +138,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
                     <a class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1"><strong><?=_("Системна інформація")?></strong></h6>
+                            <h6 style="margin: 0;"><strong><?=_("Системна інформація")?></strong></h6>
                         </div>
                     </a>
 
@@ -166,7 +166,33 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                         <div class="d-flex w-100 justify-content-between">
                             <h6 class="mb-1"><?=_("Куратор")?></h6>
                         </div>
-                        <p class="mb-1"><?=$user_info["teacherId"]?></p>
+
+                        <?php if (UserInfo::UserExists($user_info['teacherId'])): ?>
+
+                            <?php
+
+                            $curator_info = UserInfo::getUserInfo($user_info["teacherId"]);
+
+                            ?>
+
+                            <p class="mb-1">
+                                <?=$curator_info["secondname"]?>
+                                <?=$curator_info["firstname"]?>
+                                <?=$curator_info["thirdname"]?>, <?=UserInfo::GetGroupName((int)$curator_info["groupid"])?>
+                            </p>
+
+                            <?php
+
+                            unset($curator_info);
+
+                            ?>
+
+                        <?php else: ?>
+
+                            <p class="mb-1"><?=_("Сам собі пан")?> (<?=$user_info['teacherId']?>)</p>
+
+                        <?php endif; ?>
+
                     </a>
 
                     <a class="list-group-item list-group-item-action flex-column align-items-start">
