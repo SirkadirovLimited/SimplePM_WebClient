@@ -181,13 +181,13 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <a
-                class="nav-item nav-link active"
+                class="nav-item nav-link"
                 data-toggle="tab"
                 href="#editor-code"
                 role="tab"
         ><?=_("Редактор коду")?></a>
         <a
-                class="nav-item nav-link"
+                class="nav-item nav-link active"
                 data-toggle="tab"
                 href="#editor-visual"
                 onclick="$('#language_selector').val('<?=$_CONFIG->getWebappConfig()['blockly_lua_language_name']?>');"
@@ -205,7 +205,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 </nav>
 <div class="tab-content">
     <div
-            class="tab-pane fade show active"
+            class="tab-pane fade"
             id="editor-code"
             role="tabpanel"
     >
@@ -214,7 +214,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 
     </div>
     <div
-            class="tab-pane fade"
+            class="tab-pane fade show active"
             id="editor-visual"
             role="tabpanel"
     ><div id="blockly-div" style="width: 100%; height: 400px;"></div></div>
@@ -456,6 +456,8 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
         editor.setTheme("ace/theme/dracula");
 
         changeLanguage();
+
+        $('#nav-tab a[href="#editor-code"]').tab('show')
 
     });
 
