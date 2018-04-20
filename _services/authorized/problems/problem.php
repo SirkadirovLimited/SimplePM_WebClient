@@ -597,5 +597,5 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
     </script>
 
     <!-- /BLOCKLY INIT JS -->
-    
+
 <?php endif; ?>
