@@ -167,32 +167,40 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
     }
 </style>
 
-<!-- BLOCKLY INIT -->
-<script src="<?=_SPM_assets_?>_plugins/blockly/blockly_compressed.js"></script>
-<script src="<?=_SPM_assets_?>_plugins/blockly/blocks_compressed.js"></script>
-<script src="<?=_SPM_assets_?>_plugins/blockly/lua_compressed.js"></script>
+<?php if ($_CONFIG->getWebappConfig()['blockly_enabled']): ?>
+    <!-- BLOCKLY INIT -->
 
-<script src="<?=_SPM_assets_?>_plugins/blockly/msg/js/uk.js"></script>
+    <script src="<?=_SPM_assets_?>_plugins/blockly/blockly_compressed.js"></script>
+    <script src="<?=_SPM_assets_?>_plugins/blockly/blocks_compressed.js"></script>
+    <script src="<?=_SPM_assets_?>_plugins/blockly/lua_compressed.js"></script>
 
-<?php include(_SPM_configuration_ . "blockly-toolbox.cnf"); ?>
+    <script src="<?=_SPM_assets_?>_plugins/blockly/msg/js/uk.js"></script>
 
-<!-- /BLOCKLY INIT -->
+    <?php include(_SPM_configuration_ . "blockly-toolbox.cnf"); ?>
+
+    <!-- /BLOCKLY INIT -->
+<?php endif; ?>
 
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
         <a
                 class="nav-item nav-link"
                 data-toggle="tab"
                 href="#editor-code"
                 role="tab"
         ><?=_("Редактор коду")?></a>
-        <a
-                class="nav-item nav-link active"
-                data-toggle="tab"
-                href="#editor-visual"
-                onclick="$('#language_selector').val('<?=$_CONFIG->getWebappConfig()['blockly_lua_language_name']?>');"
-                role="tab"
-        ><?=_("Візуальний редактор")?></a>
+
+        <?php if ($_CONFIG->getWebappConfig()['blockly_enabled']): ?>
+            <a
+                    class="nav-item nav-link active"
+                    data-toggle="tab"
+                    href="#editor-visual"
+                    onclick="$('#language_selector').val('<?=$_CONFIG->getWebappConfig()['blockly_lua_language_name']?>');"
+                    role="tab"
+            ><?=_("Візуальний редактор")?></a>
+        <?php endif; ?>
+
         <a
                 class="nav-item nav-link disabled"
                 data-toggle="tab"
@@ -204,6 +212,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
     </div>
 </nav>
 <div class="tab-content">
+
     <div
             class="tab-pane fade"
             id="editor-code"
@@ -213,11 +222,15 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
         <pre id="code_editor"><?=htmlspecialchars($last_submission_info['problemCode'])?></pre>
 
     </div>
-    <div
-            class="tab-pane fade show active"
-            id="editor-visual"
-            role="tabpanel"
-    ><div id="blockly-div" style="width: 100%; height: 400px;"></div></div>
+
+    <?php if ($_CONFIG->getWebappConfig()['blockly_enabled']): ?>
+        <div
+                class="tab-pane fade show active"
+                id="editor-visual"
+                role="tabpanel"
+        ><div id="blockly-div" style="width: 100%; height: 400px;"></div></div>
+    <?php endif; ?>
+
 </div>
 
 <form action="<?=_SPM_?>index.php?cmd=problems/send_submission" method="post" enctype="multipart/form-data">
@@ -324,6 +337,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 		><?=_("Результат останньої відправки")?></a>
 
 	<?php endif; ?>
+
 	<?php if (
 			Security::CheckAccessPermissions(
 				Security::getCurrentSession()["user_info"]->getUserInfo()['permissions'],
@@ -332,6 +346,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 			$problem_info['authorSolution'] != null &&
 			$problem_info['authorSolutionLanguage'] != null
 	): ?>
+
 		<button
 				type="button"
 				class="btn btn-outline-secondary btn-block"
@@ -464,119 +479,123 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
     //editor.session.setMode("ace/mode/c_cpp");
 </script>
 
-<!-- BLOCKLY INIT JS -->
+<?php if ($_CONFIG->getWebappConfig()['blockly_enabled']): ?>
 
-<script>
+    <!-- BLOCKLY INIT JS -->
 
-    function urlBase64Decode(str) // From https://jwt.io/js/jwt.js
-    {
+    <script>
 
-        var output = str.replace(/-/g, '+').replace(/_/g, '/');
-
-        switch (output.length % 4) {
-            case 0:
-                break;
-
-            case 2:
-                output += '==';
-                break;
-            case 3:
-                output += '=';
-                break;
-            default:
-                throw 'Illegal base64url string!';
-        }
-
-        var result = window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
-
-        try {
-            return decodeURIComponent(escape(result));
-        }
-        catch (err) {
-            return result;
-        }
-
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-
-        var blocklyWorkspace = Blockly.inject(
-            'blockly-div',
-            {
-
-                collapse: true,
-                comments: true,
-                sounds: false,
-                toolbox: document.getElementById('toolbox')
-
-            }
-        );
-
-        var blockly_code_checker = (
-
-            ace.edit('code_editor').getValue().startsWith("--[[SIMPLEPM_BLOCKLY_LUA]]--") &&
-
-            $('#language_selector')
-                .val() === "<?=$_CONFIG->getWebappConfig()['blockly_lua_language_name']?>"
-        );
-
-        if (blockly_code_checker)
+        function urlBase64Decode(str) // From https://jwt.io/js/jwt.js
         {
 
-            var code = ace.edit('code_editor').getValue();
-            var pos = code.lastIndexOf("--[[XML|") + 8;
+            var output = str.replace(/-/g, '+').replace(/_/g, '/');
 
-            var blocklyXmlCodeBase64 = code.substr(
-                pos,
-                code.length - pos - 8
-            );
+            switch (output.length % 4) {
+                case 0:
+                    break;
 
-            Blockly.Xml.domToWorkspace(
+                case 2:
+                    output += '==';
+                    break;
+                case 3:
+                    output += '=';
+                    break;
+                default:
+                    throw 'Illegal base64url string!';
+            }
 
-                Blockly.Xml.textToDom(
+            var result = window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
 
-                    urlBase64Decode(
-                        blocklyXmlCodeBase64
-                    )
-
-                ),
-
-                blocklyWorkspace
-
-            );
+            try {
+                return decodeURIComponent(escape(result));
+            }
+            catch (err) {
+                return result;
+            }
 
         }
 
-        blocklyWorkspace.addChangeListener(function () {
+        document.addEventListener('DOMContentLoaded', function() {
 
-            ace.edit('code_editor').setValue(
+            var blocklyWorkspace = Blockly.inject(
+                'blockly-div',
+                {
 
-                "--[[SIMPLEPM_BLOCKLY_LUA]]--\n"
-                + Blockly.Lua.workspaceToCode(blocklyWorkspace) + "\n"
-                + "--[[XML|" +
+                    collapse: true,
+                    comments: true,
+                    sounds: false,
+                    toolbox: document.getElementById('toolbox')
 
-                btoa(
+                }
+            );
 
-                    Blockly.Xml.domToText(
+            var blockly_code_checker = (
 
-                        Blockly.Xml.workspaceToDom(
+                ace.edit('code_editor').getValue().startsWith("--[[SIMPLEPM_BLOCKLY_LUA]]--") &&
 
-                            blocklyWorkspace
+                $('#language_selector')
+                    .val() === "<?=$_CONFIG->getWebappConfig()['blockly_lua_language_name']?>"
+            );
+
+            if (blockly_code_checker)
+            {
+
+                var code = ace.edit('code_editor').getValue();
+                var pos = code.lastIndexOf("--[[XML|") + 8;
+
+                var blocklyXmlCodeBase64 = code.substr(
+                    pos,
+                    code.length - pos - 8
+                );
+
+                Blockly.Xml.domToWorkspace(
+
+                    Blockly.Xml.textToDom(
+
+                        urlBase64Decode(
+                            blocklyXmlCodeBase64
+                        )
+
+                    ),
+
+                    blocklyWorkspace
+
+                );
+
+            }
+
+            blocklyWorkspace.addChangeListener(function () {
+
+                ace.edit('code_editor').setValue(
+
+                    "--[[SIMPLEPM_BLOCKLY_LUA]]--\n"
+                    + Blockly.Lua.workspaceToCode(blocklyWorkspace) + "\n"
+                    + "--[[XML|" +
+
+                    btoa(
+
+                        Blockly.Xml.domToText(
+
+                            Blockly.Xml.workspaceToDom(
+
+                                blocklyWorkspace
+
+                            )
 
                         )
 
                     )
 
-                )
+                    + "|XML]]--"
 
-                + "|XML]]--"
+                );
 
-            );
+            });
 
         });
 
-    });
+    </script>
 
-</script>
-
-<!-- /BLOCKLY INIT JS -->
+    <!-- /BLOCKLY INIT JS -->
+    
+<?php endif; ?>
