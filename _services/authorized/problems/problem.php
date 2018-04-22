@@ -64,6 +64,7 @@ Olymp::CheckProblemInList($associated_olymp, $_GET['id']);
 $query_str = "
     SELECT
       `spm_problems`.`id`,
+      `spm_problems`.`enabled`,
       `spm_problems`.`difficulty`,
       `spm_problems`.`name`,
       `spm_problems`.`description`,
@@ -88,8 +89,6 @@ $query_str = "
     WHERE
       `spm_problems`.`id` = '" . $_GET['id'] . "'
     AND
-      `spm_problems`.`enabled` = TRUE
-    AND
       `spm_problems`.`authorSolution` IS NOT NULL
     AND
       `spm_problems`.`authorSolutionLanguage` IS NOT NULL
@@ -109,6 +108,24 @@ if ($problem_info->num_rows == 0)
 
 // Получаем полную информацию о задаче
 $problem_info = $problem_info->fetch_assoc();
+
+/*
+ * Если доступ к задаче ограничен,
+ * предоставляем доступ к ней лишь
+ * администраторам системы.
+ */
+
+(
+        // Если пользователь не администратор
+        !Security::CheckAccessPermissions(
+                Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
+                PERMISSION::ADMINISTRATOR,
+                false
+        )
+    &&
+        // И доступ к задаче ограничен
+        !$problem_info['enabled']
+) ? Security::ThrowError("403") : true; // Блокируем доступ или ничего не делаем
 
 /*
  * Получаем информацию о последней
