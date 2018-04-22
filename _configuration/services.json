@@ -30,6 +30,11 @@
     "enabled": true
   },
 
+  {
+    "path": "authorized/problems/edit",
+    "enabled": true
+  },
+
 
   {
     "path": "authorized/users/profile",
