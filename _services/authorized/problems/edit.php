@@ -167,7 +167,34 @@ if ($_GET['id'] > 0)
 
         <select name="category_id" class="form-control" required>
 
+			<?php
+
+			$query_str = "
+				SELECT
+				  `id`,
+				  `name`
+				FROM
+				  `spm_problems_categories`
+				ORDER BY
+				  `sort` ASC,
+				  `id` ASC
+				;
+			";
+
+			$problems_categories = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
+
+			?>
+
             <option><?=_("Виберіть...")?></option>
+
+			<?php foreach ($problems_categories as $problem_category): ?>
+
+				<option
+					value="<?=$problem_category['id']?>"
+					<?=($problem_category['id'] == @$problem_info['category_id'] ? "selected" : "")?>
+				><?=$problem_category['name']?></option>
+
+			<?php endforeach; unset($problems_categories); ?>
 
         </select>
 
@@ -321,6 +348,8 @@ if ($_GET['id'] > 0)
             name="authorSolution"
             class="form-control"
 
+			style="min-height: 400px;"
+
             required
         ><?=@$problem_info['authorSolution']?></textarea>
 
@@ -342,11 +371,11 @@ if ($_GET['id'] > 0)
 
 				<option
 						value="<?=$compiler['language_name']?>"
-					<?=(
-					$compiler['language_name'] == @$problem_info['authorSolutionLanguage']
-						? "selected"
-						: ""
-					)?>
+						<?=(
+						$compiler['language_name'] == @$problem_info['authorSolutionLanguage']
+							? "selected"
+							: ""
+						)?>
 				><?=$compiler['display_name']?> (<?=$compiler['language_name']?>)</option>
 
 			<?php endif; endforeach; ?>
