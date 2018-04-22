@@ -59,7 +59,6 @@ if ($_GET['id'] > 0)
 	// Формируем запрос на выборку из БД
 	$query_str = "
 		SELECT
-		  `id`,
 		  `enabled`,
 		  `difficulty`,
 		  `category_id`,
@@ -126,8 +125,8 @@ if ($_GET['id'] > 0)
 
 				value="<?=@$_GET['id']?>"
 
+				readonly
 				required
-				disabled
 		>
 
         <small class="form-text text-muted">
@@ -286,7 +285,7 @@ if ($_GET['id'] > 0)
 
 				maxlength="65535"
 				required
-		><?=@$problem_info['description']?></textarea>
+		><?=@htmlspecialchars($problem_info['description'])?></textarea>
 
         <small class="form-text text-muted">
             <?=_("Надайте детальні умови задачі, включаючи всі вимоги, а також обмеження.")?>
@@ -307,7 +306,7 @@ if ($_GET['id'] > 0)
                 <textarea
 						name="input_description"
 						class="form-control editor"
-				><?=@$problem_info['input_description']?></textarea>
+				><?=@htmlspecialchars($problem_info['input_description'])?></textarea>
 
                 <small class="form-text text-muted">
                     <?=_("Надайте детальний опис вхідних даних для користувацької програми.")?>
@@ -326,7 +325,7 @@ if ($_GET['id'] > 0)
                 <textarea
 						name="output_description"
 						class="form-control editor"
-				><?=@$problem_info['output_description']?></textarea>
+				><?=@htmlspecialchars($problem_info['output_description'])?></textarea>
 
                 <small class="form-text text-muted">
                     <?=_("Надайте детальний опис вихідних даних користувацької програми.")?>
@@ -351,7 +350,7 @@ if ($_GET['id'] > 0)
 			style="min-height: 400px;"
 
             required
-        ><?=@$problem_info['authorSolution']?></textarea>
+        ><?=@htmlspecialchars($problem_info['authorSolution'])?></textarea>
 
         <small class="form-text text-muted">
             <?=_("Авторське рішення використовується для роботи debug-режиму тестування користувацьких рішень.")?>
