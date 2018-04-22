@@ -16,6 +16,16 @@
     "enabled": true
   },
 
+  {
+    "path": "authorized/problems/edit/problem",
+    "enabled": true
+  },
+
+  {
+    "path": "authorized/problems/edit/delete",
+    "enabled": true
+  },
+
 
   {
     "path": "authorized/users/groups/edit",
