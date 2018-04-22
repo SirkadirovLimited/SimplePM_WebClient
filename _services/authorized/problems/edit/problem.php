@@ -144,7 +144,7 @@ if ($_GET['id'] > 0)
 
         <input
 				type="text"
-				name="title"
+				name="name"
 				class="form-control"
 
 				value="<?=@$problem_info['name']?>"
@@ -185,7 +185,7 @@ if ($_GET['id'] > 0)
 
 			?>
 
-            <option><?=_("Виберіть...")?></option>
+            <option><?=_("Виберіть категорію задачі")?></option>
 
 			<?php foreach ($problems_categories as $problem_category): ?>
 
@@ -393,7 +393,7 @@ if ($_GET['id'] > 0)
         <button type="reset" class="btn btn-outline-secondary"><?=_("Відмінити зміни")?></button>
 
 		<a
-				href=""
+				href="<?=_SPM_?>index.php/problems/edit/tests/"
 				class="btn btn-dark"
 		><?=_("Редагувати тести до задачі")?></a>
 

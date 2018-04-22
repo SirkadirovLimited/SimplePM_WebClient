@@ -31,7 +31,12 @@
   },
 
   {
-    "path": "authorized/problems/edit",
+    "path": "authorized/problems/edit/problem",
+    "enabled": true
+  },
+
+  {
+    "path": "authorized/problems/edit/tests",
     "enabled": true
   },
 
