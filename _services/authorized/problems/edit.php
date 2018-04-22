@@ -24,13 +24,13 @@ global $database;
 
 ?>
 
-<form action="" method="post" style="margin-top: 20px;">
+<form action="<?=_SPM_?>index.php?cmd=problems/edit/problem" method="post" style="margin-top: 20px;">
 
     <!-- System information -->
 
     <div class="form-group">
         <label><?=_("Ідентифікатор задачі")?></label>
-        <input type="text" name="" class="form-control disabled" required disabled>
+        <input type="text" name="id" class="form-control disabled" required disabled>
         <small class="form-text text-muted">
             <?=_("Ідентифікатор задачі, яку потрібно відредагувати. Заповнюється автоматично.")?>
         </small>
@@ -40,7 +40,7 @@ global $database;
 
     <div class="form-group">
         <label><?=_("Назва задачі")?></label>
-        <input type="text" name="" class="form-control" maxlength="255" required>
+        <input type="text" name="title" class="form-control" maxlength="255" required>
         <small class="form-text text-muted">
             <?=_("Вкажіть назву задачі. Вона повинна бути короткою, але в той самий час передавати основну ідею задачі.")?>
         </small>
@@ -50,7 +50,7 @@ global $database;
 
     <div class="form-group">
         <label><?=_("Категорія задачі")?></label>
-        <select class="form-control" required>
+        <select name="category_id" class="form-control" required>
 
             <option><?=_("Виберіть...")?></option>
 
@@ -64,7 +64,7 @@ global $database;
         <label><?=_("Складність задачі")?></label>
         <input
             type="number"
-            name=""
+            name="difficulty"
             class="form-control"
 
             min="1"
@@ -82,7 +82,7 @@ global $database;
 
     <div class="form-group">
         <div class="form-check">
-            <input type="checkbox" name="" class="form-check-input">
+            <input type="checkbox" name="enabled" class="form-check-input">
             <label class="form-check-label"><?=_("Задача доступна для перегляду та вирішення")?></label>
         </div>
 
@@ -93,7 +93,7 @@ global $database;
 
     <div class="form-group">
         <div class="form-check">
-            <input type="checkbox" name="" class="form-check-input">
+            <input type="checkbox" name="adaptProgramOutput" class="form-check-input">
             <label class="form-check-label"><?=_("Порівнювати очищені від зайвих пробілів вхідні потоки")?></label>
         </div>
 
@@ -106,7 +106,7 @@ global $database;
 
     <div class="form-group">
         <label><?=_("Детальні умови задачі")?></label>
-        <textarea name="" class="form-control" maxlength="65535" required></textarea>
+        <textarea name="description" class="form-control" maxlength="65535" required></textarea>
         <small class="form-text text-muted">
             <?=_("Надайте детальні умови задачі, включаючи всі вимоги, а також обмеження.")?>
         </small>
@@ -120,7 +120,7 @@ global $database;
 
             <div class="form-group">
                 <label><?=_("Опис вхідних даних")?></label>
-                <textarea name="" class="form-control"></textarea>
+                <textarea name="input_description" class="form-control"></textarea>
                 <small class="form-text text-muted">
                     <?=_("Надайте детальний опис вхідних даних для користувацької програми.")?>
                 </small>
@@ -132,7 +132,7 @@ global $database;
 
             <div class="form-group">
                 <label><?=_("Опис вихідних даних")?></label>
-                <textarea name="" class="form-control"></textarea>
+                <textarea name="output_description" class="form-control"></textarea>
                 <small class="form-text text-muted">
                     <?=_("Надайте детальний опис вихідних даних користувацької програми.")?>
                 </small>
@@ -147,7 +147,7 @@ global $database;
     <div class="form-group">
         <label><?=_("Початковий код авторського рішення")?></label>
         <textarea
-            name=""
+            name="authorSolutionCode"
             class="form-control"
 
             required
@@ -160,7 +160,7 @@ global $database;
     <div class="form-group">
         <label><?=_("Мова програмування авторського рішення")?></label>
 
-        <select class="form-control" required>
+        <select name="authorSolutionLanguage" class="form-control" required>
 
             <option><?=_("Виберіть...")?></option>
 
