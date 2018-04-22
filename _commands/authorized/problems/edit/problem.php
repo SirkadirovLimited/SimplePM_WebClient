@@ -48,7 +48,7 @@ Security::CheckPostDataIssetAndNotNull(
 
 /*
  * Получаем информацию о
- * ыбранных чекбоксах.
+ * выбранных  чекбоксах.
  */
 
 $_POST['enabled'] = isset($_POST['enabled']);
