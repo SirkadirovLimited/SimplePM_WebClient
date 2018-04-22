@@ -470,6 +470,54 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
     </div>
 </div>
 
+<?php
+
+$f_check = Security::CheckAccessPermissions(
+		Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
+		PERMISSION::TEACHER_MANAGE_PROBLEMS | PERMISSION::ADMINISTRATOR
+);
+
+if ($f_check):
+
+?>
+
+	<div class="card">
+		<div class="card-body text-center">
+
+			<a
+					href="<?=_SPM_?>index.php/problems/edit/problem/?id=<?=$_GET['id']?>"
+					class="btn btn-link text-dark"
+			><?=_("Редагувати")?></a>
+
+			<a
+					href="<?=_SPM_?>index.php/problems/edit/tests/?id=<?=$_GET['id']?>"
+					class="btn btn-link text-dark"
+			><?=_("Редагувати тести")?></a>
+
+			<?php
+
+			$f_check = Security::CheckAccessPermissions(
+				Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
+				PERMISSION::ADMINISTRATOR
+			);
+
+			if ($f_check):
+
+			?>
+
+				<a
+						href="<?=_SPM_?>index.php?cmd=problems/edit/delete&id=<?=$_GET['id']?>"
+						class="btn btn-link text-danger"
+						onclick="return confirm('<?=_("Ви впевнені? Всі дані включаючи відправки цієї задачі будуть видалені!")?>');"
+				><?=_("Видалити задачу")?></a>
+
+			<?php endif; ?>
+
+		</div>
+	</div>
+
+<?php endif; ?>
+
 <script src="<?=_SPM_assets_?>_plugins/ace/ace.js"></script>
 <script>
 
