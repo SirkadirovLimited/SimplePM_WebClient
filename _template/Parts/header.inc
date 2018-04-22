@@ -17,5 +17,8 @@
     <!-- Custom styles for this template -->
     <link href="<?=_SPM_assets_?>css/theme.css" rel="stylesheet">
 
+	<!-- Required JavaScript includes -->
+	<script src="<?=_SPM_assets_?>js/jquery.min.js"></script>
+
 </head>
 <body>
