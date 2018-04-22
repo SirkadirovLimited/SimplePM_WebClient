@@ -99,8 +99,6 @@ $query_str = "
       	`spm_problems_categories`.`id` IS NOT NULL
       )
     WHERE
-      `spm_problems`.`enabled` = TRUE
-    AND
       (
         `spm_problems`.`id` LIKE '%" . @(int)$_GET['query'] . "%'
       OR
@@ -142,64 +140,130 @@ if ($associated_olymp <=0)
 
     <?php foreach ($problems_list as $problem): ?>
 
-		<?php
+        <?php
 
-		$query_str = "
-			SELECT
-			  `b`
-			FROM
-			  `spm_submissions`
-			WHERE
-			  `userId` = '" . (int)Security::getCurrentSession()['user_info']->getUserId() . "'
-			AND
-			  `problemId` = '" . (int)$problem['id'] . "'
-			AND
-			  `olympId` = '" . (int)$associated_olymp . "'
-			ORDER BY
-			  `b` DESC,
-			  `time` DESC
-			LIMIT
-			  1
-			;
-		";
+        /*
+         * Проверяем текущего пользователя
+         * на  наличие доступа к указанной
+         * задаче,   если  доступа  нет  -
+         * просто не показываем  указанную
+         * задачу в этом списке.
+         */
 
-		$query = $database->query($query_str);
+        $problem_enabled_checker = (
 
-		if ($query->num_rows > 0)
-		{
+                $problem['enabled']
+        ||
+                (
 
-			$submission_points = ($query->fetch_array()[0]);
+                        Security::CheckAccessPermissions(
+                            Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
+                            PERMISSION::ADMINISTRATOR,
+                            false
+                        )
+                    &&
+                        !$problem['enabled']
 
-			if ($submission_points == 0)
-				$class_addition = "bg-danger text-white";
-			elseif ($submission_points < $problem["difficulty"])
-				$class_addition = "bg-warning text-white";
-			elseif ($submission_points >= $problem["difficulty"])
-				$class_addition = "bg-success text-white";
+                )
 
-		}
-		else
-			$class_addition = null;
+        );
 
-		?>
+        if ($problem_enabled_checker):
 
-        <div class="col-md-4 col-sm-12" style="margin-bottom: 2rem;">
+        ?>
 
-            <a
-                    class="card <?=@$class_addition?>"
-                    style="text-decoration: none !important;"
-                    href="<?=_SPM_?>index.php/problems/problem/?id=<?=$problem["id"]?>"
-            >
-                <div class="card-body">
-                    <strong style=""><?=$problem["id"]?>. <?=$problem["name"]?></strong>
-                    <p class="card-text">
-                        <span class="badge badge-info"><?=$problem["category_name"]?></span>
-                        <span class="badge badge-success"><?=$problem["difficulty"]?> points</span>
-                    </p>
-                </div>
-            </a>
+            <?php
 
-        </div>
+            /*
+             * Получаем информацию о пользовательских
+             * попытках решить данную задачу.
+             *
+             * Информацию о  последней   попытке   мы
+             * визуализируем    в    пользовательском
+             * интерфейсе веб-приложения SimplePM.
+             */
+
+            // Формируем запрос на выборку из БД
+            $query_str = "
+                SELECT
+                  `b`
+                FROM
+                  `spm_submissions`
+                WHERE
+                  `userId` = '" . (int)Security::getCurrentSession()['user_info']->getUserId() . "'
+                AND
+                  `problemId` = '" . (int)$problem['id'] . "'
+                AND
+                  `olympId` = '" . (int)$associated_olymp . "'
+                ORDER BY
+                  `b` DESC,
+                  `time` DESC
+                LIMIT
+                  1
+                ;
+            ";
+
+            // Выполняем запрос на выборку данных из БД
+            $query = $database->query($query_str);
+
+            /*
+             * В зависимости от того, существуют
+             * ли необходимые нам попытки решени
+             * я текущей задачи текущем пользова
+             * телем или нет, выполняем необходи
+             * мые действия и производим необход
+             * имые изменения в представлении по
+             * льзовательского интерфейса данног
+             * о сервиса веб-приложения SimplePM
+             */
+
+            if ($query->num_rows > 0)
+            {
+
+                // Получаем информацию о заработанном бале по попытке
+                $submission_points = ($query->fetch_array()[0]);
+
+                /*
+                 * В зависимости от полученной оценки
+                 * указанного решения поставленной за
+                 * дачи, производим необходимые измен
+                 * ения в пользовательском интерфейсе
+                 * веб-приложения SimplePM.
+                 */
+
+                if ($submission_points == 0)
+                    $class_addition = "bg-danger text-white";
+                elseif ($submission_points < $problem["difficulty"])
+                    $class_addition = "bg-warning text-white";
+                elseif ($submission_points >= $problem["difficulty"])
+                    $class_addition = "bg-success text-white";
+
+            }
+            else
+                $class_addition = null; // В ином случае - пустота
+
+            ?>
+
+            <div class="col-md-4 col-sm-12" style="margin-bottom: 2rem;">
+
+                <a
+                        class="card <?=@$class_addition?>"
+                        style="text-decoration: none !important;"
+                        href="<?=_SPM_?>index.php/problems/problem/?id=<?=$problem["id"]?>"
+                >
+                    <div class="card-body">
+                        <strong style=""><?=$problem["id"]?>. <?=$problem["name"]?></strong>
+                        <p class="card-text">
+                            <span class="badge badge-info"><?=$problem["category_name"]?></span>
+                            <span class="badge badge-success"><?=$problem["difficulty"]?> points</span>
+                        </p>
+                    </div>
+                </a>
+
+            </div>
+
+        <?php endif; unset($problem_enabled_checker); ?>
+
     <?php endforeach; ?>
 
 </div>
