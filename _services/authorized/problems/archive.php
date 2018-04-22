@@ -101,7 +101,7 @@ $query_str = "
       )
     WHERE
       (
-        `spm_problems`.`id` LIKE '%" . @(int)$_GET['query'] . "%'
+        `spm_problems`.`id` LIKE '%" . @abs((int)$_GET['query']) . "%'
       OR
         `spm_problems`.`name` LIKE '%" . @$_GET['query'] . "%'
       )
@@ -113,7 +113,7 @@ $query_str = "
       )
     " . @$problem_list_limiter . "
     ORDER BY
-      `spm_problems`.`difficulty` ASC
+      `spm_problems`.`id` ASC
     ;
 ";
 

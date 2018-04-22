@@ -88,10 +88,6 @@ $query_str = "
       `spm_problems`.`category_id` = `spm_problems_categories`.`id`
     WHERE
       `spm_problems`.`id` = '" . $_GET['id'] . "'
-    AND
-      `spm_problems`.`authorSolution` IS NOT NULL
-    AND
-      `spm_problems`.`authorSolutionLanguage` IS NOT NULL
     ORDER BY
       `spm_problems_tests`.`id` ASC
     LIMIT
