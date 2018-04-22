@@ -83,6 +83,7 @@ if ($associated_olymp > 0)
 $query_str = "
     SELECT
       `spm_problems`.`id`,
+      `spm_problems`.`enabled`,
       `spm_problems`.`name`,
       `spm_problems`.`difficulty`,
       `spm_problems_categories`.`name` AS category_name
@@ -254,8 +255,16 @@ if ($associated_olymp <=0)
                     <div class="card-body">
                         <strong style=""><?=$problem["id"]?>. <?=$problem["name"]?></strong>
                         <p class="card-text">
+
                             <span class="badge badge-info"><?=$problem["category_name"]?></span>
                             <span class="badge badge-success"><?=$problem["difficulty"]?> points</span>
+
+                            <?php if (!$problem['enabled']): ?>
+
+                                <span class="badge badge-danger"><?=_("Відключена")?></span>
+
+                            <?php endif; ?>
+
                         </p>
                     </div>
                 </a>
