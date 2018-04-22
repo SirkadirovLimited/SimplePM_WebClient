@@ -230,7 +230,7 @@ class Security {
 
             $success_count += (int)(
                 isset($_POST[$post_variable]) &&
-                $_POST[$post_variable] != NULL
+                $_POST[$post_variable] !== NULL
             );
 
         }
