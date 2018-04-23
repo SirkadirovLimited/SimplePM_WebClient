@@ -50,6 +50,31 @@
 
 
   {
+    "path": "authorized/olympiads/join",
+    "enabled": true,
+    "olymp_enabled": false
+  },
+
+  {
+    "path": "authorized/olympiads/list",
+    "enabled": true,
+    "olymp_enabled": false
+  },
+
+  {
+    "path": "authorized/olympiads/edit",
+    "enabled": true,
+    "olymp_enabled": false
+  },
+
+  {
+    "path": "authorized/olympiads/olympiad",
+    "enabled": true,
+    "olymp_enabled": true
+  },
+
+
+  {
     "path": "authorized/users/profile",
     "enabled": true,
     "olymp_enabled": false
