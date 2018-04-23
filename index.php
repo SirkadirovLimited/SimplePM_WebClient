@@ -166,7 +166,18 @@ include _SPM_includes_ . "Waiters/ClientWaiter.inc";
 
 include _SPM_includes_ . "System/Database.inc";
 
+/*
+ * Запрашиваем  доступ  к
+ * глобальным переменным.
+ */
+
 global $database;
+
+/*
+ * Раздел включения ServiceHelper-ов.
+ */
+
+include _SPM_includes_ . "ServiceHelpers/Olymp.inc";
 
 /*
  * Для  обеспечения  безоасности  производим   очистку
