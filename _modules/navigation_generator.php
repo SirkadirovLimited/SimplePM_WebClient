@@ -80,12 +80,39 @@
 
 	</li>
 
-	<li class="nav-item">
-		<a
-				class="nav-link"
-				href="<?=_SPM_?>index.php/olympiads/join/"
-		><?=_("Змагання")?></a>
-	</li>
+	<?php if (
+	Security::CheckAccessPermissions(
+		Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
+		PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR,
+		false
+	)
+	): ?>
+
+		<li class="nav-item">
+			<a
+					class="nav-link"
+					href="<?=_SPM_?>index.php/olympiads/list/"
+			><?=_("Змагання")?></a>
+		</li>
+
+	<?php endif; ?>
+
+	<?php if (
+	Security::CheckAccessPermissions(
+		Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
+		PERMISSION::STUDENT,
+		false
+	)
+	): ?>
+
+		<li class="nav-item">
+			<a
+					class="nav-link"
+					href="<?=_SPM_?>index.php/olympiads/join/"
+			><?=_("Змагання")?></a>
+		</li>
+
+	<?php endif; ?>
 
 <?php else: ?>
 
