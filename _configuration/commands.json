@@ -2,50 +2,59 @@
 
   {
     "path": "authorized/logout",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": true
   },
 
 
   {
     "path": "authorized/problems/send_submission",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": true
   },
 
   {
     "path": "authorized/problems/submission_status",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": true
   },
 
   {
     "path": "authorized/problems/edit/problem",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": true
   },
 
   {
     "path": "authorized/problems/edit/delete",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
 
   {
     "path": "authorized/users/groups/edit",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
   {
     "path": "authorized/users/groups/delete",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
 
   {
     "path": "authorized/users/edit/personal",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
   {
     "path": "authorized/users/edit/eduinfo",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
 

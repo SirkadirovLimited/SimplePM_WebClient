@@ -2,63 +2,75 @@
 
   {
     "path": "authorized/index",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
   {
     "path": "authorized/problems/archive",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": true
   },
 
   {
     "path": "authorized/problems/difficult",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
   {
     "path": "authorized/problems/rating",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
   {
     "path": "authorized/problems/problem",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": true
   },
 
   {
     "path": "authorized/problems/result",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": true
   },
 
   {
     "path": "authorized/problems/edit/problem",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
   {
     "path": "authorized/problems/edit/tests",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
 
   {
     "path": "authorized/users/profile",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
   {
     "path": "authorized/users/edit",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
   {
     "path": "authorized/users/groups",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
   {
     "path": "authorized/users/teacherid",
-    "enabled": true
+    "enabled": true,
+    "olymp_enabled": false
   },
 
 
