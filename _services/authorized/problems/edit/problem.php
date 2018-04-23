@@ -229,42 +229,42 @@ if ($_GET['id'] > 0)
 
     <div class="form-group">
 
-        <div class="form-check">
+        <div class="custom-control custom-checkbox">
+            <input
+                    type="checkbox"
+                    name="enabled"
+                    id="enabled"
+                    class="custom-control-input"
 
-			<input
-					type="checkbox"
-					name="enabled"
-					id="enabled"
-					class="form-check-input"
-
-					<?=(@$problem_info['enabled'] ? "checked" : "")?>
-			>
-
-            <label for="enabled" class="form-check-label"><?=_("Задача доступна для перегляду та вирішення")?></label>
-
+                    <?=(@$problem_info['enabled'] ? "checked" : "")?>
+            >
+            <label
+                    class="custom-control-label"
+                    for="enabled"
+            ><?=_("Задача доступна для перегляду та вирішення")?></label>
         </div>
 
         <small class="form-text text-muted">
             <?=_("Зверніть увагу на те, що цей параметр не блокує доступ до задачі адміністраторам системи.")?>
         </small>
+
     </div>
 
     <div class="form-group">
-        <div class="form-check">
 
+        <div class="custom-control custom-checkbox">
             <input
-					type="checkbox"
-					name="adaptProgramOutput"
-					id="adaptProgramOutput"
-					class="form-check-input"
+                    type="checkbox"
+                    name="adaptProgramOutput"
+                    id="adaptProgramOutput"
+                    class="custom-control-input"
 
-					<?=(@$problem_info['adaptProgramOutput'] ? "checked" : "")?>
-			>
-
-            <label for="adaptProgramOutput" class="form-check-label">
-				<?=_("Порівнювати очищені від зайвих пробілів вхідні потоки")?>
-			</label>
-
+                <?=(@$problem_info['adaptProgramOutput'] ? "checked" : "")?>
+            >
+            <label
+                    class="custom-control-label"
+                    for="adaptProgramOutput"
+            ><?=_("Порівнювати очищені від зайвих пробілів вхідні потоки")?></label>
         </div>
 
         <small class="form-text text-muted">
