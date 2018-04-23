@@ -32,12 +32,32 @@ class SystemWaiter {
         $commands_list = $_CONFIG->getCommandsConfig();
 
         /*
-         * Формируем список активиров
-         * анных коммандных сервисов.
+         * Получаем идентификатор ассоциированного
+         * с текущим пользователем соревнования.
+         */
+
+        $associated_olymp = UserInfo::IsAuthUser()
+            ? Security::getCurrentSession()['user_info']->getUserInfo()['associated_olymp']
+            : 0;
+
+        /*
+         * Формируем список активированных коммандных сервисов.
          */
 
         foreach ($commands_list as $item)
-            if ($item["enabled"])
+            if (
+                (
+                    $item["enabled"] && $associated_olymp <= 0
+                )
+                ||
+                (
+                    $associated_olymp > 0
+                    &&
+                    isset($item['olymp_enabled'])
+                    &&
+                    $item['olymp_enabled']
+                )
+            )
                 $this->enabled_commands_list[] = $item["path"];
 
     }
