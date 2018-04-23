@@ -14,70 +14,85 @@
 
 <?php if (!Olymp::IsAssociatedWithOlymp()): ?>
 
-    <!-- Home -->
+	<!-- Home -->
 
-    <li class="nav-item">
-        <a class="nav-link" href="<?=_SPM_?>"><?=_("Головна")?></a>
-    </li>
+	<li class="nav-item">
+		<a class="nav-link" href="<?=_SPM_?>"><?=_("Головна")?></a>
+	</li>
 
-    <!-- Users -->
+	<!-- Users -->
 
-    <li class="nav-item dropdown">
+	<li class="nav-item dropdown">
 
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-            <?=_("Користувачі")?>
-        </a>
+		<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+			<?=_("Користувачі")?>
+		</a>
 
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="<?=_SPM_?>index.php/problems/rating/"><?=_("Рейтинг")?></a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item disabled"><?=_("Користувачі онлайн")?></a>
-            <a class="dropdown-item disabled"><?=_("Дні народження")?></a>
-        </div>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="<?=_SPM_?>index.php/problems/rating/"><?=_("Рейтинг")?></a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item disabled"><?=_("Користувачі онлайн")?></a>
+			<a class="dropdown-item disabled"><?=_("Дні народження")?></a>
+		</div>
 
-    </li>
+	</li>
 
-    <!-- Problems archive -->
+	<!-- Problems archive -->
 
-    <li class="nav-item dropdown">
+	<li class="nav-item dropdown">
 
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-            Архів задач
-        </a>
+		<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+			Архів задач
+		</a>
 
-        <div class="dropdown-menu">
+		<div class="dropdown-menu">
 
-            <a
-                class="dropdown-item"
-                href="<?=_SPM_?>index.php/problems/archive/"
-            ><?=_("Архів задач")?></a>
+		<a
+				class="dropdown-item"
+				href="<?=_SPM_?>index.php/problems/archive/"
+		><?=_("Архів задач")?></a>
 
-            <a
-                class="dropdown-item"
-                href="<?=_SPM_?>index.php/problems/difficult/"
-            ><?=_("Відкладені задачі")?></a>
+		<a
+				class="dropdown-item"
+				href="<?=_SPM_?>index.php/problems/difficult/"
+		><?=_("Відкладені задачі")?></a>
 
-            <div class="dropdown-divider"></div>
+		<?php if (
+		Security::CheckAccessPermissions(
+			Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
+			PERMISSION::TEACHER_MANAGE_PROBLEMS | PERMISSION::ADMINISTRATOR,
+			false
+		)
+		): ?>
 
-            <a class="dropdown-item disabled"><?=_("Черга перевірки")?></a>
+			<div class="dropdown-divider"></div>
 
-        </div>
+			<a
+					class="dropdown-item text-danger"
+					href="<?=_SPM_?>index.php/problems/edit/problem/"
+			><?=_("Створити задачу")?></a>
 
-    </li>
+		<?php endif; ?>
 
-    <li class="nav-item">
-        <a
-            class="nav-link"
-            href="<?=_SPM_?>index.php/olympiads/join/"
-        ><?=_("Змагання")?></a>
-    </li>
+		<div class="dropdown-divider"></div>
+
+		<a class="dropdown-item disabled"><?=_("Черга перевірки")?></a>
+
+	</li>
+
+	<li class="nav-item">
+		<a
+				class="nav-link"
+				href="<?=_SPM_?>index.php/olympiads/join/"
+		><?=_("Змагання")?></a>
+	</li>
 
 <?php else: ?>
 
     <li class="nav-item">
         <a
             class="nav-link"
-            href="<?=_SPM_?>index.php/olympiad/view/"
+            href="<?=_SPM_?>index.php/olympiads/olympiad/"
         ><?=_("Змагання")?></a>
     </li>
 
