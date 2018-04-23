@@ -24,6 +24,185 @@ class Olymp
 {
 
     /**
+     * Данная статическая функция проверяет,
+     * разрешён ли выход пользователям, кото
+     * рые принимают участие в указанном со-
+     * ревновании из него  (досрочный выход)
+     * или нет, и возвращает соответственный
+     * результат своей работы.
+     * @param int $olymp_id Идентификатор соревнования
+     * @return bool Возможен или не возможен
+     */
+
+    public static function CheckUserCanExit(int $olymp_id) : bool
+    {
+
+        /*
+         * Запрашиваем доступ к глобальным переменным.
+         */
+
+        global $database;
+
+        /*
+         * Если идентификатор олимпиады
+         * меньше или равен нулю, то на
+         * самом деле никакого соревно-
+         * вания не существует!
+         */
+
+        if ($olymp_id <= 0)
+            return true;
+
+        /*
+         * Формируем запрос на выборку
+         * информации   о  возможности
+         * выходить из соревнования из
+         * базы данных системы.
+         */
+
+        $query_str = sprintf("
+            SELECT
+              `userCanExit`
+            FROM
+              `spm_olympiads`
+            WHERE
+              `id` = '%s'
+            LIMIT
+              1
+            ;
+        ", $olymp_id);
+
+        /*
+         * Выполняем запрос на выборку
+         * данных из базы данных.
+         */
+
+        $query = $database->query($query_str);
+
+        /*
+         * Если необходимого нам
+         * соревнования не найде
+         * но, значит  выйти  из
+         * него мы не можем!
+         */
+
+        if ($query->num_rows <= 0)
+            return true;
+
+        /*
+         * Производим выборку данных
+         * из базы данных системы  и
+         * проделываем соответствен-
+         * ные проверки,  после чего
+         * возвращаем результат рабо
+         * ты данного метода.
+         */
+
+        return (int)($query->fetch_array()[0]) > 0;
+
+    }
+
+    public static function ExitOlymp(int $user_id = 0) : void
+    {
+
+        /*
+         * Мелкое упрощение жизни разработчику
+         */
+
+        $user_id > 0
+            or $user_id = Security::getCurrentSession()['user_info']->getUserId();
+
+        /*
+         * Запрашиваем доступ к глобальным переменным.
+         */
+
+        global $database;
+
+        /*
+         * Устанавливаем привязанность
+         * к нулевому соревнованию.
+         */
+
+        // Формируем запрос на обновление данных в БД
+        $query_str = sprintf("
+            UPDATE
+              `spm_users`
+            SET
+              `associated_olymp` = '0'
+            WHERE
+              `id` = '%s'
+            LIMIT
+              1
+            ;
+        ", $user_id);
+
+        // Выполняем запрос на обновление данных в БД
+        $database->query($query_str);
+
+    }
+
+    public static function OlympiadExists(int $olymp_id) : bool
+    {
+
+        /*
+         * Запрашиваем доступ к глобальным переменным.
+         */
+
+        global $database;
+
+        /*
+         * Формируем  запрос  на
+         * выборку   данных   из
+         * базы данных SimplePM.
+         */
+
+        $query_str = sprintf("
+            SELECT
+              count(`id`)
+            FROM
+              `spm_olympiads`
+            WHERE
+              `id` = '%s'
+            ;
+        ", $olymp_id);
+
+        /*
+         * Выполняем запрос на выборку
+         * данных из базы данных систе
+         * мы и путём не сложных логи-
+         * ческих размышлений мы полу-
+         * чаем ответ на главный вопро
+         * с, который становится перед
+         * этим методом, после чего во
+         * звращаем полученный результ
+         * ат обыкновенным return-ом.
+         */
+
+        return (int)($database->query($query_str)->fetch_array()[0]) > 0;
+
+    }
+
+    public static function IsAssociatedWithOlymp(int $user_id = 0) : bool
+    {
+
+        /*
+         * Мелкое упрощение жизни разработчику
+         */
+
+        $user_id > 0
+            or $user_id = Security::getCurrentSession()['user_info']->getUserId();
+
+        /*
+         * Получаем необходимую информацию
+         * и возвращаем  результат  работы
+         * функции.
+         */
+
+        return @(int)(UserInfo::getUserInfo($user_id)['associated_olymp']) > 0;
+
+    }
+
+    /**
      * Функция определяет,  содержится ли указанная
      * задача в списке задач, доступных для решения
      * при проведении указанного соревнования.
@@ -45,6 +224,12 @@ class Olymp
     {
 
         /*
+         * Запрашиваем доступ к глобальным переменным.
+         */
+
+        global $database;
+
+        /*
          * Проверяем, проходит ли в данный
          * момент  указанное  соревнование
          * или нет.
@@ -62,7 +247,13 @@ class Olymp
                 WHERE
                   `id` = '" . $olymp_id . "'
                 AND
-                  `problems_list` LIKE '%" . $problem_id . ",%'
+                  (
+                  `problems_list` LIKE '" . $problem_id . ",%'
+                OR
+                  `problems_list` LIKE '%," . $problem_id . ",%'
+                OR
+                  `problems_list` LIKE '%," . $problem_id . "'
+                  )
                 ;
             ";
 
