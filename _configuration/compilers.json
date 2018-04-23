@@ -39,7 +39,7 @@
     "language_name": "lua",
     "editor_mode": "lua",
     "enabled": true,
-    "display_name": "Lua 5.2"
+    "display_name": "Lua 5.x"
   },
 
   {
