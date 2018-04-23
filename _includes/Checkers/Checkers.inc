@@ -19,11 +19,16 @@ include _SPM_includes_ . "Checkers/UserChecker.inc";
 // Файл, содержащий чекер пользовательской сессии
 include _SPM_includes_ . "Checkers/SessionChecker.inc";
 
+// Файл, содержащий чекер связанного соревнования
+include _SPM_includes_ . "Checkers/OlympiadChecker.inc";
+
 class Checkers {
 
     use SessionDestroyer;
 
     use UserChecker;
     use SessionChecker;
+
+    use OlympiadChecker;
 
 }

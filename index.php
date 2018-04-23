@@ -200,6 +200,9 @@ Checkers::CheckUserExists();
 // Проверка пользовательской сессии
 Checkers::CheckUserSession();
 
+// Проверка связанного соревнования
+Checkers::CheckOlympiadExists();
+
 /*
  * Обработка запросов на выполнение операций
  */
