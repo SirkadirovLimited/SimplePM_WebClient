@@ -14,7 +14,7 @@
 
 <?php if (Olymp::IsAssociatedWithOlymp()): ?>
 
-    <?php include(_SPM_modules_ . "olymp/timer.inc"); ?>
+    <?php include(_SPM_modules_ . "navigation_modules/olympiad_timer.inc"); ?>
 
 <?php endif; ?>
 
