@@ -202,6 +202,68 @@ class Olymp
 
     }
 
+    public static function GetOlympiadInfo(int $olymp_id)
+	{
+
+		/*
+         * Запрашиваем доступ к глобальным переменным.
+         */
+
+		global $database;
+
+		/*
+		 * Формируем запрос на выборку
+		 * данных о соревновании из БД
+		 */
+
+		$query_str = sprintf("
+			SELECT
+			  `id`,
+			  `name`,
+			  `description`,
+			  `startTime`,
+			  `endTime`,
+			  `teacherId`,
+			  `type`,
+			  `userCanExit`,
+			  `password`,
+			  `judge`,
+			  `problems_list`
+			FROM
+			  `spm_olympiads`
+			WHERE
+			  `id` = '%s'
+			LIMIT
+			  1
+			;
+		", $olymp_id);
+
+		/*
+		 * Выполняем запрос на выборку
+		 * данных из базы данных.
+		 */
+
+		$query = $database->query($query_str);
+
+		/*
+		 * Если необходимого соревнования
+		 * не найдено - возвращаем null.
+		 */
+
+		if ($query->num_rows <= 0)
+			return null;
+
+		/*
+		 * Производим выборку данных из
+		 * базы данных системы и возвра
+		 * щаем  результаты  выполнения
+		 * функции с помощью return-а.
+		 */
+
+		return $query->fetch_assoc();
+
+	}
+
     /**
      * Функция определяет,  содержится ли указанная
      * задача в списке задач, доступных для решения
