@@ -19,12 +19,45 @@ class ClientWaiter {
     public function __construct()
     {
 
+        /*
+    	 * Запрашиваем доступ к глобальным переменным
+    	 */
+
         global $_CONFIG;
+
+        /*
+         * Получаем полный список сервисов
+         */
 
         $services_list = $_CONFIG->getServicesConfig();
 
+        /*
+         * Получаем идентификатор ассоциированного
+         * с текущим пользователем соревнования.
+         */
+
+        $associated_olymp = UserInfo::IsAuthUser()
+            ? Security::getCurrentSession()['user_info']->getUserInfo()['associated_olymp']
+            : 0;
+
+        /*
+         * Формируем список активированных коммандных сервисов.
+         */
+
         foreach ($services_list as $item)
-            if ($item["enabled"])
+            if (
+                (
+                    $item["enabled"] && $associated_olymp <= 0
+                )
+                ||
+                (
+                    $associated_olymp > 0
+                    &&
+                    isset($item['olymp_enabled'])
+                    &&
+                    $item['olymp_enabled']
+                )
+            )
                 $this->enabled_services_list[] = $item["path"];
 
     }
