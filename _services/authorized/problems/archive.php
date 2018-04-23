@@ -51,19 +51,13 @@ if ($associated_olymp > 0)
 		;
 	";
 
-	// Выполняем запрос и обрабатываем результат
-	$query_result = $database->query($query_str)->fetch_array()[0];
-
 	// Устанавливаем лимитер списка доступных задач
 	$problem_list_limiter = "
 		AND
 			`spm_problems`.`id` IN (
-				" . substr($query_result, 0, strlen($query_result) - 1) . "
+				" . $database->query($query_str)->fetch_array()[0] . "
 			)
 	";
-
-	// Удаляем устаревшие данные
-	unset($query_result);
 
 	/*
 	 * Мелкие очистки для обеспечения безопасности
