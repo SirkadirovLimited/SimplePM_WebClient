@@ -45,7 +45,7 @@ include _SPM_template_ . "Parts/header.inc";
 
     </nav>
 
-    <div class="jumbotron text-white bg-dark">
+    <div id="jumbotron-head" class="jumbotron text-white bg-dark">
         <h4 class="lead">$(title)</h4>
     </div>
 
