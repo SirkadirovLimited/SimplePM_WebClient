@@ -22,11 +22,29 @@
   {
     "path": "authorized/problems/edit/problem",
     "enabled": true,
-    "olymp_enabled": true
+    "olymp_enabled": false
   },
 
   {
     "path": "authorized/problems/edit/delete",
+    "enabled": true,
+    "olymp_enabled": false
+  },
+
+  {
+    "path": "authorized/problems/edit/tests/add",
+    "enabled": true,
+    "olymp_enabled": false
+  },
+
+  {
+    "path": "authorized/problems/edit/tests/delete",
+    "enabled": true,
+    "olymp_enabled": false
+  },
+
+  {
+    "path": "authorized/problems/edit/tests/edit",
     "enabled": true,
     "olymp_enabled": false
   },
