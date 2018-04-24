@@ -294,7 +294,22 @@ $rating_table = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 						<td><?=UserInfo::GetGroupName($user_rating['groupid'])?></td>
 						<td><?=$user_rating['penalty']?></td>
 						<td><?=number_format($user_rating['points'], 2)?></td>
-						<td></td>
+						<td>
+
+							<?php
+
+							/*
+							 * Вычисляем множитель потенциальной оценки
+							 */
+
+							$success_mult = (double)$user_rating['points'] / (double)$olymp_info['requiredRating'];
+							$success_mult = $success_mult <= 1 ? $success_mult : 1;
+
+							print((int)round($olymp_info['citedScore'] * $success_mult));
+
+							?>
+
+						</td>
 
 					</tr>
 
