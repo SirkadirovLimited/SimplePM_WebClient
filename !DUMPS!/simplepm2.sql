@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Апр 24 2018 г., 19:31
+-- Время создания: Апр 24 2018 г., 23:44
 -- Версия сервера: 5.7.21-log
 -- Версия PHP: 7.1.1
 
@@ -89,7 +89,7 @@ RETURN (sumVal / rProblemsCount);
 end$$
 
 DROP FUNCTION IF EXISTS `RatingCount`$$
-CREATE DEFINER=`*`@`localhost` FUNCTION `RatingCount` (`uId` BIGINT UNSIGNED, `olympId` BIGINT UNSIGNED) RETURNS BIGINT(20) READS SQL DATA
+CREATE DEFINER=`*`@`localhost` FUNCTION `RatingCount` (`uId` BIGINT UNSIGNED, `olympId` BIGINT UNSIGNED) RETURNS DOUBLE READS SQL DATA
     SQL SECURITY INVOKER
 begin
 
@@ -126,6 +126,7 @@ DELIMITER ;
 -- Структура таблицы `spm_olympiads`
 --
 -- Создание: Апр 23 2018 г., 18:40
+-- Последнее обновление: Апр 24 2018 г., 19:22
 --
 
 DROP TABLE IF EXISTS `spm_olympiads`;
@@ -353,7 +354,7 @@ INSERT INTO `spm_problems_tests` (`id`, `problemId`, `input`, `output`, `memoryL
 -- Структура таблицы `spm_submissions`
 --
 -- Создание: Апр 22 2018 г., 07:08
--- Последнее обновление: Апр 24 2018 г., 13:32
+-- Последнее обновление: Апр 24 2018 г., 19:19
 --
 
 DROP TABLE IF EXISTS `spm_submissions`;
@@ -408,7 +409,7 @@ CREATE TABLE IF NOT EXISTS `spm_teacherid` (
 -- Структура таблицы `spm_users`
 --
 -- Создание: Апр 16 2018 г., 11:50
--- Последнее обновление: Апр 24 2018 г., 14:47
+-- Последнее обновление: Апр 24 2018 г., 19:43
 --
 
 DROP TABLE IF EXISTS `spm_users`;
