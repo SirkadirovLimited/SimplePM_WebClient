@@ -382,6 +382,7 @@ global $database;
 $query_str = "
 	SELECT
   	  `id`,
+  	  `email`,
   	  `firstname`,
   	  `secondname`,
   	  `thirdname`
@@ -415,6 +416,7 @@ $deactivated_users = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 				<tr>
 
 					<th><?=_("ID")?></th>
+					<th><?=_("Email")?></th>
 					<th><?=_("Повне ім'я")?></th>
 
 				</tr>
@@ -426,6 +428,12 @@ $deactivated_users = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 					<tr>
 
 						<td><?=$deactivated_user['id']?></td>
+
+						<td>
+							<a href="mailto:<?=$deactivated_user['email']?>">
+								<?=$deactivated_user['email']?>
+							</a>
+						</td>
 
 						<td>
 							<a href="<?=_SPM_?>index.php/users/profile/?id=<?=$deactivated_user['id']?>">
