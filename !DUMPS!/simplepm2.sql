@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Апр 24 2018 г., 17:35
+-- Время создания: Апр 24 2018 г., 19:31
 -- Версия сервера: 5.7.21-log
 -- Версия PHP: 7.1.1
 
@@ -52,8 +52,6 @@ AND
     AND
         `b` >= 0
     AND
-        `classworkId` = 0
-    AND
         `olympId` = 0
     )
 ORDER BY
@@ -78,8 +76,6 @@ AND
     AND
         `b` >= 0
     AND
-        `classworkId` = 0
-    AND
         `olympId` = 0
     )
 ORDER BY
@@ -93,7 +89,7 @@ RETURN (sumVal / rProblemsCount);
 end$$
 
 DROP FUNCTION IF EXISTS `RatingCount`$$
-CREATE DEFINER=`*`@`localhost` FUNCTION `RatingCount` (`uId` BIGINT UNSIGNED) RETURNS BIGINT(20) READS SQL DATA
+CREATE DEFINER=`*`@`localhost` FUNCTION `RatingCount` (`uId` BIGINT UNSIGNED, `olympId` BIGINT UNSIGNED) RETURNS BIGINT(20) READS SQL DATA
     SQL SECURITY INVOKER
 begin
 
@@ -115,7 +111,7 @@ AND
     AND
         `b` > 0
     AND
-        `olympId` = 0
+        `olympId` = olympId
     );
 
 RETURN sumVal;
@@ -412,7 +408,7 @@ CREATE TABLE IF NOT EXISTS `spm_teacherid` (
 -- Структура таблицы `spm_users`
 --
 -- Создание: Апр 16 2018 г., 11:50
--- Последнее обновление: Апр 24 2018 г., 13:34
+-- Последнее обновление: Апр 24 2018 г., 14:47
 --
 
 DROP TABLE IF EXISTS `spm_users`;
