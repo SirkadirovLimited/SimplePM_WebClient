@@ -123,9 +123,11 @@
         ><?=_("Змагання")?></a>
     </li>
 
-    <a
-        class="dropdown-item"
-        href="<?=_SPM_?>index.php/problems/archive/"
-    ><?=_("Архів задач")?></a>
+	<li class="nav-item">
+		<a
+			class="nav-link"
+			href="<?=_SPM_?>index.php/problems/archive/"
+		><?=_("Архів задач")?></a>
+	</li>
 
 <?php endif; ?>

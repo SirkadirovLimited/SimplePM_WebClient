@@ -66,8 +66,7 @@ $associated_olymp = Security::getCurrentSession()['user_info']->getUserInfo()['a
 			 * SimplePM.
 			 */
 
-			$('#olympiadTimer').innerHTML = days + "d " + hours + "h "
-				+ minutes + "m " + seconds + "s ";
+			$('#olympiadTimer').text(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
 
 			/*
 			 * Если  так  называемая "дистанция"
@@ -83,7 +82,7 @@ $associated_olymp = Security::getCurrentSession()['user_info']->getUserInfo()['a
 
 				clearInterval(olympTimer);
 
-				$('#olympiadTimer').innerHTML = "EXPIRED";
+				$('#olympiadTimer').text("EXPIRED");
 
 				window.location.replace("<?=_SPM_?>index.php/olympiads/olympiad/?id=<?=$associated_olymp?>");
 
