@@ -33,6 +33,14 @@ define("__PAGE_LAYOUT__", "default");
 global $database;
 
 /*
+ * Получаем идентификатор текущего соревнования
+ * для возможного ограничения доступного списка
+ * задач.
+ */
+
+$associated_olymp = (int)(Security::getCurrentSession()["user_info"]->getUserInfo()["associated_olymp"]);
+
+/*
  * Получаем информацию о запрошенном
  * запросе (о как!) на тестирование.
  */
@@ -74,6 +82,8 @@ $query_str = "
       `spm_submissions`
     WHERE
       `submissionId` = '" . $_GET['id'] . "'
+    AND
+      `olympId` = '" . $associated_olymp . "'
     LIMIT
       1
     ;
@@ -91,7 +101,7 @@ $submission_info = $database->query($query_str);
  * сти веб-приложения системы.
  */
 
-if ($submission_info->num_rows == 0)
+if ($submission_info->num_rows <= 0)
     Security::ThrowError("404");
 
 /*
