@@ -49,6 +49,12 @@
     "olymp_enabled": false
   },
 
+  {
+    "path": "authorized/olympiads/join",
+    "enabled": true,
+    "olymp_enabled": false
+  },
+
 
   {
     "path": "authorized/users/groups/edit",
