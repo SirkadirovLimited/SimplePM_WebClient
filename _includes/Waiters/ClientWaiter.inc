@@ -77,6 +77,20 @@ class ClientWaiter {
         global $_CONFIG;
 
         /*
+         * Получаем пользовательский сервис
+         * системы по-умолчанию. Он изменя-
+         * ется лишь в том случае, если те-
+         * кущий пользователь системы прини
+         * мает участие в каком-либо соревн
+         * овании.
+         */
+
+        if (Olymp::IsAssociatedWithOlymp())
+        	$webapp_default_service = $_CONFIG->getWebappConfig()["site_default_service_olympiad"];
+		else
+			$webapp_default_service = $_CONFIG->getWebappConfig()["site_default_service"];
+
+        /*
          * В зависимости от того, указан путь к
          * требуемому сервису или нет, выполняем
          * соответствующие действия.
@@ -99,7 +113,7 @@ class ClientWaiter {
 
             return strlen($req_service) > 0
                 ? $req_service
-                : "authorized/" . $_CONFIG->getWebappConfig()["site_default_service"];
+                : "authorized/" . $webapp_default_service;
 
         }
         else
@@ -114,7 +128,7 @@ class ClientWaiter {
 
             return (
             UserInfo::IsAuthUser()
-                ? "authorized/" . $_CONFIG->getWebappConfig()["site_default_service"]
+                ? "authorized/" . $webapp_default_service
                 : "anonymous/" . $_CONFIG->getWebappConfig()["site_default_service_anonymous"]
             );
 
