@@ -38,9 +38,12 @@ trait OlympiadChecker {
              * нами ранее  идентификатором не
              * существует, проделываем необхо
              * димые действия.
+             *
+             * Существует - значит проводится
+             * в данный момент времени.
              */
 
-            if (!Olymp::OlympiadExists($associated_olymp)){
+            if (!Olymp::OlympiadExistsNow($associated_olymp)){
 
                 /*
                  * Производим принудительный выход
