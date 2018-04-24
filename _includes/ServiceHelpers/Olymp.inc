@@ -230,9 +230,11 @@ class Olymp
 			  `teacherId`,
 			  `type`,
 			  `userCanExit`,
-			  `password`,
 			  `judge`,
-			  `problems_list`
+			  `problems_list`,
+			  
+			  `requiredRating`,
+			  `citedScore`
 			FROM
 			  `spm_olympiads`
 			WHERE
