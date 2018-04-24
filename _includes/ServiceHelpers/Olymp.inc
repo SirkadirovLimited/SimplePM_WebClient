@@ -141,7 +141,7 @@ class Olymp
 
     }
 
-    public static function OlympiadExists(int $olymp_id) : bool
+    public static function OlympiadExistsNow(int $olymp_id) : bool
     {
 
         /*
@@ -163,6 +163,10 @@ class Olymp
               `spm_olympiads`
             WHERE
               `id` = '%s'
+            AND
+              `startTime` <= NOW()
+            AND
+              `endTime` >= NOW()
             ;
         ", $olymp_id);
 
