@@ -78,7 +78,7 @@ $query_str = "
 	  `thirdname`,
 	  `permissions`,
 	  `RatingBase`(`id`) AS rating,
-	  `RatingCount`(`id`) AS points
+	  `RatingCount`(`id`, 0) AS points
 	FROM
 	  `spm_users`
 	WHERE
@@ -195,6 +195,7 @@ unset($query);
 				<tr>
 
 					<td><?=$listed_user['id']?></td>
+
 					<td>
 						<a href="<?=_SPM_?>index.php/users/profile/?id=<?=$listed_user['id']?>">
 
@@ -204,8 +205,10 @@ unset($query);
 
 						</a>
 					</td>
+
 					<td><?=(int)$listed_user['points']?></td>
-					<td><?=(float)$listed_user['rating']?></td>
+					
+					<td><?=number_format((float)$listed_user['rating'], 2)?></td>
 
 				</tr>
 

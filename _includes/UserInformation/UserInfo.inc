@@ -147,7 +147,7 @@ class UserInfo {
               `institution`,
               `groupid`,
               `RatingBase`(`id`) AS rating,
-              `RatingCount`(`id`) AS rating_count,
+              `RatingCount`(`id`, 0) AS rating_count,
               `associated_olymp`
             FROM
               `spm_users`
