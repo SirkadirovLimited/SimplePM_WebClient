@@ -207,7 +207,7 @@ unset($query);
 					</td>
 
 					<td><?=(int)$listed_user['points']?></td>
-					
+
 					<td><?=number_format((float)$listed_user['rating'], 2)?></td>
 
 				</tr>
