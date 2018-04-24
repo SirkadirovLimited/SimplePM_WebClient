@@ -98,7 +98,7 @@ $tests_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 		<a
 			href="<?=_SPM_?>index.php/problems/problem/?id=<?=$_GET['id']?>"
 			class="btn btn-primary"
-		><?=_("Повернутися до задачі")?></a>
+		><?=_("Задача")?> №<?=$_GET['id']?></a>
 
 		<a
 			href="<?=_SPM_?>index.php?cmd=problems/edit/tests/add&pid=<?=$_GET['id']?>"

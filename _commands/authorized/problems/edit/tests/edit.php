@@ -29,10 +29,7 @@ Security::CheckAccessPermissions(
  * ного содержимого.
  */
 
-isset($_GET['id']) or Security::ThrowError("404");
 isset($_GET['pid']) or Security::ThrowError("input");
-
-$_GET['id'] = abs((int)$_GET['id']);
 $_GET['pid'] = abs((int)$_GET['pid']);
 
 /*
@@ -92,6 +89,7 @@ foreach ($_POST['testId'] as $testId)
 		$_POST['output'][$tests_iterator],
 		$_POST['timeLimit'][$tests_iterator],
 		$_POST['memoryLimit'][$tests_iterator],
+		$_GET['pid'],
 		$testId
 	);
 
