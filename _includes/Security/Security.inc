@@ -74,7 +74,7 @@ class Security {
 
 			if (is_array($param))
 			{
-				
+
 				$this->ClearPOST($param);
 
 			}
