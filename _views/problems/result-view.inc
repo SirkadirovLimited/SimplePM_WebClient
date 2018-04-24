@@ -240,6 +240,6 @@ global $database;
 
 <div class="card">
 	<div class="card-body text-center">
-		<strong><?=sprintf(_("За вирішення цієї задачі отримано %u балів!"), (int)$submission_info['b'])?></strong>
+		<strong><?=sprintf(_("За вирішення цієї задачі отримано %s балів!"), number_format($submission_info['b'], 2))?></strong>
 	</div>
 </div>
