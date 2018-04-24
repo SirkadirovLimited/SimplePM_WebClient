@@ -59,21 +59,36 @@ class Security {
 
     }
 
-    /**
-     * @return void
-     */
+	/**
+	 * @param null $arr
+	 * @return void
+	 */
 
-    public function ClearPOST() : void
+    public function ClearPOST(&$arr = null) : void
     {
 
-        foreach ($_POST as &$param) {
+    	if ($arr === null)
+    		$arr = &$_POST;
 
-            $param = mysqli_real_escape_string(
-                $this->mysqli_connection,
-                trim(
-                    $param
-                )
-            );
+        foreach ($arr as &$param) {
+
+			if (is_array($param))
+			{
+				
+				$this->ClearPOST($param);
+
+			}
+			else
+			{
+
+				$param = mysqli_real_escape_string(
+					$this->mysqli_connection,
+					trim(
+						$param
+					)
+				);
+
+			}
 
         }
 
