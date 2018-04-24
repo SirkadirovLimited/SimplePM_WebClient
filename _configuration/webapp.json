@@ -5,6 +5,7 @@
 
   "site_default_service": "index",
   "site_default_service_anonymous": "authorization",
+  "site_default_service_olympiad": "olympiads/olympiad",
 
   "default_layout_name": "default",
 
