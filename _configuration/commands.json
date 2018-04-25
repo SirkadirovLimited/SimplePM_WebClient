@@ -6,6 +6,12 @@
     "olymp_enabled": true
   },
 
+  {
+    "path": "authorized/session-renew",
+    "enabled": true,
+    "olymp_enabled": true
+  },
+
 
   {
     "path": "authorized/problems/send_submission",
