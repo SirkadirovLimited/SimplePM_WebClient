@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Апр 24 2018 г., 23:44
+-- Время создания: Апр 25 2018 г., 12:07
 -- Версия сервера: 5.7.21-log
 -- Версия PHP: 7.1.1
 
@@ -126,7 +126,6 @@ DELIMITER ;
 -- Структура таблицы `spm_olympiads`
 --
 -- Создание: Апр 23 2018 г., 18:40
--- Последнее обновление: Апр 24 2018 г., 19:22
 --
 
 DROP TABLE IF EXISTS `spm_olympiads`;
@@ -152,7 +151,6 @@ CREATE TABLE IF NOT EXISTS `spm_olympiads` (
 -- Структура таблицы `spm_problems`
 --
 -- Создание: Апр 22 2018 г., 15:49
--- Последнее обновление: Апр 24 2018 г., 13:34
 --
 
 DROP TABLE IF EXISTS `spm_problems`;
@@ -237,7 +235,6 @@ INSERT INTO `spm_problems_categories` (`id`, `sort`, `name`) VALUES
 -- Структура таблицы `spm_problems_tests`
 --
 -- Создание: Апр 22 2018 г., 07:02
--- Последнее обновление: Апр 24 2018 г., 13:23
 --
 
 DROP TABLE IF EXISTS `spm_problems_tests`;
@@ -354,7 +351,7 @@ INSERT INTO `spm_problems_tests` (`id`, `problemId`, `input`, `output`, `memoryL
 -- Структура таблицы `spm_submissions`
 --
 -- Создание: Апр 22 2018 г., 07:08
--- Последнее обновление: Апр 24 2018 г., 19:19
+-- Последнее обновление: Апр 25 2018 г., 06:58
 --
 
 DROP TABLE IF EXISTS `spm_submissions`;
@@ -390,7 +387,6 @@ CREATE TABLE IF NOT EXISTS `spm_submissions` (
 -- Структура таблицы `spm_teacherid`
 --
 -- Создание: Мар 29 2018 г., 18:12
--- Последнее обновление: Апр 24 2018 г., 07:45
 --
 
 DROP TABLE IF EXISTS `spm_teacherid`;
@@ -409,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `spm_teacherid` (
 -- Структура таблицы `spm_users`
 --
 -- Создание: Апр 16 2018 г., 11:50
--- Последнее обновление: Апр 24 2018 г., 19:43
+-- Последнее обновление: Апр 25 2018 г., 08:06
 --
 
 DROP TABLE IF EXISTS `spm_users`;
