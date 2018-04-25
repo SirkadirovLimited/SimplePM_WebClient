@@ -82,8 +82,6 @@ $query_str = "
       `spm_submissions`
     WHERE
       `submissionId` = '" . $_GET['id'] . "'
-    AND
-      `olympId` = '" . $associated_olymp . "'
     LIMIT
       1
     ;
@@ -130,6 +128,19 @@ $submission_info = $submission_info->fetch_assoc();
 
 Security::CheckAccessPermissionsForEdit($submission_info['userId'])
     or Security::ThrowError("403");
+
+/*
+ * Проверяем,  может   ли   текущий
+ * пользователь во время возможного
+ * текущего соревнования просматрив
+ * ать результат этого запроса.
+ */
+
+if (
+	$submission_info['userId'] == Security::getCurrentSession()['user_info']->getUserId() &&
+	$associated_olymp > 0 && $submission_info['olympId'] != $associated_olymp
+)
+	Security::ThrowError("403");
 
 /*
  * В зависимости от того, готовы ли
