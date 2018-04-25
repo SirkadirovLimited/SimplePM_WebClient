@@ -19,6 +19,12 @@
   },
 
   {
+    "path": "authorized/problems/submissions",
+    "enabled": true,
+    "olymp_enabled": false
+  },
+
+  {
     "path": "authorized/problems/rating",
     "enabled": true,
     "olymp_enabled": false

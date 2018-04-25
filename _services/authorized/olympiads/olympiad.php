@@ -289,11 +289,23 @@ $rating_table = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 					<tr>
 
 						<td><?=$user_rating['id']?></td>
+
 						<td><?=$user_rating['email']?></td>
-						<td><?=$user_rating['secondname']?> <?=$user_rating['firstname']?> <?=$user_rating['thirdname']?></td>
+
+						<td>
+							<a href="<?=_SPM_?>index.php/problems/submissions/?id=1&oid=1">
+
+								<?=$user_rating['secondname']?> <?=$user_rating['firstname']?> <?=$user_rating['thirdname']?>
+
+							</a>
+						</td>
+
 						<td><?=UserInfo::GetGroupName($user_rating['groupid'])?></td>
+
 						<td><?=$user_rating['penalty']?></td>
+
 						<td><?=number_format($user_rating['points'], 2)?></td>
+
 						<td>
 
 							<?php
