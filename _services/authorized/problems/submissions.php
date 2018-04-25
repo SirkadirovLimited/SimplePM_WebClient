@@ -170,7 +170,7 @@ $submissions_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 						<td>
 							<a
 								style="color: #fff !important;"
-								href="<?=_SPM_?>index.php/problems/result/?id=<?=$problem_info['problemId']?>"
+								href="<?=_SPM_?>index.php/problems/result/?id=<?=$problem_info['submissionId']?>"
 							><?=$problem_info['name']?></a>
 						</td>
 
