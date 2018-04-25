@@ -198,16 +198,34 @@ class Security {
         {
 
             case "403":
-                $error_message = "403 Forbidden: You don't have access to this page.";
+                $error_message = _("Нажаль Ви не маєте права доступу до цього сервісу!");
                 break;
             case "404":
-                $error_message = "404 File Not Found: Requested service or page is not found on this server.";
+
+            	/*
+            	 * В  соревновательном   режиме
+            	 * некоторые ошибки кардинально
+            	 * меняют свой смысл...
+            	 */
+
+            	if (UserInfo::IsAuthUser() && Olymp::IsAssociatedWithOlymp())
+				{
+
+					// Переопределяем заголовок
+					header('location: ' . _SPM_ . 'index.php', true);
+
+					// Завершаем работу текущего экземпляра веб-приложения
+					exit;
+
+				}
+
+                $error_message = _("Упс... Такої сторінки тут немає!");
                 break;
             case "db":
-                $error_message = "Database error: An error catched while trying to connect to database!";
+                $error_message = _("Ой-ой! Щось трапилося при підключення до БД!");
                 break;
             case "input":
-                $error_message = "Input error: Something wrong with data you entered!";
+                $error_message = _("Дані надані не вірно, цей запит не буде оброблений!");
                 break;
             default:
                 $error_message = (string)$errorId;
@@ -215,12 +233,15 @@ class Security {
 
         }
 
-        exit(
-            '<h1>' .
-            $error_message .
-            '</h1>' .
-            '<meta http-equiv="refresh" content="5;URL=' . _SPM_ . '" />'
-        );
+        /*
+         * Отображаем страницу с информацией.
+         */
+
+		(new LayoutManager("message"))->DisplayLayout(
+        	$error_message,
+			"SimplePM",
+			true
+		);
 
     }
 

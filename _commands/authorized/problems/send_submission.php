@@ -188,8 +188,6 @@ if (!isset($_POST['custom_test']) || (int)strlen($_POST['custom_test']) <= 0)
             WHERE
               `problemId` = '" . $_POST['problem_id'] . "'
             ORDER BY
-              `timeLimit` DESC,
-              `memoryLimit` DESC,
               `id` ASC
             LIMIT
               1
@@ -283,6 +281,9 @@ $query_str = "
       `customTest` = '" . $_POST['custom_test'] . "'
     ;
 ";
+
+// Только для тестирования
+//for ($i = 0; $i < 1000; $i++)
 
 // Выполняем запрос и обрабатываем ошибки
 if (!$database->query($query_str))
