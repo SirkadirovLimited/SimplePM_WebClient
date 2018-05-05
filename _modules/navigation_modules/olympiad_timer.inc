@@ -10,6 +10,18 @@
  * @Email: admin@sirkadirov.com
  */
 
+/*
+ * Запрашиваем  доступ  к
+ * глобальным переменным.
+ */
+
+global $database;
+
+/*
+ * Получаем  идентификатор
+ * связанного соревнования
+ */
+
 $associated_olymp = Security::getCurrentSession()['user_info']->getUserInfo()['associated_olymp'];
 
 ?>
@@ -26,7 +38,7 @@ $associated_olymp = Security::getCurrentSession()['user_info']->getUserInfo()['a
 			 * Вычисляем текущее время
 			 */
 
-			var now = new Date().getTime();
+			var now = new Date("<?=$database->query("SELECT NOW();")->fetch_array()[0]?>").getTime();
 
 			/*
 			 * Вычисляем  так  называемую   "дистанцию"
@@ -89,6 +101,7 @@ $associated_olymp = Security::getCurrentSession()['user_info']->getUserInfo()['a
 			}
 
 		}, 1000);
+		
 	</script>
 
 	<li class="nav-item">
