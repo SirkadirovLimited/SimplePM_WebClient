@@ -125,6 +125,19 @@ $submissions_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 				<a class="nav-link active" href="<?=_SPM_?>index.php/problems/submissions/?id=<?=$_GET['id']?>"><?=_("Спроби")?></a>
 			</li>
 
+			<?php if ($_GET['oid'] > 0): ?>
+
+				<li class="nav-item">
+
+					<a
+							class="nav-link"
+							href="<?=_SPM_?>index.php/olympiads/olympiad/?id=<?=$_GET['oid']?>"
+					><strong class="text-danger"><?=_("Повернутися до змагання")?></strong></a>
+
+				</li>
+
+			<?php endif; ?>
+
 		</ul>
 	</div>
 	<div class="card-body" style="padding: 0;">
@@ -141,6 +154,7 @@ $submissions_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 					<th><?=_("Назва задачі")?></th>
 					<th><?=_("Дата та час відправки")?></th>
 					<th><?=_("Спроба")?></th>
+					<th><?=_("Points")?></th>
 
 				</tr>
 
@@ -181,6 +195,10 @@ $submissions_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 								style="color: #fff !important;"
 								href="<?=_SPM_?>index.php/problems/result/?id=<?=$problem_info['submissionId']?>"
 							><?=$problem_info['submissionId']?></a>
+						</td>
+
+						<td>
+							<?=$problem_info['b']?> / <?=$problem_info['difficulty']?>
 						</td>
 
 					</tr>

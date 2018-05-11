@@ -239,6 +239,10 @@ $query_str = sprintf("
 	  `spm_submissions`.`userId` = `spm_users`.`id`
 	WHERE
 	  `spm_submissions`.`olympId` = '%s'
+	AND
+	  `spm_submissions`.`testType` = 'release'
+	AND
+	  `spm_submissions`.`b` > 0
 	GROUP BY
 	  `spm_submissions`.`userId`
 	ORDER BY
@@ -290,10 +294,14 @@ $rating_table = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 
 						<td><?=$user_rating['id']?></td>
 
-						<td><?=$user_rating['email']?></td>
+						<td>
+							<a href="mailto:<?=$user_rating['email']?>">
+								<?=$user_rating['email']?>
+							</a>
+						</td>
 
 						<td>
-							<a href="<?=_SPM_?>index.php/problems/submissions/?id=1&oid=1">
+							<a href="<?=_SPM_?>index.php/problems/submissions/?id=<?=$user_rating['id']?>&oid=<?=$_GET['id']?>">
 
 								<?=$user_rating['secondname']?> <?=$user_rating['firstname']?> <?=$user_rating['thirdname']?>
 

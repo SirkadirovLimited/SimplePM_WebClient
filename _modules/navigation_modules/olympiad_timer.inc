@@ -101,7 +101,7 @@ $associated_olymp = Security::getCurrentSession()['user_info']->getUserInfo()['a
 			}
 
 		}, 1000);
-		
+
 	</script>
 
 	<li class="nav-item">
