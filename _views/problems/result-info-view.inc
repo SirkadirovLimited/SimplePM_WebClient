@@ -131,7 +131,19 @@
 			</td>
 
 			<td>
-				<?=@$submission_info['olympId'] > 0 ? "№" . @$submission_info['olympId'] : _("зв'язок відсутній")?>
+
+				<?php if ($submission_info['olympId'] > 0): ?>
+
+					<a href="<?=_SPM_?>index.php/olympiads/olympiad/?id=<?=@$submission_info['olympId']?>" target="_blank">
+						<?=_("№ ") . @$submission_info['olympId']?>
+					</a>
+
+				<?php else: ?>
+
+					<?=_("зв'язок відсутній")?>
+
+				<?php endif; ?>
+
 			</td>
 
 
