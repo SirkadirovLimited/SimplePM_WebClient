@@ -140,6 +140,7 @@ $submissions_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 
 		</ul>
 	</div>
+    
 	<div class="card-body" style="padding: 0;">
 
 		<?php if (sizeof($submissions_list) > 0): ?>
