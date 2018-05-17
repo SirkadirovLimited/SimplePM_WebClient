@@ -30,6 +30,8 @@ $associated_olymp = Security::getCurrentSession()['user_info']->getUserInfo()['a
 
 	<script>
 
+		var timeErrChanger = new Date().getTime() - new Date("<?=$database->query("SELECT CURRENT_TIMESTAMP;")->fetch_array()[0]?>").getTime();
+
 		var countDownDate = new Date("<?=Olymp::GetOlympiadInfo($associated_olymp)['endTime']?>").getTime();
 
 		var olympTimer = setInterval(function() {
@@ -38,7 +40,7 @@ $associated_olymp = Security::getCurrentSession()['user_info']->getUserInfo()['a
 			 * Вычисляем текущее время
 			 */
 
-			var now = new Date("<?=$database->query("SELECT NOW();")->fetch_array()[0]?>").getTime();
+			var now = new Date().getTime() - timeErrChanger;
 
 			/*
 			 * Вычисляем  так  называемую   "дистанцию"
@@ -93,6 +95,8 @@ $associated_olymp = Security::getCurrentSession()['user_info']->getUserInfo()['a
 			if (distance < 0) {
 
 				clearInterval(olympTimer);
+
+				alert('<?=_("Змагання вже закінчилося! Ви будете переадресовані на сторінку рейтингу.")?>');
 
 				$('#olympiadTimer').text("EXPIRED");
 
