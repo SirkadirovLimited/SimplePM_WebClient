@@ -1,13 +1,31 @@
 <?php
 
 /*
- * Copyright (C) 2018, Yurij Kadirov.
- * All rights are reserved.
- * Licensed under Apache License 2.0 with additional restrictions.
+ * ███████╗██╗███╗   ███╗██████╗ ██╗     ███████╗██████╗ ███╗   ███╗
+ * ██╔════╝██║████╗ ████║██╔══██╗██║     ██╔════╝██╔══██╗████╗ ████║
+ * ███████╗██║██╔████╔██║██████╔╝██║     █████╗  ██████╔╝██╔████╔██║
+ * ╚════██║██║██║╚██╔╝██║██╔═══╝ ██║     ██╔══╝  ██╔═══╝ ██║╚██╔╝██║
+ * ███████║██║██║ ╚═╝ ██║██║     ███████╗███████╗██║     ██║ ╚═╝ ██║
+ * ╚══════╝╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝     ╚═╝     ╚═╝
  *
- * @Author: Yurij Kadirov
- * @Website: https://sirkadirov.com/
- * @Email: admin@sirkadirov.com
+ * SimplePM WebApp
+ * A part of SimplePM programming contests management system.
+ *
+ * Copyright 2018 Yurij Kadirov
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Visit website for more details: https://spm.sirkadirov.com/
  */
 
 trait UserChecker {
