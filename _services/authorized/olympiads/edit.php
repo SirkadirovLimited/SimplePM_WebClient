@@ -51,7 +51,7 @@ $_GET['id'] = abs((int)$_GET['id']);
  * Глобальные константы
  */
 
-define("__PAGE_TITLE__", _("Редагування інформації про змагання") . ($_GET['id'] > 0 ? " №" . $_GET['id'] : ""));
+define("__PAGE_TITLE__", ($_GET['id'] > 0 ? _("Редагування інформації про змагання №") . $_GET['id'] : _("Створення нового змагання")));
 define("__PAGE_LAYOUT__", "default");
 
 /*
@@ -118,6 +118,14 @@ if ($_GET['id'] > 0)
             <li class="nav-item">
                 <a class="nav-link <?=$_GET['id'] == 0 ? "active" : ""?>" href="<?=_SPM_?>index.php/olympiads/edit/"><?=_("Створити змагання")?></a>
             </li>
+
+			<?php if ($_GET['id'] > 0): ?>
+
+				<li class="nav-item">
+					<a class="nav-link active" href="<?=_SPM_?>index.php/olympiads/edit/?id=<?=$_GET['id']?>"><?=_("Редагування змагання")?></a>
+				</li>
+
+			<?php endif; ?>
 
         </ul>
 
@@ -276,6 +284,29 @@ if ($_GET['id'] > 0)
 
 			</div>
 
+			<h4 class="text-center" style="margin-top: 10px; margin-bottom: 10px;"><?=_("Виставлення оцінок")?></h4>
+
+			<div class="form-group">
+
+				<div class="custom-control custom-checkbox">
+					<input
+							type="checkbox"
+							name="enableCitedScore"
+							id="enableCitedScore"
+							class="custom-control-input"
+					>
+					<label
+							class="custom-control-label"
+							for="enableCitedScore"
+					><?=_("Зведене оцінювання користувацьких рішень")?></label>
+				</div>
+
+				<small class="form-text text-muted">
+					<?=_("Увімкніть для розрахунку персональної оцінки для кожного учасника змагання.")?>
+				</small>
+
+			</div>
+
 			<div class="row">
 
 				<div class="col-md-6 col-sm-12">
@@ -416,25 +447,6 @@ if ($_GET['id'] > 0)
 
 				<small class="form-text text-muted">
 					<?=_("Відімкнути можливість копіювання та вставки, а також використання інших подібних функцій в системі для учасників змагання.")?>
-				</small>
-
-			</div>
-
-			<div class="form-group disabled">
-
-				<div class="custom-control custom-checkbox">
-					<input
-							type="checkbox"
-							class="custom-control-input"
-							checked
-					>
-					<label
-							class="custom-control-label"
-					><?=_("Обчислювати час до завершення змагання за серверним часом")?></label>
-				</div>
-
-				<small class="form-text text-muted">
-					<?=_("Увімкнення цього чекбоксу допоможе уникнути проблем, пов'язаних з розбіжностями у часоплині на серверах системи та на клієнтських машинах.")?>
 				</small>
 
 			</div>
