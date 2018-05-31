@@ -141,7 +141,7 @@ if ($_GET['id'] > 0)
 					type="hidden"
 
 					name="id"
-					value=""
+					value="<?=$_GET['id']?>"
 			>
 
 			<div class="form-group">

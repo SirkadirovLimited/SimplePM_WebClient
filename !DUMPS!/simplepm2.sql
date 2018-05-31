@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Май 17 2018 г., 00:11
--- Версия сервера: 5.7.21-log
--- Версия PHP: 7.1.1
+-- Час створення: Трв 31 2018 р., 18:09
+-- Версія сервера: 5.7.21-log
+-- Версія PHP: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,14 +19,14 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `simplepm2`
+-- База даних: `simplepm2`
 --
 CREATE DATABASE IF NOT EXISTS `simplepm2` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `simplepm2`;
 
 DELIMITER $$
 --
--- Функции
+-- Функції
 --
 DROP FUNCTION IF EXISTS `RatingBase`$$
 CREATE DEFINER=`root`@`localhost` FUNCTION `RatingBase` (`urId` BIGINT UNSIGNED) RETURNS FLOAT UNSIGNED READS SQL DATA
@@ -123,9 +123,9 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `spm_olympiads`
+-- Структура таблиці `spm_olympiads`
 --
--- Создание: Апр 23 2018 г., 18:40
+-- Створення: Квт 23 2018 р., 18:40
 --
 
 DROP TABLE IF EXISTS `spm_olympiads`;
@@ -148,9 +148,9 @@ CREATE TABLE IF NOT EXISTS `spm_olympiads` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `spm_problems`
+-- Структура таблиці `spm_problems`
 --
--- Создание: Апр 22 2018 г., 15:49
+-- Створення: Квт 22 2018 р., 15:49
 --
 
 DROP TABLE IF EXISTS `spm_problems`;
@@ -170,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `spm_problems` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `spm_problems`
+-- Дамп даних таблиці `spm_problems`
 --
 
 INSERT INTO `spm_problems` (`id`, `enabled`, `difficulty`, `category_id`, `name`, `description`, `input_description`, `output_description`, `authorSolution`, `authorSolutionLanguage`, `adaptProgramOutput`) VALUES
@@ -190,9 +190,9 @@ INSERT INTO `spm_problems` (`id`, `enabled`, `difficulty`, `category_id`, `name`
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `spm_problems_categories`
+-- Структура таблиці `spm_problems_categories`
 --
--- Создание: Мар 29 2018 г., 18:12
+-- Створення: Бер 29 2018 р., 18:12
 --
 
 DROP TABLE IF EXISTS `spm_problems_categories`;
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `spm_problems_categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `spm_problems_categories`
+-- Дамп даних таблиці `spm_problems_categories`
 --
 
 INSERT INTO `spm_problems_categories` (`id`, `sort`, `name`) VALUES
@@ -232,9 +232,9 @@ INSERT INTO `spm_problems_categories` (`id`, `sort`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `spm_problems_tests`
+-- Структура таблиці `spm_problems_tests`
 --
--- Создание: Апр 22 2018 г., 07:02
+-- Створення: Квт 22 2018 р., 07:02
 --
 
 DROP TABLE IF EXISTS `spm_problems_tests`;
@@ -249,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `spm_problems_tests` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `spm_problems_tests`
+-- Дамп даних таблиці `spm_problems_tests`
 --
 
 INSERT INTO `spm_problems_tests` (`id`, `problemId`, `input`, `output`, `memoryLimit`, `timeLimit`) VALUES
@@ -348,10 +348,9 @@ INSERT INTO `spm_problems_tests` (`id`, `problemId`, `input`, `output`, `memoryL
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `spm_submissions`
+-- Структура таблиці `spm_submissions`
 --
--- Создание: Апр 22 2018 г., 07:08
--- Последнее обновление: Май 16 2018 г., 20:11
+-- Створення: Квт 22 2018 р., 07:08
 --
 
 DROP TABLE IF EXISTS `spm_submissions`;
@@ -384,9 +383,9 @@ CREATE TABLE IF NOT EXISTS `spm_submissions` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `spm_teacherid`
+-- Структура таблиці `spm_teacherid`
 --
--- Создание: Мар 29 2018 г., 18:12
+-- Створення: Бер 29 2018 р., 18:12
 --
 
 DROP TABLE IF EXISTS `spm_teacherid`;
@@ -402,10 +401,9 @@ CREATE TABLE IF NOT EXISTS `spm_teacherid` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `spm_users`
+-- Структура таблиці `spm_users`
 --
--- Создание: Апр 16 2018 г., 11:50
--- Последнее обновление: Май 16 2018 г., 20:10
+-- Створення: Квт 16 2018 р., 11:50
 --
 
 DROP TABLE IF EXISTS `spm_users`;
@@ -432,9 +430,9 @@ CREATE TABLE IF NOT EXISTS `spm_users` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `spm_users_groups`
+-- Структура таблиці `spm_users_groups`
 --
--- Создание: Мар 29 2018 г., 18:12
+-- Створення: Бер 29 2018 р., 18:12
 --
 
 DROP TABLE IF EXISTS `spm_users_groups`;
