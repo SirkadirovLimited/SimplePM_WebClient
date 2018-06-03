@@ -255,6 +255,34 @@ else
 	$_POST['judge'] = $_CONFIG->getWebappConfig()['default_judge'];
 
 /*
+ * Производим подсчёт предыдущих попы
+ * ток release-отправки решений задач
+ * и данным пользователем.
+ */
+
+// Формируем запрос на выборку данных из БД
+$query_str = sprintf("
+	SELECT
+	  SUM(`previous_count`)
+	FROM
+	  `spm_submissions`
+	WHERE
+	  `userId` = '%s'
+	AND
+	  `problemId` = '%s'
+	AND
+	  `olympId` = '%s'
+	;
+",
+	Security::getCurrentSession()["user_info"]->getUserId(),
+	$_POST['problem_id'],
+	$_olymp_id
+);
+
+// Выполняем запрос и производим выборку данных из БД
+$previous_count = (int)($database->query($query_str)->fetch_array()[0]);
+
+/*
  * Выборочно удаляем  все  предыдущие
  * попытки пользователя решить задачу
  * (кроме release-отправок  во  время
@@ -289,6 +317,8 @@ $query_str = "
       `olympId` = '" . $_olymp_id . "',
       
       `userId` = '" . Security::getCurrentSession()["user_info"]->getUserId() . "',
+      
+      `previous_count` = '" . ($previous_count + (int)($_POST['submission_type'] === "release")) . "',
       
       `problemId` = '" . $_POST['problem_id'] . "',
       `codeLang` = '" . $_POST['submission_language'] . "',
