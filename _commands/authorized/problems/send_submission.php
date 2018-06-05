@@ -124,7 +124,7 @@ $_olymp_id = Security::getCurrentSession()["user_info"]->getUserInfo()["associat
  */
 
 // Формируем запрос на выборку
-$query_str = "
+$query_str = sprintf("
     SELECT
       count(`id`)
     FROM
@@ -136,9 +136,11 @@ $query_str = "
     AND
       `authorSolutionLanguage` IS NOT NULL
     AND
-      `id` = '" . $_POST['problem_id'] . "'
+      `id` = '%s'
     ;
-";
+",
+	$_POST['problem_id']
+);
 
 // Выполняем запрос и обрабатываем результаты
 if ((int)($database->query($query_str)->fetch_array()[0] != 1))
@@ -159,15 +161,17 @@ Olymp::CheckProblemInList($_olymp_id, $_POST['problem_id']);
  */
 
 // Формируем запрос на выборку из БД
-$query_str = "
+$query_str = sprintf("
     SELECT
       count(`id`)
     FROM
       `spm_problems_tests`
     WHERE
-      `problemId` = '" . $_POST['problem_id'] . "'
+      `problemId` = '%s'
     ;
-";
+",
+	$_POST['problem_id']
+);
 
 // Производим запрос и проверку
 (int)($database->query($query_str)->fetch_array()[0]) > 0
@@ -198,19 +202,21 @@ if (!isset($_POST['custom_test']) || (int)strlen($_POST['custom_test']) <= 0)
     {
 
         // Формируем запрос на выборку из БД
-        $query_str = "
+        $query_str = sprintf("
             SELECT
               `input`
             FROM
               `spm_problems_tests`
             WHERE
-              `problemId` = '" . $_POST['problem_id'] . "'
+              `problemId` = '%s'
             ORDER BY
               `id` ASC
             LIMIT
               1
             ;
-        ";
+        ",
+	        $_POST['problem_id']
+        );
 
         // Получаем входные данные для теста
         $_POST['custom_test'] = $database->query($query_str)->fetch_array()[0];
@@ -236,17 +242,19 @@ if (!isset($_POST['custom_test']) || (int)strlen($_POST['custom_test']) <= 0)
 if ($_olymp_id > 0)
 {
 
-	$query_str = "
+	$query_str = sprintf("
 		SELECT
 		  `judge`
 		FROM
 		  `spm_olympiads`
 		WHERE
-		  `id` = '" . $_olymp_id . "'
+		  `id` = '%s'
 		LIMIT
 		  1
 		;
-	";
+	",
+		$_olymp_id
+	);
 
 	$_POST['judge'] = $database->query($query_str)->fetch_array()[0];
 
@@ -290,17 +298,21 @@ $previous_count = (int)($database->query($query_str)->fetch_array()[0]);
  */
 
 // Формируем запрос на удаление данных из БД
-$query_str = "
+$query_str = sprintf("
     DELETE FROM
       `spm_submissions`
     WHERE
-      `userId` = '" . Security::getCurrentSession()["user_info"]->getUserId() . "'
+      `userId` = '%s'
     AND
-      `problemId` = '" . $_POST['problem_id'] . "'
+      `problemId` = '%s'
     AND
-      `olympId` = '" . $_olymp_id . "'
+      `olympId` = '%s'
     ;
-";
+",
+	Security::getCurrentSession()["user_info"]->getUserId(),
+	$_POST['problem_id'],
+	$_olymp_id
+);
 
 // Выполняем удаление данных из БД
 $database->query($query_str);
@@ -310,25 +322,35 @@ $database->query($query_str);
  */
 
 // Формируем запрос на добавление данных в БД
-$query_str = "
+$query_str = sprintf("
     INSERT INTO
       `spm_submissions`
     SET
-      `olympId` = '" . $_olymp_id . "',
+      `olympId` = '%s',
       
-      `userId` = '" . Security::getCurrentSession()["user_info"]->getUserId() . "',
+      `userId` = '%s',
       
-      `previous_count` = '" . ($previous_count + (int)($_POST['submission_type'] === "release")) . "',
+      `previous_count` = '%s',
       
-      `problemId` = '" . $_POST['problem_id'] . "',
-      `codeLang` = '" . $_POST['submission_language'] . "',
-      `problemCode` = '" . $_POST['code'] . "',
+      `problemId` = '%s',
+      `codeLang` = '%s',
+      `problemCode` = '%s',
       
-      `testType` = '" . $_POST['submission_type'] . "',
-      `judge` = '" . $_POST['judge'] . "',
-      `customTest` = '" . $_POST['custom_test'] . "'
+      `testType` = '%s',
+      `judge` = '%s',
+      `customTest` = '%s'
     ;
-";
+",
+	$_olymp_id,
+	Security::getCurrentSession()["user_info"]->getUserId(),
+	($previous_count + (int)($_POST['submission_type'] === "release")),
+	$_POST['problem_id'],
+	$_POST['submission_language'],
+	$_POST['code'],
+	$_POST['submission_type'],
+	$_POST['judge'],
+	$_POST['custom_test']
+);
 
 // Только для тестирования
 //for ($i = 0; $i < 100000; $i++)
