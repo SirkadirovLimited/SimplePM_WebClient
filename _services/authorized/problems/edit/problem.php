@@ -409,10 +409,14 @@ if ($_GET['id'] > 0)
 
         <button type="reset" class="btn btn-outline-secondary"><?=_("Відмінити зміни")?></button>
 
-		<a
-				href="<?=_SPM_?>index.php/problems/edit/tests/"
-				class="btn btn-dark"
-		><?=_("Редагувати тести до задачі")?></a>
+	    <?php if ($_GET['id'] > 0): ?>
+
+			<a
+					href="<?=_SPM_?>index.php/problems/edit/tests/"
+					class="btn btn-dark"
+			><?=_("Редагувати тести до задачі")?></a>
+
+	    <?php endif; ?>
 
         <button type="submit" class="btn btn-primary"><?=_("Зберегти зміни")?></button>
 
