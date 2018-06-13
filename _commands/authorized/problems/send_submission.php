@@ -288,7 +288,7 @@ $query_str = sprintf("
 );
 
 // Выполняем запрос и производим выборку данных из БД
-$previous_count = (int)($database->query($query_str)->fetch_array()[0]);
+$previous_count = (int)(@$database->query($query_str)->fetch_array()[0]);
 
 /*
  * Выборочно удаляем  все  предыдущие
