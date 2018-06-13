@@ -238,7 +238,18 @@ global $database;
 // Формируем запрос на выборку данных из БД
 $query_str = sprintf("
 	SELECT
-	  SEC_TO_TIME(sum(TIME_TO_SEC(TIMEDIFF(`spm_submissions`.`time`, '%s')))) AS penalty,
+	  SEC_TO_TIME(
+	    sum(
+	      TIME_TO_SEC(
+	        TIMEDIFF(`spm_submissions`.`time`, '%s')
+	      )
+	    ) +
+	    (
+	      sum(
+	        `spm_submissions`.`previous_count` - 1
+	      ) * 60 * 20
+	    )
+	  ) AS penalty,
 	  
       `spm_users`.`id`,
       
