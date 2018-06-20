@@ -89,8 +89,6 @@ $query_str = "
       `output`,
       
       `exitcodes`,
-      `usedProcTime`,
-      `usedMemory`,
       
       `compiler_text`,
       `tests_result`,

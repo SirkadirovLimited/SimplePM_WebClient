@@ -84,7 +84,7 @@ global $database;
 	<div class="card-header"><?=_("Вихідний потік компілятора")?></div>
 
 	<div class="card-body" style="padding: 0;">
-		<pre class="card-text" style="margin: 0;"><?=$submission_info['compiler_text']?></pre>
+		<pre class="card-text" style="margin: 0;"><?=trim($submission_info['compiler_text'])?></pre>
 		<p class="card-text text-center" style="margin: 0; padding: 5px !important;">
 			<strong><?=(!$submission_info['hasError'] ? _("Компіляція проведена успішно!") : _("Компіляція зазнала невдачі!"))?></strong>
 		</p>
@@ -96,27 +96,40 @@ global $database;
 
 	<?php
 
-	$submission_info['usedMemory'] = explode(
-			"|",
-			substr(
-					$submission_info['usedMemory'],
-					0,
-					strlen(
-							$submission_info['usedMemory']
-					) - 1
-			)
-	);
+    /*
+     * Получаем информацию о всех
+     * тестах к данной  здаче для
+     * последующего вывода информ
+     * ации о них в пользовательс
+     * ком интерфейсе веб-приложе
+     * ния.
+     */
 
-	$submission_info['usedProcTime'] = explode(
-			"|",
-			substr(
-				$submission_info['usedProcTime'],
-				0,
-				strlen(
-					$submission_info['usedProcTime']
-				) - 1
-			)
-	);
+    // Формируем запрос на выборку данных из БД
+    $query_str = sprintf("
+        SELECT
+          `id`,
+          `input`,
+          `timeLimit`,
+          `memoryLimit`
+        FROM
+          `spm_problems_tests`
+        WHERE
+          `problemId` = '%s'
+        ORDER BY
+          `id` ASC
+        ;
+    ",
+        $submission_info['problemId']
+    );
+
+    // Выполняем запрос и производим выборку всех данных из БД
+    $tests_info = $database->query($query_str)->fetch_all(MYSQLI_BOTH);
+
+    /*
+     * Получаем информацию о кодах выхода
+     * пользовательского решения.
+     */
 
 	$submission_info['exitcodes'] = explode(
 			"|",
@@ -128,6 +141,12 @@ global $database;
 				) - 1
 			)
 	);
+
+	/*
+	 * Получаем информацию о результатах
+	 * пользовательской   программы   по
+	 * каждому тесту в отдельности.
+	 */
 
 	$submission_info['tests_result'] = explode(
 			"|",
@@ -155,8 +174,8 @@ global $database;
 				<tr>
 
 					<th><?=_("ID тесту")?></th>
-					<th><?=_("Пам'ять, байт")?></th>
-					<th><?=_("Процесорний час, мс")?></th>
+                    <th><?=_("Ліміт за часом CPU")?>, <abbr title="<?=_("Максимальна кількість використаного процесорного часу в міллісекундах")?>"><?=_("ms")?></abbr></th>
+                    <th><?=_("Ліміт за пам'яттю")?>, <abbr title="<?=_("Максимальний розмір використаної пам'яті в байтах")?>"><?=_("bytes")?></abbr></th>
 					<th><?=_("Код виходу")?></th>
 					<th><?=_("Результат")?></th>
 
@@ -170,9 +189,25 @@ global $database;
 
 					<tr class="<?=($test_result == '+' ? "" : "bg-danger text-white")?>">
 
-						<td><?=($i + 1)?></td>
-						<td><?=@$submission_info['usedMemory'][$i]?></td>
-						<td><?=@$submission_info['usedProcTime'][$i]?></td>
+						<td>
+
+                            <?php if (
+                                    Security::CheckAccessPermissions(
+                                            Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
+                                            PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR
+                                    )): ?>
+
+                            <abbr title="<?=$tests_info[$i]['input']?>"><?=$tests_info[$i]['id']?></abbr>
+
+                            <?php else: ?>
+                            <span><?=$tests_info[$i]['id']?></span>
+                            <?php endif; ?>
+
+                        </td>
+
+                        <td><?=$tests_info[$i]['timeLimit']?></td>
+                        <td><?=$tests_info[$i]['memoryLimit']?></td>
+
 						<td><?=@$submission_info['exitcodes'][$i]?></td>
 						<td><strong><?=$test_result?></strong></td>
 
