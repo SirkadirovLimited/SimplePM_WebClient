@@ -3,7 +3,7 @@ Official repository of SimplePM WebApp, web application of software product "Aut
 
 Detailed information about the project you can get at project's official website: https://spm.sirkadirov.com/
 
-[![GitHub (pre-)release version](https://img.shields.io/github/release/SirkadirovTeam/SimplePM_WebAppt/all.svg)](https://github.com/SirkadirovTeam/SimplePM_WebClient/releases)
+[![GitHub (pre-)release version](https://img.shields.io/github/release/SirkadirovTeam/SimplePM_WebApp/all.svg)](https://github.com/SirkadirovTeam/SimplePM_WebApp/releases)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1230/badge)](https://bestpractices.coreinfrastructure.org/projects/1230)
 [![Maintainability](https://api.codeclimate.com/v1/badges/34d10acb673eaec25f40/maintainability)](https://codeclimate.com/github/SirkadirovTeam/SimplePM_WebClient/maintainability)
 
