@@ -59,7 +59,11 @@
 			</td>
 
 			<td>
-				<?=@$submission_info['problemId']?>
+
+				<a
+                        href="<?=_SPM_?>index.php/problems/problem?id=<?=@$submission_info['problemId']?>"
+                ><?=@$submission_info['problemId']?></a>
+
 			</td>
 
 
@@ -190,7 +194,7 @@
 								<h5 class="modal-title"><?=_("Початковий код запиту")?> (<?=$submission_info['codeLang']?>)</h5>
 								<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
 							</div>
-							<pre class="modal-body"><?=htmlspecialchars($submission_info['problemCode'])?></pre>
+							<pre class="modal-body" style="margin-bottom: 0;"><?=htmlspecialchars($submission_info['problemCode'])?></pre>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити вікно</button>
 							</div>
