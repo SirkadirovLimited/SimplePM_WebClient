@@ -5,7 +5,7 @@ Detailed information about the project you can get at project's official website
 
 [![GitHub (pre-)release version](https://img.shields.io/github/release/SirkadirovTeam/SimplePM_WebApp/all.svg)](https://github.com/SirkadirovTeam/SimplePM_WebApp/releases)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1230/badge)](https://bestpractices.coreinfrastructure.org/projects/1230)
-[![Maintainability](https://api.codeclimate.com/v1/badges/34d10acb673eaec25f40/maintainability)](https://codeclimate.com/github/SirkadirovTeam/SimplePM_WebClient/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9e88b0a0910af3f47af8/maintainability)](https://codeclimate.com/github/SirkadirovTeam/SimplePM_WebApp/maintainability)
 
 ## Documentation
 Visit Atlassian Confluence installation located at https://simplepm.atlassian.net/wiki, where you can get full documentation about the project and its usecases.
