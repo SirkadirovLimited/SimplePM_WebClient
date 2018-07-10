@@ -163,8 +163,9 @@ unset($query);
 </div>
 
 <?php if (Security::CheckAccessPermissions(
-		$user_info['permissions'],
-		PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR
+		PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR,
+        false,
+        $user_info['permissions']
 )): ?>
 
 	<ul class="nav nav-pills justify-content-end" style="margin-top: 0; margin-bottom: 10px;">

@@ -191,11 +191,7 @@ global $database;
 
 						<td>
 
-                            <?php if (
-                                    Security::CheckAccessPermissions(
-                                            Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
-                                            PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR
-                                    )): ?>
+                            <?php if (Security::CheckAccessPermissions(PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR)): ?>
 
                             <abbr title="<?=$tests_info[$i]['input']?>"><?=$tests_info[$i]['id']?></abbr>
 

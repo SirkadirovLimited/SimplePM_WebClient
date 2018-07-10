@@ -34,7 +34,6 @@
  */
 
 Security::CheckAccessPermissions(
-    Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
     PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR,
     true
 );
