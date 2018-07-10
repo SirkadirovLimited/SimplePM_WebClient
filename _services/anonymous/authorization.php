@@ -8,8 +8,8 @@
  * ███████║██║██║ ╚═╝ ██║██║     ███████╗███████╗██║     ██║ ╚═╝ ██║
  * ╚══════╝╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝     ╚═╝     ╚═╝
  *
- * SimplePM WebApp
- * A part of SimplePM programming contests management system.
+ * SimplePM WebApp is a part of software product "Automated
+ * vefification system for programming tasks "SimplePM".
  *
  * Copyright 2018 Yurij Kadirov
  *
@@ -32,7 +32,9 @@ define("__PAGE_TITLE__", _("Авторизація"));
 define("__PAGE_LAYOUT__", "skeleton");
 
 ?>
+
 <link href="<?=_SPM_assets_?>css/auth_page.css" rel="stylesheet">
+
 <form class="form-signin" method="post" action="<?=_SPM_?>index.php?cmd=login">
 
     <h1 class="h1 mb-3 font-weight-normal text-center"><strong>Simple</strong>PM</h1>

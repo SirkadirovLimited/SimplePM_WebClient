@@ -8,8 +8,8 @@
  * ███████║██║██║ ╚═╝ ██║██║     ███████╗███████╗██║     ██║ ╚═╝ ██║
  * ╚══════╝╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝     ╚═╝     ╚═╝
  *
- * SimplePM WebApp
- * A part of SimplePM programming contests management system.
+ * SimplePM WebApp is a part of software product "Automated
+ * vefification system for programming tasks "SimplePM".
  *
  * Copyright 2018 Yurij Kadirov
  *
@@ -30,16 +30,10 @@
 
 class Configuration {
 
-    /*
-     * Конфигурация базы данных
-     */
-
+    // Конфигурация базы данных
     private $database_config;
 
-    /*
-     * Конфигурация веб-приложения
-     */
-
+    // Конфигурация веб-приложения
     private $webapp_config;
 
     /*
@@ -49,22 +43,16 @@ class Configuration {
 
     private $compilers_config;
 
-    /*
-     * Список сервисов веб-приложения
-     */
-
+    // Список сервисов веб-приложения
     private $services_config;
 
-    /*
-     * Список коммандных сервисов веб-приложения
-     */
-
+    // Список коммандных сервисов веб-приложения
     private $commands_config;
 
     public function __construct() {
 
         /*
-         * Производим  чтение конфигурационных  файлов,
+         * Производим чтение конфигурационных файлов,
          * после чего парсим их и записываем полученные
          * данные в соответствующие переменные.
          */
