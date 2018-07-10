@@ -8,8 +8,8 @@
  * ███████║██║██║ ╚═╝ ██║██║     ███████╗███████╗██║     ██║ ╚═╝ ██║
  * ╚══════╝╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝     ╚═╝     ╚═╝
  *
- * SimplePM WebApp
- * A part of SimplePM programming contests management system.
+ * SimplePM WebApp is a part of software product "Automated
+ * vefification system for programming tasks "SimplePM".
  *
  * Copyright 2018 Yurij Kadirov
  *

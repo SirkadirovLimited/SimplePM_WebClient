@@ -8,8 +8,8 @@
  * ███████║██║██║ ╚═╝ ██║██║     ███████╗███████╗██║     ██║ ╚═╝ ██║
  * ╚══════╝╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝     ╚═╝     ╚═╝
  *
- * SimplePM WebApp
- * A part of SimplePM programming contests management system.
+ * SimplePM WebApp is a part of software product "Automated
+ * vefification system for programming tasks "SimplePM".
  *
  * Copyright 2018 Yurij Kadirov
  *
@@ -132,8 +132,12 @@ class Security {
      * @return bool
      */
 
-    public static function CheckAccessPermissions(int $user_permissions, int $requested_permission, bool $die_if_access_denied = false) : bool
+    public static function CheckAccessPermissions(int $requested_permission, bool $die_if_access_denied = false, int $user_permissions = -1) : bool
     {
+
+        // Автоподстановка прав текущего пользователя
+        if ($user_permissions == -1)
+            $user_permissions = Security::getCurrentSession()['user_info']->getUserInfo()['permissions'];
 
         $result = $user_permissions & $requested_permission;
 
@@ -144,6 +148,8 @@ class Security {
             self::ThrowError("403");
 
         }
+
+        return false;
 
     }
 
@@ -161,6 +167,7 @@ class Security {
      * - Автор решения
      *
      * @param int $userId Идентификатор редактируемого пользователя
+     * @param bool $canSameUserAccess
      * @return bool Разрешение или запрет на внесение изменений или доступ к сервису
      */
 
@@ -192,7 +199,6 @@ class Security {
 
             // Если текущий пользователь - администратор
             self::CheckAccessPermissions(
-                self::getCurrentSession()["user_info"]->getUserInfo()['permissions'],
                 PERMISSION::ADMINISTRATOR,
                 false
             ) ||

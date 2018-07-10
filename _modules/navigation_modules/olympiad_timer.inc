@@ -8,8 +8,8 @@
  * ███████║██║██║ ╚═╝ ██║██║     ███████╗███████╗██║     ██║ ╚═╝ ██║
  * ╚══════╝╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝     ╚═╝     ╚═╝
  *
- * SimplePM WebApp
- * A part of SimplePM programming contests management system.
+ * SimplePM WebApp is a part of software product "Automated
+ * vefification system for programming tasks "SimplePM".
  *
  * Copyright 2018 Yurij Kadirov
  *
@@ -29,17 +29,13 @@
  */
 
 /*
- * Запрашиваем  доступ  к
+ * Запрашиваем доступ к
  * глобальным переменным.
  */
 
 global $database;
 
-/*
- * Получаем  идентификатор
- * связанного соревнования
- */
-
+// Получаем идентификатор связанного соревнования
 $associated_olymp = Security::getCurrentSession()['user_info']->getUserInfo()['associated_olymp'];
 
 ?>
@@ -54,14 +50,11 @@ $associated_olymp = Security::getCurrentSession()['user_info']->getUserInfo()['a
 
 		var olympTimer = setInterval(function() {
 
-			/*
-			 * Вычисляем текущее время
-			 */
-
+			// Вычисляем текущее время
 			var now = new Date().getTime() - timeErrChanger;
 
 			/*
-			 * Вычисляем  так  называемую   "дистанцию"
+			 * Вычисляем так называемую "дистанцию"
 			 * до указанного времени начиная с текущего
 			 * момента.
 			 */
@@ -69,7 +62,7 @@ $associated_olymp = Security::getCurrentSession()['user_info']->getUserInfo()['a
 			var distance = countDownDate - now;
 
 			/*
-			 * Вычисляем оставшиеся дни,  часы,  минуты и секунды
+			 * Вычисляем оставшиеся дни, часы, минуты и секунды
 			 * до указанной нами точки в будущем (точка окончания
 			 * текущего соревнования).
 			 */
@@ -93,20 +86,20 @@ $associated_olymp = Security::getCurrentSession()['user_info']->getUserInfo()['a
 			/*
 			 * Записываем текущие значения
 			 * в специально подготовленный
-			 * элемент   пользовательского
-			 * интерфейса   веб-приложения
+			 * элемент пользовательского
+			 * интерфейса веб-приложения
 			 * SimplePM.
 			 */
 
 			$('#olympiadTimer').text(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
 
 			/*
-			 * Если  так  называемая "дистанция"
+			 * Если так называемая "дистанция"
 			 * до указанной нами точки в будущем
 			 * времени меньше нуля (то есть вре-
 			 * мя вышло), перенаправляем пользо-
-			 * вателей на страницу информации  о
-			 * соревновании,  в котором они при-
+			 * вателей на страницу информации о
+			 * соревновании, в котором они при-
 			 * нимали участие.
 			 */
 

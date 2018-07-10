@@ -8,8 +8,8 @@
  * ███████║██║██║ ╚═╝ ██║██║     ███████╗███████╗██║     ██║ ╚═╝ ██║
  * ╚══════╝╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝     ╚═╝     ╚═╝
  *
- * SimplePM WebApp
- * A part of SimplePM programming contests management system.
+ * SimplePM WebApp is a part of software product "Automated
+ * vefification system for programming tasks "SimplePM".
  *
  * Copyright 2018 Yurij Kadirov
  *
@@ -163,8 +163,9 @@ unset($query);
 </div>
 
 <?php if (Security::CheckAccessPermissions(
-		$user_info['permissions'],
-		PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR
+		PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR,
+        false,
+        $user_info['permissions']
 )): ?>
 
 	<ul class="nav nav-pills justify-content-end" style="margin-top: 0; margin-bottom: 10px;">

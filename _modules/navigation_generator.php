@@ -8,8 +8,8 @@
  * ███████║██║██║ ╚═╝ ██║██║     ███████╗███████╗██║     ██║ ╚═╝ ██║
  * ╚══════╝╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝     ╚═╝     ╚═╝
  *
- * SimplePM WebApp
- * A part of SimplePM programming contests management system.
+ * SimplePM WebApp is a part of software product "Automated
+ * vefification system for programming tasks "SimplePM".
  *
  * Copyright 2018 Yurij Kadirov
  *
@@ -77,7 +77,6 @@
 
 		<?php if (
 		Security::CheckAccessPermissions(
-			Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
 			PERMISSION::TEACHER_MANAGE_PROBLEMS | PERMISSION::ADMINISTRATOR,
 			false
 		)
@@ -100,7 +99,6 @@
 
 	<?php if (
 	Security::CheckAccessPermissions(
-		Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
 		PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR,
 		false
 	)
@@ -117,7 +115,6 @@
 
 	<?php if (
 	Security::CheckAccessPermissions(
-		Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
 		PERMISSION::STUDENT,
 		false
 	)

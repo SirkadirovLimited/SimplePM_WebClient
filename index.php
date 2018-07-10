@@ -8,8 +8,8 @@
  * ███████║██║██║ ╚═╝ ██║██║     ███████╗███████╗██║     ██║ ╚═╝ ██║
  * ╚══════╝╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝     ╚═╝     ╚═╝
  *
- * SimplePM WebApp
- * A part of SimplePM programming contests management system.
+ * SimplePM WebApp is a part of software product "Automated
+ * vefification system for programming tasks "SimplePM".
  *
  * Copyright 2018 Yurij Kadirov
  *
@@ -148,8 +148,8 @@ include _SPM_includes_ . "Security/Permissions.inc";
 include _SPM_includes_ . "Security/Security.inc";
 
 /*
- * Классы  и  трейты  для  работы
- * с  пользовательскими  данными.
+ * Классы и трейты для работы
+ * с пользовательскими данными.
  */
 
 include _SPM_includes_ . "UserInformation/UserInfo.inc";
@@ -185,7 +185,7 @@ include _SPM_includes_ . "Waiters/ClientWaiter.inc";
 include _SPM_includes_ . "System/Database.inc";
 
 /*
- * Запрашиваем  доступ  к
+ * Запрашиваем доступ к
  * глобальным переменным.
  */
 
@@ -198,10 +198,10 @@ global $database;
 include _SPM_includes_ . "ServiceHelpers/Olymp.inc";
 
 /*
- * Для  обеспечения  безоасности  производим   очистку
- * GET   и   POST данных   от   небезопасных символов,
- * которые могут привести к поломке всей backend-части
- * данного веб-приложения.
+ * Для обеспечения безоасности производим
+ * очистку GET и POST данных от небезопасных
+ * символов, которые могут привести к поломке
+ * всей backend-части данного веб-приложения.
  */
 
 // Создаём новый объект типа Security
@@ -214,9 +214,9 @@ $_SECURITY->ClearGET();
 $_SECURITY->ClearPOST();
 
 /*
- * Секция  вызова   автозагрузочных  функций,
+ * Секция вызова автозагрузочных функций,
  * таких как различные проверки безопасности,
- * переадресации  на  подсистемы  урока  или
+ * переадресации на подсистемы урока или
  * соревнования, и так далее.
  */
 

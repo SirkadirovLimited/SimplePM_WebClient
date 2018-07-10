@@ -8,8 +8,8 @@
  * ███████║██║██║ ╚═╝ ██║██║     ███████╗███████╗██║     ██║ ╚═╝ ██║
  * ╚══════╝╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝     ╚═╝     ╚═╝
  *
- * SimplePM WebApp
- * A part of SimplePM programming contests management system.
+ * SimplePM WebApp is a part of software product "Automated
+ * vefification system for programming tasks "SimplePM".
  *
  * Copyright 2018 Yurij Kadirov
  *
@@ -191,11 +191,7 @@ global $database;
 
 						<td>
 
-                            <?php if (
-                                    Security::CheckAccessPermissions(
-                                            Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
-                                            PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR
-                                    )): ?>
+                            <?php if (Security::CheckAccessPermissions(PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR)): ?>
 
                             <abbr title="<?=$tests_info[$i]['input']?>"><?=$tests_info[$i]['id']?></abbr>
 
