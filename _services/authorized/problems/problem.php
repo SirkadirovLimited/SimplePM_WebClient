@@ -132,7 +132,6 @@ $problem_info = $problem_info->fetch_assoc();
 (
         // Если пользователь не администратор
         !Security::CheckAccessPermissions(
-                Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
                 PERMISSION::ADMINISTRATOR,
                 false
         )
@@ -371,7 +370,6 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 
 	<?php if (
 			Security::CheckAccessPermissions(
-				Security::getCurrentSession()["user_info"]->getUserInfo()['permissions'],
 				PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR
 			) &&
 			$problem_info['authorSolution'] != null &&
@@ -484,16 +482,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
     </div>
 </div>
 
-<?php
-
-$f_check = Security::CheckAccessPermissions(
-		Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
-		PERMISSION::TEACHER_MANAGE_PROBLEMS | PERMISSION::ADMINISTRATOR
-);
-
-if ($f_check):
-
-?>
+<?php if (Security::CheckAccessPermissions(PERMISSION::TEACHER_MANAGE_PROBLEMS | PERMISSION::ADMINISTRATOR)): ?>
 
 	<div class="card">
 		<div class="card-body text-center">
@@ -508,16 +497,7 @@ if ($f_check):
 					class="btn btn-link text-dark"
 			><?=_("Редагувати тести")?></a>
 
-			<?php
-
-			$f_check = Security::CheckAccessPermissions(
-				Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
-				PERMISSION::ADMINISTRATOR
-			);
-
-			if ($f_check):
-
-			?>
+			<?php if (Security::CheckAccessPermissions(PERMISSION::ADMINISTRATOR)): ?>
 
 				<a
 						href="<?=_SPM_?>index.php?cmd=problems/edit/delete&id=<?=$_GET['id']?>"

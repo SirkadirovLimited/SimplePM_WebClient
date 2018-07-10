@@ -34,7 +34,6 @@
  */
 
 Security::CheckAccessPermissions(
-	Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
 	PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR,
 	true
 );
@@ -88,22 +87,15 @@ function teacherId_regenerate(int $userId) : void
 	global $database;
 
 	/*
-	 * Получаем  текущий  уровень
-	 * доступа указанного доступа
-	 */
-
-	$this_user_permissions = UserInfo::getUserInfo($userId)["permissions"];
-
-	/*
 	 * Устанавливаем уровень доступа для
 	 * пользователей,  которые будут рег
 	 * истрироваться с помощью  текущего
 	 * сгенерированного кода TeacherID.
 	 */
 
-	if (Security::CheckAccessPermissions($this_user_permissions, PERMISSION::TEACHER, false))
+	if (Security::CheckAccessPermissions(PERMISSION::TEACHER, false))
 		$user_permission = PERMISSION::STUDENT;
-	elseif (Security::CheckAccessPermissions($this_user_permissions, PERMISSION::ADMINISTRATOR, false))
+	elseif (Security::CheckAccessPermissions(PERMISSION::ADMINISTRATOR, false))
 		$user_permission = PERMISSION::TEACHER;
 	else
 		$user_permission = PERMISSION::ANONYMOUS;

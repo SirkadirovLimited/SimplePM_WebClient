@@ -77,7 +77,6 @@
 
 		<?php if (
 		Security::CheckAccessPermissions(
-			Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
 			PERMISSION::TEACHER_MANAGE_PROBLEMS | PERMISSION::ADMINISTRATOR,
 			false
 		)
@@ -100,7 +99,6 @@
 
 	<?php if (
 	Security::CheckAccessPermissions(
-		Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
 		PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR,
 		false
 	)
@@ -117,7 +115,6 @@
 
 	<?php if (
 	Security::CheckAccessPermissions(
-		Security::getCurrentSession()['user_info']->getUserInfo()['permissions'],
 		PERMISSION::STUDENT,
 		false
 	)
