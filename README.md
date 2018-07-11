@@ -5,11 +5,7 @@
 <div align="center">
   &nbsp;
   <a href="https://ci.appveyor.com/project/sirkadirov/simplepm-webapp">
-    <img src="https://img.shields.io/appveyor/ci/sirkadirov/simplepm-webapp.svg" alt="AppVeyor Build">
-  </a>
-  &nbsp;
-  <a href="https://ci.appveyor.com/project/sirkadirov/simplepm-webapp">
-    <img src="https://img.shields.io/appveyor/tests/sirkadirov/simplepm-webapp.svg" alt="AppVeyor Tests">
+    <img src="https://ci.appveyor.com/api/projects/status/aqx58iiokwaiq0x7?svg=true" alt="AppVeyor Build">
   </a>
   &nbsp;
   <a href="https://bestpractices.coreinfrastructure.org/projects/1230">
@@ -21,6 +17,8 @@
   </a>
   &nbsp;
 </div>
+
+*****
 
 Official repository of SimplePM WebApp, web application of software product "Automated verification system for programming tasks "SimplePM".
 
