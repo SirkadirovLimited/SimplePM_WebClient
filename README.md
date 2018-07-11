@@ -2,6 +2,8 @@
   <img src="https://raw.githubusercontent.com/SirkadirovTeam/simplepm-resources/master/logo.png" alt="SimplePM logo">
 </div>
 
+*****
+
 <div align="center">
   &nbsp;
   <a href="https://ci.appveyor.com/project/sirkadirov/simplepm-webapp">
