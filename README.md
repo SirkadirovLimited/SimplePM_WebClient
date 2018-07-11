@@ -4,11 +4,21 @@
 
 <div align="center">
   &nbsp;
-  <a href="https://github.com/SirkadirovTeam/SimplePM_WebApp/releases"><img src="https://img.shields.io/github/release/SirkadirovTeam/SimplePM_WebApp/all.svg" alt="GitHub version"></a>
+  <a href="https://ci.appveyor.com/project/sirkadirov/simplepm-webapp">
+    <img src="https://img.shields.io/appveyor/ci/sirkadirov/simplepm-webapp.svg" alt="AppVeyor Build">
+  </a>
   &nbsp;
-  <a href="https://bestpractices.coreinfrastructure.org/projects/1230"><img src="https://bestpractices.coreinfrastructure.org/projects/1230/badge" alt="CII Best Practices"></a>
+  <a href="https://ci.appveyor.com/project/sirkadirov/simplepm-webapp">
+    <img src="https://img.shields.io/appveyor/tests/sirkadirov/simplepm-webapp.svg" alt="AppVeyor Tests">
+  </a>
   &nbsp;
-  <a href="https://codeclimate.com/github/SirkadirovTeam/SimplePM_WebApp/maintainability"><img src="https://api.codeclimate.com/v1/badges/9e88b0a0910af3f47af8/maintainability" alt="Maintainability"></a>
+  <a href="https://bestpractices.coreinfrastructure.org/projects/1230">
+    <img src="https://bestpractices.coreinfrastructure.org/projects/1230/badge" alt="CII Best Practices">
+  </a>
+  &nbsp;
+  <a href="https://codeclimate.com/github/SirkadirovTeam/SimplePM_WebApp/maintainability">
+    <img src="https://api.codeclimate.com/v1/badges/9e88b0a0910af3f47af8/maintainability" alt="Maintainability">
+  </a>
   &nbsp;
 </div>
 
