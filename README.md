@@ -22,7 +22,7 @@
 
 *****
 
-Official repository of SimplePM WebApp, web application of software product "Automated verification system for programming tasks "SimplePM".
+Official repository of SimplePM WebApp, web application of software complex "Automated verification system for programming tasks "SimplePM".
 
 Detailed information about the project you can get at project's official website: https://spm.sirkadirov.com/
 
