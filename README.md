@@ -2,13 +2,15 @@
   <img src="https://raw.githubusercontent.com/SirkadirovTeam/simplepm-resources/master/logo.png" alt="SimplePM logo">
 </div>
 
+<div align="center">
+  <a href="https://github.com/SirkadirovTeam/SimplePM_WebApp/releases"><img src="https://img.shields.io/github/release/SirkadirovTeam/SimplePM_WebApp/all.svg" alt="GitHub version"></a> | 
+  <a href="https://bestpractices.coreinfrastructure.org/projects/1230"><img src="https://bestpractices.coreinfrastructure.org/projects/1230/badge" alt="CII Best Practices"></a> | 
+  <a href="https://codeclimate.com/github/SirkadirovTeam/SimplePM_WebApp/maintainability"><img src="https://api.codeclimate.com/v1/badges/9e88b0a0910af3f47af8/maintainability" alt="Maintainability"></a>
+</div>
+
 Official repository of SimplePM WebApp, web application of software product "Automated verification system for programming tasks "SimplePM".
 
 Detailed information about the project you can get at project's official website: https://spm.sirkadirov.com/
-
-[![GitHub (pre-)release version](https://img.shields.io/github/release/SirkadirovTeam/SimplePM_WebApp/all.svg)](https://github.com/SirkadirovTeam/SimplePM_WebApp/releases)
-[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1230/badge)](https://bestpractices.coreinfrastructure.org/projects/1230)
-[![Maintainability](https://api.codeclimate.com/v1/badges/9e88b0a0910af3f47af8/maintainability)](https://codeclimate.com/github/SirkadirovTeam/SimplePM_WebApp/maintainability)
 
 ## Documentation
 Visit Atlassian Confluence installation located at https://simplepm.atlassian.net/wiki, where you can get full documentation about the project and its usecases.
