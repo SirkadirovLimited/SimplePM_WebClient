@@ -1,4 +1,7 @@
-# SimplePM Web Application
+<div align="center">
+  <img src="https://raw.githubusercontent.com/SirkadirovTeam/simplepm-resources/master/logo.png" alt="SimplePM logo">
+</div>
+
 Official repository of SimplePM WebApp, web application of software product "Automated verification system for programming tasks "SimplePM".
 
 Detailed information about the project you can get at project's official website: https://spm.sirkadirov.com/
