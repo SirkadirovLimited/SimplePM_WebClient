@@ -20,6 +20,8 @@
   <a href="https://spm.sirkadirov.com/">Website</a> • <a href="https://simplepm.atlassian.net/projects/WEBAPP/">Bug tracker</a> • <a href="https://spm.sirkadirov.com/download.html">Download</a> • <a href="https://simplepm.atlassian.net/">Documentation</a>
 </div>
 
+*****
+
 Official repository of SimplePM WebApp, web application of software product "Automated verification system for programming tasks "SimplePM".
 
 Detailed information about the project you can get at project's official website: https://spm.sirkadirov.com/
