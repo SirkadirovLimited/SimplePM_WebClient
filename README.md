@@ -1,9 +1,6 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/SirkadirovTeam/simplepm-resources/master/logo.png" alt="SimplePM logo">
 </div>
-
-*****
-
 <div align="center">
   &nbsp;
   <a href="https://ci.appveyor.com/project/sirkadirov/simplepm-webapp">
@@ -19,12 +16,9 @@
   </a>
   &nbsp;
 </div>
-
 <div align="center">
   <a href="https://spm.sirkadirov.com/">Website</a> • <a href="https://simplepm.atlassian.net/projects/WEBAPP/">Bug tracker</a> • <a href="https://spm.sirkadirov.com/download.html">Download</a> • <a href="https://simplepm.atlassian.net/">Documentation</a>
 </div>
-
-*****
 
 Official repository of SimplePM WebApp, web application of software product "Automated verification system for programming tasks "SimplePM".
 
