@@ -26,8 +26,12 @@ Official repository of SimplePM WebApp, web application of software product "Aut
 
 Detailed information about the project you can get at project's official website: https://spm.sirkadirov.com/
 
-## Documentation
-Visit Atlassian Confluence installation located at https://simplepm.atlassian.net/wiki, where you can get full documentation about the project and its usecases.
+## Runtime / development requirements
+- PHP 7.1.x+
+- php-mbstring, php-gettext, php-mysqli (MySQLi), php-gd, php-json, php-pdf, php-common
+- GNU GetText Libraries and utilities
+- phpMyAdmin (latest)
+- MySQL Server 5.8+ (latest)
 
 ## Author rights
 - SimplePM v2.X "Moongirl" - Copyright (C) 2018, Yurij Kadirov. All rights reserved.
