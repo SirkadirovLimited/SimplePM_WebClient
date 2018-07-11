@@ -3,9 +3,13 @@
 </div>
 
 <div align="center">
-  <a href="https://github.com/SirkadirovTeam/SimplePM_WebApp/releases"><img src="https://img.shields.io/github/release/SirkadirovTeam/SimplePM_WebApp/all.svg" alt="GitHub version"></a> | 
-  <a href="https://bestpractices.coreinfrastructure.org/projects/1230"><img src="https://bestpractices.coreinfrastructure.org/projects/1230/badge" alt="CII Best Practices"></a> | 
+  &nbsp;
+  <a href="https://github.com/SirkadirovTeam/SimplePM_WebApp/releases"><img src="https://img.shields.io/github/release/SirkadirovTeam/SimplePM_WebApp/all.svg" alt="GitHub version"></a>
+  &nbsp;
+  <a href="https://bestpractices.coreinfrastructure.org/projects/1230"><img src="https://bestpractices.coreinfrastructure.org/projects/1230/badge" alt="CII Best Practices"></a>
+  &nbsp;
   <a href="https://codeclimate.com/github/SirkadirovTeam/SimplePM_WebApp/maintainability"><img src="https://api.codeclimate.com/v1/badges/9e88b0a0910af3f47af8/maintainability" alt="Maintainability"></a>
+  &nbsp;
 </div>
 
 Official repository of SimplePM WebApp, web application of software product "Automated verification system for programming tasks "SimplePM".
