@@ -1,5 +1,7 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/SirkadirovTeam/simplepm-resources/master/logo.png" alt="SimplePM logo">
+  <a href="https://spm.sirkadirov.com/">
+    <img src="https://raw.githubusercontent.com/SirkadirovTeam/simplepm-resources/master/logo.png" alt="SimplePM logo">
+  </a>
 </div>
 <div align="center">
   &nbsp;
@@ -26,6 +28,8 @@ Official repository of SimplePM WebApp, web application of software complex "Aut
 
 Detailed information about the project you can get at project's official website: https://spm.sirkadirov.com/
 
+![Problems archive in SimplePM WebApp](https://i.imgur.com/BWKt5p1.png)
+
 ## Runtime / development requirements
 - PHP 7.1.x+
 - php-mbstring, php-gettext, php-mysqli (MySQLi), php-gd, php-json, php-pdf, php-common
@@ -33,8 +37,20 @@ Detailed information about the project you can get at project's official website
 - phpMyAdmin (latest)
 - MySQL Server 5.8+ (latest)
 
-## Author rights
-- SimplePM v2.X "Moongirl" - Copyright (C) 2018, Yurij Kadirov. All rights reserved.
-- SimplePM v1.X "Alien Baroness" - Copyright (C) 2017, Yurij Kadirov. All rights reserved.
+### Recommendations
+To host all instances of SimplePM WebApp you should use latest version of Apache Web Server (on GNU/Linux, BSDs, etc.) and IIS Web Server on Windows.
 
+## Used third-party projects
+- Bootstrap CSS framework
+- Ace code editor
+- JQuery library
+- Other small libraries, copyrights inside!
+
+## Licensing
 Source code of the project is licensed under *Apache License 2.0*, official builds of this project licensed under SimplePM EULA, full text of it you can get at official website: https://spm.sirkadirov.com/
+
+### Author rights and patents
+Initial copyright holder of this project - [Yurij Kadirov](https://sirkadirov.com/).
+
+- SimplePM v2.X.X "Moongirl" - Copyright (C) 2018, Yurij Kadirov and other contributors. All rights reserved.
+- SimplePM v1.X.X "Alien Baroness" - Copyright (C) 2017, Yurij Kadirov and other contributors. All rights reserved.
