@@ -38,58 +38,22 @@ define("__PAGE_LAYOUT__", "default");
         margin-top: 60px;
         margin-bottom: 60px;
     }
+
+    div.row div.col-md-3 div.card {
+        margin: 10px;
+    }
+    div.row div.col-md-3 div.card:hover {
+        transform: scale(1.01, 1.01);
+        border-color: #343a40;
+    }
+
+    #simplepm-name:hover {
+        background-color: #343a40;
+        color: #ffffff;
+    }
 </style>
 
-<h3 class="welcome"><?=_("Вітаємо Вас на головній сторінці веб-додатку SimplePM!")?></h3>
+<h3 class="welcome">
+    <?=sprintf(_("Вітаємо Вас на головній сторінці веб-додатку %s!"), "<span id=\"simplepm-name\">SimplePM</span>")?>
+</h3>
 
-<div class="row">
-
-    <div class="col-md-3">
-
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title"><?=_("Архів задач")?></h5>
-                <p class="card-text"><?=_("Розпочніть вирішення завдань з алгоритмічного та спортивного програмування зараз!")?></p>
-                <a href="<?=_SPM_?>index.php/problems/archive" class="btn btn-primary"><?=_("Перейти в розділ")?></a>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="col-md-3">
-
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title"><?=_("Рейтинг користувачів")?></h5>
-                <p class="card-text"><?=_("Перегляньте рейтингову таблицю користувачів системи та знайдіть у ній себе!")?></p>
-                <a href="<?=_SPM_?>index.php/problems/rating" class="btn btn-primary"><?=_("Перейти в розділ")?></a>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="col-md-3">
-
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title"><?=_("Змагання")?></h5>
-                <p class="card-text"><?=_("Беріть участь у змаганнях з алгоритмічного та спортивного програмування та отримуйте сертифікати!")?></p>
-                <a href="<?=_SPM_?>index.php/olympiads/join" class="btn btn-primary"><?=_("Перейти в розділ")?></a>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="col-md-3">
-
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title"><?=_("Про систему")?></h5>
-                <p class="card-text"><?=_("Дізнавшись більше про цю систему, Ви отримаєте доступ до її безмежного функціоналу.")?></p>
-                <a href="#" class="btn btn-primary"><?=_("Перейти в розділ")?></a>
-            </div>
-        </div>
-
-    </div>
-
-</div>

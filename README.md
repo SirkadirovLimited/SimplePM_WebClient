@@ -1,20 +1,58 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/SirkadirovTeam/simplepm-resources/master/logo.png" alt="SimplePM logo">
+  <a href="https://spm.sirkadirov.com/">
+    <img src="https://raw.githubusercontent.com/SirkadirovTeam/simplepm-resources/master/logo.png" alt="SimplePM logo">
+  </a>
+</div>
+<div align="center">
+  &nbsp;
+  <a href="https://ci.appveyor.com/project/sirkadirov/simplepm-webapp">
+    <img src="https://ci.appveyor.com/api/projects/status/aqx58iiokwaiq0x7?svg=true" alt="AppVeyor Build">
+  </a>
+  &nbsp;
+  <a href="https://bestpractices.coreinfrastructure.org/projects/1230">
+    <img src="https://bestpractices.coreinfrastructure.org/projects/1230/badge" alt="CII Best Practices">
+  </a>
+  &nbsp;
+  <a href="https://codeclimate.com/github/SirkadirovTeam/SimplePM_WebApp/maintainability">
+    <img src="https://api.codeclimate.com/v1/badges/9e88b0a0910af3f47af8/maintainability" alt="Maintainability">
+  </a>
+  &nbsp;
+</div>
+<div align="center">
+  <a href="https://spm.sirkadirov.com/">Website</a> • <a href="https://simplepm.atlassian.net/projects/WEBAPP/">Bug tracker</a> • <a href="https://spm.sirkadirov.com/download.html">Download</a> • <a href="https://simplepm.atlassian.net/">Documentation</a>
 </div>
 
-Official repository of SimplePM WebApp, web application of software product "Automated verification system for programming tasks "SimplePM".
+*****
+
+Official repository of SimplePM WebApp, web application of software complex "Automated verification system for programming tasks "SimplePM".
+
+![Problems archive in SimplePM WebApp](https://i.imgur.com/BWKt5p1.png)
 
 Detailed information about the project you can get at project's official website: https://spm.sirkadirov.com/
 
-[![GitHub (pre-)release version](https://img.shields.io/github/release/SirkadirovTeam/SimplePM_WebApp/all.svg)](https://github.com/SirkadirovTeam/SimplePM_WebApp/releases)
-[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/1230/badge)](https://bestpractices.coreinfrastructure.org/projects/1230)
-[![Maintainability](https://api.codeclimate.com/v1/badges/9e88b0a0910af3f47af8/maintainability)](https://codeclimate.com/github/SirkadirovTeam/SimplePM_WebApp/maintainability)
+## Runtime / development requirements
+- PHP 7.1.x+
+- php-mbstring, php-gettext, php-mysqli (MySQLi), php-gd, php-json, php-pdf, php-common
+- GNU GetText Libraries and utilities
+- phpMyAdmin (latest)
+- MySQL Server 5.8+ (latest)
 
-## Documentation
-Visit Atlassian Confluence installation located at https://simplepm.atlassian.net/wiki, where you can get full documentation about the project and its usecases.
+### Recommendations
+- To host all instances of SimplePM WebApp you should use latest version of Apache Web Server (on GNU/Linux, BSDs, etc.) and IIS Web Server on Windows.
+- During development and testing, we use latest stable versions of all libraries and third-party software, so you should use them, but only if you want.
+- Sometimes new "stable" versions of libraries and other dependencies are not stable, so don't upgrade them if you see older versions inside SimplePM WebApp.
 
-## Author rights
-- SimplePM v2.X "Moongirl" - Copyright (C) 2018, Yurij Kadirov. All rights reserved.
-- SimplePM v1.X "Alien Baroness" - Copyright (C) 2017, Yurij Kadirov. All rights reserved.
+## Used third-party projects
+- Bootstrap CSS framework
+- Ace code editor
+- JQuery library
+- Other small libraries, copyrights inside!
 
+## Licensing
 Source code of the project is licensed under *Apache License 2.0*, official builds of this project licensed under SimplePM EULA, full text of it you can get at official website: https://spm.sirkadirov.com/
+
+### Author rights and patents
+Initial copyright holder of this project - [Yurij Kadirov (Sirkadirov)](https://sirkadirov.com/).
+
+- SimplePM v2.X.X "Moongirl" - Copyright (C) 2018, Yurij Kadirov and other contributors. All rights reserved.
+- SimplePM v1.X.X "Alien Baroness" - Copyright (C) 2017, Yurij Kadirov and other contributors. All rights reserved.
