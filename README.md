@@ -26,9 +26,9 @@
 
 Official repository of SimplePM WebApp, web application of software complex "Automated verification system for programming tasks "SimplePM".
 
-Detailed information about the project you can get at project's official website: https://spm.sirkadirov.com/
-
 ![Problems archive in SimplePM WebApp](https://i.imgur.com/BWKt5p1.png)
+
+Detailed information about the project you can get at project's official website: https://spm.sirkadirov.com/
 
 ## Runtime / development requirements
 - PHP 7.1.x+
@@ -38,7 +38,9 @@ Detailed information about the project you can get at project's official website
 - MySQL Server 5.8+ (latest)
 
 ### Recommendations
-To host all instances of SimplePM WebApp you should use latest version of Apache Web Server (on GNU/Linux, BSDs, etc.) and IIS Web Server on Windows.
+- To host all instances of SimplePM WebApp you should use latest version of Apache Web Server (on GNU/Linux, BSDs, etc.) and IIS Web Server on Windows.
+- During development and testing, we use latest stable versions of all libraries and third-party software, so you should use them, but only if you want.
+- Sometimes new "stable" versions of libraries and other dependencies are not stable, so don't upgrade them if you see older versions inside SimplePM WebApp.
 
 ## Used third-party projects
 - Bootstrap CSS framework
@@ -50,7 +52,7 @@ To host all instances of SimplePM WebApp you should use latest version of Apache
 Source code of the project is licensed under *Apache License 2.0*, official builds of this project licensed under SimplePM EULA, full text of it you can get at official website: https://spm.sirkadirov.com/
 
 ### Author rights and patents
-Initial copyright holder of this project - [Yurij Kadirov](https://sirkadirov.com/).
+Initial copyright holder of this project - [Yurij Kadirov (Sirkadirov)](https://sirkadirov.com/).
 
 - SimplePM v2.X.X "Moongirl" - Copyright (C) 2018, Yurij Kadirov and other contributors. All rights reserved.
 - SimplePM v1.X.X "Alien Baroness" - Copyright (C) 2017, Yurij Kadirov and other contributors. All rights reserved.
