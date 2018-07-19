@@ -186,23 +186,23 @@ $submissions_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 					<?php
 
 					if ($problem_info['b'] == 0)
-						$highlight = "bg-danger text-white";
+						$highlight = "text-danger";
 					elseif ($problem_info['b'] < $problem_info['difficulty'])
-						$highlight = "bg-warning text-white";
+						$highlight = "text-warning";
 					elseif ($problem_info['b'] >= $problem_info['difficulty'])
-						$highlight = "bg-success text-white";
+						$highlight = "text-success";
 					else
-						$highlight = "bg-info text-white";
+						$highlight = "text-info";
 
 					?>
 
-					<tr class="<?=$highlight?>">
+					<tr>
 
 						<td><?=$problem_info['problemId']?></td>
 
 						<td>
 							<a
-								style="color: #fff !important;"
+								style="color: #212121 !important;"
 								href="<?=_SPM_?>index.php/problems/result/?id=<?=$problem_info['submissionId']?>"
 							><?=$problem_info['name']?></a>
 						</td>
@@ -211,12 +211,12 @@ $submissions_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 
 						<td>
 							<a
-								style="color: #fff !important;"
+								style="color: #212121 !important;"
 								href="<?=_SPM_?>index.php/problems/result/?id=<?=$problem_info['submissionId']?>"
 							><?=$problem_info['submissionId']?></a>
 						</td>
 
-						<td>
+						<td class="<?=$highlight?>">
 							<?=$problem_info['b']?> / <?=$problem_info['difficulty']?>
 						</td>
 

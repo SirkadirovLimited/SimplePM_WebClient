@@ -244,11 +244,11 @@ if ($associated_olymp <=0)
                  */
 
                 if ($submission_points == 0)
-                    $class_addition = "bg-danger text-white";
+                    $class_addition = "border-danger";
                 elseif ($submission_points < $problem["difficulty"])
-                    $class_addition = "bg-warning text-white";
+                    $class_addition = "border-warning";
                 elseif ($submission_points >= $problem["difficulty"])
-                    $class_addition = "bg-success text-white";
+                    $class_addition = "border-success";
 
             }
             else
