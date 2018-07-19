@@ -165,7 +165,9 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                         </div>
                     </a>
 
-					<a class="list-group-item list-group-item-action flex-column align-items-start">
+					<a
+                            href="mailto:<?=$user_info["email"]?>"
+                            class="list-group-item list-group-item-action flex-column align-items-start">
 						<div class="d-flex w-100 justify-content-between">
 							<h6 class="mb-1"><?=_("E-mail адреса")?></h6>
 						</div>
@@ -173,8 +175,8 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 					</a>
 
                     <a
-						href="<?=_SPM_?>index.php/problems/rating/?group=<?=(int)$user_info["groupid"]?>"
-						class="list-group-item list-group-item-action flex-column align-items-start"
+						    href="<?=_SPM_?>index.php/problems/rating/?group=<?=(int)$user_info["groupid"]?>"
+						    class="list-group-item list-group-item-action flex-column align-items-start"
 					>
                         <div class="d-flex w-100 justify-content-between">
                             <h6 class="mb-1"><?=_("Група")?></h6>
