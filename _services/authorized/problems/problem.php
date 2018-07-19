@@ -232,7 +232,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
         <?php endif; ?>
 
         <a
-                class="nav-item nav-link disabled"
+                class="nav-item nav-link"
                 data-toggle="tab"
                 href="#editor-file"
                 onclick=""
@@ -260,6 +260,17 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
                 role="tabpanel"
         ><div id="blockly-div" style="width: 100%; height: 400px;"></div></div>
     <?php endif; ?>
+
+    <div
+            class="tab-pane fade"
+            style="height: 400px;"
+            id="editor-file"
+            role="tabpanel"
+    >
+
+        <input type="file" id="editor-file-input" class="form-control form-control-file">
+
+    </div>
 
 </div>
 
