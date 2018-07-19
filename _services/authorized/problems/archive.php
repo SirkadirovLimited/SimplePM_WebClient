@@ -264,7 +264,7 @@ if ($associated_olymp <=0)
                         href="<?=_SPM_?>index.php/problems/problem/?id=<?=$problem["id"]?>"
                 >
                     <div class="card-body">
-                        <strong style=""><?=$problem["id"]?>. <?=$problem["name"]?></strong>
+                        <strong><?=$problem["id"]?>. <?=$problem["name"]?></strong>
                         <p class="card-text">
 
                             <span class="badge badge-info"><?=$problem["category_name"]?></span>
