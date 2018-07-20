@@ -232,7 +232,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
         <?php endif; ?>
 
         <a
-                class="nav-item nav-link disabled"
+                class="nav-item nav-link"
                 data-toggle="tab"
                 href="#editor-file"
                 onclick=""
@@ -260,6 +260,69 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
                 role="tabpanel"
         ><div id="blockly-div" style="width: 100%; height: 400px;"></div></div>
     <?php endif; ?>
+
+    <div
+            class="tab-pane fade text-white bg-dark"
+            id="editor-file"
+            role="tabpanel"
+    >
+
+        <div class="row">
+
+            <div class="col-md-4"></div>
+
+            <div class="col-md-4 col-sm-12">
+
+                <div style="margin-top: 30px; margin-bottom: 30px;">
+                    <input type="file" id="editor-file-input" class="form-control-file">
+                </div>
+
+            </div>
+
+            <div class="col-md-4"></div>
+
+        </div>
+
+        <script>
+
+            $(document).ready(function () {
+
+                $(document).on('change', '#editor-file-input', function () {
+
+                    // Отримуємо інформацію про файл
+                    var file = document.getElementById("editor-file-input").files[0];
+
+                    // Виконуємо дії лише у випадку наявності обраного файлу
+                    if (file) {
+
+                        // Ініціалізуємо змінну типу файлового читаки
+                        var reader = new FileReader();
+
+                        // Запускаємо читання обраного користувачем файлу
+                        reader.readAsText(file, "UTF-8");
+
+                        // Виконання дій у випадку успіху
+                        reader.onload = function (evt) {
+                            ace.edit('code_editor').setValue(evt.target.result);
+                        };
+
+                        // Виконання дій у випадку помилки
+                        reader.onerror = function (evt) {
+
+                            alert('<?=_("Завантаження файлів не підтримується цим веб-браузером!")?>');
+                            alert('<?=_("Будь-ласка, використовуйте лише рекомендовані розробниками SimplePM веб-браузери для сумісності та стабільності!")?>');
+
+                        };
+
+                    }
+
+                });
+
+            });
+
+        </script>
+
+    </div>
 
 </div>
 
