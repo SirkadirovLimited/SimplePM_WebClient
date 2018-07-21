@@ -5,10 +5,6 @@
 </div>
 <div align="center">
   &nbsp;
-  <a href="https://ci.appveyor.com/project/sirkadirov/simplepm-webapp">
-    <img src="https://ci.appveyor.com/api/projects/status/aqx58iiokwaiq0x7?svg=true" alt="AppVeyor Build">
-  </a>
-  &nbsp;
   <a href="https://bestpractices.coreinfrastructure.org/projects/1230">
     <img src="https://bestpractices.coreinfrastructure.org/projects/1230/badge" alt="CII Best Practices">
   </a>
