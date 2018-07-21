@@ -178,7 +178,8 @@ $tests_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 
 						<textarea
 							class="form-control"
-							style="height: 200px; min-height: 200px; margin: 0;"
+							style="height: 200px; min-height: 200px; margin: 0; min-width: 150px;"
+                            wrap="off"
 							name="input[]"
 						><?=htmlspecialchars($test_info['input'])?></textarea>
 
@@ -188,7 +189,8 @@ $tests_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 
 						<textarea
 							class="form-control"
-							style="height: 200px; min-height: 200px; margin: 0;"
+							style="height: 200px; min-height: 200px; margin: 0; min-width: 150px;"
+                            wrap="off"
 							name="output[]"
 						><?=htmlspecialchars($test_info['output'])?></textarea>
 
