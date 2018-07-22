@@ -70,6 +70,9 @@ mb_internal_encoding('UTF-8');
  * учёт пользовательского времени online станет
  * не корректным, а веб-приложение может
  * испытывать некоторые трудности в работе.
+ *
+ * Важно установить этот параметр аналогично
+ * установленному на серевере баз данных MySQL.
  */
 
 date_default_timezone_set('Europe/Kiev');
@@ -184,12 +187,19 @@ include _SPM_includes_ . "Waiters/ClientWaiter.inc";
 
 include _SPM_includes_ . "System/Database.inc";
 
+// Запрашиваем доступ к глобальным переменным
+global $database;
+
 /*
- * Запрашиваем доступ к
- * глобальным переменным.
+ * Производим включение файла класса поддерживаемых
+ * системой проверки решений языков программирования
+ * и инициализируем новую переменную, хранящую объект
+ * этого типа.
  */
 
-global $database;
+include _SPM_includes_ . "System/SupportedProgrammingLanguages.inc";
+
+$supported_programming_languages = new SupportedProgrammingLanguages($database);
 
 /*
  * Раздел включения ServiceHelper-ов.

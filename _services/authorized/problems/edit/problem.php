@@ -62,6 +62,7 @@ define("__PAGE_LAYOUT__", "default");
 
 global $database;
 global $_CONFIG;
+global $supported_programming_languages;
 
 /*
  * Если идентификатор редактируемой
@@ -383,18 +384,18 @@ if ($_GET['id'] > 0)
 
 			<option value><?=_("Виберіть мову програмування")?></option>
 
-			<?php foreach ($_CONFIG->getCompilersConfig() as $compiler): if ($compiler['enabled']): ?>
+			<?php foreach ($supported_programming_languages->getSupportedLanguages() as $language): ?>
 
 				<option
-						value="<?=$compiler['language_name']?>"
+						value="<?=$language['name']?>"
 						<?=(
-						$compiler['language_name'] == @$problem_info['authorSolutionLanguage']
+                        $language['name'] == @$problem_info['authorSolutionLanguage']
 							? "selected"
 							: ""
 						)?>
-				><?=$compiler['display_name']?> (<?=$compiler['language_name']?>)</option>
+				><?=$language['title']?> [<?=$language['name']?>]</option>
 
-			<?php endif; endforeach; ?>
+			<?php endforeach; ?>
 
         </select>
 
