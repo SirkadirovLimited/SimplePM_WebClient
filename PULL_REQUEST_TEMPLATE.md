@@ -30,5 +30,4 @@ Where you made changes?
 ## Relates to
 <A list of unique issue identificators and links to them>
 
-- **SERVER-3** https://simplepm.atlassian.net/projects/SERVER/issues/SERVER-3
-- **SERVER-4** https://simplepm.atlassian.net/projects/SERVER/issues/SERVER-4
+- **WEBAPP-** https://simplepm.atlassian.net/projects/WEBAPP/issues/WEBAPP-
