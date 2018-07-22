@@ -9,7 +9,7 @@
  * ╚══════╝╚═╝╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝     ╚═╝     ╚═╝
  *
  * SimplePM WebApp is a part of software product "Automated
- * vefification system for programming tasks "SimplePM".
+ * verification system for programming tasks "SimplePM".
  *
  * Copyright 2018 Yurij Kadirov
  *
@@ -68,11 +68,6 @@ class Configuration {
         );
 
         $this->InitConfigVariable(
-            $this->compilers_config,
-            "compilers"
-        );
-
-        $this->InitConfigVariable(
             $this->services_config,
             "services"
         );
@@ -121,18 +116,10 @@ class Configuration {
         return $this->services_config;
     }
 
-    public function setServicesConfig(string $config_file_name) : void {
-        $this->InitConfigVariable($this->services_config, $config_file_name);
-    }
-
     /* Для конфигурации коммандных сервисов */
 
     public function &getCommandsConfig() : array {
         return $this->commands_config;
-    }
-
-    public function setCommandsConfig(string $config_file_name) : void {
-        $this->InitConfigVariable($this->commands_config, $config_file_name);
     }
 
     /* Для конфигурации веб-приложения */
@@ -145,12 +132,6 @@ class Configuration {
 
     public function &getDatabaseConfig() : array {
         return $this->database_config;
-    }
-
-    /* Для коннфигурации поддерживаемых компиляторов */
-
-    public function &getCompilersConfig() : array {
-        return $this->compilers_config;
     }
 
 }
