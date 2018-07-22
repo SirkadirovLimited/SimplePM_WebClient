@@ -22,3 +22,5 @@
 
 </head>
 <body>
+
+    <?php include(_SPM_modules_ . "iframe_modal.php"); ?>
