@@ -55,6 +55,7 @@ define("__PAGE_LAYOUT__", "default");
 
 global $database;
 global $_CONFIG;
+global $supported_programming_languages;
 
 /*
  * Получаем идентификатор текущего соревнования
@@ -357,19 +358,20 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
         >
             <option value><?=_("Виберіть мову програмування")?></option>
 
-            <?php foreach ($_CONFIG->getCompilersConfig() as $compiler): if ($compiler['enabled']): ?>
+            <?php foreach ($supported_programming_languages->getSupportedLanguages() as $language):?>
 
                 <option
-                        value="<?=$compiler['language_name']?>"
-                        langmode="<?=$compiler['editor_mode']?>"
+                        value="<?=$language['name']?>"
+                        langmode="<?=$language['syntax_name']?>"
+                        serverid="<?=$language['owner_server_id']?>"
                         <?=(
-                                $compiler['language_name'] == @$last_submission_info['codeLang']
+                                $language['name'] == @$last_submission_info['codeLang']
                                     ? "selected"
                                     : ""
                         )?>
-                ><?=$compiler['display_name']?> (<?=$compiler['language_name']?>)</option>
+                ><?=$language['title']?></option>
 
-            <?php endif; endforeach; ?>
+            <?php endforeach; ?>
 
         </select>
 

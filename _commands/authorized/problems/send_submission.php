@@ -41,6 +41,7 @@ include_once _SPM_includes_ . "ServiceHelpers/Olymp.inc";
 
 global $_CONFIG;
 global $database;
+global $supported_programming_languages;
 
 /*
  * Осуществляем  различные  проверки,
@@ -78,15 +79,11 @@ or Security::ThrowError(_("Форму відправки рішення запо
 $lang_found = false;
 
 // Производим перебор всех компиляторов в цикле
-foreach ($_CONFIG->getCompilersConfig() as $compiler_info)
+foreach ($supported_programming_languages->getSupportedLanguages() as $language)
 {
 
-    // Мы ищем лишь доступные компиляторы и ЯП
-    if (!$compiler_info['enabled'])
-        continue;
-
     // Если мы нашли то, что искали...
-    if ($_POST['submission_language'] == $compiler_info['language_name'])
+    if ($_POST['submission_language'] == $language['name'])
     {
 
         // Устанавливаем флаг в соответствующее состояние
