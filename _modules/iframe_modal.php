@@ -51,3 +51,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('#iframe_modal-modal-dialog').on('show.bs.modal', function (event) {
+
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+
+        modal.find('.modal-title').text(button.data('title'));
+
+        modal.find('.modal-body iframe').attr("src", button.data('src'));
+
+    });
+</script>
