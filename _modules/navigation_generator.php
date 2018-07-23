@@ -49,8 +49,16 @@
 		<div class="dropdown-menu">
 			<a class="dropdown-item" href="<?=_SPM_?>index.php/problems/rating/"><?=_("Рейтинг")?></a>
 			<div class="dropdown-divider"></div>
-			<a class="dropdown-item disabled"><?=_("Користувачі онлайн")?></a>
-			<a class="dropdown-item disabled"><?=_("Дні народження")?></a>
+			<a
+                    data-toggle="modal"
+                    data-target="#iframe_modal-modal-dialog"
+
+                    data-title="Example website"
+                    data-src="https://example.com/"
+
+                    class="dropdown-item"
+            ><?=_("Користувачі онлайн")?></a>
+			<a class="dropdown-item"><?=_("Дні народження")?></a>
 		</div>
 
 	</li>
