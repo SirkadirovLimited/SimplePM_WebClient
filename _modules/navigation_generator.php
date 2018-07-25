@@ -56,7 +56,7 @@
                     data-target="#iframe_modal-modal-dialog"
 
                     data-title="<?=_("Користувачі онлайн")?>"
-                    data-src="<?=_SPM_?>index.php/modal/online"
+                    data-src="<?=_SPM_?>index.php/modals/online"
 
                     class="dropdown-item"
             ><?=_("Користувачі онлайн")?></a>
@@ -67,7 +67,7 @@
                     data-target="#iframe_modal-modal-dialog"
 
                     data-title="<?=_("Дні народження")?>"
-                    data-src="<?=_SPM_?>index.php/modal/birthdays"
+                    data-src="<?=_SPM_?>index.php/modals/birthdays"
 
                     class="dropdown-item"
             ><?=_("Дні народження")?></a>
