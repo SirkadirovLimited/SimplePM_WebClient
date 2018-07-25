@@ -49,8 +49,28 @@
 		<div class="dropdown-menu">
 			<a class="dropdown-item" href="<?=_SPM_?>index.php/problems/rating/"><?=_("Рейтинг")?></a>
 			<div class="dropdown-divider"></div>
-			<a class="dropdown-item disabled"><?=_("Користувачі онлайн")?></a>
-			<a class="dropdown-item disabled"><?=_("Дні народження")?></a>
+			<a
+                    href="#"
+
+                    data-toggle="modal"
+                    data-target="#iframe_modal-modal-dialog"
+
+                    data-title="<?=_("Користувачі онлайн")?>"
+                    data-src="<?=_SPM_?>index.php/modals/online"
+
+                    class="dropdown-item"
+            ><?=_("Користувачі онлайн")?></a>
+            <a
+                    href="#"
+
+                    data-toggle="modal"
+                    data-target="#iframe_modal-modal-dialog"
+
+                    data-title="<?=_("Дні народження")?>"
+                    data-src="<?=_SPM_?>index.php/modals/birthdays"
+
+                    class="dropdown-item"
+            ><?=_("Дні народження")?></a>
 		</div>
 
 	</li>
@@ -75,12 +95,7 @@
 				href="<?=_SPM_?>index.php/problems/difficult/"
 		><?=_("Відкладені задачі")?></a>
 
-		<?php if (
-		Security::CheckAccessPermissions(
-			PERMISSION::TEACHER_MANAGE_PROBLEMS | PERMISSION::ADMINISTRATOR,
-			false
-		)
-		): ?>
+		<?php if (Security::CheckAccessPermissions(PERMISSION::TEACHER_MANAGE_PROBLEMS | PERMISSION::ADMINISTRATOR, false)): ?>
 
 			<div class="dropdown-divider"></div>
 
@@ -97,12 +112,7 @@
 
 	</li>
 
-	<?php if (
-	Security::CheckAccessPermissions(
-		PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR,
-		false
-	)
-	): ?>
+	<?php if (Security::CheckAccessPermissions(PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR)): ?>
 
 		<li class="nav-item">
 			<a
@@ -113,12 +123,7 @@
 
 	<?php endif; ?>
 
-	<?php if (
-	Security::CheckAccessPermissions(
-		PERMISSION::STUDENT,
-		false
-	)
-	): ?>
+	<?php if (Security::CheckAccessPermissions(PERMISSION::STUDENT)): ?>
 
 		<li class="nav-item">
 			<a

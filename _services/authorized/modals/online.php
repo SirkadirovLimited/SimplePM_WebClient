@@ -28,39 +28,7 @@
  * Visit website for more details: https://spm.sirkadirov.com/
  */
 
+define("__PAGE_TITLE__", _("Користувачі онлайн"));
+define("__PAGE_LAYOUT__", "skeleton");
+
 ?>
-
-<div class="modal fade" id="iframe_modal-modal-dialog" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">-=Modal title=-</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="padding: 0;">
-                <iframe
-                    frameborder="0"
-                    scrolling="auto"
-                    src=""
-                    style="width: 100%; height: 400px; margin: 0;"
-                    sandbox="allow-same-origin allow-forms allow-top-navigation allow-scripts"
-                ></iframe>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $('#iframe_modal-modal-dialog').on('show.bs.modal', function (event) {
-
-        var button = $(event.relatedTarget);
-        var modal = $(this);
-
-        modal.find('.modal-title').text(button.data('title'));
-
-        modal.find('.modal-body iframe').attr("src", button.data('src'));
-
-    });
-</script>
