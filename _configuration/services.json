@@ -6,6 +6,20 @@
     "olymp_enabled": false
   },
 
+
+  {
+    "path": "authorized/modals/online",
+    "enabled": true,
+    "olymp_enabled": false
+  },
+
+  {
+    "path": "authorized/modals/birthdays",
+    "enabled": true,
+    "olymp_enabled": false
+  },
+
+
   {
     "path": "authorized/problems/archive",
     "enabled": true,
