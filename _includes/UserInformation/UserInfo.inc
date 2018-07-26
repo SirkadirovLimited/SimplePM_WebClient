@@ -52,11 +52,7 @@ class UserInfo {
     public static function UserExists(int $userId) : bool
     {
 
-        /*
-         * Запрашиваем  доступ  к
-         * глобальным переменным.
-         */
-
+        // Запрашиваем доступ к глобальным переменным.
         global $database;
 
         /*
@@ -74,10 +70,7 @@ class UserInfo {
             ;
         ";
 
-        /*
-         * Отвечаем на вопрос как 42
-         */
-
+        // Отвечаем на вопрос как 42
         return (int)($database->query($query_str)->fetch_array()[0]) > 0;
 
     }
@@ -90,11 +83,7 @@ class UserInfo {
     public static function GetGroupName(int $groupId) : string
     {
 
-        /*
-         * Запрашиваем  доступ  к
-         * глобальным переменным.
-         */
-
+        // Запрашиваем доступ к глобальным переменным
         global $database;
 
         /*
@@ -114,20 +103,11 @@ class UserInfo {
             ;
         ";
 
-        /*
-         * Выполняем SQL запрос на выборку данных
-         */
-
+        // Выполняем SQL запрос на выборку данных
         $query = $database->query($query_str);
 
-        /*
-         * Возвращаем результат работы функции
-         */
-
-        if ($query->num_rows == 0)
-            return _("Невідома група");
-        else
-            return $query->fetch_object()->name;
+        // Возвращаем результат работы функции
+        return $query->num_rows == 0 ? _("Невідома група") : $query->fetch_object()->name;
 
     }
 
@@ -138,11 +118,7 @@ class UserInfo {
     public static function getUserInfo(int $userId): array
     {
 
-        /*
-         * Запрашиваем  доступ  к
-         * глобальным переменным.
-         */
-
+        // Запрашиваем доступ к глобальным переменным
         global $database;
 
         /*
@@ -154,7 +130,10 @@ class UserInfo {
             SELECT
               `id`,
               `sessionId`,
+              
+              IF(ROUND(time_to_sec(TIMEDIFF(NOW(), `last_online`)) / 60) <= 10, TRUE, FALSE) AS `is_online`,
               `last_online`,
+              
               `firstname`,
               `secondname`,
               `thirdname`,
