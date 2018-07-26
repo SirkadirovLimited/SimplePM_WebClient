@@ -50,6 +50,8 @@ $query_str = sprintf("
       `spm_users`
     WHERE
       (
+        `id` = '%s'
+      OR
         `groupid` = '%s'
       OR
         `id` = '%s'
@@ -64,7 +66,9 @@ $query_str = sprintf("
       DAY(`birthday_date`) ASC,
       `secondname` ASC,
       `firstname` ASC
+    ;
 ",
+    $current_user_info['id'],
     $current_user_info['groupid'],
     $current_user_info['teacherId'],
     $current_user_info['id']
