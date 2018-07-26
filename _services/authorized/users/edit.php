@@ -31,10 +31,7 @@
 define("__PAGE_TITLE__", _("Редагування профілю"));
 define("__PAGE_LAYOUT__", "default");
 
-/*
- * Запрашиваем доступ к глобальным переменным
- */
-
+// Запрашиваем доступ к глобальным переменным
 global $database;
 
 /*
@@ -64,10 +61,7 @@ Security::CheckAccessPermissionsForEdit(
         true
 ) or Security::ThrowError("403");
 
-/*
- * Получаем информацию о пользователе
- */
-
+// Получаем информацию о пользователе
 $user_info = UserInfo::getUserInfo($_GET['id']);
 
 ?>
@@ -363,6 +357,26 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
             </div>
 
 		</form>
+
+        <?php if (($user_info['teacherId'] == Security::getCurrentSession()['user_info']->getUserId() ||
+                Security::CheckAccessPermissions(PERMISSION::ADMINISTRATOR)) &&
+                $user_info['id'] != Security::getCurrentSession()['user_info']->getUserId()): ?>
+
+        <h3 class="text-danger"><?=_("Видалення користувача")?></h3>
+
+        <p>
+            <strong><?=_("Видалення користувача")?></strong> - <?=_("незворотній процес, при виконанні якого також видаляються всі пов'язані з цим користувачем дані.")?>
+            <?=_("Більше того, буде видалена інформація про його запити на тестування, участь у змаганнях та всі його нагороди.")?>
+        </p>
+
+        <a
+                href="<?=_SPM_?>index.php?cmd=users/edit/delete&id=<?=$user_info['id']?>"
+                class="btn btn-outline-danger"
+
+                onclick="return confirm('<?=_("Ви впевнені в тому, що хочете зробити?")?>');"
+        ><?=_("Видалити цього користувача")?></a>
+
+        <?php endif; ?>
 
 	</div>
 </div>
