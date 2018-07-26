@@ -28,10 +28,7 @@
  * Visit website for more details: https://spm.sirkadirov.com/
  */
 
-/*
- * Запрашиваем доступ к глобальным переменным
- */
-
+// Запрашиваем доступ к глобальным переменным
 global $database;
 
 /*
@@ -47,11 +44,7 @@ UserInfo::UserExists($_GET['id'])
 Security::CheckAccessPermissionsForEdit($_GET['id'], true)
     or Security::ThrowError("403");
 
-/*
- * Проверяем POST аргументы
- * на существование.
- */
-
+// Проверяем POST аргументы на существование
 Security::CheckPostDataIssetAndNotNull(
     array(
         "institution"
@@ -60,8 +53,8 @@ Security::CheckPostDataIssetAndNotNull(
 
 /*
  * Проверяем правильность заполнения
- * POST-параметров в форме,  которая
- * перенаправила   пользователя   на
+ * POST-параметров в форме, которая
+ * перенаправила пользователя на
  * данный командный сервис.
  */
 
@@ -95,11 +88,7 @@ $database->query($query_str);
 if (Security::CheckAccessPermissionsForEdit($_GET['id'], false))
 {
 
-    /*
-     * Проверяем POST аргументы
-     * на существование.
-     */
-
+    // Проверяем POST аргументы на существование
     Security::CheckPostDataIssetAndNotNull(
         array(
             "groupid"
@@ -109,10 +98,10 @@ if (Security::CheckAccessPermissionsForEdit($_GET['id'], false))
     $_POST['groupid'] = abs((int)$_POST['groupid']);
 
     /*
-     * Проверка  на  существование
-     * указанной  пользовательской
-     * группы для обеспечения безо
-     * пасности работы системы.
+     * Проверка на существование
+     * указанной пользовательской
+     * группы для обеспечения
+     * безопасности работы системы.
      */
 
     // Формируем запрос на выборку из БД
@@ -157,7 +146,7 @@ if (Security::CheckAccessPermissionsForEdit($_GET['id'], false))
 
 /*
  * Перенаправляем текущего пользователя
- * на необходимый нам  сервис  системы.
+ * на необходимый нам сервис системы.
  */
 
 // Перезаписываем заголовок
