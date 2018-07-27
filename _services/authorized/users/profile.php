@@ -47,11 +47,11 @@ UserInfo::UserExists(
     $_GET['id']
 ) or Security::ThrowError(_("Користувача з вказаним ідентифікатором не знайдено!"));
 
-/*
- * Получаем информацию о пользователе
- */
-
+// Получаем информацию о пользователе
 $user_info = UserInfo::getUserInfo($_GET['id']);
+
+// Запрашиваем доступ к глобальным переменным
+global $database;
 
 ?>
 
@@ -83,27 +83,105 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
     </div>
     <div class="card-body">
 
-        <img
-            src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22200%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_16277f0cf54%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A10pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_16277f0cf54%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2274.4296875%22%20y%3D%22104.5%22%3E200x200%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
-            class="rounded mx-auto d-block"
-            style="min-width: 200px; min-height: 100px; margin: 20px;"
-        >
-        <h3 class="card-title" style="margin: 0;">
-            <?=$user_info["secondname"]?> <?=$user_info["firstname"]?> <?=$user_info["thirdname"]?>
-        </h3>
-        <h5 class="text-secondary"><?=$user_info['institution']?></h5>
+        <div style="margin-top: 2rem; margin-bottom: 3rem;">
 
-        <p style="margin-top: 20px;">
+            <h2 style="margin: 0;">
+                <?=$user_info["secondname"]?> <?=$user_info["firstname"]?> <?=$user_info["thirdname"]?>
+            </h2>
 
-            <button class="btn btn-secondary btn-sm">
-                Сума балів <span class="badge badge-light"><?=(int)$user_info["rating_count"]?></span>
-            </button>
+            <h5 class="text-secondary"><?=$user_info['institution']?></h5>
 
-            <button class="btn btn-secondary btn-sm">
-                Рейтинг <span class="badge badge-light"><?=number_format((float)$user_info["rating"], 2)?></span>
-            </button>
+        </div>
 
-        </p>
+        <div class="card" style="margin-top: 30px;">
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-3 col-sm-12 text-center">
+
+                        <h2><?=(int)$user_info["rating_count"]?></h2>
+                        <span class="lead"><?=_("Сума балів")?></span>
+
+                    </div>
+
+                    <div class="col-md-3 col-sm-12 text-center">
+
+                        <h2><?=number_format((float)$user_info["rating"], 2)?></h2>
+                        <span class="lead"><?=_("Рейтинг")?></span>
+
+                    </div>
+
+                    <div class="col-md-3 col-sm-12 text-center">
+
+                        <?php
+
+                        $solved_problems_count = @(int)($database->query(sprintf("
+                            SELECT
+                              COUNT(`spm_submissions`.`submissionId`)
+                            FROM
+                              `spm_submissions`
+                            LEFT JOIN
+                              `spm_problems`
+                            ON
+                              `spm_submissions`.`problemId` = `spm_problems`.`id`
+                            WHERE
+                              (
+                                  `spm_submissions`.`olympId` = '0'
+                                AND
+                                  `spm_submissions`.`userId` = '%s'
+                                AND
+                                  `spm_submissions`.`testType` = 'release'
+                                AND
+                                  `spm_submissions`.`b` >= `spm_problems`.`difficulty`
+                              )
+                            ;
+                        ", $user_info['id']))->fetch_array()[0]);
+
+                        ?>
+
+                        <h2><?=$solved_problems_count?></h2>
+                        <span class="lead"><?=_("Прийнятих рішень")?></span>
+
+                    </div>
+
+                    <div class="col-md-3 col-sm-12 text-center">
+
+                        <?php
+
+                        $difficult_problems_count = @(int)($database->query(sprintf("
+                            SELECT
+                              COUNT(`spm_submissions`.`submissionId`)
+                            FROM
+                              `spm_submissions`
+                            LEFT JOIN
+                              `spm_problems`
+                            ON
+                              `spm_submissions`.`problemId` = `spm_problems`.`id`
+                            WHERE
+                              (
+                                  `spm_submissions`.`olympId` = '0'
+                                AND
+                                  `spm_submissions`.`userId` = '%s'
+                                AND
+                                  `spm_submissions`.`b` < `spm_problems`.`difficulty`
+                              )
+                            ;
+                        ", $user_info['id']))->fetch_array()[0]);
+
+                        ?>
+
+                        <h2><?=$difficult_problems_count?></h2>
+                        <span class="lead"><?=_("Відкладені задачі")?></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
         <div class="row" style="margin-top: 30px;">
 
@@ -111,42 +189,43 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
             <div class="col-md-6 col-sm-12 text-left">
 
-                <div class="list-group">
+                <div class="card">
+                    <div class="card-header"><?=_("Інформація про користувача")?></div>
+                    <div class="card-body" style="padding: 0;">
 
-                    <a class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 style="margin: 0;"><strong><?=_("Інформація про користувача")?></strong></h6>
+                        <div class="list-group">
+
+                            <a class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1"><?=_("Ім'я")?></h6>
+                                </div>
+                                <p class="mb-1"><?=$user_info["firstname"]?></p>
+                            </a>
+
+                            <a class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1"><?=_("Прізвище")?></h6>
+                                </div>
+                                <p class="mb-1"><?=$user_info["secondname"]?></p>
+                            </a>
+
+                            <a class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1"><?=_("По-батькові")?></h6>
+                                </div>
+                                <p class="mb-1"><?=$user_info["thirdname"]?></p>
+                            </a>
+
+                            <a class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1"><?=_("Дата народження")?></h6>
+                                </div>
+                                <p class="mb-1"><?=$user_info["birthday_date"]?></p>
+                            </a>
+
                         </div>
-                    </a>
 
-                    <a class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1"><?=_("Ім'я")?></h6>
-                        </div>
-                        <p class="mb-1"><?=$user_info["firstname"]?></p>
-                    </a>
-
-                    <a class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1"><?=_("Прізвище")?></h6>
-                        </div>
-                        <p class="mb-1"><?=$user_info["secondname"]?></p>
-                    </a>
-
-                    <a class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1"><?=_("По-батькові")?></h6>
-                        </div>
-                        <p class="mb-1"><?=$user_info["thirdname"]?></p>
-                    </a>
-
-                    <a class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1"><?=_("Дата народження")?></h6>
-                        </div>
-                        <p class="mb-1"><?=$user_info["birthday_date"]?></p>
-                    </a>
-
+                    </div>
                 </div>
 
             </div>
@@ -157,75 +236,81 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
             <div class="col-md-6 col-sm-12 text-left">
 
-                <div class="list-group">
+                <div class="card">
 
-                    <a class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 style="margin: 0;"><strong><?=_("Системна інформація")?></strong></h6>
+                    <div class="card-header"><?=_("Системна інформація")?></div>
+
+                    <div class="card-body" style="padding: 0;">
+
+                        <div class="list-group">
+
+                            <a
+                                    href="mailto:<?=$user_info["email"]?>"
+                                    class="list-group-item list-group-item-action flex-column align-items-start"
+                            >
+
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1"><?=_("E-mail адреса")?></h6>
+                                </div>
+
+                                <p class="mb-1"><?=$user_info["email"]?></p>
+
+                            </a>
+
+                            <a
+                                    href="<?=_SPM_?>index.php/problems/rating/?group=<?=(int)$user_info["groupid"]?>"
+                                    class="list-group-item list-group-item-action flex-column align-items-start"
+                            >
+
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1"><?=_("Група")?></h6>
+                                </div>
+
+                                <p class="mb-1">
+                                    <?=UserInfo::GetGroupName((int)$user_info["groupid"])?> (gid<?=(int)$user_info["groupid"]?>)
+                                </p>
+
+                            </a>
+
+                            <a
+                                    href="<?=_SPM_?>index.php/users/profile/?id=<?=$user_info["teacherId"]?>"
+                                    class="list-group-item list-group-item-action flex-column align-items-start"
+                            >
+
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1"><?=_("Куратор")?></h6>
+                                </div>
+
+                                <?php if (UserInfo::UserExists($user_info['teacherId'])): ?>
+
+                                    <?php $curator_info = UserInfo::getUserInfo($user_info["teacherId"]); ?>
+
+                                    <p class="mb-1">
+                                        <?=$curator_info["secondname"]?>
+                                        <?=$curator_info["firstname"]?>
+                                        <?=$curator_info["thirdname"]?>, <?=UserInfo::GetGroupName((int)$curator_info["groupid"])?>
+                                    </p>
+
+                                    <?php unset($curator_info); ?>
+
+                                <?php else: ?>
+
+                                    <p class="mb-1"><?=_("Сам собі пан")?> (<?=$user_info['teacherId']?>)</p>
+
+                                <?php endif; ?>
+
+                            </a>
+
+                            <a class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1"><?=_("Остання активність на сайті")?></h6>
+                                </div>
+                                <p class="mb-1"><?=$user_info["last_online"]?></p>
+                            </a>
+
                         </div>
-                    </a>
 
-					<a
-                            href="mailto:<?=$user_info["email"]?>"
-                            class="list-group-item list-group-item-action flex-column align-items-start">
-						<div class="d-flex w-100 justify-content-between">
-							<h6 class="mb-1"><?=_("E-mail адреса")?></h6>
-						</div>
-						<p class="mb-1"><?=$user_info["email"]?></p>
-					</a>
-
-                    <a
-						    href="<?=_SPM_?>index.php/problems/rating/?group=<?=(int)$user_info["groupid"]?>"
-						    class="list-group-item list-group-item-action flex-column align-items-start"
-					>
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1"><?=_("Група")?></h6>
-                        </div>
-                        <p class="mb-1"><?=UserInfo::GetGroupName((int)$user_info["groupid"])?> (gid<?=(int)$user_info["groupid"]?>)</p>
-                    </a>
-
-                    <a
-                        href="<?=_SPM_?>index.php/users/profile/?id=<?=$user_info["teacherId"]?>"
-                        class="list-group-item list-group-item-action flex-column align-items-start"
-                    >
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1"><?=_("Куратор")?></h6>
-                        </div>
-
-                        <?php if (UserInfo::UserExists($user_info['teacherId'])): ?>
-
-                            <?php
-
-                            $curator_info = UserInfo::getUserInfo($user_info["teacherId"]);
-
-                            ?>
-
-                            <p class="mb-1">
-                                <?=$curator_info["secondname"]?>
-                                <?=$curator_info["firstname"]?>
-                                <?=$curator_info["thirdname"]?>, <?=UserInfo::GetGroupName((int)$curator_info["groupid"])?>
-                            </p>
-
-                            <?php
-
-                            unset($curator_info);
-
-                            ?>
-
-                        <?php else: ?>
-
-                            <p class="mb-1"><?=_("Сам собі пан")?> (<?=$user_info['teacherId']?>)</p>
-
-                        <?php endif; ?>
-
-                    </a>
-
-                    <a class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1"><?=_("Остання активність на сайті")?></h6>
-                        </div>
-                        <p class="mb-1"><?=$user_info["last_online"]?></p>
-                    </a>
+                    </div>
 
                 </div>
 
