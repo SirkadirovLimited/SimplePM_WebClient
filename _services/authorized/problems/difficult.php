@@ -80,7 +80,7 @@ global $database;
  */
 
 // Формируем запрос на выборку данных из БД
-$query_str = "
+$query_str = sprintf("
     SELECT
       `spm_submissions`.`submissionId`,
       `spm_submissions`.`problemId`,
@@ -98,14 +98,16 @@ $query_str = "
     WHERE
       `spm_submissions`.`olympId` = 0
     AND
-      `spm_submissions`.`userId` = '" . $_GET['id'] . "'
+      `spm_submissions`.`userId` = '%s'
     AND
       `spm_submissions`.`b` < `spm_problems`.`difficulty`
     ORDER BY
       `spm_submissions`.`time` DESC,
       `spm_submissions`.`problemId` ASC
     ;
-";
+",
+    $_GET['id']
+);
 
 // Выполняем запрос и обрабатываем результаты
 $difficult_problems = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
