@@ -56,7 +56,7 @@ trait UserChecker {
              */
 
             if (!UserInfo::UserExists(Security::getCurrentSession()["user_info"]->getUserId()))
-                SessionDestroyer::DestroySession(_("Ваш аккаунт було видлено!"));
+                SessionDestroyer::DestroySession(_("Ваш аккаунт було видалено!"));
 
             /*
              * Если текущий пользователь забанен,
@@ -65,7 +65,9 @@ trait UserChecker {
              */
 
             if ((int)(Security::getCurrentSession()["user_info"]->getUserInfo()["groupid"]) <= 0)
-                SessionDestroyer::DestroySession(_("Ваш аккаунт ще не активовано Вашим куратором!"));
+                SessionDestroyer::DestroySession(
+                    _("Ваш аккаунт ще не активовано або було заблоковано! За подробицями зверніться до Вашого куратора.")
+                );
 
             /*
              * Устанавливаем дату и время последней
