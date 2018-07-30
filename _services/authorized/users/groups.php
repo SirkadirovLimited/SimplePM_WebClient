@@ -28,28 +28,16 @@
  * Visit website for more details: https://spm.sirkadirov.com/
  */
 
-/*
- * Получаем подробную информацию
- * о текущем пользователе.
- */
-
+// Получаем подробную информацию о текущем пользователе
 $user_info = Security::getCurrentSession()['user_info']->getUserInfo();
 
-/*
- * Производим проверку на
- * наличие соответствующи
- * х разрешений.
- */
-
+// Производим проверку на наличие соответствующих разрешений
 Security::CheckAccessPermissions(
 	PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR,
 	true
 );
 
-/*
- * Запрашиваем доступ к глобальным переменным
- */
-
+// Запрашиваем доступ к глобальным переменным
 global $database;
 
 /*
@@ -152,10 +140,10 @@ define("__PAGE_LAYOUT__", "default");
 
 <!-- /Edit group dialog -->
 
-<div align="right" style="margin-top: 10px; margin-bottom: 10px;">
+<div align="right" style="margin-top: 10px; margin-bottom: 40px;">
 
 	<button
-			class="btn btn-outline-primary"
+			class="btn btn-outline-success"
 
 			data-groupid="NULL"
 			data-groupname=""
@@ -174,30 +162,34 @@ define("__PAGE_LAYOUT__", "default");
 
 			<div class="col-md-4 col-sm-12">
 
-				<div class="card">
+				<div class="card" style="margin-bottom: 30px;">
 					<div class="card-body">
 
 						<h5 class="card-title"><?=$group_info['name']?></h5>
 
 						<a
+                                class="btn btn-outline-secondary btn-sm"
+
 								href="<?=_SPM_?>index.php/problems/rating/?group=<?=$group_info['id']?>"
-								class="btn btn-link btn-sm"
 						><?=_("Користувачі")?></a>
 
-						<button
-								class="btn btn-link btn-sm"
+						<a
+                                class="btn btn-outline-secondary btn-sm"
 
 								data-groupid="<?=$group_info['id']?>"
 								data-groupname="<?=$group_info['name']?>"
 
 								data-toggle="modal"
 								data-target="#edit_group_modal"
-						><?=_("Редагувати")?></button>
+
+                                href="#"
+						><?=_("Редагувати")?></a>
 
 						<a
-								href="<?=_SPM_?>index.php?cmd=users/groups/delete&group=<?=$group_info['id']?>"
-								class="btn btn-link btn-sm text-danger"
+                                class="btn btn-outline-danger btn-sm"
+
 								onclick="return confirm('<?=_("Ви впевнені?")?>');"
+                                href="<?=_SPM_?>index.php?cmd=users/groups/delete&group=<?=$group_info['id']?>"
 						><?=_("Видалити")?></a>
 
 					</div>
@@ -211,6 +203,6 @@ define("__PAGE_LAYOUT__", "default");
 
 <?php else: ?>
 
-	<p class="lead text-center" style="margin-top: 40px !important; margin-bottom: 50px !important;"><?=_("Ні однієї групи користувачів ще не створено.")?></p>
+	<p class="lead text-danger text-center" style="margin-top: 40px !important; margin-bottom: 50px !important;"><?=_("Ні однієї користувацької групи ще не створено.")?></p>
 
 <?php endif; ?>
