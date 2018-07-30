@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Час створення: Лип 22 2018 р., 13:03
+-- Час створення: Лип 30 2018 р., 23:58
 -- Версія сервера: 5.7.22-log
 -- Версія PHP: 7.1.1
 
@@ -23,102 +23,6 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `simplepm2` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `simplepm2`;
-
-DELIMITER $$
---
--- Функції
---
-DROP FUNCTION IF EXISTS `RatingBase`$$
-CREATE DEFINER=`root`@`localhost` FUNCTION `RatingBase` (`urId` BIGINT UNSIGNED) RETURNS FLOAT UNSIGNED READS SQL DATA
-    SQL SECURITY INVOKER
-begin
-
-DECLARE sumVal BIGINT DEFAULT 0;
-DECLARE rProblemsCount BIGINT DEFAULT 0;
-
-SELECT
-	SUM(`b`)
-INTO
-	`sumVal`
-FROM
-	`spm_submissions`
-WHERE
-	`status` = 'ready'
-AND
-	`testType` = 'release'
-AND
-    (
-        `userId` = urId 
-    AND
-        `b` >= 0
-    AND
-        `olympId` = 0
-    )
-ORDER BY
-	`b` DESC
-LIMIT
-	30
-;
-
-SELECT
-COUNT(`submissionId`)
-INTO
-`rProblemsCount`
-FROM
-`spm_submissions`
-WHERE
-	`status` = 'ready'
-AND
-	`testType` = 'release'
-AND
-	(
-        `userId` = urId
-    AND
-        `b` >= 0
-    AND
-        `olympId` = 0
-    )
-ORDER BY
-	`b` DESC
-LIMIT
-	30
-;
-
-RETURN (sumVal / rProblemsCount);
-
-end$$
-
-DROP FUNCTION IF EXISTS `RatingCount`$$
-CREATE DEFINER=`*`@`localhost` FUNCTION `RatingCount` (`uId` BIGINT UNSIGNED, `olympId` BIGINT UNSIGNED) RETURNS DOUBLE READS SQL DATA
-    SQL SECURITY INVOKER
-begin
-
-DECLARE sumVal BIGINT DEFAULT 0;
-
-SELECT
-	SUM(`b`)
-INTO
-	sumVal
-FROM
-	`spm_submissions`
-WHERE
-	`status` = 'ready'
-AND
-	`testType` = 'release'
-AND
-	(
-        `userId` = uId
-    AND
-        `b` > 0
-    AND
-        `olympId` = olympId
-    );
-
-RETURN sumVal;
-
-end$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -151,7 +55,6 @@ CREATE TABLE IF NOT EXISTS `spm_olympiads` (
 -- Структура таблиці `spm_problems`
 --
 -- Створення: Квт 22 2018 р., 15:49
--- Останнє оновлення: Лип 22 2018 р., 08:57
 --
 
 DROP TABLE IF EXISTS `spm_problems`;
@@ -362,7 +265,7 @@ INSERT INTO `spm_problems_tests` (`id`, `problemId`, `input`, `output`, `memoryL
 -- Структура таблиці `spm_submissions`
 --
 -- Створення: Чрв 03 2018 р., 10:13
--- Останнє оновлення: Лип 22 2018 р., 08:55
+-- Останнє оновлення: Лип 30 2018 р., 19:57
 --
 
 DROP TABLE IF EXISTS `spm_submissions`;
@@ -395,10 +298,28 @@ CREATE TABLE IF NOT EXISTS `spm_submissions` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблиці `spm_supported_judges`
+--
+-- Створення: Лип 22 2018 р., 10:23
+-- Останнє оновлення: Лип 30 2018 р., 19:56
+--
+
+DROP TABLE IF EXISTS `spm_supported_judges`;
+CREATE TABLE IF NOT EXISTS `spm_supported_judges` (
+  `id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `name` tinytext NOT NULL,
+  `owner_server_id` tinytext NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`(255))
+) ENGINE=InnoDB DEFAULT CHARSET=ascii;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблиці `spm_supported_languages`
 --
 -- Створення: Лип 06 2018 р., 08:14
--- Останнє оновлення: Лип 22 2018 р., 08:54
+-- Останнє оновлення: Лип 30 2018 р., 19:56
 --
 
 DROP TABLE IF EXISTS `spm_supported_languages`;
@@ -436,7 +357,7 @@ CREATE TABLE IF NOT EXISTS `spm_teacherid` (
 -- Структура таблиці `spm_users`
 --
 -- Створення: Квт 16 2018 р., 11:50
--- Останнє оновлення: Лип 22 2018 р., 08:57
+-- Останнє оновлення: Лип 30 2018 р., 19:58
 --
 
 DROP TABLE IF EXISTS `spm_users`;
