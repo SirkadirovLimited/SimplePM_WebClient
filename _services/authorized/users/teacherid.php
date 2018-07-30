@@ -243,7 +243,7 @@ function teacherId_enabled(int $userId) : bool
 
 	/*
 	 * Производим запрос на выборку
-	 * необходимых нам данных из БД
+	 * необходимых нам данных из БД.
 	 */
 
 	// Формируем запрос на выборку
@@ -274,7 +274,7 @@ function teacherId_enabled(int $userId) : bool
 }
 
 /**
- * Функция  позволяет  определить, существует  ли
+ * Функция позволяет определить, существует ли
  * уникальный код TeacherID, который ассоциирован
  * с указанным пользователем системы SimplePM.
  * @param int $userId Идентификатор пользователя
@@ -415,9 +415,11 @@ $deactivated_users = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 	<div class="card">
 		<div class="card-body table-responsive">
 
-			<h3 class="text-center" style="margin-bottom: 20px;"><?=_("Черга активації користувачів")?></h3>
+			<h3 class="text-center" style="margin-bottom: 10px;"><?=_("Черга активації користувачів")?></h3>
 
-			<p class="lead text-center" style="margin: 0;"></p>
+			<p class="lead text-center" style="margin: 0; margin-bottom: 20px;">
+                <?=_("Для активації вказаного у списку користувача потрібно приєднати його до існуючої користувацької групи.")?>
+            </p>
 
 			<table class="table table-bordered" style="margin: 0;">
 
