@@ -358,25 +358,45 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
 		</form>
 
+        <!--!!! USER BLOCKING AND REMOVAL SECTION !!!-->
+
         <?php if (($user_info['teacherId'] == Security::getCurrentSession()['user_info']->getUserId() ||
                 Security::CheckAccessPermissions(PERMISSION::ADMINISTRATOR)) &&
                 $user_info['id'] != Security::getCurrentSession()['user_info']->getUserId()): ?>
 
-        <h3 class="text-danger"><?=_("Видалення користувача")?></h3>
+            <h3 class="text-danger"><?=_("Зона підвищеної небезпеки")?></h3>
 
-        <p>
-            <strong><?=_("Видалення користувача")?></strong> - <?=_("незворотній процес, при виконанні якого також видаляються всі пов'язані з цим користувачем дані.")?>
-            <?=_("Більше того, буде видалена інформація про його запити на тестування, участь у змаганнях та всі його нагороди.")?>
-        </p>
+            <p class="text-justify">
+                <strong><?=_("Видалення користувача")?></strong> - <?=_("незворотній процес, при виконанні якого також видаляються всі пов'язані з цим користувачем дані.")?>
+                <?=_("Більше того, буде видалена інформація про його запити на тестування, участь у змаганнях та всі його нагороди.")?>
+            </p>
 
-        <a
-                href="<?=_SPM_?>index.php?cmd=users/edit/delete&id=<?=$user_info['id']?>"
-                class="btn btn-outline-danger"
+            <p class="text-justify">
+                <strong><?=_("Блокування користувача")?></strong> - <?=_("зворотній процес, після якого користувач потрапляє у список непідтверджених користувачів та не може входити в систему.")?>
+                <?=_("Для розблокування заблокованного користувача достатньо у сервісі \"Управління TeacherID\" обрати його та пов'язати з будь-якою користувацькою групою.")?>
+            </p>
 
-                onclick="return confirm('<?=_("Ви впевнені в тому, що хочете зробити?")?>');"
-        ><?=_("Видалити цього користувача")?></a>
+            <p class="text-justify">
+                <?=_("Перед виконанням будь-яких операцій, будь-ласка, зверніться до офіційних настанов з адміністрування та використання SimplePM.")?>
+            </p>
+
+            <a
+                    href="<?=_SPM_?>index.php?cmd=users/edit/delete&id=<?=$user_info['id']?>"
+                    class="btn btn-outline-danger"
+
+                    onclick="return confirm('<?=_("Ви впевнені в тому, що хочете зробити?")?>');"
+            ><?=_("Видалити цього користувача")?></a>
+
+            <a
+                    href="<?=_SPM_?>index.php?cmd=users/edit/ban&id=<?=$user_info['id']?>"
+                    class="btn btn-outline-warning"
+
+                    onclick="return confirm('<?=_("Ви впевнені в тому, що хочете зробити?")?>');"
+            ><?=_("Заблокувати цього користувача")?></a>
 
         <?php endif; ?>
+
+        <!--!!! /USER BLOCKING AND REMOVAL SECTION !!!-->
 
 	</div>
 </div>

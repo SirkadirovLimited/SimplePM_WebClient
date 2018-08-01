@@ -76,10 +76,17 @@
 
 
   {
+    "path": "authorized/users/edit/ban",
+    "enabled": true,
+    "olymp_enabled": false
+  },
+
+  {
     "path": "authorized/users/edit/delete",
     "enabled": true,
     "olymp_enabled": false
   },
+
 
   {
     "path": "authorized/users/edit/personal",
