@@ -16,5 +16,7 @@
   "default_judge": "full",
 
   "blockly_enabled": true,
-  "blockly_lua_language_name": "lua"
+  "blockly_lua_language_name": "lua",
+
+  "enable_feedback": true
 }
