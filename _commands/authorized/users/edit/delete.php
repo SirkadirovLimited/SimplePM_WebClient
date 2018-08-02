@@ -61,8 +61,46 @@ Security::CheckAccessPermissionsForEdit($_GET['id'], false)
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-@$database->query(sprintf("DELETE FROM `spm_users` WHERE `id` = '%s';", $_GET['id']));
+// Удаляем пользователя
+@$database->query(
+    sprintf(
+        "
+            DELETE FROM
+              `spm_users`
+            WHERE
+              `id` = '%s'
+            LIMIT
+              1
+            ;
+        ",
+        $_GET['id']
+    )
+);
 
-@$database->query(sprintf("DELETE FROM `spm_submissions` WHERE `userId` = '%s';", $_GET['id']));
+// Удаляем его запросы на отправку
+@$database->query(
+    sprintf(
+        "
+            DELETE FROM
+              `spm_submissions`
+            WHERE
+              `userId` = '%s'
+            ;
+        ",
+        $_GET['id']
+    )
+);
 
-@$database->query(sprintf("DELETE FROM `spm_teacherid` WHERE `userId` = '%s';", $_GET['id']));
+// Удаляем связанные с ним TeacherID
+@$database->query(
+    sprintf(
+        "
+            DELETE FROM
+              `spm_teacherid`
+            WHERE
+              `userId` = '%s'
+            ;
+        ",
+        $_GET['id']
+    )
+);

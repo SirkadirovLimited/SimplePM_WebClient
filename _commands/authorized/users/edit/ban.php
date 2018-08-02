@@ -61,4 +61,30 @@ Security::CheckAccessPermissionsForEdit($_GET['id'], false)
 
 ////////////////////////////////////////////////////////////////////////////////////
 
-@$database->query(sprintf("UPDATE `spm_users` SET `groupid` = '0' WHERE `id` = '%s';", $_GET['id']));
+@$database->query(
+    sprintf(
+        "
+            UPDATE
+              `spm_users`
+            SET
+              `groupid` = '0'
+            WHERE
+              `id` = '%s'
+            LIMIT
+              1
+            ;
+        ",
+        $_GET['id']
+    )
+);
+
+////////////////////////////////////////////////////////////////////////////////////
+
+// Перезаписываем заголовки
+header(
+    'location: ' . _SPM_ . 'index.php/users/profile?id=' . $_GET['id'],
+    true
+);
+
+// Завершаем работу скрипта
+exit;
