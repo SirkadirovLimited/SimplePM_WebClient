@@ -384,6 +384,59 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
                 <?=_("Перед виконанням будь-яких операцій, будь-ласка, зверніться до офіційних настанов з адміністрування та використання SimplePM.")?>
             </p>
 
+            <?php if (Security::getCurrentSession()['user_info']->getUserId() == 1): ?>
+
+                <form
+                        action="<?=_SPM_?>index.php?cmd=users/edit/permissions&id=<?=$user_info['id']?>"
+                        method="post"
+                >
+
+                    <div class="form-group">
+
+                        <label><?=_("Зміна прав користувача")?></label>
+
+                        <div class="input-group">
+
+                            <input
+                                    type="number"
+                                    name="new_permissions"
+
+                                    class="form-control"
+
+                                    min="0"
+
+                                    placeholder="<?=$user_info['permissions']?>"
+                                    value="<?=$user_info['permissions']?>"
+
+                                    required
+                            >
+
+                            <div class="input-group-append">
+
+                                <button
+                                        class="btn btn-outline-secondary"
+                                        type="reset"
+                                ><?=_("Відмінити")?></button>
+
+                                <button
+                                        class="btn btn-outline-danger"
+                                        type="submit"
+                                ><?=_("Змінити")?></button>
+
+                            </div>
+
+                        </div>
+
+                        <small class="form-text text-muted">
+                            <?=_("Подробиці про цей функціонал можна дізнатися в офіційних настановах з адміністрування та використання SimplePM.")?>
+                        </small>
+
+                    </div>
+
+                </form>
+
+            <?php endif; ?>
+
             <a
                     href="<?=_SPM_?>index.php?cmd=users/edit/delete&id=<?=$user_info['id']?>"
                     class="btn btn-outline-danger"
