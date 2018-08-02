@@ -71,6 +71,7 @@ UserInfo::UserExists($_GET['id'])
               1
             ;
         ",
+        $_POST['new_permissions'],
         $_GET['id']
     )
 );
