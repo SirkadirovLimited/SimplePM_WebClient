@@ -76,6 +76,12 @@
 
 
   {
+    "path": "authorized/users/edit/permissions",
+    "enabled": true,
+    "olymp_enabled": false
+  },
+
+  {
     "path": "authorized/users/edit/ban",
     "enabled": true,
     "olymp_enabled": false
