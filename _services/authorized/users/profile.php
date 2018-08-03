@@ -230,32 +230,44 @@ global $database;
 
                         <div class="list-group">
 
-                            <a class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
+                            <a class="list-group-item list-group-item-action align-items-start">
+
+                                <div>
                                     <h6 class="mb-1"><?=_("Ім'я")?></h6>
                                 </div>
+
                                 <p class="mb-1"><?=$user_info["firstname"]?></p>
+
                             </a>
 
-                            <a class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
+                            <a class="list-group-item list-group-item-action align-items-start">
+
+                                <div>
                                     <h6 class="mb-1"><?=_("Прізвище")?></h6>
                                 </div>
+
                                 <p class="mb-1"><?=$user_info["secondname"]?></p>
+
                             </a>
 
-                            <a class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
+                            <a class="list-group-item list-group-item-action align-items-start">
+
+                                <div>
                                     <h6 class="mb-1"><?=_("По-батькові")?></h6>
                                 </div>
+
                                 <p class="mb-1"><?=$user_info["thirdname"]?></p>
+
                             </a>
 
-                            <a class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
+                            <a class="list-group-item list-group-item-action align-items-start">
+
+                                <div>
                                     <h6 class="mb-1"><?=_("Дата народження")?></h6>
                                 </div>
+
                                 <p class="mb-1"><?=$user_info["birthday_date"]?></p>
+
                             </a>
 
                         </div>
@@ -281,10 +293,10 @@ global $database;
 
                             <a
                                     href="mailto:<?=$user_info["email"]?>"
-                                    class="list-group-item list-group-item-action flex-column align-items-start"
+                                    class="list-group-item list-group-item-action align-items-start"
                             >
 
-                                <div class="d-flex w-100 justify-content-between">
+                                <div>
                                     <h6 class="mb-1"><?=_("E-mail адреса")?></h6>
                                 </div>
 
@@ -294,15 +306,46 @@ global $database;
 
                             <a
                                     href="<?=_SPM_?>index.php/problems/rating/?group=<?=(int)$user_info["groupid"]?>"
-                                    class="list-group-item list-group-item-action flex-column align-items-start"
+                                    class="list-group-item list-group-item-action align-items-start"
                             >
 
-                                <div class="d-flex w-100 justify-content-between">
+                                <div>
                                     <h6 class="mb-1"><?=_("Група")?></h6>
                                 </div>
 
                                 <p class="mb-1">
                                     <?=UserInfo::GetGroupName((int)$user_info["groupid"])?> (gid<?=(int)$user_info["groupid"]?>)
+                                </p>
+
+                            </a>
+
+                            <a class="list-group-item list-group-item-action align-items-start">
+
+                                <div>
+                                    <h6 class="mb-1"><?=_("Права доступу")?></h6>
+                                </div>
+
+                                <p class="mb-1">
+
+                                    <?php
+
+                                    if ($user_info['id'] == 0)
+                                        $permission_group_name = "Alien";
+                                    elseif ($user_info['id'] == 1)
+                                        $permission_group_name = _("Суперадміністратор");
+                                    elseif (Security::CheckAccessPermissions(PERMISSION::STUDENT, false, $user_info["permissions"]))
+                                        $permission_group_name = _("Студент");
+                                    elseif (Security::CheckAccessPermissions(PERMISSION::TEACHER, false, $user_info["permissions"]))
+                                        $permission_group_name = _("Викладач / Куратор");
+                                    elseif (Security::CheckAccessPermissions(PERMISSION::ADMINISTRATOR, false, $user_info["permissions"]))
+                                        $permission_group_name = _("Адміністратор");
+                                    else
+                                        $permission_group_name = _("Невідомий");
+
+                                    ?>
+
+                                    <span><?=$permission_group_name?> (<?=(int)$user_info["permissions"]?>)</span>
+
                                 </p>
 
                             </a>
@@ -336,8 +379,8 @@ global $database;
 
                             </a>
 
-                            <a class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
+                            <a class="list-group-item list-group-item-action align-items-start">
+                                <div>
                                     <h6 class="mb-1"><?=_("Остання активність на сайті")?></h6>
                                 </div>
                                 <p class="mb-1"><?=$user_info["last_online"]?></p>
