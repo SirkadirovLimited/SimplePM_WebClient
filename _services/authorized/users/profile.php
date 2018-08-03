@@ -97,7 +97,63 @@ global $database;
 
         </div>
 
-        <div class="card" style="margin-top: 30px;">
+        <!-- INFORMATION BAR -->
+
+        <?php
+
+        $problems_count = @(int)($database->query("
+            SELECT
+              COUNT(`id`)
+            FROM
+              `spm_problems`
+            ;
+        ")->fetch_array()[0]);
+
+        $solved_problems_count = @(int)($database->query(sprintf("
+            SELECT
+              COUNT(`spm_submissions`.`submissionId`)
+            FROM
+              `spm_submissions`
+            LEFT JOIN
+              `spm_problems`
+            ON
+              `spm_submissions`.`problemId` = `spm_problems`.`id`
+            WHERE
+              (
+                  `spm_submissions`.`olympId` = '0'
+                AND
+                  `spm_submissions`.`userId` = '%s'
+                AND
+                  `spm_submissions`.`testType` = 'release'
+                AND
+                  `spm_submissions`.`b` >= `spm_problems`.`difficulty`
+              )
+            ;
+        ", $user_info['id']))->fetch_array()[0]);
+
+        $difficult_problems_count = @(int)($database->query(sprintf("
+            SELECT
+              COUNT(`spm_submissions`.`submissionId`)
+            FROM
+              `spm_submissions`
+            LEFT JOIN
+              `spm_problems`
+            ON
+              `spm_submissions`.`problemId` = `spm_problems`.`id`
+            WHERE
+              (
+                  `spm_submissions`.`olympId` = '0'
+                AND
+                  `spm_submissions`.`userId` = '%s'
+                AND
+                  `spm_submissions`.`b` < `spm_problems`.`difficulty`
+              )
+            ;
+        ", $user_info['id']))->fetch_array()[0]);
+
+        ?>
+
+        <div class="card" style="margin-top: 30px; margin-bottom: 0;">
 
             <div class="card-body">
 
@@ -119,62 +175,12 @@ global $database;
 
                     <div class="col-md-3 col-sm-12 text-center">
 
-                        <?php
-
-                        $solved_problems_count = @(int)($database->query(sprintf("
-                            SELECT
-                              COUNT(`spm_submissions`.`submissionId`)
-                            FROM
-                              `spm_submissions`
-                            LEFT JOIN
-                              `spm_problems`
-                            ON
-                              `spm_submissions`.`problemId` = `spm_problems`.`id`
-                            WHERE
-                              (
-                                  `spm_submissions`.`olympId` = '0'
-                                AND
-                                  `spm_submissions`.`userId` = '%s'
-                                AND
-                                  `spm_submissions`.`testType` = 'release'
-                                AND
-                                  `spm_submissions`.`b` >= `spm_problems`.`difficulty`
-                              )
-                            ;
-                        ", $user_info['id']))->fetch_array()[0]);
-
-                        ?>
-
                         <h2><?=$solved_problems_count?></h2>
                         <span class="lead"><?=_("Прийнятих рішень")?></span>
 
                     </div>
 
                     <div class="col-md-3 col-sm-12 text-center">
-
-                        <?php
-
-                        $difficult_problems_count = @(int)($database->query(sprintf("
-                            SELECT
-                              COUNT(`spm_submissions`.`submissionId`)
-                            FROM
-                              `spm_submissions`
-                            LEFT JOIN
-                              `spm_problems`
-                            ON
-                              `spm_submissions`.`problemId` = `spm_problems`.`id`
-                            WHERE
-                              (
-                                  `spm_submissions`.`olympId` = '0'
-                                AND
-                                  `spm_submissions`.`userId` = '%s'
-                                AND
-                                  `spm_submissions`.`b` < `spm_problems`.`difficulty`
-                              )
-                            ;
-                        ", $user_info['id']))->fetch_array()[0]);
-
-                        ?>
 
                         <h2><?=$difficult_problems_count?></h2>
                         <span class="lead"><?=_("Відкладені задачі")?></span>
@@ -186,6 +192,31 @@ global $database;
             </div>
 
         </div>
+
+        <div class="progress">
+
+            <div
+                    class="progress-bar bg-success"
+                    style="width: <?=round($solved_problems_count / $problems_count * 100)?>%"
+            ></div>
+
+            <div
+                    class="progress-bar bg-danger"
+                    style="width: <?=round($difficult_problems_count / $problems_count * 100)?>%"
+            ></div>
+
+            <?php if ($solved_problems_count + $difficult_problems_count == $problems_count): ?>
+
+                <div
+                        class="progress-bar bg-light"
+                        style="opacity: 0; width: <?=round(($problems_count - $solved_problems_count - $difficult_problems_count) / $problems_count * 100)?>%"
+                ></div>
+
+            <?php endif; ?>
+
+        </div>
+
+        <!-- /INFORMATION BAR -->
 
         <div class="row" style="margin-top: 30px;">
 
