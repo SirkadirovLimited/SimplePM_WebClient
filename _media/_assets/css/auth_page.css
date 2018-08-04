@@ -47,3 +47,16 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+.modal-body .card {
+
+    margin-top: 0;
+    margin-bottom: 20px;
+
+}
+
+.modal-body:last-child {
+
+    margin-bottom: 0;
+
+}
