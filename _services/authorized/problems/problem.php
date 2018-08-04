@@ -200,6 +200,10 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
     .card {
         margin: 0;
     }
+
+    .nav-tabs .nav-item {
+        float: none;
+    }
 </style>
 
 <?php if ($_CONFIG->getWebappConfig()['blockly_enabled']): ?>
@@ -217,7 +221,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 <?php endif; ?>
 
 <nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist" style="overflow-x: auto; display: -webkit-box;">
 
         <a
                 class="nav-item nav-link"
@@ -240,7 +244,6 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
                 class="nav-item nav-link"
                 data-toggle="tab"
                 href="#editor-file"
-                onclick=""
                 role="tab"
         ><?=_("Завантажити файл")?></a>
 
@@ -344,6 +347,8 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 
     <textarea
             class="form-control text-white bg-dark"
+            style="border: none;"
+
             id="custom_test"
             name="custom_test"
             placeholder="<?=_("Користувацький тест для Debug-режиму тестування")?>"
@@ -352,6 +357,17 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
     ></textarea>
 
     <div class="input-group">
+
+        <?php if (@(int)$last_submission_info['submissionId'] > 0): ?>
+
+            <a
+                    class="btn btn-info"
+                    href="<?=_SPM_?>index.php/problems/result/?id=<?=$last_submission_info['submissionId']?>"
+
+                    title="<?=_("Інформація про останню відправку")?>"
+            ><i class="fas fa-info-circle"></i></a>
+
+        <?php endif; ?>
 
         <select
                 id="language_selector"
@@ -419,7 +435,7 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
         <button
                 type="submit"
                 class="btn btn-primary"
-				onclick="
+                onclick="
 				    $('#code_place').text(ace.edit('code_editor').getValue());
 
 				    return $('#code_place').length > 0;
@@ -427,15 +443,6 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
         ><?=_("Відправити")?></button>
 
     </div>
-
-	<?php if (@(int)$last_submission_info['submissionId'] > 0): ?>
-
-		<a
-				class="btn btn-outline-dark btn-block"
-				href="<?=_SPM_?>index.php/problems/result/?id=<?=$last_submission_info['submissionId']?>"
-		><?=_("Результат останньої відправки")?></a>
-
-	<?php endif; ?>
 
 	<?php if (
 			Security::CheckAccessPermissions(
@@ -454,18 +461,44 @@ $last_submission_info = @$database->query($query_str)->fetch_assoc();
 		><?=_("Отримати авторське рішення")?></button>
 
 		<div class="modal fade" id="author_solution" tabindex="-1" role="dialog">
-			<div class="modal-dialog" role="document">
+
+            <div class="modal-dialog" role="document">
+
 				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title"><?=_("Авторське рішення задачі")?> (<?=$problem_info['authorSolutionLanguage']?>)</h5>
-						<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-					</div>
-					<pre class="modal-body"><?=htmlspecialchars($problem_info['authorSolution'])?></pre>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal"><?=_("Закрити вікно")?></button>
-					</div>
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title">
+                            <?=_("Авторське рішення задачі")?> (<?=$problem_info['authorSolutionLanguage']?>)
+                        </h5>
+
+                        <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                        ><span>&times;</span></button>
+
+                    </div>
+
+					<pre
+                            class="modal-body"
+                            style="margin: 0;"
+                    ><?=trim(htmlspecialchars($problem_info['authorSolution']))?></pre>
+
+                    <div class="modal-footer">
+
+                        <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                        ><?=_("Закрити вікно")?></button>
+
+                    </div>
+
 				</div>
+
 			</div>
+
 		</div>
 
 	<?php endif; ?>

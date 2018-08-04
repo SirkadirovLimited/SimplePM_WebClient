@@ -33,7 +33,7 @@
  */
 
 /*
- * Осуществляем проверку  на  наличие доступа
+ * Осуществляем проверку на наличие доступа
  * у текущего пользователя для редактирования
  * указанной задачи.
  */
@@ -45,9 +45,8 @@ Security::CheckAccessPermissions(
 
 /*
  * Осуществляем различные проверки
- * безопасности, а  также  очищаем
- * данные от возможного  вредонос-
- * ного содержимого.
+ * безопасности, а также очищаем данные от
+ * возможного вредоносного содержимого.
  */
 
 isset($_GET['id']) or $_GET['id'] = 0;
@@ -70,16 +69,16 @@ global $supported_programming_languages;
 
 /*
  * Если идентификатор редактируемой
- * задачи  больше  нуля, производим
- * опрос базы данных системы о нали
- * чии информации о данной задаче.
+ * задачи больше нуля, производим
+ * опрос базы данных системы о наличии
+ * информации о данной задаче.
  */
 
 if ($_GET['id'] > 0)
 {
 
 	// Формируем запрос на выборку из БД
-	$query_str = "
+	$query_str = sprintf("
 		SELECT
 		  `enabled`,
 		  `difficulty`,
@@ -94,11 +93,11 @@ if ($_GET['id'] > 0)
 		FROM
 		  `spm_problems`
 		WHERE
-		  `id` = '" . $_GET['id'] . "'
+		  `id` = '%s'
 		LIMIT
 		  1
 		;
-	";
+	", $_GET['id']);
 
 	// Производим запрос на выборку из БД
 	$query = $database->query($query_str);
@@ -111,10 +110,7 @@ if ($_GET['id'] > 0)
 	 * данные есть, но они null.
 	 */
 
-	if ($query->num_rows > 0)
-		$problem_info = $query->fetch_assoc();
-	else
-		$problem_info = null;
+    $problem_info = $query->num_rows > 0 ? $query->fetch_assoc() : null;
 
 }
 
@@ -124,9 +120,9 @@ if ($_GET['id'] > 0)
 <link rel="stylesheet" href="<?=_SPM_assets_?>_plugins/trumbowyg/ui/trumbowyg.min.css">
 <script>
 
-	document.addEventListener('DOMContentLoaded', function() {
+	$(document).ready(function() {
 
-		$('.editor').trumbowyg();
+		$('.text-editor').trumbowyg();
 
 	});
 
@@ -303,7 +299,7 @@ if ($_GET['id'] > 0)
 
 		<textarea
 				name="description"
-				class="form-control editor"
+				class="form-control text-editor"
 
 				maxlength="65535"
 				required
@@ -327,7 +323,7 @@ if ($_GET['id'] > 0)
 
                 <textarea
 						name="input_description"
-						class="form-control editor"
+						class="form-control text-editor"
 				><?=@htmlspecialchars($problem_info['input_description'])?></textarea>
 
                 <small class="form-text text-muted">
@@ -346,7 +342,7 @@ if ($_GET['id'] > 0)
 
                 <textarea
 						name="output_description"
-						class="form-control editor"
+						class="form-control text-editor"
 				><?=@htmlspecialchars($problem_info['output_description'])?></textarea>
 
                 <small class="form-text text-muted">
@@ -370,6 +366,7 @@ if ($_GET['id'] > 0)
             class="form-control"
 
 			style="min-height: 400px;"
+            wrap="off"
 
             required
         ><?=@htmlspecialchars($problem_info['authorSolution'])?></textarea>
@@ -411,14 +408,17 @@ if ($_GET['id'] > 0)
 
     <div align="right">
 
-        <button type="reset" class="btn btn-outline-secondary"><?=_("Відмінити зміни")?></button>
+        <?php if ($_GET['id'] > 0): ?>
 
-	    <?php if ($_GET['id'] > 0): ?>
+            <a
+                    href="<?=_SPM_?>index.php/problems/problem/?id=<?=$_GET['id']?>"
+                    class="btn btn-outline-secondary"
+            ><?=_("Повернутися до завдання")?></a>
 
 			<a
-					href="<?=_SPM_?>index.php/problems/edit/tests/"
-					class="btn btn-dark"
-			><?=_("Редагувати тести до задачі")?></a>
+					href="<?=_SPM_?>index.php/problems/edit/tests/?id=<?=$_GET['id']?>"
+					class="btn btn-outline-dark"
+			><?=_("Редагувати тести")?></a>
 
 	    <?php endif; ?>
 

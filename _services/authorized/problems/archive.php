@@ -152,180 +152,167 @@ if ($associated_olymp <=0)
 
 </style>
 
-<table class="table table-bordered table-hover">
+<div class="table-responsive">
 
-    <thead>
+    <table class="table table-bordered table-hover">
 
-        <tr>
-
-            <th><?=_("ID")?></th>
-            <th><?=_("Назва завдання")?></th>
-            <th><?=_("Вирішуваність")?></th>
-            <th><?=_("Категорія")?></th>
-            <th><?=_("Рейтинг")?></th>
-            <th><?=_("")?></th>
-
-        </tr>
-
-    </thead>
-
-    <?php foreach ($problems_list as $problem): ?>
-
-        <?php
-
-        /*
-         * Проверяем текущего пользователя
-         * на наличие доступа к указанной
-         * задаче, если доступа нет -
-         * просто не показываем указанную
-         * задачу в этом списке.
-         */
-
-        $problem_enabled_checker = (
-
-                $problem['enabled']
-        ||
-                (
-
-                        Security::CheckAccessPermissions(PERMISSION::ADMINISTRATOR)
-                    &&
-                        !$problem['enabled']
-
-                )
-
-        );
-
-        if ($problem_enabled_checker):
-
-        ?>
+        <thead>
 
             <tr>
 
-                <td>
-                    <strong><?=$problem["id"]?></strong>
-                </td>
-
-                <td>
-
-                    <a
-                            style="color: #212121 !important;"
-                            href="<?=_SPM_?>index.php/problems/problem?id=<?=$problem["id"]?>"
-                    ><?=$problem["name"]?></a>
-
-                    <?php if (!$problem['enabled']): ?>
-
-                        <span class="badge badge-warning"><?=_("Відключена")?></span>
-
-                    <?php endif; ?>
-
-                </td>
-
-                <td>
-
-                    <?php
-
-                    $query_str = sprintf("
-                        SELECT
-                          SUM(
-                            CASE WHEN (
-                                  `spm_submissions`.`testType` = 'release'
-                                AND
-                                  `spm_submissions`.`b` > 0
-                            ) THEN 1 ELSE 0 END
-                          ) AS success_count,
-                          COUNT(`spm_submissions`.`submissionId`) AS all_count
-                        FROM
-                          `spm_problems`
-                        RIGHT JOIN
-                          `spm_submissions`
-                        ON
-                          `spm_problems`.`id` = `spm_submissions`.`problemId`
-                        WHERE
-                          `olympId` = '0'
-                        AND
-                          `problemId` = '%s'
-                        ;
-                    ", $problem['id']);
-
-                    $problem_submissions_count = $database->query($query_str)->fetch_assoc();
-
-                    ?>
-
-                    <span>
-                        <?=$problem_submissions_count['success_count']?>&nbsp;/&nbsp;<?=$problem_submissions_count['all_count']?>
-                    </span>
-
-                </td>
-
-                <td>
-                    <?=$problem["category_name"]?>
-                </td>
-
-                <td>
-                    <?=$problem["difficulty"]?> points
-                </td>
-
-                <td class="text-center">
-
-                    <?php
-
-                    // Формируем запрос на выборку из БД
-                    $query_str = sprintf("
-                        SELECT
-                          `b`
-                        FROM
-                          `spm_submissions`
-                        WHERE
-                          `userId` = '%s'
-                        AND
-                          `problemId` = '%s'
-                        AND
-                          `olympId` = '%s'
-                        ORDER BY
-                          `b` DESC,
-                          `time` DESC
-                        LIMIT
-                          1
-                        ;
-                    ",
-                        (int)Security::getCurrentSession()['user_info']->getUserId(),
-                        (int)$problem['id'],
-                        (int)$associated_olymp
-                    );
-
-                    // Выполняем запрос на выборку данных из БД
-                    $query = $database->query($query_str);
-
-                    ?>
-
-                    <?php if ($query->num_rows > 0): $submission_points = ($query->fetch_array()[0]); ?>
-
-                        <?php if ($submission_points <= 0): ?>
-
-                            <span class="badge badge-danger"><?=_("Не зараховано")?></span>
-
-                        <?php elseif ($submission_points < $problem["difficulty"]): ?>
-
-                            <span class="badge badge-warning"><?=_("Часткове зарахування")?></span>
-
-                        <?php elseif ($submission_points >= $problem["difficulty"]): ?>
-
-                            <span class="badge badge-success"><?=_("Вирішено")?></span>
-
-                        <?php endif; ?>
-
-                    <?php else: ?>
-
-                        <span class="badge badge-info"><?=_("Не вирішено")?></span>
-
-                    <?php endif; $query->free(); ?>
-
-                </td>
+                <th><?=_("ID")?></th>
+                <th><?=_("Назва завдання")?></th>
+                <th><?=_("Вирішуваність")?></th>
+                <th><?=_("Категорія")?></th>
+                <th><?=_("Рейтинг")?></th>
+                <th><?=_("")?></th>
 
             </tr>
 
-        <?php endif; unset($problem_enabled_checker); ?>
+        </thead>
 
-    <?php endforeach; ?>
+        <?php foreach ($problems_list as $problem): ?>
 
-</table>
+            <?php
+
+            $problem_enabled_checker = ($problem['enabled'] || (Security::CheckAccessPermissions(
+                    PERMISSION::ADMINISTRATOR
+                    ) && !$problem['enabled'])
+            );
+
+            if ($problem_enabled_checker):
+
+            ?>
+
+                <tr>
+
+                    <td>
+                        <strong><?=$problem["id"]?></strong>
+                    </td>
+
+                    <td>
+
+                        <a
+                                style="color: #212121 !important;"
+                                href="<?=_SPM_?>index.php/problems/problem?id=<?=$problem["id"]?>"
+                        ><?=$problem["name"]?></a>
+
+                        <?php if (!$problem['enabled']): ?>
+
+                            <span class="badge badge-warning"><?=_("Відключена")?></span>
+
+                        <?php endif; ?>
+
+                    </td>
+
+                    <td>
+
+                        <?php
+
+                        $query_str = sprintf("
+                            SELECT
+                              SUM(
+                                CASE WHEN (
+                                      `spm_submissions`.`testType` = 'release'
+                                    AND
+                                      `spm_submissions`.`b` > 0
+                                ) THEN 1 ELSE 0 END
+                              ) AS success_count,
+                              COUNT(`spm_submissions`.`submissionId`) AS all_count
+                            FROM
+                              `spm_problems`
+                            RIGHT JOIN
+                              `spm_submissions`
+                            ON
+                              `spm_problems`.`id` = `spm_submissions`.`problemId`
+                            WHERE
+                              `olympId` = '0'
+                            AND
+                              `problemId` = '%s'
+                            ;
+                        ", $problem['id']);
+
+                        $problem_submissions_count = $database->query($query_str)->fetch_assoc();
+
+                        ?>
+
+                        <span>
+                            <?=$problem_submissions_count['success_count']?>&nbsp;/&nbsp;<?=$problem_submissions_count['all_count']?>
+                        </span>
+
+                    </td>
+
+                    <td>
+                        <?=$problem["category_name"]?>
+                    </td>
+
+                    <td>
+                        <?=$problem["difficulty"]?> points
+                    </td>
+
+                    <td class="text-center">
+
+                        <?php
+
+                        // Формируем запрос на выборку из БД
+                        $query_str = sprintf("
+                            SELECT
+                              `b`
+                            FROM
+                              `spm_submissions`
+                            WHERE
+                              `userId` = '%s'
+                            AND
+                              `problemId` = '%s'
+                            AND
+                              `olympId` = '%s'
+                            ORDER BY
+                              `b` DESC,
+                              `time` DESC
+                            LIMIT
+                              1
+                            ;
+                        ",
+                            (int)Security::getCurrentSession()['user_info']->getUserId(),
+                            (int)$problem['id'],
+                            (int)$associated_olymp
+                        );
+
+                        // Выполняем запрос на выборку данных из БД
+                        $query = $database->query($query_str);
+
+                        ?>
+
+                        <?php if ($query->num_rows > 0): $submission_points = ($query->fetch_array()[0]); ?>
+
+                            <?php if ($submission_points <= 0): ?>
+
+                                <span class="badge badge-danger"><?=_("Не зараховано")?></span>
+
+                            <?php elseif ($submission_points < $problem["difficulty"]): ?>
+
+                                <span class="badge badge-warning"><?=_("Часткове зарахування")?></span>
+
+                            <?php elseif ($submission_points >= $problem["difficulty"]): ?>
+
+                                <span class="badge badge-success"><?=_("Вирішено")?></span>
+
+                            <?php endif; ?>
+
+                        <?php else: ?>
+
+                            <span class="badge badge-info"><?=_("Не вирішено")?></span>
+
+                        <?php endif; $query->free(); ?>
+
+                    </td>
+
+                </tr>
+
+            <?php endif; unset($problem_enabled_checker); ?>
+
+        <?php endforeach; ?>
+
+    </table>
+
+</div>
