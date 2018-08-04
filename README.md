@@ -42,10 +42,11 @@ Detailed information about the project you can get at project's official website
 - Bootstrap CSS framework
 - Ace code editor
 - JQuery library
+- Font Awesome (Free version)
 - Other small libraries, copyrights inside!
 
 ## Licensing
-Source code of the project is licensed under *Apache License 2.0*, official builds of this project licensed under SimplePM EULA, full text of it you can get at official website: https://spm.sirkadirov.com/
+Source code of the project is licensed under *GNU AGPLv3 License*, official builds of this project licensed under SimplePM EULA, full text of it you can get at official website: https://spm.sirkadirov.com/
 
 ### Author rights and patents
 Initial copyright holder of this project - [Yurij Kadirov (Sirkadirov)](https://sirkadirov.com/).
