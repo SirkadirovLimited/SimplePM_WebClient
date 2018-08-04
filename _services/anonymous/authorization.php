@@ -52,6 +52,7 @@ define("__PAGE_LAYOUT__", "skeleton");
             required
             autofocus
     >
+
     <input
             name="password"
             maxlength="255"
@@ -69,7 +70,7 @@ define("__PAGE_LAYOUT__", "skeleton");
 
     <button
             type="button"
-            class="btn btn-outline-primary btn-sm btn-block"
+            class="btn btn-outline-dark btn-sm btn-block"
             style="margin: 0;"
             data-toggle="modal"
             data-target="#registrationModal"
@@ -92,107 +93,172 @@ define("__PAGE_LAYOUT__", "skeleton");
 
                 <div class="modal-body">
 
-                    <h5 class="h5 text-center" style="margin-bottom: 20px;"><?=_("Дані для авторизації в системі")?></h5>
+                    <div class="card">
 
-					<div class="form-group">
-						<label><?=_("Email адреса")?></label>
-						<input
-								name="email"
+                        <div class="card-header"><?=_("Дані для авторизації в системі")?></div>
 
-								type="email"
-								class="form-control"
-								maxlength="255"
-								required
-						>
-						<small class="form-text text-muted"><?=_("Вказаний e-mail буде використовуватися для входу в систему.")?></small>
-					</div>
+                        <div class="card-body">
 
-                    <div class="form-group">
-                        <label><?=_("Пароль")?></label>
-                        <input
-								name="password"
-
-                                type="password"
-                                class="form-control"
-								minlength="8"
-                                maxlength="255"
-                                required
-                        >
-                        <small class="form-text text-muted">
-                            <?=_("Використовуйте лише букви латинського алфавіту, цифри та символи, пробіли використовувати заборонено!")?>
-                        </small>
-                    </div>
-
-                    <h5 class="h5 text-center" style="margin: 20px;"><?=_("Особиста інформація")?></h5>
-
-                    <div class="row">
-
-                        <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label><?=_("Ім'я")?></label>
-                                <input
-										name="firstname"
 
-                                        type="text"
+                                <label><?=_("Email адреса")?></label>
+
+                                <input
+                                        name="email"
+
+                                        type="email"
                                         class="form-control"
                                         maxlength="255"
                                         required
                                 >
+
+                                <small class="form-text text-muted">
+                                    <?=_("Вказаний e-mail буде використовуватися для входу в систему.")?>
+                                </small>
+
                             </div>
-                        </div>
 
-                        <div class="col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <label><?=_("Прізвище")?></label>
+                            <div class="form-group mb-0">
+
+                                <label><?=_("Пароль")?></label>
+
                                 <input
-										name="secondname"
+                                        name="password"
 
-                                        type="text"
+                                        type="password"
                                         class="form-control"
+                                        minlength="8"
                                         maxlength="255"
                                         required
                                 >
-                            </div>
-                        </div>
 
-                        <div class="col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <label><?=_("По-батькові")?></label>
-                                <input
-										name="thirdname"
+                                <small class="form-text text-muted">
+                                    <?=_("Використовуйте лише букви латинського алфавіту, цифри та символи, пробіли використовувати заборонено!")?>
+                                </small>
 
-                                        type="text"
-                                        class="form-control"
-                                        maxlength="255"
-                                        required
-                                >
                             </div>
+
                         </div>
 
                     </div>
 
-                    <h5 class="h5 text-center" style="margin: 20px;"><?=_("Захист від несанкціонованого доступу")?></h5>
+                    <div class="card">
 
-                    <div class="form-group">
-                        <label><?=_("TeacherID")?></label>
-                        <input
-								name="teacherid"
+                        <div class="card-header"><?=_("Особиста інформація")?></div>
 
-                                type="text"
-                                class="form-control"
-                                maxlength="255"
-                                required
-                        >
-                        <small class="form-text text-muted">
-                            <?=_("Введіть ключ реєстрації, що надав Вам викладач або куратор.")?>
-                        </small>
+                        <div class="card-body">
+
+                            <div class="row mb-0">
+
+                                <div class="col-md-4 col-sm-12">
+
+                                    <div class="form-group mb-0">
+
+                                        <label><?=_("Ім'я")?></label>
+
+                                        <input
+                                                name="firstname"
+
+                                                type="text"
+                                                class="form-control"
+                                                maxlength="255"
+                                                required
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4 col-sm-12">
+
+                                    <div class="form-group mb-0">
+
+                                        <label><?=_("Прізвище")?></label>
+
+                                        <input
+                                                name="secondname"
+
+                                                type="text"
+                                                class="form-control"
+                                                maxlength="255"
+                                                required
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-4 col-sm-12">
+
+                                    <div class="form-group mb-0">
+
+                                        <label><?=_("По-батькові")?></label>
+
+                                        <input
+                                                name="thirdname"
+
+                                                type="text"
+                                                class="form-control"
+                                                maxlength="255"
+                                                required
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card" style="margin-bottom: 0 !important;">
+
+                        <div class="card-header">
+                            <?=_("Захист від несанкціонованого доступу")?>
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="form-group mb-0">
+
+                                <label><?=_("TeacherID")?></label>
+
+                                <input
+                                        name="teacherid"
+
+                                        type="text"
+                                        class="form-control"
+                                        maxlength="255"
+                                        required
+                                >
+
+                                <small class="form-text text-muted">
+                                    <?=_("Введіть ключ реєстрації, що надав Вам викладач або куратор.")?>
+                                </small>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><?=_("Закрити")?></button>
-                    <button type="submit" class="btn btn-primary"><?=_("Зареєструватись")?></button>
+
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                    ><?=_("Закрити")?></button>
+
+                    <button
+                            type="submit"
+                            class="btn btn-primary"
+                    ><?=_("Зареєструватись")?></button>
+
                 </div>
 
             </div>
