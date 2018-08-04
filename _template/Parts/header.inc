@@ -20,6 +20,9 @@
 	<!-- Required JavaScript includes -->
 	<script src="<?=_SPM_assets_?>js/jquery.min.js"></script>
 
+    <link rel="stylesheet" href="<?=_SPM_assets_?>_plugins/fontawesome/css/solid.min.css">
+    <link rel="stylesheet" href="<?=_SPM_assets_?>_plugins/fontawesome/css/fontawesome.min.css">
+
 </head>
 <body>
 
