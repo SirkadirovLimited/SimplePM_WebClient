@@ -192,18 +192,39 @@
 
 				<!-- Modal -->
 				<div class="modal fade" id="SourceCodeModal" tabindex="-1" role="dialog">
-					<div class="modal-dialog" role="document">
+
+                    <div class="modal-dialog" role="document">
+
 						<div class="modal-content">
-							<div class="modal-header">
+
+                            <div class="modal-header">
+
 								<h5 class="modal-title"><?=_("Початковий код запиту")?> (<?=$submission_info['codeLang']?>)</h5>
-								<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+
+								<button
+                                        type="button"
+                                        class="close"
+                                        data-dismiss="modal"
+                                ><span>&times;</span></button>
+
 							</div>
-							<pre class="modal-body" style="margin-bottom: 0;"><?=htmlspecialchars($submission_info['problemCode'])?></pre>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити вікно</button>
+
+                            <pre class="modal-body" style="margin-bottom: 0;"><?=htmlspecialchars($submission_info['problemCode'])?></pre>
+
+                            <div class="modal-footer">
+
+								<button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-dismiss="modal"
+                                >Закрити вікно</button>
+
 							</div>
+
 						</div>
+
 					</div>
+
 				</div>
 
 			</td>
