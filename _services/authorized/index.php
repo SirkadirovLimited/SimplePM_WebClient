@@ -153,6 +153,26 @@ define("__PAGE_LAYOUT__", "default");
 
         </div>
 
+        <?php if (Security::CheckAccessPermissions(PERMISSION::STUDENT)): ?>
+
+            <div class="card border-success">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        <a href="<?=_SPM_?>index.php/olympiads/join/"><?=_("Приєднатись до змагання")?></a>
+                    </h5>
+
+                    <p class="card-text">
+                        <?=_("Приєднайтесь до існуючого змагання, щоб отримати різні винагороди або оцінки!")?>
+                    </p>
+
+                </div>
+
+            </div>
+
+        <?php endif; ?>
+
     <?php endif; ?>
 
     <?php if (Security::CheckAccessPermissions(PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR)): ?>
