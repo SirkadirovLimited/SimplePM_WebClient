@@ -32,7 +32,7 @@
  * Visit website for more details: https://spm.sirkadirov.com/
  */
 
-define("__PAGE_TITLE__", _("Архів задач"));
+define("__PAGE_TITLE__", _("Архів завдань"));
 define("__PAGE_LAYOUT__", "default");
 
 /*
