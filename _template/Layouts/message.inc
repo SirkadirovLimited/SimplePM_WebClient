@@ -55,7 +55,7 @@ include _SPM_template_ . "Parts/header.inc";
 						</div>
 
 						<div class="error-actions">
-							<a href="<?=_SPM_?>index.php" class="btn btn-primary btn-lg">На головну</a>
+							<a href="<?=_SPM_?>index.php" class="btn btn-primary btn-lg"><?=_("На головну")?></a>
 						</div>
 
 					</div>
