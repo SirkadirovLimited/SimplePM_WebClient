@@ -50,7 +50,7 @@ $_GET['id'] = abs((int)$_GET['id']);
  * Устанавливаем название и Layout сервиса
  */
 
-define("__PAGE_TITLE__", _("Задача") . " №" . @$_GET['id']);
+define("__PAGE_TITLE__", _("Завдання") . " №" . @$_GET['id']);
 define("__PAGE_LAYOUT__", "default");
 
 /*

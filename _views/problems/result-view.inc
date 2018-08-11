@@ -71,12 +71,12 @@ global $database;
 		<p class="lead">
 
 			<a href="<?=_SPM_?>index.php/problems/problem?id=<?=$submission_info['problemId']?>"
-			><?=_("Задача")?> №<?=$submission_info['problemId']?></a>&nbsp;/
+			><?=_("Завдання")?> №<?=$submission_info['problemId']?></a>&nbsp;/
 
 			<?=_("Тип тестування")?>: <?=$submission_info['testType']?>&nbsp;/
 
 			<a href="<?=_SPM_?>index.php/users/profile?id=<?=$submission_info['userId']?>"
-			>Профіль користувача</a>
+			><?=_("Профіль користувача")?></a>
 
 		</p>
 	</div>

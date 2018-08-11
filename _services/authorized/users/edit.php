@@ -93,7 +93,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 			</li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<?=_SPM_?>index.php/problems/difficult/?id=<?=$_GET['id']?>"><?=_("Відкладені задачі")?></a>
+                <a class="nav-link" href="<?=_SPM_?>index.php/problems/difficult/?id=<?=$_GET['id']?>"><?=_("Відкладені завдання")?></a>
             </li>
 
 			<li class="nav-item">
@@ -132,22 +132,6 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
             </div>
 
-            <div align="right">
-
-                <button
-                        type="reset"
-                        class="btn btn-outline-secondary"
-                        disabled
-                ><?=_("Відмінити зміни")?></button>
-
-                <button
-                        type="submit"
-                        class="btn btn-primary"
-                        disabled
-                ><?=_("Зберегти зміни")?></button>
-
-            </div>
-
 		</form>
 
 		<h3><?=_("Особиста інформація")?></h3>
@@ -179,7 +163,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
             <div class="form-group">
 
-                <label><?=_("Фамілія")?></label>
+                <label><?=_("Прізвище")?></label>
 
                 <input
                         type="text"

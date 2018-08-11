@@ -140,7 +140,7 @@ $submissions_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 			</li>
 
 			<li class="nav-item">
-				<a class="nav-link" href="<?=_SPM_?>index.php/problems/difficult/?id=<?=$_GET['id']?>"><?=_("Відкладені задачі")?></a>
+				<a class="nav-link" href="<?=_SPM_?>index.php/problems/difficult/?id=<?=$_GET['id']?>"><?=_("Відкладені завдання")?></a>
 			</li>
 
 			<li class="nav-item">
@@ -174,7 +174,7 @@ $submissions_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 				<tr>
 
 					<th><?=_("ID")?></th>
-					<th><?=_("Назва задачі")?></th>
+					<th><?=_("Назва завдання")?></th>
 					<th><?=_("Дата та час відправки")?></th>
 					<th><?=_("Спроба")?></th>
 					<th><?=_("Points")?></th>
