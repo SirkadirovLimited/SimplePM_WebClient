@@ -110,10 +110,6 @@
 
 		<?php endif; ?>
 
-		<div class="dropdown-divider"></div>
-
-		<a class="dropdown-item disabled"><?=_("Черга перевірки")?></a>
-
 	</li>
 
 	<?php if (Security::CheckAccessPermissions(PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR)): ?>
