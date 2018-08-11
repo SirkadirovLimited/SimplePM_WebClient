@@ -84,7 +84,7 @@
 	<li class="nav-item dropdown">
 
 		<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-			Архів задач
+            <?=_("Архів завдань")?>
 		</a>
 
 		<div class="dropdown-menu">
@@ -92,12 +92,12 @@
 		<a
 				class="dropdown-item"
 				href="<?=_SPM_?>index.php/problems/archive/"
-		><?=_("Архів задач")?></a>
+		><?=_("Архів завдань")?></a>
 
 		<a
 				class="dropdown-item"
 				href="<?=_SPM_?>index.php/problems/difficult/"
-		><?=_("Відкладені задачі")?></a>
+		><?=_("Відкладені завдання")?></a>
 
 		<?php if (Security::CheckAccessPermissions(PERMISSION::TEACHER_MANAGE_PROBLEMS | PERMISSION::ADMINISTRATOR, false)): ?>
 
@@ -151,7 +151,7 @@
 		<a
 			class="nav-link"
 			href="<?=_SPM_?>index.php/problems/archive/"
-		><?=_("Архів задач")?></a>
+		><?=_("Архів завдань")?></a>
 	</li>
 
 <?php endif; ?>

@@ -74,7 +74,7 @@ global $database;
 				</li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?=_SPM_?>index.php/problems/difficult/?id=<?=$_GET['id']?>"><?=_("Відкладені задачі")?></a>
+                    <a class="nav-link" href="<?=_SPM_?>index.php/problems/difficult/?id=<?=$_GET['id']?>"><?=_("Відкладені завдання")?></a>
                 </li>
 
 				<li class="nav-item">
