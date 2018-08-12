@@ -244,10 +244,7 @@ class Olymp
 			  `type`,
 			  `userCanExit`,
 			  `judge`,
-			  `problems_list`,
-			  
-			  `requiredRating`,
-			  `citedScore`
+			  `problems_list`
 			FROM
 			  `spm_olympiads`
 			WHERE
