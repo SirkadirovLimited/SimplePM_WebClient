@@ -103,7 +103,28 @@ global $database;
 
     <div class="container" style="z-index: 2;">
 
-        <h1><?=$olymp_info['name']?></h1>
+        <?php
+
+        switch ($olymp_info['visibility'])
+        {
+
+            case "Private":
+                $visibility_info_additional_class = "badge-warning";
+                break;
+
+            case "Public":
+                $visibility_info_additional_class = "badge-success";
+                break;
+
+            default:
+                $visibility_info_additional_class = "badge-light";
+                break;
+
+        }
+
+        ?>
+
+        <h1><?=$olymp_info['name']?> <span class="badge <?=$visibility_info_additional_class?>"><?=$olymp_info['visibility']?></span></h1>
 
 		<p class="lead"><?=$olymp_info['description']?></p>
 
@@ -113,7 +134,7 @@ global $database;
 
 <div class="table-responsive" style="margin: 0;">
 
-	<table class="table table-bordered table-hover" style="margin: 0;">
+	<table class="table table-bordered" style="margin: 0;">
 
 		<tbody>
 
@@ -128,25 +149,10 @@ global $database;
 
 				<?php $curator_info = UserInfo::getUserInfo($olymp_info['teacherId']); ?>
 
-				<a href="<?=_SPM_?>index.php/users/profile/?id=<?=$curator_info['id']?>">
+				<a href="<?=_SPM_?>index.php/users/profile/?id=<?=$curator_info['id']?>" style="color: #212121;">
 					<?=$curator_info['secondname']?> <?=$curator_info['firstname']?> <?=$curator_info['thirdname']?>
 				</a>
 
-			</td>
-
-
-		</tr>
-		<!-- /PARAM -->
-
-		<!-- PARAM -->
-		<tr>
-
-			<td>
-				<?=_("Тип змагання")?>
-			</td>
-
-			<td>
-				<?=$olymp_info['type']?>
 			</td>
 
 
