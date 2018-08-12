@@ -241,7 +241,7 @@ class Olymp
 			  `startTime`,
 			  `endTime`,
 			  `teacherId`,
-			  `type`,
+			  `visibility`,
 			  `userCanExit`,
 			  `judge`,
 			  `problems_list`
