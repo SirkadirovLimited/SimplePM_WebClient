@@ -162,7 +162,7 @@ global $database;
 
 			<td>
                 <span class="badge badge-light"><?=$olymp_info['startTime']?></span> <strong>-</strong> <span class="badge badge-light"><?=$olymp_info['endTime']?></span>
-                (<?=((new DateTime($olymp_info['endTime']))->diff(new DateTime($olymp_info['startTime'])))->format("%a d %H h %I m")?>)
+                (<?=((new DateTime($olymp_info['endTime']))->diff(new DateTime($olymp_info['startTime'])))->format("%a " . _("днів") . " %H " . _("годин") . " %I " . _("хвилин"))?>)
 			</td>
 
 		</tr>
