@@ -68,10 +68,7 @@ if (!is_array($olymp_info))
 define("__PAGE_TITLE__", _("Інформація про змагання №") . $_GET['id']);
 define("__PAGE_LAYOUT__", "default");
 
-/*
- * Запрашиваем доступ к глобальным переменным
- */
-
+// Запрашиваем доступ к глобальным переменным
 global $database;
 
 ?>
@@ -101,11 +98,17 @@ global $database;
 </style>
 
 <div class="jumbotron jumbotron-fluid jumbotron-header">
-	<div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: transparent; opacity: 0.1; z-index: 1;"></div>
-	<div class="container" style="z-index: 2;">
-		<h1><?=$olymp_info['name']?></h1>
+
+    <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background-color: transparent; opacity: 0.1; z-index: 1;"></div>
+
+    <div class="container" style="z-index: 2;">
+
+        <h1><?=$olymp_info['name']?></h1>
+
 		<p class="lead"><?=$olymp_info['description']?></p>
+
 	</div>
+
 </div>
 
 <div class="table-responsive" style="margin: 0;">
@@ -154,28 +157,13 @@ global $database;
 		<tr>
 
 			<td>
-				<?=_("Дата та час початку")?>
+				<?=_("Час проведення")?>
 			</td>
 
 			<td>
-				<?=$olymp_info['startTime']?>
+                <span class="badge badge-light"><?=$olymp_info['startTime']?></span> <strong>-</strong> <span class="badge badge-light"><?=$olymp_info['endTime']?></span>
+                (<?=((new DateTime($olymp_info['endTime']))->diff(new DateTime($olymp_info['startTime'])))->format("%a d %H h %I m")?>)
 			</td>
-
-
-		</tr>
-		<!-- /PARAM -->
-
-		<!-- PARAM -->
-		<tr>
-
-			<td>
-				<?=_("Дата та час закінчення")?>
-			</td>
-
-			<td>
-				<?=$olymp_info['endTime']?>
-			</td>
-
 
 		</tr>
 		<!-- /PARAM -->
@@ -189,36 +177,6 @@ global $database;
 
 			<td>
 				<?=$olymp_info['judge']?>
-			</td>
-
-
-		</tr>
-		<!-- /PARAM -->
-
-		<!-- PARAM -->
-		<tr>
-
-			<td>
-				<?=_("Треба набрати балів")?>
-			</td>
-
-			<td>
-				<?=$olymp_info['requiredRating']?>
-			</td>
-
-
-		</tr>
-		<!-- /PARAM -->
-
-		<!-- PARAM -->
-		<tr>
-
-			<td>
-				<?=_("Нормалізована оцінка")?>
-			</td>
-
-			<td>
-				<?=$olymp_info['citedScore']?>
 			</td>
 
 
@@ -250,7 +208,7 @@ $query_str = sprintf("
 	    ) +
 	    (
 	      sum(
-	        `spm_submissions`.`previous_count` - 1
+	        `spm_submissions`.`previous_count`
 	      ) * 60 * 20
 	    )
 	  ) AS penalty,
@@ -262,6 +220,7 @@ $query_str = sprintf("
       `spm_users`.`thirdname`,
       `spm_users`.`email`,
       `spm_users`.`groupid`,
+      `spm_users`.`institution`,
       
       sum(`b`) AS points
     FROM
@@ -301,19 +260,17 @@ $rating_table = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 
 	<div class="table-responsive">
 
-		<table class="table">
+		<table class="table table-bordered table-hover">
 
 			<thead>
 
 			<tr>
 
-				<th><?=_("ID")?></th>
-				<th><?=_("Email")?></th>
+				<th><?=_("№")?></th>
 				<th><?=_("Повне ім'я")?></th>
+                <th><?=_("Навчальний заклад")?></th>
 				<th><?=_("Група")?></th>
-				<th><?=_("Пенальті")?></th>
 				<th><?=_("Набрані бали")?></th>
-				<th><?=_("Оцінка")?></th>
 
 			</tr>
 
@@ -325,44 +282,21 @@ $rating_table = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 
 					<tr>
 
-						<td><?=$user_rating['id']?></td>
+						<th><?=@++$i?></th>
 
 						<td>
-							<a href="mailto:<?=$user_rating['email']?>">
-								<?=$user_rating['email']?>
-							</a>
-						</td>
 
-						<td>
 							<a href="<?=_SPM_?>index.php/problems/submissions/?id=<?=$user_rating['id']?>&oid=<?=$_GET['id']?>">
-
 								<?=$user_rating['secondname']?> <?=$user_rating['firstname']?> <?=$user_rating['thirdname']?>
-
 							</a>
+
 						</td>
+
+                        <td><?=$user_rating['institution']?></td>
 
 						<td><?=UserInfo::GetGroupName($user_rating['groupid'])?></td>
 
-						<td><?=$user_rating['penalty']?></td>
-
 						<td><?=number_format($user_rating['points'], 2)?></td>
-
-						<td>
-
-							<?php
-
-							/*
-							 * Вычисляем множитель потенциальной оценки
-							 */
-
-							$success_mult = (double)$user_rating['points'] / (double)$olymp_info['requiredRating'];
-							$success_mult = $success_mult <= 1 ? $success_mult : 1;
-
-							print((int)round($olymp_info['citedScore'] * $success_mult));
-
-							?>
-
-						</td>
 
 					</tr>
 
@@ -374,13 +308,11 @@ $rating_table = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 
 			<tr>
 
-				<th><?=_("ID")?></th>
-				<th><?=_("Email")?></th>
+				<th><?=_("№")?></th>
 				<th><?=_("Повне ім'я")?></th>
+                <th><?=_("Навчальний заклад")?></th>
 				<th><?=_("Група")?></th>
-				<th><?=_("Пенальті")?></th>
 				<th><?=_("Набрані бали")?></th>
-				<th><?=_("Оцінка")?></th>
 
 			</tr>
 
