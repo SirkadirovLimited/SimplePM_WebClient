@@ -55,6 +55,7 @@ $database = new mysqli(
 if ($database->connect_errno)
     die("<h1>Oops, database connection error! Please, try again later!</h1>");
 
-$database->set_charset("utf8");
+//$database->set_charset("utf8");
+$database->query("SET NAMES utf8;");
 
 ?>
