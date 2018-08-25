@@ -108,7 +108,9 @@ $difficult_problems = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <div class="card">
+
     <div class="card-header">
+
         <ul class="nav nav-tabs card-header-tabs">
 
             <li class="nav-item">
@@ -128,8 +130,10 @@ $difficult_problems = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
             </li>
 
         </ul>
+
     </div>
-    <div class="card-body" style="padding: 0;">
+
+    <div class="card-body table-responsive" style="padding: 0;">
 
         <?php if (sizeof($difficult_problems) > 0): ?>
 
@@ -180,10 +184,11 @@ $difficult_problems = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
         <?php else: ?>
 
             <p class="lead text-success text-center" style="margin: 50px;">
-                <?=_("Відкладених задач не знайдено!")?>
+                <?=_("Відкладених завдань не знайдено!")?>
             </p>
 
         <?php endif; ?>
 
     </div>
+
 </div>
