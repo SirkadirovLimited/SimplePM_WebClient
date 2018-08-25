@@ -292,8 +292,12 @@ global $database;
 
 <?php endif; ?>
 
-<div class="card">
-	<div class="card-body text-center">
-		<strong><?=sprintf(_("За вирішення цієї задачі отримано %s балів!"), number_format($submission_info['b'], 2))?></strong>
+<?php if (@$submission_info['testType'] == "release"): ?>
+
+	<div class="card">
+		<div class="card-body text-center">
+			<strong><?=sprintf(_("За вирішення цього завдання отримано %s балів!"), number_format($submission_info['b'], 2))?></strong>
+		</div>
 	</div>
-</div>
+
+<?php endif; ?>
