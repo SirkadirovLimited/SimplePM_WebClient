@@ -34,7 +34,7 @@
 
 ?>
 
-<div class="table-responsive" style="margin: 0;">
+<div class="table-responsive">
 
 	<table class="table table-bordered table-hover">
 
@@ -65,6 +65,7 @@
 			<td>
 
 				<a
+						style="color: #212121;"
                         href="<?=_SPM_?>index.php/problems/problem?id=<?=@$submission_info['problemId']?>"
                 ><?=@$submission_info['problemId']?></a>
 
@@ -186,9 +187,12 @@
 			<td>
 
 				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#SourceCodeModal">
-					<?=_("Показати")?>
-				</button>
+				<a
+						href="#"
+						data-toggle="modal"
+						data-target="#SourceCodeModal"
+						style="color: #212121;"
+				><?=_("Відобразити")?></a>
 
 				<!-- Modal -->
 				<div class="modal fade" id="SourceCodeModal" tabindex="-1" role="dialog">

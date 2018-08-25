@@ -183,7 +183,7 @@ global $database;
                     <div class="col-md-3 col-sm-12 text-center">
 
                         <h2><?=$difficult_problems_count?></h2>
-                        <span class="lead"><?=_("Відкладені задачі")?></span>
+                        <span class="lead"><?=_("Відкладені завдання")?></span>
 
                     </div>
 
