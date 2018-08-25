@@ -144,17 +144,9 @@ if ($associated_olymp <=0)
 
 ?>
 
-<style>
-
-	a.card {
-		color: #343a40;
-	}
-
-</style>
-
 <div class="table-responsive">
 
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover" style="margin-bottom: 0;">
 
         <thead>
 
