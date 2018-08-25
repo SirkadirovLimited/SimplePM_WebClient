@@ -21,11 +21,8 @@ main {
 }
 
 main .main-content {
-    border: .05rem solid #e5e5e5;
     border-top: 0;
     border-bottom: 0;
-
-    padding: 1rem;
 }
 
 /*
