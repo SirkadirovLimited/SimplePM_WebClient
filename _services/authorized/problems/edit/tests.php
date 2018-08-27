@@ -119,12 +119,12 @@ $tests_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 		<a
 			href="<?=_SPM_?>index.php/problems/problem/?id=<?=$_GET['id']?>"
 			class="btn btn-primary"
-		><?=_("Задача")?> №<?=$_GET['id']?></a>
+		><?=_("Завдання")?> №<?=$_GET['id']?></a>
 
 		<a
 			href="<?=_SPM_?>index.php?cmd=problems/edit/tests/add&pid=<?=$_GET['id']?>"
 			class="btn btn-outline-dark"
-		><?=_("Створити новий тест")?></a>
+		><?=_("Створити тест")?></a>
 
 	</div>
 </div>
@@ -132,142 +132,144 @@ $tests_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 <?php if (sizeof($tests_list) > 0): ?>
 
 	<form
-		class="table-responsive"
-
 		method="post"
 		enctype="multipart/form-data"
 		action="<?=_SPM_?>index.php?cmd=problems/edit/tests/edit&pid=<?=$_GET['id']?>"
 	>
 
-		<table class="table">
+        <div class="table-responsive">
 
-			<thead>
+                <table class="table table-bordered">
 
-			<tr>
+                    <thead>
 
-				<th><?=_("ID")?></th>
-				<th><?=_("Вхідні дані")?></th>
-				<th><?=_("Вихідні дані")?></th>
-				<th><?=_("Обмеження")?></th>
+                    <tr>
 
-			</tr>
+                        <th><?=_("ID")?></th>
+                        <th><?=_("Вхідні дані")?></th>
+                        <th><?=_("Вихідні дані")?></th>
+                        <th><?=_("Обмеження")?></th>
 
-			</thead>
+                    </tr>
 
-			<tbody>
+                    </thead>
 
-			<?php foreach($tests_list as $test_info): ?>
+                    <tbody>
 
-				<tr>
+                    <?php foreach($tests_list as $test_info): ?>
 
-					<td>
+                        <tr>
 
-						#<?=$test_info['id']?><br>
+                            <td>
 
-						<input
-							type="hidden"
-							name="testId[]"
-							value="<?=$test_info['id']?>"
-						>
+                                #<?=$test_info['id']?><br>
 
-						<a
-							href="<?=_SPM_?>index.php?cmd=problems/edit/tests/delete&id=<?=$test_info['id']?>&pid=<?=$_GET['id']?>"
-							class="text-danger"
-							onclick="return confirm('<?=_("Ви впевнені? Видалений тест не можна повернути!")?>');"
-						><?=_("Видалити")?></a>
+                                <input
+                                    type="hidden"
+                                    name="testId[]"
+                                    value="<?=$test_info['id']?>"
+                                >
 
-					</td>
+                                <a
+                                    href="<?=_SPM_?>index.php?cmd=problems/edit/tests/delete&id=<?=$test_info['id']?>&pid=<?=$_GET['id']?>"
+                                    class="text-danger"
+                                    onclick="return confirm('<?=_("Ви впевнені? Видалений тест не можна повернути!")?>');"
+                                ><?=_("Видалити")?></a>
 
-					<td>
+                            </td>
 
-						<textarea
-							class="form-control"
-							style="height: 200px; min-height: 200px; margin: 0; min-width: 150px;"
-                            wrap="off"
-							name="input[]"
-						><?=htmlspecialchars($test_info['input'])?></textarea>
+                            <td>
 
-					</td>
+                                <textarea
+                                    class="form-control"
+                                    style="height: 200px; min-height: 200px; margin: 0; min-width: 150px;"
+                                    wrap="off"
+                                    name="input[]"
+                                ><?=htmlspecialchars($test_info['input'])?></textarea>
 
-					<td>
+                            </td>
 
-						<textarea
-							class="form-control"
-							style="height: 200px; min-height: 200px; margin: 0; min-width: 150px;"
-                            wrap="off"
-							name="output[]"
-						><?=htmlspecialchars($test_info['output'])?></textarea>
+                            <td>
 
-					</td>
+                                <textarea
+                                    class="form-control"
+                                    style="height: 200px; min-height: 200px; margin: 0; min-width: 150px;"
+                                    wrap="off"
+                                    name="output[]"
+                                ><?=htmlspecialchars($test_info['output'])?></textarea>
 
-					<td>
+                            </td>
 
-						<div class="form-group" style="margin-top: 0;">
+                            <td>
 
-							<label for="time<?=$test_info['id']?>"><?=_("Time limit")?></label>
+                                <div class="form-group" style="margin-top: 0;">
 
-							<input
-								type="number"
-								class="form-control"
-								id="time<?=$test_info['id']?>"
+                                    <label for="time<?=$test_info['id']?>"><?=_("Time limit")?></label>
 
-								name="timeLimit[]"
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="time<?=$test_info['id']?>"
 
-								min="1"
-								value="<?=$test_info['timeLimit']?>"
-							>
+                                        name="timeLimit[]"
 
-							<small class="form-text text-muted">
-								<?=_("Ліміт використаного процесорного часу в міллісекундах")?>
-							</small>
+                                        min="1"
+                                        value="<?=$test_info['timeLimit']?>"
+                                    >
 
-						</div>
+                                    <small class="form-text text-muted">
+                                        <?=_("Ліміт використаного процесорного часу в міллісекундах")?>
+                                    </small>
 
-						<div class="form-group" style="margin-bottom: 0;">
+                                </div>
 
-							<label for="mem<?=$test_info['id']?>"><?=_("Memory limit")?></label>
+                                <div class="form-group" style="margin-bottom: 0;">
 
-							<input
-								type="number"
-								class="form-control"
-								id="mem<?=$test_info['id']?>"
+                                    <label for="mem<?=$test_info['id']?>"><?=_("Memory limit")?></label>
 
-								name="memoryLimit[]"
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="mem<?=$test_info['id']?>"
 
-								min="1"
-								value="<?=$test_info['memoryLimit']?>"
-							>
+                                        name="memoryLimit[]"
 
-							<small class="form-text text-muted">
-								<?=_("Ліміт використаної пам'яті в байтах")?>
-							</small>
+                                        min="1"
+                                        value="<?=$test_info['memoryLimit']?>"
+                                    >
 
-						</div>
+                                    <small class="form-text text-muted">
+                                        <?=_("Ліміт використаної пам'яті в байтах")?>
+                                    </small>
 
-					</td>
+                                </div>
 
-				</tr>
+                            </td>
 
-			<?php endforeach; ?>
+                        </tr>
 
-			</tbody>
+                    <?php endforeach; ?>
 
-			<tfoot>
+                    </tbody>
 
-			<tr>
+                    <tfoot>
 
-				<th><?=_("ID")?></th>
-				<th><?=_("Вхідні дані")?></th>
-				<th><?=_("Вихідні дані")?></th>
-				<th><?=_("Обмеження")?></th>
+                    <tr>
 
-			</tr>
+                        <th><?=_("ID")?></th>
+                        <th><?=_("Вхідні дані")?></th>
+                        <th><?=_("Вихідні дані")?></th>
+                        <th><?=_("Обмеження")?></th>
 
-			</tfoot>
+                    </tr>
 
-		</table>
+                </tfoot>
 
-		<div align="right">
+            </table>
+
+        </div>
+
+		<div class="saving-buttons-group">
 
 			<button
 				type="reset"
@@ -286,7 +288,7 @@ $tests_list = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 <?php else: ?>
 
 	<p class="lead text-center text-danger" style="margin-top: 100px; margin-bottom: 100px;">
-		<?=_("Задача ще не має тестів, тому відправка рішень до неї заблокована!")?>
+		<?=_("Завдання ще не має тестів, тому відправка рішень до нього заблокована!")?>
 	</p>
 
 <?php endif; ?>
