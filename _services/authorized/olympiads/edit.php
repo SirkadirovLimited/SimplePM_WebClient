@@ -136,7 +136,7 @@ if ($_GET['id'] > 0)
 
     <div class="card-body">
 
-		<form method="post" action="">
+		<form method="post" action="" style="margin: 0;">
 
 			<h4 class="text-center" style="margin-top: 10px; margin-bottom: 10px;"><?=_("Основна інформація")?></h4>
 
@@ -353,7 +353,7 @@ if ($_GET['id'] > 0)
 
 			</div>
 
-			<div align="right">
+			<div class="saving-buttons-group">
 
 				<button
 						type="reset"

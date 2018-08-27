@@ -95,20 +95,9 @@ class Security {
         foreach ($arr as &$param) {
 
 			if (is_array($param))
-			{
-
 				$this->ClearPOST($param);
-
-			}
 			else
-			{
-
-				$param = mysqli_real_escape_string(
-					$this->mysqli_connection,
-					$param
-				);
-
-			}
+				$param = mysqli_real_escape_string($this->mysqli_connection, $param);
 
         }
 
