@@ -105,9 +105,7 @@ class Security {
 
 				$param = mysqli_real_escape_string(
 					$this->mysqli_connection,
-					trim(
-						$param
-					)
+					$param
 				);
 
 			}
