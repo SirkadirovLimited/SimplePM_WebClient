@@ -42,7 +42,7 @@ main .main-content {
 /*
  * Footer
  */
-.footer {
+div.footer {
     padding: 2.5rem 0;
     color: #999;
     text-align: center;
@@ -51,6 +51,22 @@ main .main-content {
     border-bottom: none;
 }
 
-.footer p:last-child {
+div.footer a {
+    color: #212121 !important;
+}
+
+div.footer p:last-child {
     margin-bottom: 0;
+}
+
+/*
+ * Saving buttons group styles
+ */
+
+div.saving-buttons-group {
+
+    text-align: right;
+
+    margin-bottom: 1rem;
+
 }
