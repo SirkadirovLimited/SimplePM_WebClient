@@ -467,43 +467,29 @@ if (!teacherId_exists($_current_user_id))
                         <?=_("Для активації вказаного у списку користувача потрібно приєднати його до існуючої користувацької групи.")?>
                     </p>
 
-                    <table class="table table-bordered" style="margin: 0;">
-
-                        <thead>
-
-                        <tr>
-
-                            <th><?=_("ID")?></th>
-                            <th><?=_("Email")?></th>
-                            <th><?=_("Повне ім'я")?></th>
-
-                        </tr>
-
-                        </thead>
+                    <table class="table table-borderless table-hover" style="margin: 0;">
 
                         <?php foreach ($deactivated_users as $deactivated_user): ?>
 
                             <tr>
 
-                                <td><?=$deactivated_user['id']?></td>
-
                                 <td>
 
-                                    <a href="mailto:<?=$deactivated_user['email']?>">
-                                        <i class="fas fa-envelope"></i> <?=$deactivated_user['email']?>
-                                    </a>
-
-                                </td>
-
-                                <td>
-
-                                    <a href="<?=_SPM_?>index.php/users/profile/?id=<?=$deactivated_user['id']?>">
+                                    <a href="<?=_SPM_?>index.php/users/edit/?id=<?=$deactivated_user['id']?>">
 
                                         <i class="fas fa-user-edit"></i>
                                         <?=$deactivated_user['secondname']?>
                                         <?=$deactivated_user['firstname']?>
                                         <?=$deactivated_user['thirdname']?>
 
+                                    </a>
+
+                                </td>
+
+                                <td>
+
+                                    <a href="mailto:<?=$deactivated_user['email']?>">
+                                        <i class="fas fa-envelope"></i> <?=$deactivated_user['email']?>
                                     </a>
 
                                 </td>
