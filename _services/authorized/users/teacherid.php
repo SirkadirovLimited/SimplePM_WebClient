@@ -351,122 +351,193 @@ if (!teacherId_exists($_current_user_id))
 
 ?>
 
-<div class="card">
-	<div class="card-body" align="center">
+<div class="row">
 
-		<h2
-				class="text-center <?=(teacherId_enabled($_current_user_id) ? "text-success" : "text-danger")?>"
-				style="padding-bottom: 10px;"
-		><?=teacherId_get($_current_user_id)?></h2>
+    <div class="col-md-4 col-sm-12">
 
-		<a
-				href="<?=_SPM_?>index.php/users/TeacherID/?t_action=new"
-				class="btn btn-outline-dark"
-		><?=_("Згенерувати новий")?></a>
+        <div class="card card-teacherid">
 
-		<a
-			href="<?=_SPM_?>index.php/users/TeacherID/?t_action=enable"
-			class="btn btn-outline-success"
-		><?=_("Ввімкнути")?></a>
+            <div class="card-header <?=(teacherId_enabled($_current_user_id) ? "text-success" : "text-danger")?>"
+            ><?=teacherId_get($_current_user_id)?></div>
 
-		<a
-			href="<?=_SPM_?>index.php/users/TeacherID/?t_action=disable"
-			class="btn btn-outline-danger"
-		><?=_("Вимкнути")?></a>
+            <div class="card-body">
 
-	</div>
+                <p class="card-text text-justify">
+                    <strong><?=_("TeacherID")?></strong> - <?=_("це унікальний код доступу в SimplePM, що дозволяє новим користувачам реєструватися в системі та автоматично пов'язуватися зі своїм куратором.")?>
+                </p>
+
+            </div>
+
+            <ul class="list-group list-group-flush">
+
+                <li class="list-group-item">
+
+                    <!--p><?=sprintf(_("Нові користувачі будуть автоматично додані у групу %s"), "11-Б")?></p-->
+
+                    <form action="" method="get">
+
+                        <div class="input-group">
+
+                            <select class="form-control">
+
+                                <option value="0"><?=_("Не підтверджувати автоматично")?></option>
+
+                            </select>
+
+                            <div class="input-group-append">
+
+                                <button
+                                        class="btn btn-outline-success"
+                                        type="submit"
+                                ><i class="fas fa-check"></i></button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </li>
+
+                <li class="list-group-item">
+                    <a class="text-dark" href="<?=_SPM_?>index.php/users/TeacherID/?t_action=new"
+                    ><?=_("Згенерувати новий код")?></a>
+                </li>
+
+                <?php if (!teacherId_enabled($_current_user_id)): ?>
+
+                    <li class="list-group-item">
+                        <a class="text-success" href="<?=_SPM_?>index.php/users/TeacherID/?t_action=enable"
+                        ><?=_("Ввімкнути код доступу")?></a>
+                    </li>
+
+                <?php else: ?>
+
+                    <li class="list-group-item">
+                        <a class="text-danger" href="<?=_SPM_?>index.php/users/TeacherID/?t_action=disable"
+                        ><?=_("Вимкнути код доступу")?></a>
+                    </li>
+
+                <?php endif; ?>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <?php
+
+    // Запрашиваем доступ к глобальным переменным
+    global $database;
+
+    $query_str = "
+        SELECT
+          `id`,
+          `email`,
+          `firstname`,
+          `secondname`,
+          `thirdname`
+        FROM
+          `spm_users`
+        WHERE
+          `teacherId` = '" . Security::getCurrentSession()['user_info']->getUserId() . "'
+        AND
+          `groupid` = '0'
+        ORDER BY
+          `last_online` ASC
+        ;
+    ";
+
+    $deactivated_users = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
+
+    ?>
+
+    <?php if (sizeof($deactivated_users) > 0): ?>
+
+        <div class="col-md-8 col-sm-12">
+
+            <div class="card">
+
+                <div class="card-body table-responsive">
+
+                    <h3 class="text-center" style="margin-bottom: 10px;"><?=_("Черга активації користувачів")?></h3>
+
+                    <p class="lead text-center" style="margin: 0; margin-bottom: 20px;">
+                        <?=_("Для активації вказаного у списку користувача потрібно приєднати його до існуючої користувацької групи.")?>
+                    </p>
+
+                    <table class="table table-bordered" style="margin: 0;">
+
+                        <thead>
+
+                        <tr>
+
+                            <th><?=_("ID")?></th>
+                            <th><?=_("Email")?></th>
+                            <th><?=_("Повне ім'я")?></th>
+
+                        </tr>
+
+                        </thead>
+
+                        <?php foreach ($deactivated_users as $deactivated_user): ?>
+
+                            <tr>
+
+                                <td><?=$deactivated_user['id']?></td>
+
+                                <td>
+
+                                    <a href="mailto:<?=$deactivated_user['email']?>">
+                                        <i class="fas fa-envelope"></i> <?=$deactivated_user['email']?>
+                                    </a>
+
+                                </td>
+
+                                <td>
+
+                                    <a href="<?=_SPM_?>index.php/users/profile/?id=<?=$deactivated_user['id']?>">
+
+                                        <i class="fas fa-user-edit"></i>
+                                        <?=$deactivated_user['secondname']?>
+                                        <?=$deactivated_user['firstname']?>
+                                        <?=$deactivated_user['thirdname']?>
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        <?php endforeach; ?>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    <?php endif; ?>
+
 </div>
 
-<div class="card">
-	<div class="card-body text-justify">
+<style>
 
-		<p class="lead" style="margin: 0;"><strong>TeacherID</strong> - <?=_("це унікальний пароль, що дозволяє іншим реєструватися в системі та автоматично пов'язуватися зі своїм куратором.")?></p>
+    div.row {
+        margin-top: 5em;
+        margin-bottom: 5em;
+    }
 
-	</div>
-</div>
+    div.card.card-teacherid .card-header {
+        text-align: center;
+        font-size: 20pt;
+    }
 
-<?php
+    a {
+        color: #212121 !important;
+    }
 
-/*
- * Запрашиваем доступ к глобальным переменным
- */
-
-global $database;
-
-$query_str = "
-	SELECT
-  	  `id`,
-  	  `email`,
-  	  `firstname`,
-  	  `secondname`,
-  	  `thirdname`
-	FROM
-	  `spm_users`
-	WHERE
-	  `teacherId` = '" . Security::getCurrentSession()['user_info']->getUserId() . "'
-	AND
-	  `groupid` = '0'
-	ORDER BY
-	  `last_online` ASC
-	;
-";
-
-$deactivated_users = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
-
-?>
-
-<?php if (sizeof($deactivated_users) > 0): ?>
-	<div class="card">
-		<div class="card-body table-responsive">
-
-			<h3 class="text-center" style="margin-bottom: 10px;"><?=_("Черга активації користувачів")?></h3>
-
-			<p class="lead text-center" style="margin: 0; margin-bottom: 20px;">
-                <?=_("Для активації вказаного у списку користувача потрібно приєднати його до існуючої користувацької групи.")?>
-            </p>
-
-			<table class="table table-bordered" style="margin: 0;">
-
-				<thead>
-
-				<tr>
-
-					<th><?=_("ID")?></th>
-					<th><?=_("Email")?></th>
-					<th><?=_("Повне ім'я")?></th>
-
-				</tr>
-
-				</thead>
-
-				<?php foreach ($deactivated_users as $deactivated_user): ?>
-
-					<tr>
-
-						<td><?=$deactivated_user['id']?></td>
-
-						<td>
-							<a href="mailto:<?=$deactivated_user['email']?>">
-								<?=$deactivated_user['email']?>
-							</a>
-						</td>
-
-						<td>
-							<a href="<?=_SPM_?>index.php/users/profile/?id=<?=$deactivated_user['id']?>">
-
-								<?=$deactivated_user['secondname']?>
-								<?=$deactivated_user['firstname']?>
-								<?=$deactivated_user['thirdname']?>
-
-							</a>
-						</td>
-
-					</tr>
-
-				<?php endforeach; ?>
-
-			</table>
-
-		</div>
-	</div>
-<?php endif; ?>
+</style>
