@@ -84,17 +84,12 @@ function redirect() : void
 function teacherId_regenerate(int $userId) : void
 {
 
-	/*
-	 * Запрашиваем доступ к глобальным переменным
-	 */
-
+	// Запрашиваем доступ к глобальным переменным
 	global $database;
 
 	/*
-	 * Устанавливаем уровень доступа для
-	 * пользователей,  которые будут рег
-	 * истрироваться с помощью  текущего
-	 * сгенерированного кода TeacherID.
+	 * Устанавливаем уровень доступа для пользователей, которые
+	 * будут регистрироваться с помощью текущего кода TeacherID.
 	 */
 
 	if (Security::CheckAccessPermissions(PERMISSION::TEACHER, false))
@@ -104,10 +99,7 @@ function teacherId_regenerate(int $userId) : void
 	else
 		$user_permission = PERMISSION::ANONYMOUS;
 
-	/*
-	 * Генерируем TeacherID
-	 */
-
+	// Генерируем TeacherID
 	$teacherId = Security::GenerateKeyCode(10);
 
 	/*
@@ -116,35 +108,37 @@ function teacherId_regenerate(int $userId) : void
 	 */
 
 	// Формируем запрос на вставку к БД
-	$query_str = "
+	$query_str = sprintf("
 		INSERT INTO
 		  `spm_teacherid`
 		SET
-		  `userId` = '" . $userId . "',
-		  `teacherId` = '" . $teacherId . "',
-		  `newUserPermission` = '" . $user_permission . "'
+		  `userId` = '%s',
+		  `teacherId` = '%s',
+		  `newUserPermission` = '%s'
 		ON DUPLICATE KEY UPDATE
-		  `teacherId` = '" . $teacherId . "',
-		  `newUserPermission` = '" . $user_permission . "'
+		  `teacherId` = '%s',
+		  `newUserPermission` = '%s'
 		;
-	";
+	",
+        $userId,
+        $teacherId,
+        $user_permission,
+        $teacherId,
+        $user_permission
+    );
 
 	// Выполняем запрос и отлавливаем ошибки
 	if (!$database->query($query_str))
 		Security::ThrowError("input");
 
-	/*
-	 * Переадресовываем пользователя
-	 * на необходимый нам сервис.
-	 */
-
+	// Переадресовываем пользователя на необходимый нам сервис
 	redirect();
 
 }
 
 /**
  * Функция позволяет изменить статус
- * пользовательского   TeacherID  на
+ * пользовательского TeacherID на
  * указанный.
  * @param int $userId Идентификатор пользователя
  * @param bool $enable Установить в положение
@@ -153,37 +147,26 @@ function teacherId_regenerate(int $userId) : void
 function teacherId_toggle(int $userId, bool $enable) : void
 {
 
-	/*
-	 * Запрашиваем доступ к глобальным переменным
-	 */
-
 	global $database;
 
-	/*
-	 * Производим необходимые запросы к базе данных
-	 */
-
-	// Формируем запрос на обновление данных
-	$query_str = "
+	$query_str = sprintf("
 		UPDATE
 		  `spm_teacherid`
 		SET
-		  `enabled` = " . (int)$enable . "
+		  `enabled` = '%s'
 		WHERE
-		  `userId` = " . $userId . "
+		  `userId` = '%s'
 		LIMIT
 		  1
 		;
-	";
+	",
+        (int)$enable,
+        $userId
+    );
 
-	// Выполняем запрос и обрабатываем ошибки
 	if (!$database->query($query_str))
 		Security::ThrowError("input");
 
-	/*
-	 * Перенаправляем пользователя
-	 * на необходимый нам сервис.
-	 */
 	redirect();
 
 }
@@ -198,31 +181,19 @@ function teacherId_toggle(int $userId, bool $enable) : void
 function teacherId_get(int $userId) : string
 {
 
-	/*
-	 * Запрашиваем доступ к глобальным переменным
-	 */
-
 	global $database;
 
-	/*
-	 * Производим необходимые запросы к БД
-	 */
-
-	$query_str = "
+	$query_str = sprintf("
 		SELECT
 	  	  `teacherId`
 		FROM
 		  `spm_teacherid`
 		WHERE
-		  `userId` = '" . $userId . "'
+		  `userId` = '%s'
 		LIMIT
 		  1
 		;
-	";
-
-	/*
-	 * Возвращаем результат работы функции
-	 */
+	", $userId);
 
 	return (string)$database->query($query_str)->fetch_array()[0];
 
@@ -230,8 +201,8 @@ function teacherId_get(int $userId) : string
 
 /**
  * Функция позволяет определить, активирован ли
- * уникальній код TeacherID, привязанный к указ
- * анному идентификатору пользователя системы.
+ * уникальній код TeacherID, привязанный к указанному
+ * идентификатору пользователя системы.
  * @param int $userId Идентификатор пользователя
  * @return bool Статус кода
  */
@@ -239,35 +210,19 @@ function teacherId_get(int $userId) : string
 function teacherId_enabled(int $userId) : bool
 {
 
-	/*
-	 * Запрашиваем доступ к глобальным переменным
-	 */
-
 	global $database;
 
-	/*
-	 * Производим запрос на выборку
-	 * необходимых нам данных из БД.
-	 */
-
-	// Формируем запрос на выборку
-	$query_str = "
+	$query_str = sprintf("
 		SELECT
 		  `enabled`
 		FROM
 		  `spm_teacherid`
 		WHERE
-		  `userId` = " . $userId . "
+		  `userId` = '%s'
 		LIMIT
 		  1
 		;
-	";
-
-	/*
-	 * Выполняем запрос, возвращаем
-	 * и форматируем результат выпо
-	 * лнения данного запроса.
-	 */
+	", $userId);
 
 	return (bool)(
 		(int)(
@@ -299,24 +254,20 @@ function teacherId_exists(int $userId) : bool
 	 */
 
 	// ФОрмируем запрос на выборку из БД
-	$query_str = "
+	$query_str = sprintf("
 		SELECT
 		  count(`teacherId`)
 		FROM
 		  `spm_teacherid`
 		WHERE
-		  `userId` = " . $userId . "
+		  `userId` = '%s'
 		;
-	";
+	", $userId);
 
-	/*
-	 * Выполняем запрос и возвращаем
-	 * преформатированный результат.
-	 */
-
+	// Выполняем запрос и возвращаем преформатированный результат
 	return (int)(
 		$database->query($query_str)->fetch_array()[0]
-		) > 0;
+	) > 0;
 
 }
 
@@ -431,7 +382,7 @@ if (!teacherId_exists($_current_user_id))
     // Запрашиваем доступ к глобальным переменным
     global $database;
 
-    $query_str = "
+    $query_str = sprintf("
         SELECT
           `id`,
           `email`,
@@ -441,13 +392,13 @@ if (!teacherId_exists($_current_user_id))
         FROM
           `spm_users`
         WHERE
-          `teacherId` = '" . Security::getCurrentSession()['user_info']->getUserId() . "'
+          `teacherId` = '%s'
         AND
           `groupid` = '0'
         ORDER BY
           `last_online` ASC
         ;
-    ";
+    ", Security::getCurrentSession()['user_info']->getUserId());
 
     $deactivated_users = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
 
