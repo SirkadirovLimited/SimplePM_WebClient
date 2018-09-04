@@ -160,13 +160,17 @@ function teacherId_toggle(int $userId, bool $enable) : void
 
 }
 
-function teacherId_getInfo(int $userId) : array
+function teacherId_getInfo(int $userId)
 {
 
 	global $database;
+	global $teacherId_info_cache;
 
 	if (!teacherId_exists($userId))
 	    throw new InvalidArgumentException();
+
+	if (isset($teacherId_info_cache[$userId]))
+	    return $teacherId_info_cache[$userId];
 
 	$query_str = sprintf("
 		SELECT
@@ -184,7 +188,9 @@ function teacherId_getInfo(int $userId) : array
 		;
 	", $userId);
 
-	return $database->query($query_str)->fetch_assoc();
+    $teacherId_info_cache[$userId] = $database->query($query_str)->fetch_assoc();
+
+	return $teacherId_info_cache[$userId];
 
 }
 
