@@ -32,6 +32,9 @@
  * Visit website for more details: https://spm.sirkadirov.com/
  */
 
+// Запрашиваем доступ к глобальным переменным
+global $database;
+
 /*
  * Производим проверку наличия доступа
  * для использования данного сервиса.
@@ -74,12 +77,6 @@ function redirect() : void
 	exit;
 
 }
-
-/**
- * Функция занимается перегенерацией TeacherID
- * указанного пользователя системы.
- * @param int $userId Идентификатор пользователя
- */
 
 function teacherId_regenerate(int $userId) : void
 {
@@ -136,14 +133,6 @@ function teacherId_regenerate(int $userId) : void
 
 }
 
-/**
- * Функция позволяет изменить статус
- * пользовательского TeacherID на
- * указанный.
- * @param int $userId Идентификатор пользователя
- * @param bool $enable Установить в положение
- */
-
 function teacherId_toggle(int $userId, bool $enable) : void
 {
 
@@ -171,21 +160,21 @@ function teacherId_toggle(int $userId, bool $enable) : void
 
 }
 
-/**
- * Функция позволяет получить текущий код TeacherID
- * указанного пользователя системы SimplePM.
- * @param int $userId Идентификатор пользователя
- * @return string TeacherID указанного пользователя
- */
-
-function teacherId_get(int $userId) : string
+function teacherId_getInfo(int $userId) : array
 {
 
 	global $database;
 
+	if (!teacherId_exists($userId))
+	    throw new InvalidArgumentException();
+
 	$query_str = sprintf("
 		SELECT
-	  	  `teacherId`
+		  `userId`,
+	  	  `teacherId`,
+	  	  `enabled`,
+	  	  `newUserPermission`,
+	  	  `applyGroup`
 		FROM
 		  `spm_teacherid`
 		WHERE
@@ -195,50 +184,9 @@ function teacherId_get(int $userId) : string
 		;
 	", $userId);
 
-	return (string)$database->query($query_str)->fetch_array()[0];
+	return $database->query($query_str)->fetch_assoc();
 
 }
-
-/**
- * Функция позволяет определить, активирован ли
- * уникальній код TeacherID, привязанный к указанному
- * идентификатору пользователя системы.
- * @param int $userId Идентификатор пользователя
- * @return bool Статус кода
- */
-
-function teacherId_enabled(int $userId) : bool
-{
-
-	global $database;
-
-	$query_str = sprintf("
-		SELECT
-		  `enabled`
-		FROM
-		  `spm_teacherid`
-		WHERE
-		  `userId` = '%s'
-		LIMIT
-		  1
-		;
-	", $userId);
-
-	return (bool)(
-		(int)(
-			$database->query($query_str)->fetch_array()[0]
-		)
-	);
-
-}
-
-/**
- * Функция позволяет определить, существует ли
- * уникальный код TeacherID, который ассоциирован
- * с указанным пользователем системы SimplePM.
- * @param int $userId Идентификатор пользователя
- * @return bool Существует или нет
- */
 
 function teacherId_exists(int $userId) : bool
 {
@@ -293,8 +241,8 @@ if (isset($_GET['t_action']))
 }
 
 /*
- * Если  TeacherID   для   текущего  пользователя
- * ещё не создан, запускаем скрипт его генерации.
+ * Если TeacherID для текущего пользователя ещё
+ * не создан, запускаем скрипт его генерации.
  */
 
 if (!teacherId_exists($_current_user_id))
@@ -308,8 +256,8 @@ if (!teacherId_exists($_current_user_id))
 
         <div class="card card-teacherid">
 
-            <div class="card-header <?=(teacherId_enabled($_current_user_id) ? "text-success" : "text-danger")?>"
-            ><?=teacherId_get($_current_user_id)?></div>
+            <div class="card-header <?=(teacherId_getInfo($_current_user_id)['enabled'] ? "text-success" : "text-danger")?>"
+            ><?=teacherId_getInfo($_current_user_id)['teacherId']?></div>
 
             <div class="card-body">
 
@@ -323,15 +271,41 @@ if (!teacherId_exists($_current_user_id))
 
                 <li class="list-group-item">
 
-                    <!--p><?=sprintf(_("Нові користувачі будуть автоматично додані у групу %s"), "11-Б")?></p-->
-
                     <form action="" method="get">
 
                         <div class="input-group">
 
                             <select class="form-control">
 
+                                <?php
+
+                                $query_str = sprintf("
+                                    SELECT
+                                      `id`,
+                                      `name`
+                                    FROM
+                                      `spm_users_groups`
+                                    WHERE
+                                      `teacherId` = '%s'
+                                    ORDER BY
+                                      `id` ASC
+                                    ;
+                                ", $_current_user_id);
+
+                                $groups_info = $database->query($query_str)->fetch_all(MYSQLI_ASSOC);
+
+                                ?>
+
                                 <option value="0"><?=_("Не підтверджувати автоматично")?></option>
+
+                                <?php foreach ($groups_info as $group_info): ?>
+
+                                    <option
+                                            value="<?=$group_info['id']?>"
+                                        <?=(teacherId_getInfo($_current_user_id)['applyGroup'] == $group_info['id'] ? "selected" : "")?>
+                                    ><?=$group_info['name']?> (gid<?=$group_info['id']?>)</option>
+
+                                <?php endforeach; ?>
 
                             </select>
 
@@ -355,7 +329,7 @@ if (!teacherId_exists($_current_user_id))
                     ><?=_("Згенерувати новий код")?></a>
                 </li>
 
-                <?php if (!teacherId_enabled($_current_user_id)): ?>
+                <?php if (!teacherId_getInfo($_current_user_id)['enabled']): ?>
 
                     <li class="list-group-item">
                         <a class="text-success" href="<?=_SPM_?>index.php/users/TeacherID/?t_action=enable"
