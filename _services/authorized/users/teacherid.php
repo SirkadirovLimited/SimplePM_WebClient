@@ -262,8 +262,8 @@ if (!teacherId_exists($_current_user_id))
 
         <div class="card card-teacherid">
 
-            <div class="card-header <?=(teacherId_getInfo($_current_user_id)['enabled'] ? "text-success" : "text-danger")?>"
-            ><?=teacherId_getInfo($_current_user_id)['teacherId']?></div>
+            <pre class="card-header <?=(teacherId_getInfo($_current_user_id)['enabled'] ? "text-success" : "text-danger")?>"
+            ><?=teacherId_getInfo($_current_user_id)['teacherId']?></pre>
 
             <div class="card-body">
 
