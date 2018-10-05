@@ -20,17 +20,17 @@
 
 *****
 
-Official repository of SimplePM WebApp, web application of software complex "Automated verification system for programming tasks "SimplePM".
+Official repository of **SimplePM WebApp**, web application of software complex "Automated verification system for programming tasks "SimplePM".
 
 ![Problems archive in SimplePM WebApp](https://i.imgur.com/BWKt5p1.png)
 
-Detailed information about the project you can get at project's official website: https://spm.sirkadirov.com/
+Detailed information about the project you can get on its official website: https://spm.sirkadirov.com/
 
 ## Runtime / development requirements
 - PHP 7.1.x+
-- php-mbstring, php-gettext, php-mysqli (MySQLi), php-gd, php-json, php-pdf, php-common
+- Additional PHP libraries: php-mbstring, php-gettext, php-mysqli (MySQLi), php-gd, php-json, php-pdf, php-common
 - GNU GetText Libraries and utilities
-- phpMyAdmin (latest)
+- phpMyAdmin (latest, recommended)
 - MySQL Server 5.8+ (latest)
 
 ### Recommendations
@@ -51,5 +51,6 @@ Source code of the project is licensed under *GNU AGPLv3 License*, official buil
 ### Author rights and patents
 Initial copyright holder of this project - [Yurij Kadirov (Sirkadirov)](https://sirkadirov.com/).
 
-- SimplePM v2.X.X "Moongirl" - Copyright (C) 2018, Yurij Kadirov and other contributors. All rights reserved.
-- SimplePM v1.X.X "Alien Baroness" - Copyright (C) 2017, Yurij Kadirov and other contributors. All rights reserved.
+- **SimplePM v2.1.X "Bloody Moongirl"** - Copyright (C) 2018-2019, Yurij Kadirov and other contributors. All rights reserved.
+- **SimplePM v2.0.X "Moongirl"** - Copyright (C) 2018-2019, Yurij Kadirov and other contributors. All rights reserved.
+- **SimplePM v1.X.X "Alien Baroness"** - Copyright (C) 2017, Yurij Kadirov and other contributors. All rights reserved.
