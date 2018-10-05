@@ -49,8 +49,8 @@ Detailed information about the project you can get on its official website: http
 Source code of the project is licensed under *GNU AGPLv3 License*, official builds of this project licensed under SimplePM EULA, full text of it you can get at official website: https://spm.sirkadirov.com/
 
 ### Author rights and patents
-Initial copyright holder of this project - [Yurij Kadirov (Sirkadirov)](https://sirkadirov.com/).
+Initial copyright holder of this project - [Yurii Kadirov (Sirkadirov)](https://sirkadirov.com/).
 
-- **SimplePM v2.1.X "Bloody Moongirl"** - Copyright (C) 2018-2019, Yurij Kadirov and other contributors. All rights reserved.
-- **SimplePM v2.0.X "Moongirl"** - Copyright (C) 2018-2019, Yurij Kadirov and other contributors. All rights reserved.
-- **SimplePM v1.X.X "Alien Baroness"** - Copyright (C) 2017, Yurij Kadirov and other contributors. All rights reserved.
+- **SimplePM v2.1.X "Bloody Moongirl"** - Copyright (C) 2018-2019, Yurii Kadirov and other contributors. All rights reserved.
+- **SimplePM v2.0.X "Moongirl"** - Copyright (C) 2018-2019, Yurii Kadirov and other contributors. All rights reserved.
+- **SimplePM v1.X.X "Alien Baroness"** - Copyright (C) 2017, Yurii Kadirov and other contributors. All rights reserved.
