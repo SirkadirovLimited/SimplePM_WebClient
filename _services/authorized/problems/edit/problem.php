@@ -148,7 +148,7 @@ if ($_GET['id'] > 0)
 		>
 
         <small class="form-text text-muted">
-            <?=_("Ідентифікатор задачі, яку потрібно відредагувати. Заповнюється автоматично.")?>
+            <?=_("Ідентифікатор завдання, яку потрібно відредагувати. Заповнюється автоматично.")?>
         </small>
 
     </div>
@@ -157,7 +157,7 @@ if ($_GET['id'] > 0)
 
     <div class="form-group">
 
-        <label><strong><?=_("Назва задачі")?></strong></label>
+        <label><strong><?=_("Назва завдання")?></strong></label>
 
         <input
 				type="text"
@@ -171,7 +171,7 @@ if ($_GET['id'] > 0)
 		>
 
         <small class="form-text text-muted">
-            <?=_("Вкажіть назву задачі. Вона повинна бути короткою, але в той самий час передавати основну ідею задачі.")?>
+            <?=_("Вкажіть назву завдання. Вона повинна бути короткою, але в той самий час передавати основну ідею задачі.")?>
         </small>
 
     </div>
@@ -180,7 +180,7 @@ if ($_GET['id'] > 0)
 
     <div class="form-group">
 
-        <label><strong><?=_("Категорія задачі")?></strong></label>
+        <label><strong><?=_("Категорія завдання")?></strong></label>
 
         <select name="category_id" class="form-control" required>
 
@@ -202,7 +202,7 @@ if ($_GET['id'] > 0)
 
 			?>
 
-            <option><?=_("Виберіть категорію задачі")?></option>
+            <option><?=_("Виберіть категорію завдання")?></option>
 
 			<?php foreach ($problems_categories as $problem_category): ?>
 
@@ -216,14 +216,14 @@ if ($_GET['id'] > 0)
         </select>
 
         <small class="form-text text-muted">
-            <?=_("Вкажіть категорію, в яку буде додана ця задача.")?>
+            <?=_("Вкажіть категорію, в яку буде додане це завдання.")?>
         </small>
 
     </div>
 
     <div class="form-group">
 
-        <label><strong><?=_("Складність задачі")?></strong></label>
+        <label><strong><?=_("Складність завдання")?></strong></label>
 
         <input
             type="number"
@@ -238,7 +238,7 @@ if ($_GET['id'] > 0)
         >
 
         <small class="form-text text-muted">
-            <?=_("Вкажіть кількість балів, що будуть надаватись за повне вирішення цієї задачі.")?>
+            <?=_("Вкажіть кількість балів, що будуть надаватись за повне вирішення цього завдання.")?>
         </small>
 
     </div>
@@ -259,34 +259,11 @@ if ($_GET['id'] > 0)
             <label
                     class="custom-control-label"
                     for="enabled"
-            ><?=_("Задача доступна для перегляду та вирішення")?></label>
+            ><?=_("Завдання доступне для перегляду та вирішення")?></label>
         </div>
 
         <small class="form-text text-muted">
-            <?=_("Зверніть увагу на те, що цей параметр не блокує доступ до задачі адміністраторам системи.")?>
-        </small>
-
-    </div>
-
-    <div class="form-group">
-
-        <div class="custom-control custom-checkbox">
-            <input
-                    type="checkbox"
-                    name="adaptProgramOutput"
-                    id="adaptProgramOutput"
-                    class="custom-control-input"
-
-                <?=(@$problem_info['adaptProgramOutput'] ? "checked" : "")?>
-            >
-            <label
-                    class="custom-control-label"
-                    for="adaptProgramOutput"
-            ><?=_("Порівнювати очищені від зайвих пробілів вхідні потоки")?></label>
-        </div>
-
-        <small class="form-text text-muted">
-            <?=_("Увімкніть для не суворої перевірки вихідних даних, вимкніть для суворої.")?>
+            <?=_("Зверніть увагу на те, що цей параметр не блокує доступ до завдання адміністраторам системи.")?>
         </small>
 
     </div>
@@ -295,7 +272,7 @@ if ($_GET['id'] > 0)
 
     <div class="form-group">
 
-		<label><strong><?=_("Детальні умови задачі")?></strong></label>
+		<label><strong><?=_("Детальні умови завдання")?></strong></label>
 
 		<textarea
 				name="description"
@@ -306,7 +283,7 @@ if ($_GET['id'] > 0)
 		><?=@htmlspecialchars($problem_info['description'])?></textarea>
 
         <small class="form-text text-muted">
-            <?=_("Надайте детальні умови задачі, включаючи всі вимоги, а також обмеження.")?>
+            <?=_("Надайте детальні умови завдання, включаючи всі вимоги, а також обмеження.")?>
         </small>
 
     </div>
@@ -401,12 +378,12 @@ if ($_GET['id'] > 0)
         </select>
 
         <small class="form-text text-muted">
-            <?=_("Оберіть мову програмування, на якій було написано авторське рішення задачі.")?>
+            <?=_("Оберіть мову програмування, на якій було написано авторське рішення завдання.")?>
         </small>
 
     </div>
 
-    <div align="right">
+    <div class="saving-buttons-group">
 
         <?php if ($_GET['id'] > 0): ?>
 

@@ -70,16 +70,6 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
 ?>
 
-<style>
-
-    .card-body form {
-
-        margin-bottom: 20px;
-
-    }
-
-</style>
-
 <div class="card">
 	<div class="card-header">
 		<ul class="nav nav-tabs card-header-tabs">
@@ -227,7 +217,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
             </div>
 
-            <div align="right">
+            <div class="saving-buttons-group">
 
                 <button
                         type="reset"
@@ -330,7 +320,7 @@ $user_info = UserInfo::getUserInfo($_GET['id']);
 
             </div-->
 
-            <div align="right">
+            <div class="saving-buttons-group">
 
                 <button
                         type="reset"

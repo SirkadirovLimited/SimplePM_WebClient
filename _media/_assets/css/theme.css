@@ -20,6 +20,11 @@ main {
     margin-bottom: 0;
 }
 
+main .main-content {
+    border-top: 0;
+    border-bottom: 0;
+}
+
 /*
  * Jumbotron
  */
@@ -37,13 +42,28 @@ main {
 /*
  * Footer
  */
-.footer {
+div.footer {
     padding: 2.5rem 0;
     color: #999;
     text-align: center;
     background-color: #f9f9f9;
-    border-top: .05rem solid #e5e5e5;
+    border: .05rem solid #e5e5e5;
+    border-bottom: none;
 }
-.footer p:last-child {
+
+div.footer a {
+    color: #212121 !important;
+}
+
+div.footer p:last-child {
     margin-bottom: 0;
+}
+
+/*
+ * Saving buttons group styles
+ */
+
+div.saving-buttons-group {
+    text-align: right;
+    margin-bottom: 1rem;
 }

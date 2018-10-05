@@ -89,7 +89,7 @@ global $database;
 	<div class="card-header"><?=_("Вихідний потік компілятора")?></div>
 
 	<div class="card-body" style="padding: 0;">
-		<pre class="card-text" style="margin: 0;"><?=trim($submission_info['compiler_text'])?></pre>
+		<pre class="card-text" style="margin: 0; background: none;"><?=trim($submission_info['compiler_text'])?></pre>
 		<p class="card-text text-center" style="margin: 0; padding: 5px !important;">
 			<strong><?=(!$submission_info['hasError'] ? _("Компіляція проведена успішно!") : _("Компіляція зазнала невдачі!"))?></strong>
 		</p>
@@ -292,8 +292,12 @@ global $database;
 
 <?php endif; ?>
 
-<div class="card">
-	<div class="card-body text-center">
-		<strong><?=sprintf(_("За вирішення цієї задачі отримано %s балів!"), number_format($submission_info['b'], 2))?></strong>
+<?php if (@$submission_info['testType'] == "release"): ?>
+
+	<div class="card">
+		<div class="card-body text-center">
+			<strong><?=sprintf(_("За вирішення цього завдання отримано %s балів!"), number_format($submission_info['b'], 2))?></strong>
+		</div>
 	</div>
-</div>
+
+<?php endif; ?>

@@ -51,8 +51,11 @@
 		</a>
 
 		<div class="dropdown-menu">
+
 			<a class="dropdown-item" href="<?=_SPM_?>index.php/problems/rating/"><?=_("Рейтинг")?></a>
+
 			<div class="dropdown-divider"></div>
+
 			<a
                     href="#"
 
@@ -64,6 +67,7 @@
 
                     class="dropdown-item"
             ><?=_("Користувачі онлайн")?></a>
+
             <a
                     href="#"
 
@@ -75,6 +79,17 @@
 
                     class="dropdown-item"
             ><?=_("Дні народження")?></a>
+
+            <?php if (Security::CheckAccessPermissions(PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR)): ?>
+
+                <div class="dropdown-divider"></div>
+
+                <a class="dropdown-item" href="<?=_SPM_?>index.php/users/TeacherID/"><?=_("TeacherID")?></a>
+
+                <a class="dropdown-item" href="<?=_SPM_?>index.php/users/groups/"><?=_("Користувацькі групи")?></a>
+
+            <?php endif; ?>
+
 		</div>
 
 	</li>
@@ -106,7 +121,7 @@
 			<a
 					class="dropdown-item text-danger"
 					href="<?=_SPM_?>index.php/problems/edit/problem/"
-			><?=_("Створити задачу")?></a>
+			><?=_("Створити завдання")?></a>
 
 		<?php endif; ?>
 
@@ -115,10 +130,12 @@
 	<?php if (Security::CheckAccessPermissions(PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR)): ?>
 
 		<li class="nav-item">
+
 			<a
 					class="nav-link"
 					href="<?=_SPM_?>index.php/olympiads/list/"
 			><?=_("Змагання")?></a>
+
 		</li>
 
 	<?php endif; ?>
@@ -126,10 +143,12 @@
 	<?php if (Security::CheckAccessPermissions(PERMISSION::STUDENT)): ?>
 
 		<li class="nav-item">
+
 			<a
 					class="nav-link"
 					href="<?=_SPM_?>index.php/olympiads/join/"
 			><?=_("Змагання")?></a>
+
 		</li>
 
 	<?php endif; ?>
@@ -137,17 +156,21 @@
 <?php else: ?>
 
     <li class="nav-item">
+
         <a
             class="nav-link"
             href="<?=_SPM_?>index.php/olympiads/olympiad/"
         ><?=_("Змагання")?></a>
+
     </li>
 
 	<li class="nav-item">
+
 		<a
 			class="nav-link"
 			href="<?=_SPM_?>index.php/problems/archive/"
 		><?=_("Архів завдань")?></a>
+
 	</li>
 
 <?php endif; ?>

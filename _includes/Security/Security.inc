@@ -95,22 +95,9 @@ class Security {
         foreach ($arr as &$param) {
 
 			if (is_array($param))
-			{
-
 				$this->ClearPOST($param);
-
-			}
 			else
-			{
-
-				$param = mysqli_real_escape_string(
-					$this->mysqli_connection,
-					trim(
-						$param
-					)
-				);
-
-			}
+				$param = mysqli_real_escape_string($this->mysqli_connection, $param);
 
         }
 
@@ -322,10 +309,6 @@ class Security {
 		 */
 
 		$chars_arr = array(
-			'a','b','c','d','e','f',
-			'g','h','i','j','k','l',
-			'm','n','o','p','r','s',
-			't','u','v','x','y','z',
 			'A','B','C','D','E','F',
 			'G','H','I','J','K','L',
 			'M','N','O','P','R','S',

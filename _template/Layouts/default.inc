@@ -74,11 +74,19 @@ include _SPM_template_ . "Parts/header.inc";
 </div>
 
 <main role="main" class="container">
-$(content)
+
+    <div class="main-content">$(content)</div>
+
 </main>
 
-<footer class="footer" style="margin-top: 20px;">
-    <p>Powered by <a href="https://spm.sirkadirov.com/">SimplePM</a> - Copyright &copy; 2016-2018, <a href="https://sirkadirov.com/">Sirkadirov Team</a>. All rights reserved.</p>
+<footer class="container">
+
+    <div class="footer">
+
+        <p>Powered by <a href="https://spm.sirkadirov.com/">SimplePM</a> - Copyright &copy; 2016-2018, <a href="https://sirkadirov.com/">Sirkadirov Team</a>. All rights reserved.</p>
+
+    </div>
+
 </footer>
 
 <?php include(_SPM_modules_ . "issue_finder.php"); ?>

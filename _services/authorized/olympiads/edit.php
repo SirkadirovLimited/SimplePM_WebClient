@@ -136,7 +136,7 @@ if ($_GET['id'] > 0)
 
     <div class="card-body">
 
-		<form method="post" action="">
+		<form method="post" action="" style="margin: 0;">
 
 			<h4 class="text-center" style="margin-top: 10px; margin-bottom: 10px;"><?=_("Основна інформація")?></h4>
 
@@ -267,7 +267,7 @@ if ($_GET['id'] > 0)
 
 			<div class="form-group">
 
-				<label><?=_("Унікальний ідентифікатор модуля судді")?></label>
+				<label><?=_("Унікальний ідентифікатор плагіну судді")?></label>
 
 				<input
 						type="text"
@@ -282,88 +282,30 @@ if ($_GET['id'] > 0)
 				>
 
 				<small class="form-text text-muted">
-					<?=_("Вкажіть модуль судді, за допомогою якого під час змагання його учасники будуть отримувати рейтинг.")?>
+					<?=_("Вкажіть унікальний ідентифікатор плагіну судді, за допомогою якого під час змагання його учасники будуть отримувати рейтинг.")?>
 				</small>
 
 			</div>
-
-			<h4 class="text-center" style="margin-top: 10px; margin-bottom: 10px;"><?=_("Виставлення оцінок")?></h4>
-
+			
 			<div class="form-group">
 
-				<div class="custom-control custom-checkbox">
-					<input
-							type="checkbox"
-							name="enableCitedScore"
-							id="enableCitedScore"
-							class="custom-control-input"
-					>
-					<label
-							class="custom-control-label"
-							for="enableCitedScore"
-					><?=_("Зведене оцінювання користувацьких рішень")?></label>
-				</div>
+				<label><?=_("Унікальний ідентифікатор плагіна формування рейтингової таблиці")?></label>
+
+				<input
+						type="text"
+						class="form-control"
+
+						name="ratingGenerator"
+						value=""
+
+						minlength="1"
+						maxlength="255"
+						required
+				>
 
 				<small class="form-text text-muted">
-					<?=_("Увімкніть для розрахунку персональної оцінки для кожного учасника змагання.")?>
+					<?=_("Вкажіть унікальний ідентифікатор плагіну, що буде нести відповідальність за формування рейтингової таблиці змагання.")?>
 				</small>
-
-			</div>
-
-			<div class="row">
-
-				<div class="col-md-6 col-sm-12">
-
-					<div class="form-group">
-
-						<label><?=_("Обов'язковий бал")?></label>
-
-						<input
-								type="number"
-								class="form-control"
-
-								name="requiredRating"
-								value="1"
-
-								min="1"
-								max="16777215"
-
-								required
-						>
-
-						<small class="form-text text-muted">
-							<?=_("Вкажіть суму балів, за здобуття якої під час змагання користувач отримає найвищий бал, який вказано у полі \"Зведений бал\".")?>
-						</small>
-
-					</div>
-
-				</div>
-
-				<div class="col-md-6 col-sm-12">
-
-					<div class="form-group">
-
-						<label><?=_("Зведений бал")?></label>
-
-						<input
-								type="number"
-								class="form-control"
-
-								name="citedScore"
-								value="12"
-
-								minlength="1"
-								maxlength="65535"
-								required
-						>
-
-						<small class="form-text text-muted">
-							<?=_("Вкажіть максимальний бал, що може отримати учасник змагання за вирішення задач, сума балів яких більше або дорівнює значенню поля \"Обов'язковий бал\".")?>
-						</small>
-
-					</div>
-
-				</div>
 
 			</div>
 
@@ -389,50 +331,7 @@ if ($_GET['id'] > 0)
 				</small>
 
 			</div>
-
-			<div class="form-group">
-
-				<div class="custom-control custom-checkbox">
-					<input
-							type="checkbox"
-							name="enablePenalty"
-							id="enablePenalty"
-							class="custom-control-input"
-					>
-					<label
-							class="custom-control-label"
-							for="enablePenalty"
-					><?=_("Обчислювати персональне пенальті учасників змагання")?></label>
-				</div>
-
-				<small class="form-text text-muted">
-					<?=_("Персональне пенальті використовується при проведенні більшості змагань зі спортивного програмування за правилами АСМ.")?>
-					<?=_("Детальну інформацію про цей вид уточнення користувацького рейтингу Ви можете отримати на сторінках офіційних настанов з використання системи.")?>
-				</small>
-
-			</div>
-
-			<div class="form-group">
-
-				<div class="custom-control custom-checkbox">
-					<input
-							type="checkbox"
-							name="redIfNoRequiredRating"
-							id="redIfNoRequiredRating"
-							class="custom-control-input"
-					>
-					<label
-							class="custom-control-label"
-							for="redIfNoRequiredRating"
-					><?=_("Підкрашувати учасників змагання, які не набрали обов'язковий бал")?></label>
-				</div>
-
-				<small class="form-text text-muted">
-					<?=_("Це не вплине на обчислення рейтингу, але надасть Вам можливість швидше з'ясувати, які з учасників змагання не встигли виконати вказану Вами квоту.")?>
-				</small>
-
-			</div>
-
+			
 			<div class="form-group">
 
 				<div class="custom-control custom-checkbox">
@@ -454,7 +353,7 @@ if ($_GET['id'] > 0)
 
 			</div>
 
-			<div align="right">
+			<div class="saving-buttons-group">
 
 				<button
 						type="reset"
