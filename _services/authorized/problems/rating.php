@@ -124,7 +124,8 @@ unset($query);
 
 ?>
 
-<div class="card" style="margin-bottom: 10px;">
+<div class="card" style="margin-bottom: 0;">
+
 	<div class="card-body">
 
 		<form action="<?=_SPM_?>index.php/problems/rating/" method="get">
@@ -164,29 +165,8 @@ unset($query);
 		</form>
 
 	</div>
+
 </div>
-
-<?php if (Security::CheckAccessPermissions(PERMISSION::TEACHER | PERMISSION::ADMINISTRATOR)): ?>
-
-	<ul class="nav nav-pills justify-content-end" style="margin-top: 0; margin-bottom: 10px;">
-
-		<li class="nav-item">
-			<a
-					class="nav-link"
-					href="<?=_SPM_?>index.php/users/groups/"
-			><?=_("Управління групами")?></a>
-		</li>
-
-		<li class="nav-item">
-			<a
-					class="nav-link"
-					href="<?=_SPM_?>index.php/users/TeacherID/"
-			><?=_("TeacherID")?></a>
-		</li>
-
-	</ul>
-
-<?php endif; ?>
 
 <div class="card">
 
